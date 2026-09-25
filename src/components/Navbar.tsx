@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '../i18n/Link';
 import { Globe, ChevronDown, Menu, X } from 'lucide-react';
+import { useI18n } from '../i18n/I18nProvider';
+import { LOCALES } from '../i18n/config';
 
 interface NavbarProps {
   onOpenProjectModal: (preselectedTopic?: string) => void;
@@ -11,9 +13,9 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({
   onOpenProjectModal,
 }) => {
+  const { t, info, switchLocale } = useI18n();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState<'EN' | 'DE' | 'RU'>('EN');
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
 
   const langRef = useRef<HTMLDivElement>(null);
@@ -26,15 +28,22 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close dropdown on outside click
+  // Close dropdown on outside click or Escape
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (langRef.current && !langRef.current.contains(event.target as Node)) {
         setLangDropdownOpen(false);
       }
     };
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setLangDropdownOpen(false);
+    };
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKey);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKey);
+    };
   }, []);
 
   return (
@@ -53,11 +62,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             to="/"
             className="focus-visible:outline-none"
             style={{ overflow: 'visible', flexShrink: 0, whiteSpace: 'nowrap' }}
-            aria-label="Soltex Global Home"
+            aria-label={t("Soltex Global Home")}
           >
             <img
               src="/images/soltex-global-logo.png"
-              alt="Soltex Global"
+              alt={t("Soltex Global")}
               style={{
                 height: '50px',
                 width: 'auto',
@@ -77,7 +86,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               to="/company"
               className="hover:text-[#0E482C] transition-colors py-1"
             >
-              ABOUT
+              {t("ABOUT")}
             </Link>
 
             {/* 2. TECHNOLOGIES */}
@@ -85,7 +94,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               to="/technologies"
               className="hover:text-[#0E482C] transition-colors py-1"
             >
-              TECHNOLOGIES
+              {t("TECHNOLOGIES")}
             </Link>
 
             {/* 3. EPC / EPCM */}
@@ -93,7 +102,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               to="/epcm"
               className="hover:text-[#0E482C] transition-colors py-1"
             >
-              EPC / EPCM
+              {t("EPC / EPCM")}
             </Link>
 
             {/* 4. PRODUCTS */}
@@ -101,7 +110,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               to="/products"
               className="hover:text-[#0E482C] transition-colors py-1"
             >
-              PRODUCTS
+              {t("PRODUCTS")}
             </Link>
 
             {/* 5. PROJECTS */}
@@ -109,7 +118,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               to="/projects"
               className="hover:text-[#0E482C] transition-colors py-1"
             >
-              PROJECTS
+              {t("PROJECTS")}
             </Link>
 
             {/* 6. CONTACT */}
@@ -117,7 +126,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               to="/contact"
               className="hover:text-[#0E482C] transition-colors py-1"
             >
-              CONTACT
+              {t("CONTACT")}
             </Link>
           </nav>
 
@@ -128,35 +137,41 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => onOpenProjectModal()}
               className="inline-flex items-center justify-center px-4 sm:px-5 py-2.5 bg-[#0E482C] text-white text-[10.5px] sm:text-[11px] font-bold tracking-wider uppercase font-tech hover:bg-[#0A3620] transition-colors shadow-xs rounded-none cursor-pointer"
             >
-              <span>START YOUR PROJECT</span>
+              <span>{t("START YOUR PROJECT")}</span>
             </button>
 
             {/* Language Selector: Globe EN ▾ */}
             <div className="relative" ref={langRef}>
               <button
                 onClick={() => setLangDropdownOpen(!langDropdownOpen)}
+                aria-haspopup="true"
+                aria-expanded={langDropdownOpen}
                 className="flex items-center gap-1 text-[11px] font-tech font-bold text-[#35473C] hover:text-[#0E482C] px-2 py-1 transition-colors border border-transparent hover:border-[#16211B]/15 cursor-pointer"
-                aria-label="Change language"
+                aria-label={t("Change language")}
               >
                 <Globe className="w-3.5 h-3.5 text-[#0E482C]" />
-                <span>{currentLang}</span>
+                <span>{info.label}</span>
                 <ChevronDown className="w-2.5 h-2.5 text-[#7C8F83]" />
               </button>
 
               {langDropdownOpen && (
-                <div className="absolute right-0 mt-1.5 w-24 bg-white border border-[#16211B]/15 shadow-lg py-1 z-50 font-tech text-xs">
-                  {(['EN', 'DE', 'RU'] as const).map((lang) => (
+                <div className="absolute end-0 mt-1.5 w-24 bg-white border border-[#16211B]/15 shadow-lg py-1 z-50 font-tech text-xs">
+                  {LOCALES.map((l) => (
                     <button
-                      key={lang}
+                      key={l.code}
+                      lang={l.htmlLang}
+                      dir={l.dir}
+                      aria-current={info.code === l.code ? 'true' : undefined}
                       onClick={() => {
-                        setCurrentLang(lang);
                         setLangDropdownOpen(false);
+                        setMobileMenuOpen(false);
+                        if (l.code !== info.code) void switchLocale(l.code);
                       }}
-                      className={`w-full text-left px-3 py-1.5 hover:bg-[#F3F3EC] transition-colors ${
-                        currentLang === lang ? 'text-[#0E482C] font-bold bg-[#0E482C]/5' : 'text-[#4E5E55]'
+                      className={`w-full text-start px-3 py-1.5 hover:bg-[#F3F3EC] transition-colors ${
+                        info.code === l.code ? 'text-[#0E482C] font-bold bg-[#0E482C]/5' : 'text-[#4E5E55]'
                       }`}
                     >
-                      {lang}
+                      {l.label}
                     </button>
                   ))}
                 </div>
@@ -167,7 +182,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="xl:hidden p-2 text-[#111814] hover:text-[#0E482C]"
-              aria-label="Toggle Navigation Menu"
+              aria-label={t("Toggle Navigation Menu")}
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -184,42 +199,42 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 text-[#111814] hover:text-[#0E482C]"
           >
-            ABOUT
+            {t("ABOUT")}
           </Link>
           <Link
             to="/technologies"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 text-[#111814] hover:text-[#0E482C]"
           >
-            TECHNOLOGIES
+            {t("TECHNOLOGIES")}
           </Link>
           <Link
             to="/epcm"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 text-[#111814] hover:text-[#0E482C]"
           >
-            EPC / EPCM
+            {t("EPC / EPCM")}
           </Link>
           <Link
             to="/products"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 text-[#111814] hover:text-[#0E482C]"
           >
-            PRODUCTS
+            {t("PRODUCTS")}
           </Link>
           <Link
             to="/projects"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 text-[#111814] hover:text-[#0E482C]"
           >
-            PROJECTS
+            {t("PROJECTS")}
           </Link>
           <Link
             to="/contact"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 text-[#111814] hover:text-[#0E482C]"
           >
-            CONTACT
+            {t("CONTACT")}
           </Link>
         </div>
       )}

@@ -1,12 +1,15 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { Link } from '../i18n/Link';
 import { ArrowLeft, ArrowRight, ShieldCheck, CheckCircle2, Cpu, Factory, Layers, Sparkles, Beaker } from 'lucide-react';
 import { PageHeader } from '../components/PageHeader';
 import { CtaSection } from '../components/CtaSection';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { TECHNOLOGIES_DATA, TechnologyItem, PROJECTS_DATA, PRODUCTS_DATA } from '../data/pagesData';
+import { useI18n } from '../i18n/I18nProvider';
 
 export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string) => void }> = ({ onOpenProjectModal }) => {
+  const { t, tr } = useI18n();
   const { slug } = useParams<{ slug: string }>();
 
   const techIndex = TECHNOLOGIES_DATA.findIndex((t) => t.slug === slug);
@@ -16,17 +19,17 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
     return (
       <div className="bg-[#FBFBF8] min-h-screen pt-36 pb-24 text-[#121815]">
         <div className="max-w-[800px] mx-auto px-6 text-center">
-          <div className="text-xs font-mono uppercase text-[#0E482C] mb-4">404 · Technology Record Not Found</div>
-          <h1 className="font-serif text-4xl mb-4">Process Technology Unavailable</h1>
+          <div className="text-xs font-mono uppercase text-[#0E482C] mb-4">{t("404 · Technology Record Not Found")}</div>
+          <h1 className="font-serif text-4xl mb-4">{t("Process Technology Unavailable")}</h1>
           <p className="text-[#334439] mb-8 font-light">
-            The requested technology dossier is not listed in our verified public registry.
+            {t("The requested technology dossier is not listed in our verified public registry.")}
           </p>
           <Link
             to="/technologies"
             className="inline-flex items-center gap-2 px-6 py-3 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Return to Technologies Index</span>
+            <span>{t("Return to Technologies Index")}</span>
           </Link>
         </div>
       </div>
@@ -44,10 +47,10 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
       {/* Editorial Header */}
       <PageHeader
         badgeNumber={tech.categoryNumber}
-        badgeLabel={`${tech.categoryTitle} · PROCESS SPECIFICATION`}
-        title={tech.title}
-        subtitle={tech.subtitle}
-        description={tech.overview}
+        badgeLabel={t("{category} · PROCESS SPECIFICATION", { category: t(tech.categoryTitle) })}
+        title={t(tech.title)}
+        subtitle={t(tech.subtitle)}
+        description={t(tech.overview)}
         breadcrumbs={[
           { label: 'Technologies', href: '/technologies' },
           { label: tech.title }
@@ -60,7 +63,7 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
         ]}
         primaryAction={{
           label: 'Request Process Flowsheet',
-          onClick: () => onOpenProjectModal?.(`Process Flowsheet Request: ${tech.title}`)
+          onClick: () => onOpenProjectModal?.(t("Process Flowsheet Request: {title}", { title: t(tech.title) }))
         }}
       />
 
@@ -69,23 +72,23 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
         <div className="relative aspect-[21/9] sm:aspect-[24/9] w-full min-h-[380px] image-zoom-container">
           <img
             src={tech.image}
-            alt={tech.title}
+            alt={t(tech.title)}
             className="w-full h-full object-cover opacity-90"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
-          <div className="absolute bottom-6 left-6 right-6 max-w-[1400px] mx-auto flex flex-wrap items-end justify-between gap-4 text-white">
+          <div className="absolute bottom-6 start-6 end-6 max-w-[1400px] mx-auto flex flex-wrap items-end justify-between gap-4 text-white">
             <div className="space-y-1">
               <div className="text-[10px] font-mono text-[#BA9B60] uppercase tracking-widest font-semibold">
-                BIOPROCESS EXTRACTION CORE
+                {t("BIOPROCESS EXTRACTION CORE")}
               </div>
               <div className="font-serif text-2xl sm:text-3xl text-[#FBFBF8]">
-                {tech.title}
+                {t(tech.title)}
               </div>
             </div>
             {tech.patentInfo && (
               <div className="text-xs font-mono text-white/90 bg-black/50 px-3.5 py-1.5 border border-white/10 flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-[#BA9B60]" />
-                <span>{tech.patentInfo.patentNumber}</span>
+                <span>{t(tech.patentInfo.patentNumber)}</span>
               </div>
             )}
           </div>
@@ -104,10 +107,10 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
               <ScrollReveal>
                 <div>
                   <div className="text-[11px] font-mono uppercase tracking-widest text-[#0E482C] mb-2 font-semibold">
-                    01 · THERMODYNAMIC & CHEMICAL FLOW
+                    {t("01 · THERMODYNAMIC & CHEMICAL FLOW")}
                   </div>
                   <h2 className="font-serif text-3xl text-[#121815] mb-6">
-                    Core Process Flowsheet Principles
+                    {t("Core Process Flowsheet Principles")}
                   </h2>
 
                   <div className="space-y-4">
@@ -118,14 +121,14 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
                       >
                         <div className="flex items-center gap-3 mb-2">
                           <span className="text-xs font-mono font-bold text-[#0E482C] bg-[#F3F3EC] px-2 py-0.5 border border-[#16211B]/10">
-                            STAGE 0{idx + 1}
+                            {tr("STAGE 0{n}", { n: idx + 1 })}
                           </span>
                           <h3 className="font-serif text-lg font-bold text-[#121815]">
-                            {stage.title}
+                            {t(stage.title)}
                           </h3>
                         </div>
-                        <p className="text-sm text-[#334439] leading-relaxed font-light pl-0 sm:pl-12">
-                          {stage.description}
+                        <p className="text-sm text-[#334439] leading-relaxed font-light ps-0 sm:ps-12">
+                          {t(stage.description)}
                         </p>
                       </div>
                     ))}
@@ -139,14 +142,14 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
                   <div className="relative aspect-[16/9] overflow-hidden">
                     <img
                       src="/images/tech_integrated_plant_1790271239031.jpg"
-                      alt="Proprietary Separation Reactors and Vacuum Evaporators"
+                      alt={t("Proprietary Separation Reactors and Vacuum Evaporators")}
                       className="w-full h-full object-cover opacity-90"
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                    <div className="absolute bottom-4 left-4 right-4 text-white text-xs font-mono flex items-center justify-between">
-                      <span className="text-white/90">AISI 316L Food-Grade Process Metallurgy</span>
-                      <span className="text-[#BA9B60] uppercase">Patented Separation</span>
+                    <div className="absolute bottom-4 start-4 end-4 text-white text-xs font-mono flex items-center justify-between">
+                      <span className="text-white/90">{t("AISI 316L Food-Grade Process Metallurgy")}</span>
+                      <span className="text-[#BA9B60] uppercase">{t("Patented Separation")}</span>
                     </div>
                   </div>
                 </div>
@@ -156,17 +159,17 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
               <ScrollReveal>
                 <div className="border-t border-[#16211B]/10 pt-10">
                   <div className="text-[11px] font-mono uppercase tracking-widest text-[#0E482C] mb-2 font-semibold">
-                    02 · COMPARATIVE METRICS & ADVANTAGES
+                    {t("02 · COMPARATIVE METRICS & ADVANTAGES")}
                   </div>
                   <h2 className="font-serif text-3xl text-[#121815] mb-6">
-                    Engineering Advantages
+                    {t("Engineering Advantages")}
                   </h2>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {tech.keyAdvantages.map((adv, idx) => (
                       <div key={idx} className="bg-white border border-[#16211B]/10 p-5 flex items-start gap-3">
                         <CheckCircle2 className="w-5 h-5 text-[#0E482C] shrink-0 mt-0.5" />
-                        <span className="text-sm text-[#223328] font-medium leading-relaxed">{adv}</span>
+                        <span className="text-sm text-[#223328] font-medium leading-relaxed">{t(adv)}</span>
                       </div>
                     ))}
                   </div>
@@ -177,10 +180,10 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
               <ScrollReveal>
                 <div className="border-t border-[#16211B]/10 pt-10">
                   <div className="text-[11px] font-mono uppercase tracking-widest text-[#0E482C] mb-2 font-semibold">
-                    03 · COMMERCIAL VALUE & TARGET INDUSTRIES
+                    {t("03 · COMMERCIAL VALUE & TARGET INDUSTRIES")}
                   </div>
                   <h2 className="font-serif text-3xl text-[#121815] mb-6">
-                    Output Utilization Sectors
+                    {t("Output Utilization Sectors")}
                   </h2>
 
                   <div className="flex flex-wrap gap-2.5">
@@ -189,7 +192,7 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
                         key={idx}
                         className="bg-[#F3F3EC] border border-[#16211B]/15 px-4 py-2 text-xs font-mono uppercase text-[#121815]"
                       >
-                        {app}
+                        {t(app)}
                       </span>
                     ))}
                   </div>
@@ -201,10 +204,10 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
                 <ScrollReveal>
                   <div className="border-t border-[#16211B]/10 pt-10">
                     <div className="text-[11px] font-mono uppercase tracking-widest text-[#0E482C] mb-2 font-semibold">
-                      04 · INDUSTRIAL REFERENCE FACILITIES
+                      {t("04 · INDUSTRIAL REFERENCE FACILITIES")}
                     </div>
                     <h2 className="font-serif text-3xl text-[#121815] mb-6">
-                      Commercial Facilities Operating this Platform
+                      {t("Commercial Facilities Operating this Platform")}
                     </h2>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -215,11 +218,11 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
                           className="group bg-white border border-[#16211B]/15 p-5 hover:border-[#0E482C] transition-colors"
                         >
                           <div className="aspect-[16/10] overflow-hidden bg-[#07130E] mb-4 image-zoom-container">
-                            <img src={p.image} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                            <img src={p.image} alt={t(p.title)} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                           </div>
-                          <div className="text-[10px] font-mono uppercase text-[#0E482C] font-semibold">{p.country} · {p.years}</div>
-                          <h4 className="font-serif text-lg font-bold text-[#121815] group-hover:text-[#0E482C] transition-colors mt-1">{p.title}</h4>
-                          <div className="text-xs font-mono text-[#334439]/70 mt-1">{p.capacity}</div>
+                          <div className="text-[10px] font-mono uppercase text-[#0E482C] font-semibold">{t(p.country)} · {t(p.years)}</div>
+                          <h4 className="font-serif text-lg font-bold text-[#121815] group-hover:text-[#0E482C] transition-colors mt-1">{t(p.title)}</h4>
+                          <div className="text-xs font-mono text-[#334439]/70 mt-1">{t(p.capacity)}</div>
                         </Link>
                       ))}
                     </div>
@@ -235,13 +238,13 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
                   <div>
                     <div className="flex items-center gap-2 pb-3 border-b border-[#16211B]/10 text-xs font-mono uppercase tracking-wider text-[#0E482C]">
                       <Beaker className="w-4 h-4 text-[#BA9B60]" />
-                      <span>Raw Material Matrix</span>
+                      <span>{t("Raw Material Matrix")}</span>
                     </div>
                     <div className="mt-4 space-y-2">
                       {tech.rawMaterials.map((mat, idx) => (
                         <div key={idx} className="flex items-center gap-2 text-sm text-[#121815]">
                           <span className="w-1.5 h-1.5 bg-[#0E482C] rounded-full" />
-                          <span>{mat}</span>
+                          <span>{t(mat)}</span>
                         </div>
                       ))}
                     </div>
@@ -250,25 +253,25 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
                   {tech.patentInfo && (
                     <div className="pt-4 border-t border-[#16211B]/10">
                       <div className="text-[10px] font-mono uppercase tracking-wider text-[#334439]/70 mb-1">
-                        Registered Patent Number
+                        {t("Registered Patent Number")}
                       </div>
                       <div className="font-mono text-sm font-bold text-[#0E482C]">
-                        {tech.patentInfo.patentNumber}
+                        {t(tech.patentInfo.patentNumber)}
                       </div>
                       <div className="text-xs text-[#334439] mt-1 font-light">
-                        Jurisdiction: {tech.patentInfo.location}
+                        {tr("Jurisdiction: {location}", { location: t(tech.patentInfo.location) })}
                       </div>
                     </div>
                   )}
 
                   <div className="pt-4 border-t border-[#16211B]/10">
                     <div className="text-[10px] font-mono uppercase tracking-wider text-[#334439]/70 mb-2">
-                      Direct High-Value Outputs
+                      {t("Direct High-Value Outputs")}
                     </div>
                     <div className="space-y-1.5">
                       {tech.productsProduced.map((prod, idx) => (
                         <div key={idx} className="text-xs font-mono text-[#223328] bg-[#F3F3EC] p-2 border border-[#16211B]/10">
-                          {prod}
+                          {t(prod)}
                         </div>
                       ))}
                     </div>
@@ -276,10 +279,10 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
 
                   <div className="pt-4 border-t border-[#16211B]/10 space-y-3">
                     <button
-                      onClick={() => onOpenProjectModal?.(`Engineering Consultation for ${tech.title}`)}
+                      onClick={() => onOpenProjectModal?.(t("Engineering Consultation for {title}", { title: t(tech.title) }))}
                       className="w-full py-3.5 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-colors flex items-center justify-center gap-2 cursor-pointer"
                     >
-                      <span>Request Process Flowsheet</span>
+                      <span>{t("Request Process Flowsheet")}</span>
                       <ArrowRight className="w-3.5 h-3.5 text-[#BA9B60]" />
                     </button>
 
@@ -288,7 +291,7 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
                       className="w-full py-3 border border-[#16211B]/20 text-[#334439] font-mono text-xs tracking-widest uppercase hover:bg-[#F3F3EC] transition-colors flex items-center justify-center gap-2"
                     >
                       <ArrowLeft className="w-3.5 h-3.5" />
-                      <span>All Technologies</span>
+                      <span>{t("All Technologies")}</span>
                     </Link>
                   </div>
                 </div>
@@ -305,20 +308,20 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
             >
               <ArrowLeft className="w-5 h-5 text-[#BA9B60] group-hover:-translate-x-1 transition-transform" />
               <div>
-                <div className="text-[10px] font-mono uppercase text-[#334439]/60">PREVIOUS TECHNOLOGY</div>
-                <div className="font-serif text-lg text-[#121815] group-hover:text-[#0E482C] font-semibold">{prevTech.title}</div>
-                <div className="text-xs font-mono text-[#334439]/80">{prevTech.categoryTitle}</div>
+                <div className="text-[10px] font-mono uppercase text-[#334439]/60">{t("PREVIOUS TECHNOLOGY")}</div>
+                <div className="font-serif text-lg text-[#121815] group-hover:text-[#0E482C] font-semibold">{t(prevTech.title)}</div>
+                <div className="text-xs font-mono text-[#334439]/80">{t(prevTech.categoryTitle)}</div>
               </div>
             </Link>
 
             <Link
               to={`/technologies/${nextTech.slug}`}
-              className="group p-6 bg-white border border-[#16211B]/10 hover:border-[#0E482C] transition-colors flex items-center justify-between text-right"
+              className="group p-6 bg-white border border-[#16211B]/10 hover:border-[#0E482C] transition-colors flex items-center justify-between text-end"
             >
               <div>
-                <div className="text-[10px] font-mono uppercase text-[#334439]/60">NEXT TECHNOLOGY</div>
-                <div className="font-serif text-lg text-[#121815] group-hover:text-[#0E482C] font-semibold">{nextTech.title}</div>
-                <div className="text-xs font-mono text-[#334439]/80">{nextTech.categoryTitle}</div>
+                <div className="text-[10px] font-mono uppercase text-[#334439]/60">{t("NEXT TECHNOLOGY")}</div>
+                <div className="font-serif text-lg text-[#121815] group-hover:text-[#0E482C] font-semibold">{t(nextTech.title)}</div>
+                <div className="text-xs font-mono text-[#334439]/80">{t(nextTech.categoryTitle)}</div>
               </div>
               <ArrowRight className="w-5 h-5 text-[#BA9B60] group-hover:translate-x-1 transition-transform" />
             </Link>
@@ -328,10 +331,10 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
 
       {/* CTA Section */}
       <CtaSection
-        badge="FEEDSTOCK ASSAY & FEASIBILITY"
-        title={`Inquire About Licensing or Engineering ${tech.title}`}
-        description="Soltex Global provides complete technology transfer packages, P&ID process schemes, proprietary reactor fabrication, and performance output guarantees."
-        topic={`Technology Inquiry: ${tech.title}`}
+        badge={t("FEEDSTOCK ASSAY & FEASIBILITY")}
+        title={t("Inquire About Licensing or Engineering {title}", { title: t(tech.title) })}
+        description={t("Soltex Global provides complete technology transfer packages, P&ID process schemes, proprietary reactor fabrication, and performance output guarantees.")}
+        topic={t("Technology Inquiry: {title}", { title: t(tech.title) })}
       />
     </div>
   );

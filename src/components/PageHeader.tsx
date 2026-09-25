@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '../i18n/Link';
 import { ArrowRight, ChevronRight } from 'lucide-react';
+import { useI18n } from '../i18n/I18nProvider';
 
 interface BreadcrumbItem {
   label: string;
@@ -32,14 +33,15 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   metaTags,
   primaryAction
 }) => {
+  const { t } = useI18n();
   return (
     <section className="relative border-b border-[#16211B]/10 bg-[#FBFBF8] pt-32 pb-16 lg:pt-36 lg:pb-20 overflow-hidden">
       {/* Background Architectural Accent Lines */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
         <div className="max-w-[1400px] mx-auto h-full px-6 lg:px-12 grid grid-cols-4 lg:grid-cols-12">
-          <div className="border-r border-[#16211B]/5 h-full col-span-1 hidden lg:block" />
-          <div className="border-r border-[#16211B]/5 h-full col-span-3 lg:col-span-5" />
-          <div className="border-r border-[#16211B]/5 h-full col-span-3 lg:col-span-4" />
+          <div className="border-e border-[#16211B]/5 h-full col-span-1 hidden lg:block" />
+          <div className="border-e border-[#16211B]/5 h-full col-span-3 lg:col-span-5" />
+          <div className="border-e border-[#16211B]/5 h-full col-span-3 lg:col-span-4" />
           <div className="h-full col-span-2 hidden lg:block" />
         </div>
       </div>
@@ -47,17 +49,17 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10">
         {/* Breadcrumbs */}
         {breadcrumbs && breadcrumbs.length > 0 && (
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-[11px] font-mono tracking-wider uppercase text-[#334439]/70 mb-6">
-            <Link to="/" className="hover:text-[#0E482C] transition-colors">HOME</Link>
+          <nav aria-label={t("Breadcrumb")} className="flex items-center gap-2 text-[11px] font-mono tracking-wider uppercase text-[#334439]/70 mb-6">
+            <Link to="/" className="hover:text-[#0E482C] transition-colors">{t("HOME")}</Link>
             {breadcrumbs.map((crumb, idx) => (
               <React.Fragment key={idx}>
                 <ChevronRight className="w-3 h-3 text-[#16211B]/30" />
                 {crumb.href ? (
                   <Link to={crumb.href} className="hover:text-[#0E482C] transition-colors">
-                    {crumb.label}
+                    {t(crumb.label)}
                   </Link>
                 ) : (
-                  <span className="text-[#0E482C] font-semibold">{crumb.label}</span>
+                  <span className="text-[#0E482C] font-semibold">{t(crumb.label)}</span>
                 )}
               </React.Fragment>
             ))}
@@ -66,24 +68,24 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
 
         {/* Section Index Badge */}
         <div className="inline-flex items-center gap-3 border border-[#16211B]/15 bg-[#F3F3EC] px-3.5 py-1 text-[11px] font-mono tracking-widest text-[#0E482C] mb-6">
-          <span className="font-bold">{badgeNumber}</span>
+          <span className="font-bold">{t(badgeNumber)}</span>
           <span className="w-1.5 h-1.5 bg-[#BA9B60] rounded-full" />
-          <span className="font-semibold uppercase tracking-wider">{badgeLabel}</span>
+          <span className="font-semibold uppercase tracking-wider">{t(badgeLabel)}</span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
           <div className="lg:col-span-8">
             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#121815] leading-[1.08] tracking-tight mb-4">
-              {title}
+              {t(title)}
             </h1>
             {subtitle && (
               <p className="font-serif italic text-lg sm:text-xl lg:text-2xl text-[#0E482C] mb-5">
-                {subtitle}
+                {t(subtitle)}
               </p>
             )}
             {description && (
               <p className="text-base sm:text-lg text-[#334439] leading-relaxed max-w-3xl">
-                {description}
+                {t(description)}
               </p>
             )}
           </div>
@@ -95,7 +97,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
                   to={primaryAction.href}
                   className="inline-flex items-center gap-3 px-6 py-3.5 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-all duration-200 group border border-[#0E482C]"
                 >
-                  <span>{primaryAction.label}</span>
+                  <span>{t(primaryAction.label)}</span>
                   <ArrowRight className="w-4 h-4 text-[#BA9B60] group-hover:translate-x-1 transition-transform" />
                 </Link>
               ) : (
@@ -103,7 +105,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
                   onClick={primaryAction.onClick}
                   className="inline-flex items-center gap-3 px-6 py-3.5 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-all duration-200 group border border-[#0E482C] cursor-pointer"
                 >
-                  <span>{primaryAction.label}</span>
+                  <span>{t(primaryAction.label)}</span>
                   <ArrowRight className="w-4 h-4 text-[#BA9B60] group-hover:translate-x-1 transition-transform" />
                 </button>
               )
@@ -113,8 +115,8 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
               <div className="w-full grid grid-cols-2 gap-3 pt-4 border-t border-[#16211B]/10 lg:w-auto lg:min-w-[280px]">
                 {metaTags.map((tag, idx) => (
                   <div key={idx} className="bg-[#F3F3EC] p-2.5 border border-[#16211B]/10">
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-[#334439]/70">{tag.label}</div>
-                    <div className="text-xs font-bold text-[#121815] font-mono mt-0.5">{tag.value}</div>
+                    <div className="text-[10px] font-mono uppercase tracking-wider text-[#334439]/70">{t(tag.label)}</div>
+                    <div className="text-xs font-bold text-[#121815] font-mono mt-0.5">{t(tag.value)}</div>
                   </div>
                 ))}
               </div>

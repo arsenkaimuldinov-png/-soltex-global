@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { ArrowRight, Leaf, Wheat, Flower2, Sprout, Factory, FlaskConical, X, CheckCircle2 } from 'lucide-react';
 import { KEY_DIRECTIONS } from '../data/soltexData';
 import { KeyDirection } from '../types';
+import { useI18n } from '../i18n/I18nProvider';
 
 interface KeyDirectionsProps {
   onSelectTechnology: (techTitle: string) => void;
 }
 
 export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology }) => {
+  const { t } = useI18n();
   const [selectedTechModal, setSelectedTechModal] = useState<KeyDirection | null>(null);
 
   // Dedicated icons matching the 6 card directions from reference
@@ -36,7 +38,7 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
         {/* Section Header: Centered with subtle gold accent line matching Screenshot 2 */}
         <div className="text-center mb-10 sm:mb-12">
           <h2 className="text-xl sm:text-2xl lg:text-[26px] font-extrabold text-[#111814] tracking-wider uppercase font-tech">
-            TECHNOLOGIES FOR HIGH-VALUE INGREDIENTS
+            {t("TECHNOLOGIES FOR HIGH-VALUE INGREDIENTS")}
           </h2>
           <div className="w-12 h-[2px] bg-[#B89758] mx-auto mt-2.5" aria-hidden="true" />
         </div>
@@ -53,7 +55,7 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#EAE7DE]">
                 <img
                   src={tech.image}
-                  alt={tech.title}
+                  alt={t(tech.title)}
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
                 />
@@ -69,19 +71,19 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
 
                   {/* Technology Title */}
                   <h3 className="font-tech text-xs sm:text-[13px] font-extrabold text-[#111814] tracking-wider uppercase mb-1.5 leading-snug group-hover:text-[#0E482C] transition-colors">
-                    {tech.title}
+                    {t(tech.title)}
                   </h3>
 
                   {/* Subtitle / Sources */}
                   <p className="text-[11px] sm:text-[11.5px] text-[#4A5B51] leading-relaxed mb-4 min-h-[34px]">
-                    {tech.subtitle}
+                    {t(tech.subtitle)}
                   </p>
                 </div>
 
                 {/* Card Action Link */}
                 <div className="pt-2 border-t border-[#16211B]/8 flex items-center justify-between">
                   <span className="font-tech text-[10px] sm:text-[10.5px] font-bold text-[#111814] uppercase tracking-wider group-hover:text-[#0E482C] flex items-center gap-1.5 transition-colors">
-                    <span>LEARN MORE</span>
+                    <span>{t("LEARN MORE")}</span>
                     <ArrowRight className="w-3 h-3 text-[#B89758] group-hover:translate-x-0.5 transition-transform" />
                   </span>
 
@@ -91,10 +93,10 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
                       e.stopPropagation();
                       setSelectedTechModal(tech);
                     }}
-                    className="text-[9.5px] font-tech text-[#5A6D62] hover:text-[#0E482C] uppercase underline underline-offset-2 ml-auto"
-                    title="View Technical Specifications"
+                    className="text-[9.5px] font-tech text-[#5A6D62] hover:text-[#0E482C] uppercase underline underline-offset-2 ms-auto"
+                    title={t("View Technical Specifications")}
                   >
-                    SPECS
+                    {t("SPECS")}
                   </button>
                 </div>
               </div>
@@ -118,8 +120,8 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
             {/* Close Button */}
             <button
               onClick={() => setSelectedTechModal(null)}
-              className="absolute top-5 right-5 p-2 text-[#46574D] hover:text-[#111814] hover:bg-[#F3F3EC] transition-colors"
-              aria-label="Close details modal"
+              className="absolute top-5 end-5 p-2 text-[#46574D] hover:text-[#111814] hover:bg-[#F3F3EC] transition-colors"
+              aria-label={t("Close details modal")}
             >
               <X className="w-5 h-5" />
             </button>
@@ -128,14 +130,14 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
             <div className="flex items-center gap-3 mb-2">
               <span className="w-2 h-2 bg-[#0E482C]" />
               <span className="font-tech text-xs font-bold text-[#0E482C] uppercase tracking-wider">
-                TECHNICAL SPECIFICATIONS
+                {t("TECHNICAL SPECIFICATIONS")}
               </span>
             </div>
             <h3 className="text-2xl font-extrabold text-[#111814] uppercase tracking-tight mb-2 font-tech">
-              {selectedTechModal.title}
+              {t(selectedTechModal.title)}
             </h3>
             <p className="text-sm text-[#46574D] mb-6">
-              {selectedTechModal.description}
+              {t(selectedTechModal.description)}
             </p>
 
             {/* Spec Columns */}
@@ -143,13 +145,13 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
               {/* Raw Materials */}
               <div>
                 <h4 className="text-[11px] font-tech font-bold uppercase tracking-wider text-[#0E482C] mb-2">
-                  RAW MATERIALS
+                  {t("RAW MATERIALS")}
                 </h4>
                 <ul className="space-y-1 text-xs text-[#3E5045]">
                   {selectedTechModal.rawMaterials.map((item, idx) => (
                     <li key={idx} className="flex items-center gap-1.5">
                       <span className="w-1 h-1 rounded-full bg-[#B89758]" />
-                      <span>{item}</span>
+                      <span>{t(item)}</span>
                     </li>
                   ))}
                 </ul>
@@ -158,13 +160,13 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
               {/* End Products */}
               <div>
                 <h4 className="text-[11px] font-tech font-bold uppercase tracking-wider text-[#0E482C] mb-2">
-                  END PRODUCTS
+                  {t("END PRODUCTS")}
                 </h4>
                 <ul className="space-y-1 text-xs text-[#3E5045]">
                   {selectedTechModal.endProducts.map((item, idx) => (
                     <li key={idx} className="flex items-center gap-1.5">
                       <span className="w-1 h-1 rounded-full bg-[#0E482C]" />
-                      <span>{item}</span>
+                      <span>{t(item)}</span>
                     </li>
                   ))}
                 </ul>
@@ -173,13 +175,13 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
               {/* Engineering Features */}
               <div>
                 <h4 className="text-[11px] font-tech font-bold uppercase tracking-wider text-[#0E482C] mb-2">
-                  KEY FEATURES
+                  {t("KEY FEATURES")}
                 </h4>
                 <ul className="space-y-1 text-xs text-[#3E5045]">
                   {selectedTechModal.technologyFeatures.map((item, idx) => (
                     <li key={idx} className="flex items-start gap-1.5">
                       <CheckCircle2 className="w-3.5 h-3.5 text-[#0E482C] shrink-0 mt-0.5" />
-                      <span>{item}</span>
+                      <span>{t(item)}</span>
                     </li>
                   ))}
                 </ul>
@@ -193,7 +195,7 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
                 onClick={() => setSelectedTechModal(null)}
                 className="w-full sm:w-auto px-5 py-2.5 border border-[#16211B]/20 text-xs font-bold uppercase font-tech text-[#4A5B51] hover:bg-[#F3F3EC] transition-colors"
               >
-                CLOSE
+                {t("CLOSE")}
               </button>
               <button
                 type="button"
@@ -204,7 +206,7 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
                 }}
                 className="w-full sm:w-auto px-6 py-2.5 bg-[#0E482C] text-white text-xs font-bold uppercase font-tech tracking-wider hover:bg-[#0A3620] transition-colors flex items-center justify-center gap-2 shadow-xs"
               >
-                <span>INQUIRE ABOUT THIS TECHNOLOGY</span>
+                <span>{t("INQUIRE ABOUT THIS TECHNOLOGY")}</span>
                 <ArrowRight className="w-4 h-4 text-[#B89758]" />
               </button>
             </div>

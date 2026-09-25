@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowRight, Phone, Mail, ShieldCheck, CheckCircle2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '../i18n/Link';
+import { useI18n } from '../i18n/I18nProvider';
 
 interface CtaSectionProps {
   badge?: string;
@@ -16,6 +17,7 @@ export const CtaSection: React.FC<CtaSectionProps> = ({
   description = 'Connect directly with Soltex Global senior project directors to review plant feasibility, technology licensing, feedstock assays, and full turnkey EPC delivery timelines.',
   topic = 'Turnkey EPC Plant Inquiry'
 }) => {
+  const { t, tr } = useI18n();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -45,7 +47,7 @@ export const CtaSection: React.FC<CtaSectionProps> = ({
           backgroundSize: '48px 48px'
         }}
       />
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#0E482C]/20 rounded-full blur-3xl pointer-events-none -mr-40 -mt-40" />
+      <div className="absolute top-0 end-0 w-[500px] h-[500px] bg-[#0E482C]/20 rounded-full blur-3xl pointer-events-none -me-40 -mt-40" />
 
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -54,25 +56,25 @@ export const CtaSection: React.FC<CtaSectionProps> = ({
           <div className="lg:col-span-7">
             <div className="inline-flex items-center gap-2 border border-[#BA9B60]/30 bg-[#BA9B60]/10 px-3.5 py-1 text-[11px] font-mono tracking-widest text-[#BA9B60] mb-6">
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span className="uppercase">{badge}</span>
+              <span className="uppercase">{t(badge)}</span>
             </div>
 
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl leading-tight mb-6 text-[#FBFBF8]">
-              {title}
+              {t(title)}
             </h2>
 
             <p className="text-base sm:text-lg text-[#FBFBF8]/80 leading-relaxed max-w-xl font-light mb-8">
-              {description}
+              {t(description)}
             </p>
 
             <div className="flex flex-wrap items-center gap-6 pt-2 border-t border-white/10 text-xs font-mono text-[#FBFBF8]/70">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#BA9B60]" />
-                <span>Confidential Engineering Non-Disclosure</span>
+                <span>{t("Confidential Engineering Non-Disclosure")}</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#0E482C]" />
-                <span>Response SLA: &lt; 24h</span>
+                <span>{t("Response SLA: < 24h")}</span>
               </div>
             </div>
           </div>
@@ -80,18 +82,21 @@ export const CtaSection: React.FC<CtaSectionProps> = ({
           {/* Right Column: Simplified Quick Lead Form (Name + Phone Only) */}
           <div className="lg:col-span-5 bg-[#0A1A14] border border-[#16211B]/50 p-7 lg:p-8 relative shadow-xl">
             <div className="text-[10px] font-mono uppercase tracking-widest text-[#BA9B60] mb-2 font-semibold">
-              QUICK PROJECT INQUIRY
+              {t("QUICK PROJECT INQUIRY")}
             </div>
             <h3 className="font-serif text-xl font-bold text-white mb-5">
-              Start Your Project Dialogue
+              {t("Start Your Project Dialogue")}
             </h3>
 
             {submitted ? (
               <div className="py-8 text-center space-y-3 bg-[#07130E]/60 border border-[#0E482C]/40 p-6">
                 <CheckCircle2 className="w-10 h-10 text-[#BA9B60] mx-auto" />
-                <h4 className="font-serif text-lg text-white">Lead Successfully Dispatched</h4>
+                <h4 className="font-serif text-lg text-white">{t("Lead Successfully Dispatched")}</h4>
                 <p className="text-xs text-[#FBFBF8]/80 font-light leading-relaxed">
-                  Thank you, <strong className="text-white">{name}</strong>. A Soltex Global senior project lead will contact you at <strong className="text-[#BA9B60]">{phone}</strong>.
+                  {tr("Thank you, {name}. A Soltex Global senior project lead will contact you at {phone}.", {
+                    name: <strong className="text-white">{name}</strong>,
+                    phone: <strong className="text-[#BA9B60]">{phone}</strong>,
+                  })}
                 </p>
                 <button
                   onClick={() => {
@@ -101,28 +106,28 @@ export const CtaSection: React.FC<CtaSectionProps> = ({
                   }}
                   className="mt-3 px-4 py-2 bg-[#0E482C] text-white text-[11px] font-mono uppercase tracking-wider hover:bg-[#07130E] transition-colors cursor-pointer"
                 >
-                  Send Another Inquiry
+                  {t("Send Another Inquiry")}
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label className="block font-tech text-[10.5px] uppercase tracking-wider text-[#FBFBF8]/80 font-bold mb-1.5">
-                    YOUR NAME
+                    {t("YOUR NAME")}
                   </label>
                   <input
                     type="text"
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Enter your name"
+                    placeholder={t("Enter your name")}
                     className="w-full px-4 py-3 bg-[#07130E] border border-white/15 text-sm text-white focus:outline-hidden focus:border-[#BA9B60] transition-colors placeholder:text-white/30"
                   />
                 </div>
 
                 <div>
                   <label className="block font-tech text-[10.5px] uppercase tracking-wider text-[#FBFBF8]/80 font-bold mb-1.5">
-                    PHONE NUMBER
+                    {t("PHONE NUMBER")}
                   </label>
                   <input
                     type="tel"
@@ -139,16 +144,16 @@ export const CtaSection: React.FC<CtaSectionProps> = ({
                   disabled={submitting}
                   className="w-full py-4 bg-[#BA9B60] text-[#07130E] font-tech text-xs font-bold tracking-widest uppercase hover:bg-white transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md disabled:opacity-75"
                 >
-                  <span>{submitting ? 'PROCESSING...' : 'START YOUR PROJECT'}</span>
+                  <span>{submitting ? t('PROCESSING...') : t('START YOUR PROJECT')}</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </form>
             )}
 
             <div className="mt-6 pt-5 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-[#FBFBF8]/60">
-              <span>Direct Desk:</span>
+              <span>{t("Direct Desk:")}</span>
               <a href="mailto:info@soltexglobal.co" className="text-[#BA9B60] hover:underline">
-                info@soltexglobal.co
+                {t("info@soltexglobal.co")}
               </a>
             </div>
           </div>

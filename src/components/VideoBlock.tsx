@@ -1,6 +1,8 @@
 import React from 'react';
 import { Play, ArrowRight, FolderGit2, Gauge, Layers, Calendar } from 'lucide-react';
 import { VideoMaterial } from '../types';
+import { withLineBreaks } from '../i18n/translate';
+import { useI18n } from '../i18n/I18nProvider';
 
 interface FeaturedProjectsBlockProps {
   onOpenVideoModal?: (video: VideoMaterial) => void;
@@ -65,6 +67,7 @@ export const VideoBlock: React.FC<FeaturedProjectsBlockProps> = ({
   onOpenVideoModal,
   onOpenProjectModal
 }) => {
+  const { t } = useI18n();
   const handlePlayVideo = (video: VideoMaterial, e: React.MouseEvent) => {
     e.stopPropagation();
     if (onOpenVideoModal) {
@@ -76,7 +79,7 @@ export const VideoBlock: React.FC<FeaturedProjectsBlockProps> = ({
     if (onOpenVideoModal) {
       onOpenVideoModal(project.video);
     } else if (onOpenProjectModal) {
-      onOpenProjectModal(`${project.title} (${project.location})`);
+      onOpenProjectModal(`${t(project.title)} (${t(project.location)})`);
     }
   };
 
@@ -87,7 +90,7 @@ export const VideoBlock: React.FC<FeaturedProjectsBlockProps> = ({
         {/* Section Header: Centered with subtle gold accent line matching Screenshot 2 */}
         <div className="text-center mb-10 sm:mb-12">
           <h2 className="text-xl sm:text-2xl lg:text-[26px] font-extrabold text-[#111814] tracking-wider uppercase font-tech">
-            FEATURED PROJECTS
+            {t("FEATURED PROJECTS")}
           </h2>
           <div className="w-12 h-[2px] bg-[#B89758] mx-auto mt-2.5" aria-hidden="true" />
         </div>
@@ -105,7 +108,7 @@ export const VideoBlock: React.FC<FeaturedProjectsBlockProps> = ({
               {/* Background Plant Photography */}
               <img
                 src={project.image}
-                alt={`${project.title} - ${project.location}`}
+                alt={`${t(project.title)} - ${t(project.location)}`}
                 referrerPolicy="no-referrer"
                 className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-104 transition-transform duration-700 ease-out opacity-85"
               />
@@ -121,7 +124,7 @@ export const VideoBlock: React.FC<FeaturedProjectsBlockProps> = ({
                 type="button"
                 onClick={(e) => handlePlayVideo(project.video, e)}
                 className="absolute inset-0 flex items-center justify-center z-20 focus-visible:outline-none"
-                aria-label={`Watch video tour of ${project.title}`}
+                aria-label={t("Watch video tour of {title}", { title: t(project.title) })}
               >
                 <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/20 backdrop-blur-md border border-white/60 flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-[#0E482C] group-hover:border-[#D4B982] transition-all duration-300 shadow-xl">
                   <Play className="w-5 h-5 sm:w-6 sm:h-6 ml-0.5 fill-white text-white group-hover:text-[#D4B982]" />
@@ -131,31 +134,31 @@ export const VideoBlock: React.FC<FeaturedProjectsBlockProps> = ({
               {/* Bottom Information Overlay */}
               <div className="relative z-10 p-5 sm:p-6 lg:p-7">
                 <h3 className="font-tech text-base sm:text-lg lg:text-[19px] font-extrabold text-white tracking-wide uppercase leading-tight mb-1">
-                  {project.title}
+                  {t(project.title)}
                 </h3>
                 <p className="font-tech text-xs sm:text-sm font-bold text-[#D4B982] tracking-wider uppercase mb-3.5">
-                  {project.location}
+                  {t(project.location)}
                 </p>
 
                 {/* Metadata Line with Icons */}
                 <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[10.5px] sm:text-[11px] font-tech text-white/85 uppercase tracking-wider mb-4 border-t border-white/15 pt-3">
                   <span className="flex items-center gap-1.5">
                     <Gauge className="w-3.5 h-3.5 text-[#D4B982]" />
-                    <span>{project.capacity}</span>
+                    <span>{t(project.capacity)}</span>
                   </span>
                   <span className="flex items-center gap-1.5">
                     <Layers className="w-3.5 h-3.5 text-[#D4B982]" />
-                    <span>{project.model}</span>
+                    <span>{t(project.model)}</span>
                   </span>
                   <span className="flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5 text-[#D4B982]" />
-                    <span>{project.year}</span>
+                    <span>{t(project.year)}</span>
                   </span>
                 </div>
 
                 {/* Action Link: View Case Study */}
                 <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-tech font-bold text-white uppercase tracking-wider group-hover:text-[#D4B982] transition-colors">
-                  <span>VIEW CASE STUDY</span>
+                  <span>{t("VIEW CASE STUDY")}</span>
                   <ArrowRight className="w-3.5 h-3.5 text-[#D4B982] group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
@@ -179,18 +182,18 @@ export const VideoBlock: React.FC<FeaturedProjectsBlockProps> = ({
 
               {/* Card Title */}
               <h3 className="font-tech text-base sm:text-lg font-extrabold text-white tracking-wider uppercase mb-3 leading-snug">
-                VIEW ALL<br />PROJECTS
+                {withLineBreaks(t("VIEW ALL\nPROJECTS"))}
               </h3>
 
               {/* Card Subtitle */}
               <p className="text-xs sm:text-[12.5px] text-white/80 leading-relaxed font-normal">
-                Discover more projects and engineering success stories.
+                {t("Discover more projects and engineering success stories.")}
               </p>
             </div>
 
             {/* Bottom Action Link */}
             <div className="pt-6 border-t border-white/20 flex items-center gap-2 text-[10.5px] sm:text-xs font-tech font-bold text-white uppercase tracking-wider group-hover:text-[#D4B982] transition-colors">
-              <span>ALL PROJECTS</span>
+              <span>{t("ALL PROJECTS")}</span>
               <ArrowRight className="w-3.5 h-3.5 text-[#D4B982] group-hover:translate-x-1 transition-transform" />
             </div>
           </div>

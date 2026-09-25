@@ -1,33 +1,29 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { HERO_DATA } from '../data/soltexData';
+import { useI18n } from '../i18n/I18nProvider';
 
 interface HeroProps {
   onOpenProjectModal: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
+  const { t } = useI18n();
   return (
     <section className="relative pt-24 sm:pt-28 lg:pt-32 pb-12 sm:pb-16 lg:pb-20 bg-[#FBFBF8] overflow-hidden border-b border-[#16211B]/10 min-h-[580px] lg:min-h-[660px] flex items-center">
       {/* Desktop Panoramic Image Container: Positioned on the right ~54% */}
-      <div className="hidden lg:block absolute top-0 right-0 bottom-0 w-[56%] xl:w-[54%] 2xl:w-[52%] overflow-hidden pointer-events-none select-none z-0">
+      <div className="hidden lg:block absolute top-0 end-0 bottom-0 w-[56%] xl:w-[54%] 2xl:w-[52%] overflow-hidden pointer-events-none select-none z-0">
         <div className="relative w-full h-full">
           {/* Undistorted High-Resolution Rectangular Industrial Plant Image */}
           <img
             src={HERO_DATA.heroImage}
-            alt="Soltex Global Turnkey Industrial Processing Plant Facility"
+            alt={t("Soltex Global Turnkey Industrial Processing Plant Facility")}
             referrerPolicy="no-referrer"
             className="w-full h-full object-cover object-[right_center]"
           />
 
           {/* Smooth feathered horizontal transition overlay over ~200px: #FBFBF8 -> transparent */}
-          <div
-            className="absolute top-0 bottom-0 left-0 w-[200px] pointer-events-none"
-            style={{
-              background:
-                'linear-gradient(to right, #FBFBF8 0%, rgba(251, 251, 248, 0.94) 30px, rgba(251, 251, 248, 0.75) 80px, rgba(251, 251, 248, 0.40) 130px, rgba(251, 251, 248, 0.12) 170px, transparent 200px)'
-            }}
-          />
+          <div className="hero-feather absolute top-0 bottom-0 start-0 w-[200px] pointer-events-none" />
         </div>
       </div>
 
@@ -40,28 +36,28 @@ export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
             <div className="flex items-center gap-3 mb-5">
               <span className="w-8 sm:w-10 h-[2px] bg-[#B89758] shrink-0" aria-hidden="true" />
               <span className="font-tech text-xs font-semibold tracking-widest text-[#55695E] uppercase">
-                {HERO_DATA.eyebrow}
+                {t(HERO_DATA.eyebrow)}
               </span>
             </div>
 
             {/* Main Headline: Large Bold Uppercase */}
             <h1 className="text-3xl sm:text-5xl lg:text-[46px] xl:text-[52px] font-extrabold tracking-tight leading-[1.06] mb-5">
-              <span className="block text-[#0E482C]">ENGINEERING</span>
-              <span className="block text-[#111814]">ADVANCED PLANT</span>
-              <span className="block text-[#111814]">PROCESSING FACILITIES</span>
+              <span className="block text-[#0E482C]">{t("ENGINEERING")}</span>
+              <span className="block text-[#111814]">{t("ADVANCED PLANT")}</span>
+              <span className="block text-[#111814]">{t("PROCESSING FACILITIES")}</span>
             </h1>
 
             {/* Description Paragraph */}
             <p className="text-sm sm:text-base text-[#46574D] leading-relaxed mb-6 max-w-[600px] font-normal">
-              {HERO_DATA.description}
+              {t(HERO_DATA.description)}
             </p>
 
             {/* Capability Metadata Line with Vertical Pipes */}
             <div className="flex flex-wrap items-center text-[10.5px] sm:text-[11px] font-tech text-[#5A6D62] tracking-widest uppercase mb-8 select-none">
-              <span className="text-[#A4B3A9] mr-2.5">|</span>
+              <span className="text-[#A4B3A9] me-2.5">|</span>
               {HERO_DATA.metadataTags.map((tag) => (
                 <React.Fragment key={tag}>
-                  <span className="hover:text-[#0E482C] transition-colors">{tag}</span>
+                  <span className="hover:text-[#0E482C] transition-colors">{t(tag)}</span>
                   <span className="text-[#A4B3A9] mx-2.5">|</span>
                 </React.Fragment>
               ))}
@@ -73,7 +69,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
                 onClick={onOpenProjectModal}
                 className="inline-flex items-center justify-center gap-3 px-7 py-3.5 bg-[#0E482C] text-white text-xs font-bold tracking-wider uppercase hover:bg-[#0A3620] transition-colors shadow-xs group cursor-pointer border border-[#0E482C] rounded-none"
               >
-                <span>START YOUR PROJECT</span>
+                <span>{t("START YOUR PROJECT")}</span>
                 <ArrowRight className="w-4 h-4 text-[#D4B982] group-hover:translate-x-1 transition-transform" />
               </button>
 
@@ -81,14 +77,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
                 href="#technologies"
                 className="inline-flex items-center justify-center px-7 py-3.5 bg-white border border-[#16211B]/20 text-[#111814] text-xs font-bold tracking-wider uppercase hover:bg-[#FAF9F5] hover:border-[#16211B]/40 transition-colors shadow-2xs rounded-none"
               >
-                <span>EXPLORE TECHNOLOGIES</span>
+                <span>{t("EXPLORE TECHNOLOGIES")}</span>
               </a>
             </div>
 
             {/* USP Note with Subtle Gold Dot */}
             <div className="flex items-center gap-2.5 text-xs text-[#526458]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#B89758] shrink-0" aria-hidden="true" />
-              <span>{HERO_DATA.usp}</span>
+              <span>{t(HERO_DATA.usp)}</span>
             </div>
           </div>
 
@@ -96,7 +92,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
           <div className="lg:hidden w-full aspect-[16/10] overflow-hidden border border-[#16211B]/10 mt-6 shadow-sm">
             <img
               src={HERO_DATA.heroImage}
-              alt="Soltex Global Turnkey Industrial Processing Plant Facility"
+              alt={t("Soltex Global Turnkey Industrial Processing Plant Facility")}
               referrerPolicy="no-referrer"
               className="w-full h-full object-cover object-[right_center]"
             />

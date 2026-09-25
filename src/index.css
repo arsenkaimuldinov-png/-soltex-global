@@ -138,3 +138,86 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Hero photo feathering (moved from an inline style so it can mirror in RTL) */
+.hero-feather {
+  background: linear-gradient(to right, #FBFBF8 0%, rgba(251, 251, 248, 0.94) 30px, rgba(251, 251, 248, 0.75) 80px, rgba(251, 251, 248, 0.40) 130px, rgba(251, 251, 248, 0.12) 170px, transparent 200px);
+}
+
+/* ==========================================================================
+   MULTILINGUAL SUPPORT
+   Everything below is scoped by :lang() or [dir="rtl"], so the approved
+   English rendering is untouched.
+   ========================================================================== */
+
+/* Script fallback fonts: the brand fonts (Plus Jakarta Sans, JetBrains Mono)
+   have no Cyrillic / Chinese / Arabic glyphs. Latin characters, numbers and
+   brand names keep the brand fonts; only the missing script falls back. */
+html:lang(ru) body,
+html:lang(ru) h1, html:lang(ru) h2, html:lang(ru) h3, html:lang(ru) .font-editorial {
+  font-family: 'Plus Jakarta Sans', 'Manrope', system-ui, -apple-system, sans-serif;
+}
+html:lang(zh) body,
+html:lang(zh) h1, html:lang(zh) h2, html:lang(zh) h3, html:lang(zh) .font-editorial {
+  font-family: 'Plus Jakarta Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+html:lang(zh) .font-tech { font-family: 'JetBrains Mono', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+html:lang(zh) {
+  --font-serif: ui-serif, Georgia, 'Noto Serif SC', 'Songti SC', serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+html:lang(ar) body,
+html:lang(ar) h1, html:lang(ar) h2, html:lang(ar) h3, html:lang(ar) .font-editorial {
+  font-family: 'Plus Jakarta Sans', 'IBM Plex Sans Arabic', 'Noto Sans Arabic', Tahoma, sans-serif;
+}
+html:lang(ar) .font-tech { font-family: 'JetBrains Mono', 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Segoe UI', Tahoma, sans-serif; }
+html:lang(ar) {
+  --font-serif: ui-serif, Georgia, 'Noto Naskh Arabic', 'IBM Plex Sans Arabic', serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+}
+
+/* Arabic is a connected script: letter-spacing breaks the joins between letters,
+   and synthetic italics are not used in Arabic or Chinese typography. */
+html:lang(ar) *, html:lang(ar) *::before, html:lang(ar) *::after { letter-spacing: 0 !important; }
+html:lang(ar) .italic, html:lang(zh) .italic { font-style: normal; }
+/* Arabic glyphs are taller: give very tight display headings room to breathe. */
+html:lang(ar) h1, html:lang(ar) h2, html:lang(ar) h3 { line-height: 1.3; }
+
+/* RTL: directional icons point the other way; hover nudges follow the reading direction.
+   (Layout itself mirrors through logical utilities: ms-/me-, ps-/pe-, start-/end-, text-start.) */
+[dir="rtl"] .hero-feather {
+  background: linear-gradient(to left, #FBFBF8 0%, rgba(251, 251, 248, 0.94) 30px, rgba(251, 251, 248, 0.75) 80px, rgba(251, 251, 248, 0.40) 130px, rgba(251, 251, 248, 0.12) 170px, transparent 200px);
+}
+[dir="rtl"] .lucide-arrow-right,
+[dir="rtl"] .lucide-arrow-left,
+[dir="rtl"] .lucide-chevron-right,
+[dir="rtl"] .lucide-chevron-left {
+  transform: scaleX(-1);
+}
+[dir="rtl"] .group:hover .group-hover\:translate-x-0\.5 { --tw-translate-x: calc(var(--spacing) * -0.5); }
+[dir="rtl"] .group:hover .group-hover\:translate-x-1 { --tw-translate-x: calc(var(--spacing) * -1); }
+[dir="rtl"] .group:hover .group-hover\:translate-x-1\.5 { --tw-translate-x: calc(var(--spacing) * -1.5); }
+[dir="rtl"] .group:hover .group-hover\:-translate-x-1 { --tw-translate-x: calc(var(--spacing) * 1); }
+/* Phone numbers, e-mails, codes and URLs stay left-to-right inside Arabic text. */
+[dir="rtl"] input[type="tel"], [dir="rtl"] input[type="email"], [dir="rtl"] a[href^="tel:"], [dir="rtl"] a[href^="mailto:"] {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+[dir="rtl"] input[type="tel"], [dir="rtl"] input[type="email"] { text-align: right; }
+
+/* Long words (RU / TR / ES) must never overflow narrow cards and labels:
+   hyphenate where the language allows it, and break only a word that cannot fit. */
+html:lang(ru) :is(h1, h2, h3, h4, span, label, button, a, .font-tech),
+html:lang(tr) :is(h1, h2, h3, h4, span, label, button, a, .font-tech),
+html:lang(es) :is(h1, h2, h3, h4, span, label, button, a, .font-tech) {
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+html:lang(ru) :is(p, div, li),
+html:lang(tr) :is(p, div, li),
+html:lang(es) :is(p, div, li) {
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+/* Chinese display headings need more line-height than the Latin-tuned 1.06. */
+html:lang(zh) h1, html:lang(zh) h2 { line-height: 1.25; }

@@ -1,4 +1,6 @@
 import React from 'react';
+import { withLineBreaks } from '../i18n/translate';
+import { useI18n } from '../i18n/I18nProvider';
 
 // Custom precision SVG icons matching the client reference screenshot
 export const WreathIcon: React.FC<{ className?: string }> = ({ className = 'w-10 h-10' }) => (
@@ -138,12 +140,13 @@ export const ShieldBadgeCheckIcon: React.FC<{ className?: string }> = ({ classNa
 );
 
 export const MetricRibbon: React.FC = () => {
+  const { t, tr } = useI18n();
   return (
     <div className="w-full bg-[#FAF9F5] border-y border-[#16211B]/12 py-5 sm:py-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 divide-y sm:divide-y-0 lg:divide-x divide-[#16211B]/12">
           {/* 01. 25+ YEARS OF INDUSTRIAL EXPERIENCE */}
-          <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-2 lg:px-5 first:lg:pl-0">
+          <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-2 lg:px-5 first:lg:ps-0">
             <div className="text-[#0E482C] shrink-0">
               <WreathIcon className="w-10 h-10 sm:w-11 sm:h-11" />
             </div>
@@ -152,7 +155,7 @@ export const MetricRibbon: React.FC = () => {
                 25+
               </span>
               <span className="text-[10px] sm:text-[11px] font-bold text-[#111814] uppercase tracking-wider leading-tight">
-                YEARS OF<br />INDUSTRIAL<br />EXPERIENCE
+                {withLineBreaks(t("YEARS OF\nINDUSTRIAL\nEXPERIENCE"))}
               </span>
             </div>
           </div>
@@ -167,7 +170,7 @@ export const MetricRibbon: React.FC = () => {
                 10+
               </span>
               <span className="text-[10px] sm:text-[11px] font-bold text-[#111814] uppercase tracking-wider leading-tight">
-                COUNTRIES<br />PROJECT<br />EXPERIENCE
+                {withLineBreaks(t("COUNTRIES\nPROJECT\nEXPERIENCE"))}
               </span>
             </div>
           </div>
@@ -182,7 +185,7 @@ export const MetricRibbon: React.FC = () => {
                 20+
               </span>
               <span className="text-[10px] sm:text-[11px] font-bold text-[#111814] uppercase tracking-wider leading-tight">
-                YEARS OF<br />TECHNOLOGY<br />IN OPERATION
+                {withLineBreaks(t("YEARS OF\nTECHNOLOGY\nIN OPERATION"))}
               </span>
             </div>
           </div>
@@ -197,21 +200,21 @@ export const MetricRibbon: React.FC = () => {
                 300+
               </span>
               <span className="text-[10px] sm:text-[11px] font-bold text-[#111814] uppercase tracking-wider leading-tight">
-                MILLION USD<br />PROJECTS<br />DELIVERED
+                {withLineBreaks(t("MILLION USD\nPROJECTS\nDELIVERED"))}
               </span>
             </div>
           </div>
 
           {/* 05. FULL-CYCLE EPC / EPCM SOLUTIONS */}
-          <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-2 lg:px-5 last:lg:pr-0">
+          <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-2 lg:px-5 last:lg:pe-0">
             <div className="text-[#0E482C] shrink-0">
               <ShieldBadgeCheckIcon className="w-10 h-10 sm:w-11 sm:h-11" />
             </div>
             <div className="flex flex-col justify-center">
               <span className="text-[11px] sm:text-xs font-extrabold text-[#111814] uppercase tracking-wider leading-tight">
-                FULL-CYCLE<br />
-                <span className="text-[#0E482C]">EPC / EPCM</span><br />
-                SOLUTIONS
+                {withLineBreaks(tr("FULL-CYCLE\n{epc}\nSOLUTIONS", {
+                  epc: <span className="text-[#0E482C]">{t("EPC / EPCM")}</span>,
+                }))}
               </span>
             </div>
           </div>

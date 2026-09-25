@@ -1,25 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '../i18n/Link';
 import { ArrowRight, ShieldCheck, Cpu, CheckCircle2, ChevronRight, Layers, FileText } from 'lucide-react';
 import { PageHeader } from '../components/PageHeader';
 import { CtaSection } from '../components/CtaSection';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { TECHNOLOGIES_DATA, TechnologyItem } from '../data/pagesData';
+import { useI18n } from '../i18n/I18nProvider';
 
 interface TechnologiesPageProps {
   onOpenProjectModal?: (topic?: string) => void;
 }
 
 export const TechnologiesPage: React.FC<TechnologiesPageProps> = ({ onOpenProjectModal }) => {
+  const { t, tr } = useI18n();
   return (
     <div className="bg-[#FBFBF8] text-[#121815] min-h-screen">
       {/* Editorial Page Header */}
       <PageHeader
         badgeNumber="03"
-        badgeLabel="PROPRIETARY IP"
-        title="Patented Agro-Processing Technologies"
-        subtitle="Transforming Agricultural Feedstock into High-Margin Functional Ingredients"
-        description="Soltex Global develops, patents, and licenses comprehensive industrial process technologies. From zero-waste closed-loop pectin extraction to solvent-free soy protein isolates and pure inulin crystal recovery, our flowsheet designs guarantee market-leading purity, high recovery coefficients, and low operating costs."
+        badgeLabel={t("PROPRIETARY IP")}
+        title={t("Patented Agro-Processing Technologies")}
+        subtitle={t("Transforming Agricultural Feedstock into High-Margin Functional Ingredients")}
+        description={t("Soltex Global develops, patents, and licenses comprehensive industrial process technologies. From zero-waste closed-loop pectin extraction to solvent-free soy protein isolates and pure inulin crystal recovery, our flowsheet designs guarantee market-leading purity, high recovery coefficients, and low operating costs.")}
         breadcrumbs={[
           { label: 'Technologies' }
         ]}
@@ -40,14 +42,14 @@ export const TechnologiesPage: React.FC<TechnologiesPageProps> = ({ onOpenProjec
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
           <div className="flex items-center justify-between mb-12 pb-4 border-b border-[#16211B]/10">
             <div className="text-xs font-mono uppercase tracking-widest text-[#334439]">
-              SHOWING <span className="font-bold text-[#0E482C]">{TECHNOLOGIES_DATA.length}</span> PATENTED PROCESSING PLATFORMS
+              {tr("SHOWING {count} PATENTED PROCESSING PLATFORMS", { count: <span className="font-bold text-[#0E482C]">{TECHNOLOGIES_DATA.length}</span> })}
             </div>
             <Link
               to="/technologies/patents"
               className="inline-flex items-center gap-1.5 text-xs font-mono text-[#0E482C] uppercase font-bold hover:underline"
             >
               <FileText className="w-3.5 h-3.5" />
-              <span>Review Patent Registry →</span>
+              <span>{t("Review Patent Registry →")}</span>
             </Link>
           </div>
 
@@ -65,37 +67,37 @@ export const TechnologiesPage: React.FC<TechnologiesPageProps> = ({ onOpenProjec
                       <div className={`lg:col-span-6 space-y-5 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
                         <div className="flex items-center gap-3">
                           <span className="font-mono text-2xl lg:text-3xl text-[#0E482C] font-bold">
-                            {tech.categoryNumber}
+                            {t(tech.categoryNumber)}
                           </span>
                           <span className="w-2 h-2 rounded-full bg-[#BA9B60]" />
                           <span className="text-xs font-mono text-[#334439]/70 uppercase tracking-widest font-semibold">
-                            {tech.categoryTitle}
+                            {t(tech.categoryTitle)}
                           </span>
                         </div>
 
                         <h2 className="font-serif text-3xl sm:text-4xl text-[#121815] leading-tight">
                           <Link to={`/technologies/${tech.slug}`} className="hover:text-[#0E482C] transition-colors">
-                            {tech.title}
+                            {t(tech.title)}
                           </Link>
                         </h2>
 
                         <div className="font-serif italic text-base sm:text-lg text-[#0E482C]">
-                          {tech.subtitle}
+                          {t(tech.subtitle)}
                         </div>
 
                         <p className="text-sm sm:text-base text-[#334439] leading-relaxed font-light">
-                          {tech.overview}
+                          {t(tech.overview)}
                         </p>
 
                         {/* Raw materials chips */}
                         <div className="pt-2">
                           <div className="text-[10px] font-mono uppercase tracking-wider text-[#334439]/60 mb-2">
-                            Compatible Feedstocks:
+                            {t("Compatible Feedstocks:")}
                           </div>
                           <div className="flex flex-wrap gap-1.5">
                             {tech.rawMaterials.map((mat, mIdx) => (
                               <span key={mIdx} className="bg-[#F3F3EC] px-2.5 py-1 text-xs font-mono text-[#223328] border border-[#16211B]/10">
-                                {mat}
+                                {t(mat)}
                               </span>
                             ))}
                           </div>
@@ -107,14 +109,14 @@ export const TechnologiesPage: React.FC<TechnologiesPageProps> = ({ onOpenProjec
                             to={`/technologies/${tech.slug}`}
                             className="inline-flex items-center gap-2.5 px-6 py-3 bg-[#0E482C] text-white font-mono text-xs font-semibold tracking-widest uppercase hover:bg-[#07130E] transition-colors group"
                           >
-                            <span>Explore Technical Dossier</span>
+                            <span>{t("Explore Technical Dossier")}</span>
                             <ArrowRight className="w-3.5 h-3.5 text-[#BA9B60] group-hover:translate-x-1 transition-transform" />
                           </Link>
 
                           {tech.patentInfo && (
                             <div className="flex items-center gap-1.5 text-xs font-mono text-[#0E482C] bg-[#F3F3EC] px-3 py-1.5 border border-[#16211B]/10">
                               <ShieldCheck className="w-3.5 h-3.5 text-[#BA9B60]" />
-                              <span>{tech.patentInfo.patentNumber}</span>
+                              <span>{t(tech.patentInfo.patentNumber)}</span>
                             </div>
                           )}
                         </div>
@@ -125,17 +127,17 @@ export const TechnologiesPage: React.FC<TechnologiesPageProps> = ({ onOpenProjec
                         <Link to={`/technologies/${tech.slug}`} className="block relative aspect-[16/10] overflow-hidden bg-[#07130E] border border-[#16211B]/15 image-zoom-container group">
                           <img
                             src={tech.image}
-                            alt={tech.title}
+                            alt={t(tech.title)}
                             className="w-full h-full object-cover opacity-90 group-hover:opacity-100"
                             loading="lazy"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
-                          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white text-xs font-mono">
+                          <div className="absolute bottom-4 start-4 end-4 flex items-center justify-between text-white text-xs font-mono">
                             <span className="text-[#BA9B60] tracking-wider uppercase font-semibold">
-                              STAGE VERIFIED TECHNOLOGY
+                              {t("STAGE VERIFIED TECHNOLOGY")}
                             </span>
                             <span className="text-white/80 group-hover:text-white flex items-center gap-1">
-                              View Specs <ArrowRight className="w-3 h-3" />
+                              {t("View Specs")}{" "}<ArrowRight className="w-3 h-3" />
                             </span>
                           </div>
                         </Link>
@@ -152,9 +154,9 @@ export const TechnologiesPage: React.FC<TechnologiesPageProps> = ({ onOpenProjec
 
       {/* CTA Section with simplified form */}
       <CtaSection
-        badge="TECHNOLOGY LICENSING & TESTING"
-        title="Validate Your Feedstock in Our Testing Facilities"
-        description="Submit laboratory samples of your raw plant biomass for comprehensive chemical profiling, extraction coefficient measurement, and mass-balance flow modeling."
+        badge={t("TECHNOLOGY LICENSING & TESTING")}
+        title={t("Validate Your Feedstock in Our Testing Facilities")}
+        description={t("Submit laboratory samples of your raw plant biomass for comprehensive chemical profiling, extraction coefficient measurement, and mass-balance flow modeling.")}
         topic="Technology Feedstock Testing Request"
       />
     </div>
