@@ -18,6 +18,7 @@ export const CtaSection: React.FC<CtaSectionProps> = ({
   topic = 'Turnkey EPC Plant Inquiry'
 }) => {
   const { t, tr } = useI18n();
+  const formId = React.useId();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -112,10 +113,10 @@ export const CtaSection: React.FC<CtaSectionProps> = ({
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block font-tech text-[10.5px] uppercase tracking-wider text-[#FBFBF8]/80 font-bold mb-1.5">
+                  <label htmlFor={`${formId}-0`} className="block font-tech text-[10.5px] uppercase tracking-wider text-[#FBFBF8]/80 font-bold mb-1.5">
                     {t("YOUR NAME")}
                   </label>
-                  <input
+                  <input id={`${formId}-0`}
                     type="text"
                     required
                     value={name}
@@ -126,10 +127,10 @@ export const CtaSection: React.FC<CtaSectionProps> = ({
                 </div>
 
                 <div>
-                  <label className="block font-tech text-[10.5px] uppercase tracking-wider text-[#FBFBF8]/80 font-bold mb-1.5">
+                  <label htmlFor={`${formId}-1`} className="block font-tech text-[10.5px] uppercase tracking-wider text-[#FBFBF8]/80 font-bold mb-1.5">
                     {t("PHONE NUMBER")}
                   </label>
-                  <input
+                  <input id={`${formId}-1`}
                     type="tel"
                     required
                     value={phone}

@@ -13,7 +13,7 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({
   onOpenProjectModal,
 }) => {
-  const { t, info, switchLocale } = useI18n();
+  const { t, info, path, switchLocale } = useI18n();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
@@ -28,6 +28,11 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close the mobile menu whenever the page changes (links, back/forward, language switch)
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [path]);
+
   // Close dropdown on outside click or Escape
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -36,7 +41,10 @@ export const Navbar: React.FC<NavbarProps> = ({
       }
     };
     const handleKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setLangDropdownOpen(false);
+      if (event.key === 'Escape') {
+        setLangDropdownOpen(false);
+        setMobileMenuOpen(false);
+      }
     };
     document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('keydown', handleKey);
@@ -60,20 +68,16 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Left: Official Soltex Global Logo */}
           <Link
             to="/"
-            className="focus-visible:outline-none"
-            style={{ overflow: 'visible', flexShrink: 0, whiteSpace: 'nowrap' }}
+            className="shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0E482C]"
             aria-label={t("Soltex Global Home")}
           >
+            {/* 44px on phones (keeps logo + language + menu inside 320px), 50px from sm up */}
             <img
-              src="/images/soltex-global-logo.png"
+              src="/images/soltex-global-logo-transparent.png"
               alt={t("Soltex Global")}
-              style={{
-                height: '50px',
-                width: 'auto',
-                maxWidth: 'none',
-                objectFit: 'contain',
-                display: 'block',
-              }}
+              width={1280}
+              height={440}
+              className="block h-[44px] sm:h-[50px] w-auto max-w-none object-contain"
               loading="eager"
             />
           </Link>
@@ -131,11 +135,11 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Right: Primary Action + Language Selector */}
-          <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             {/* Primary Action Button */}
             <button
               onClick={() => onOpenProjectModal()}
-              className="inline-flex items-center justify-center px-4 sm:px-5 py-2.5 bg-[#0E482C] text-white text-[10.5px] sm:text-[11px] font-bold tracking-wider uppercase font-tech hover:bg-[#0A3620] transition-colors shadow-xs rounded-none cursor-pointer"
+              className="hidden sm:inline-flex items-center justify-center px-4 sm:px-5 py-2.5 bg-[#0E482C] text-white text-[10.5px] sm:text-[11px] font-bold tracking-wider uppercase font-tech hover:bg-[#0A3620] transition-colors shadow-xs rounded-none cursor-pointer"
             >
               <span>{t("START YOUR PROJECT")}</span>
             </button>
@@ -146,7 +150,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => setLangDropdownOpen(!langDropdownOpen)}
                 aria-haspopup="true"
                 aria-expanded={langDropdownOpen}
-                className="flex items-center gap-1 text-[11px] font-tech font-bold text-[#35473C] hover:text-[#0E482C] px-2 py-1 transition-colors border border-transparent hover:border-[#16211B]/15 cursor-pointer"
+                className="flex items-center gap-1 min-h-[40px] text-[11px] font-tech font-bold text-[#35473C] hover:text-[#0E482C] px-2 py-1 transition-colors border border-transparent hover:border-[#16211B]/15 cursor-pointer focus-visible:outline-2 focus-visible:outline-[#0E482C]"
                 aria-label={t("Change language")}
               >
                 <Globe className="w-3.5 h-3.5 text-[#0E482C]" />
@@ -167,7 +171,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         setMobileMenuOpen(false);
                         if (l.code !== info.code) void switchLocale(l.code);
                       }}
-                      className={`w-full text-start px-3 py-1.5 hover:bg-[#F3F3EC] transition-colors ${
+                      className={`w-full text-start px-3 py-2.5 sm:py-1.5 hover:bg-[#F3F3EC] transition-colors ${
                         info.code === l.code ? 'text-[#0E482C] font-bold bg-[#0E482C]/5' : 'text-[#4E5E55]'
                       }`}
                     >
@@ -181,8 +185,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Mobile Menu Trigger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="xl:hidden p-2 text-[#111814] hover:text-[#0E482C]"
+              className="xl:hidden p-2.5 -me-2.5 text-[#111814] hover:text-[#0E482C] focus-visible:outline-2 focus-visible:outline-[#0E482C]"
               aria-label={t("Toggle Navigation Menu")}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-navigation"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -193,50 +199,65 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="xl:hidden bg-[#FBFBF8] border-b border-[#16211B]/15 px-4 pt-3 pb-6 font-tech text-xs font-bold uppercase tracking-wider space-y-3">
+        <nav
+          id="mobile-navigation"
+          aria-label={t("Toggle Navigation Menu")}
+          className="xl:hidden bg-[#FBFBF8] border-b border-[#16211B]/15 px-4 sm:px-6 pt-3 pb-6 font-tech text-xs font-bold uppercase tracking-wider space-y-1 max-h-[calc(100dvh-80px)] overflow-y-auto overscroll-contain"
+        >
           <Link
             to="/company"
             onClick={() => setMobileMenuOpen(false)}
-            className="block py-2 text-[#111814] hover:text-[#0E482C]"
+            className="block py-3 text-[#111814] hover:text-[#0E482C]"
           >
             {t("ABOUT")}
           </Link>
           <Link
             to="/technologies"
             onClick={() => setMobileMenuOpen(false)}
-            className="block py-2 text-[#111814] hover:text-[#0E482C]"
+            className="block py-3 text-[#111814] hover:text-[#0E482C]"
           >
             {t("TECHNOLOGIES")}
           </Link>
           <Link
             to="/epcm"
             onClick={() => setMobileMenuOpen(false)}
-            className="block py-2 text-[#111814] hover:text-[#0E482C]"
+            className="block py-3 text-[#111814] hover:text-[#0E482C]"
           >
             {t("EPC / EPCM")}
           </Link>
           <Link
             to="/products"
             onClick={() => setMobileMenuOpen(false)}
-            className="block py-2 text-[#111814] hover:text-[#0E482C]"
+            className="block py-3 text-[#111814] hover:text-[#0E482C]"
           >
             {t("PRODUCTS")}
           </Link>
           <Link
             to="/projects"
             onClick={() => setMobileMenuOpen(false)}
-            className="block py-2 text-[#111814] hover:text-[#0E482C]"
+            className="block py-3 text-[#111814] hover:text-[#0E482C]"
           >
             {t("PROJECTS")}
           </Link>
           <Link
             to="/contact"
             onClick={() => setMobileMenuOpen(false)}
-            className="block py-2 text-[#111814] hover:text-[#0E482C]"
+            className="block py-3 text-[#111814] hover:text-[#0E482C]"
           >
             {t("CONTACT")}
           </Link>
-        </div>
+          {/* The header CTA is hidden below sm; keep it reachable from the menu */}
+          <button
+            type="button"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              onOpenProjectModal();
+            }}
+            className="sm:hidden mt-3 w-full inline-flex items-center justify-center px-5 py-3.5 bg-[#0E482C] text-white text-[11px] font-bold tracking-wider uppercase font-tech hover:bg-[#0A3620] transition-colors"
+          >
+            {t("START YOUR PROJECT")}
+          </button>
+        </nav>
       )}
     </header>
   );

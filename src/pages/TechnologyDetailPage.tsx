@@ -218,10 +218,10 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
                           className="group bg-white border border-[#16211B]/15 p-5 hover:border-[#0E482C] transition-colors"
                         >
                           <div className="aspect-[16/10] overflow-hidden bg-[#07130E] mb-4 image-zoom-container">
-                            <img src={p.image} alt={t(p.title)} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                            <img loading="lazy" decoding="async" src={p.image} alt={t(p.title)} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                           </div>
                           <div className="text-[10px] font-mono uppercase text-[#0E482C] font-semibold">{t(p.country)} · {t(p.years)}</div>
-                          <h4 className="font-serif text-lg font-bold text-[#121815] group-hover:text-[#0E482C] transition-colors mt-1">{t(p.title)}</h4>
+                          <h3 className="font-serif text-lg font-bold tracking-normal text-[#121815] group-hover:text-[#0E482C] transition-colors mt-1">{t(p.title)}</h3>
                           <div className="text-xs font-mono text-[#334439]/70 mt-1">{t(p.capacity)}</div>
                         </Link>
                       ))}
@@ -233,7 +233,7 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
 
             {/* Right Column: Feedstock & Patent Specifications Sidebar */}
             <div className="lg:col-span-4 space-y-8">
-              <ScrollReveal delayMs={100}>
+              <ScrollReveal className="space-y-8" delayMs={100}>
                 <div className="bg-white border border-[#16211B]/15 p-6 lg:p-8 sticky top-28 space-y-6">
                   <div>
                     <div className="flex items-center gap-2 pb-3 border-b border-[#16211B]/10 text-xs font-mono uppercase tracking-wider text-[#0E482C]">

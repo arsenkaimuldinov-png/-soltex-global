@@ -12,6 +12,8 @@ export interface ProjectItem {
   technology: string;
   results?: string[];
   image: string;
+  /** Optional CSS object-position for the cover crop (e.g. keep a slide title visible). */
+  imagePosition?: string;
   gallery?: string[];
   relatedTechSlug: string;
   specs: { label: string; value: string }[];
@@ -91,10 +93,9 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'World-class protein purity exceeding 90% isolate standard',
       'Continuous uninterrupted commercial operation for over 18 years'
     ],
-    image: '/images/video_plant_processing_1790267879744.jpg',
+    image: '/images/projects/solbar-israel.jpg',
     gallery: [
-      '/images/video_plant_processing_1790267879744.jpg',
-      '/images/video_epcm_facility_1790267893198.jpg'
+      '/images/projects/solbar-israel.jpg'
     ],
     relatedTechSlug: 'soy-protein',
     specs: [
@@ -127,10 +128,10 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'Ultra-low chemical footprint with closed-loop water recovery',
       'Certified under global ISO 9001 and HACCP quality protocols'
     ],
-    image: '/images/video_epcm_facility_1790267893198.jpg',
+    image: '/images/projects/solbar-ningbo.jpg',
+    imagePosition: 'center top',
     gallery: [
-      '/images/video_epcm_facility_1790267893198.jpg',
-      '/images/tech_integrated_plant_1790271239031.jpg'
+      '/images/projects/solbar-ningbo.jpg'
     ],
     relatedTechSlug: 'soy-protein',
     specs: [
@@ -162,10 +163,9 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'Strategic market expansion leading to enterprise capital appreciation',
       'Compliance with strict US FDA, GMP and sanitary guidelines'
     ],
-    image: '/images/hero_soltex_panoramic_plant_1790270267701.jpg',
+    image: '/images/projects/solbar-nebraska.jpg',
     gallery: [
-      '/images/hero_soltex_panoramic_plant_1790270267701.jpg',
-      '/images/video_plant_processing_1790267879744.jpg'
+      '/images/projects/solbar-nebraska.jpg'
     ],
     relatedTechSlug: 'soy-protein',
     specs: [
@@ -198,10 +198,9 @@ export const PROJECTS_DATA: ProjectItem[] = [
       '800 metric tons annual purified dietary fibers',
       '100% alcohol-free process ensuring exceptional food safety'
     ],
-    image: '/images/flagship_siberian_wellness_1790267904663.jpg',
+    image: '/images/projects/siberian-wellness.jpg',
     gallery: [
-      '/images/flagship_siberian_wellness_1790267904663.jpg',
-      '/images/tech_pectin_apples_1790271159655.jpg'
+      '/images/projects/siberian-wellness.jpg'
     ],
     relatedTechSlug: 'pectin',
     specs: [
@@ -233,10 +232,9 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'Elimination of specific beany soy odor through flash vacuum cooling',
       'Light-colored, low-viscosity isolate meeting international standards'
     ],
-    image: '/images/tech_soy_beans_1790271178494.jpg',
+    image: '/images/projects/agritech-kazakhstan.jpg',
     gallery: [
-      '/images/tech_soy_beans_1790271178494.jpg',
-      '/images/video_epcm_facility_1790267893198.jpg'
+      '/images/projects/agritech-kazakhstan.jpg'
     ],
     relatedTechSlug: 'soy-protein',
     specs: [
@@ -267,9 +265,9 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'Commercial production of high-grade natural tannins and pectin',
       'Significant economic ROI for client processing assets'
     ],
-    image: '/images/tech_citrus_oranges_1790271213504.jpg',
+    image: '/images/projects/aznar-pomegranate.jpg',
     gallery: [
-      '/images/tech_citrus_oranges_1790271213504.jpg'
+      '/images/projects/aznar-pomegranate.jpg'
     ],
     relatedTechSlug: 'pomegranate',
     specs: [
@@ -713,132 +711,6 @@ export const PRODUCTS_DATA: ProductItem[] = [
     relatedTechSlug: 'pomegranate',
     relatedProjectSlug: 'aznar-pomegranate',
     image: '/images/tech_integrated_plant_1790271239031.jpg'
-  }
-];
-
-// ==========================================
-// 4. EPCM FULL-CYCLE STAGES FACTUAL DATA
-// ==========================================
-export const EPCM_SERVICES_DETAILED = [
-  {
-    number: '01',
-    stageName: 'PRE-PROJECT PREPARATION & AUDIT',
-    subtitle: 'Comprehensive analysis of raw material security, logistics, and site infrastructure',
-    description: 'We conduct laboratory analysis of your raw materials (apple pomace, soybeans, Jerusalem artichoke, citrus peels) to determine active component yields. We assess plant site readiness, utilities, energy availability, and regulatory requirements.',
-    activities: [
-      'Raw material laboratory testing and extraction yield verification',
-      'Site topographic, geological and utility infrastructure survey',
-      'Regulatory compliance audit and environmental baseline study',
-      'Logistics analysis for feedstock intake and finished goods export'
-    ]
-  },
-  {
-    number: '02',
-    stageName: 'FEASIBILITY STUDIES & BUSINESS PLANNING',
-    subtitle: 'Bankable financial investment models and economic viability validation',
-    description: 'We develop bankable feasibility studies and comprehensive financial models that calculate CAPEX, OPEX, IRR, and payback periods to secure financing from commercial banks and international development institutions.',
-    activities: [
-      'Dynamic CAPEX and OPEX financial modeling across multi-year cycles',
-      'Detailed mass and energy balance calculations for all processing streams',
-      'Market price sensitivity and payback period calculations',
-      'Investment memorandum preparation for institutional lenders'
-    ]
-  },
-  {
-    number: '03',
-    stageName: 'ENGINEERING & 3D BIM DESIGN',
-    subtitle: 'Creation of comprehensive design documentation according to local laws and ISO 22000',
-    description: 'Full-cycle engineering conforming to national building standards and international quality frameworks (HACCP, ISO 22000:2005, FSSC 22000:2013). We build digital twins in 3D BIM to eliminate on-site spatial clashes.',
-    activities: [
-      'Process Flow Diagrams (PFD) and Piping & Instrumentation Diagrams (P&ID)',
-      '3D BIM modeling of all mechanical equipment, piping networks, and civil works',
-      'Cleanroom HVAC, sanitary zones, and explosion-prevention engineering',
-      'Passage of state statutory expert reviews and construction permitting'
-    ]
-  },
-  {
-    number: '04',
-    stageName: 'EQUIPMENT PROCUREMENT & SUPPLY',
-    subtitle: 'Custom manufacturing, factory acceptance testing, and global logistics',
-    description: 'Manufacturing of proprietary extraction reactors, cavitation modules, membrane skids, and spray dryers. We conduct rigorous Factory Acceptance Tests (FAT) before shipment and handle global shipping, customs, and delivery.',
-    activities: [
-      'Fabrication of food-grade stainless steel (AISI 316L / 304) process reactors',
-      'Factory Acceptance Testing (FAT) with client engineering representatives',
-      'Supply chain management, multimodal freight logistics, and customs clearance',
-      'Receipt, inspection, and bonded staging at the project site'
-    ]
-  },
-  {
-    number: '05',
-    stageName: 'CONSTRUCTION & INSTALLATION',
-    subtitle: 'Civil supervision, mechanical assembly, process piping, and automation cabling',
-    description: 'Soltex site managers oversee civil works and lead specialized mechanical installation teams for equipment positioning, hygienic orbital piping welding, cleanroom assembly, and electrical control panels.',
-    activities: [
-      'Supervision of foundation laying, steel framework, and building envelope',
-      'Rigging and precision alignment of heavy extraction towers and evaporators',
-      'Sanitary orbital welding of stainless steel process and utility pipework',
-      'Installation of electrical power distribution, instrumentation, and control wiring'
-    ]
-  },
-  {
-    number: '06',
-    stageName: 'COMMISSIONING & COLD RUNS',
-    subtitle: 'Hydraulic pressure testing, automation loop tuning, and dry mechanical verification',
-    description: 'Comprehensive testing of individual equipment units and integrated production loops. We perform hydrostatic tests, CIP system validations, and fine-tune PLC/SCADA algorithms under non-load conditions.',
-    activities: [
-      'Hydraulic and pneumatic pressure testing of all pressure vessels and pipelines',
-      'Individual motor rotation, pump calibration, and sensor signal validation',
-      'Automated Clean-in-Place (CIP) and Sterilize-in-Place (SIP) cycle testing',
-      'SCADA graphic interface and safety interlock verification'
-    ]
-  },
-  {
-    number: '07',
-    stageName: 'OPERATIONAL LAUNCH & PERSONNEL TRAINING',
-    subtitle: 'Live feedstock introduction, operational ramp-up, and hands-on technician coaching',
-    description: 'We transition the plant into live production using real agricultural feedstock under the direct guidance of Soltex process technologists. We conduct classroom and hands-on training for plant operators and maintenance engineers.',
-    activities: [
-      'Gradual introduction of raw materials and live chemical/enzymatic extraction',
-      'Tuning of operating parameters (temperature, pressure, pH, flow rates)',
-      'Standard Operating Procedures (SOP) delivery and operator certification',
-      'Emergency response drills and preventive maintenance protocol training'
-    ]
-  },
-  {
-    number: '08',
-    stageName: 'REACHING DESIGN CAPACITY',
-    subtitle: 'Fine-tuning process yields and throughput to achieve contractual production targets',
-    description: 'We optimize operating parameters until the plant consistently achieves the contractual throughput, product purity targets, and resource consumption benchmarks during continuous multi-day performance test runs.',
-    activities: [
-      '72-hour continuous commercial performance trial run at 100% capacity',
-      'Laboratory quality verification of finished product batches',
-      'Utility consumption measurement (steam, electricity, water per ton of output)',
-      'Formal bilateral handover protocol and commercial operation sign-off'
-    ]
-  },
-  {
-    number: '09',
-    stageName: 'CERTIFICATION & FINAL STAGE',
-    subtitle: 'Full support for international certification of enterprise and products',
-    description: 'We guide the client facility through the complete process of third-party audit and international certification under ISO 9001, ISO 22000, HACCP, FSSC 22000, Kosher, and Halal standards.',
-    activities: [
-      'Preparation of quality management and food safety documentation packages',
-      'Staff audit preparation and internal simulation inspections',
-      'Accredited third-party certification audit facilitation',
-      'Receipt of official international certificates and export permissions'
-    ]
-  },
-  {
-    number: '10',
-    stageName: 'POST-LAUNCH SUPPORT & MODERNIZATION',
-    subtitle: 'Long-term technical consulting, spare parts supply, and technology upgrades',
-    description: 'Our engineering partnership continues after plant commissioning with scheduled technical audits, consumables replenishment, remote diagnostic monitoring, and future expansion engineering.',
-    activities: [
-      'Remote SCADA diagnostic connection for ongoing operational advice',
-      'Scheduled preventive maintenance audits and component wear assessments',
-      'Guaranteed supply of genuine wear parts, membranes, and specialty enzymes',
-      'Technological upgrades as new patented processes are developed'
-    ]
   }
 ];
 

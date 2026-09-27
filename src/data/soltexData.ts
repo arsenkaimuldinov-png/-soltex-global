@@ -1,4 +1,4 @@
-import { VideoMaterial, KeyDirection, SectorApplication, WhySoltexReason, EpcmStage } from '../types';
+import { CompanyVideo, VideoMaterial, KeyDirection, SectorApplication, WhySoltexReason, EpcmStage } from '../types';
 
 export const HERO_DATA = {
   eyebrow: "INTERNATIONAL EPC / EPCM ENGINEERING GROUP",
@@ -44,9 +44,38 @@ export const VIDEO_MATERIALS: VideoMaterial[] = [
   }
 ];
 
+/**
+ * Homepage "Video Materials" block — the two real Soltex presentation videos.
+ * The source files live on Google Drive; they are opened externally until MP4 copies are
+ * added to /public/videos (then set `src` and the block plays them in the local player).
+ */
+export const COMPANY_VIDEOS: CompanyVideo[] = [
+  {
+    id: "industrial-technologies",
+    number: "01",
+    category: "INDUSTRIAL TECHNOLOGIES",
+    title: "Deep Raw Material Processing — Technologies of the Future",
+    headline: "Deep Raw Material Processing\nTechnologies of the Future",
+    description: "Overview of Soltex production solutions, engineering design stages and implementation of high-technology equipment for agro-industrial facilities.",
+    externalUrl: "https://drive.google.com/file/d/1AsDGmbpXjS-UusxrRy0tSDTxzkvPzQAE/view",
+    thumbnail: "/images/video_plant_processing_1790267879744.jpg"
+  },
+  {
+    id: "epcm-standards",
+    number: "02",
+    category: "EPCM & PROJECT DELIVERY",
+    title: "Our Production & EPCM Operational Standards",
+    headline: "Our Production & EPCM\nOperational Standards",
+    description: "A video tour of completed facilities, demonstrating engineering capabilities and quality control at every stage of project implementation.",
+    externalUrl: "https://drive.google.com/file/d/19f1N64w4Yw285duRFojtFoznL6glUezc/view",
+    thumbnail: "/images/video_epcm_facility_1790267893198.jpg"
+  }
+];
+
 export const KEY_DIRECTIONS: KeyDirection[] = [
   {
     id: "pectin",
+    href: "/technologies/pectin",
     number: "01",
     title: "PECTIN",
     subtitle: "Apple, Citrus, Sugar Beet and other sources",
@@ -62,6 +91,7 @@ export const KEY_DIRECTIONS: KeyDirection[] = [
   },
   {
     id: "soy-protein",
+    href: "/technologies/soy-protein",
     number: "02",
     title: "SOY PROTEIN",
     subtitle: "Soy Protein Isolate, Concentrate, Functional Proteins & Fibers",
@@ -77,6 +107,7 @@ export const KEY_DIRECTIONS: KeyDirection[] = [
   },
   {
     id: "inulin",
+    href: "/technologies/inulin",
     number: "03",
     title: "INULIN",
     subtitle: "Jerusalem Artichoke & Chicory",
@@ -92,6 +123,7 @@ export const KEY_DIRECTIONS: KeyDirection[] = [
   },
   {
     id: "dietary-fibers",
+    href: "/technologies/dietary-fibers",
     number: "04",
     title: "DIETARY FIBERS",
     subtitle: "Apple, Citrus, Beet, Soy and more",
@@ -107,6 +139,7 @@ export const KEY_DIRECTIONS: KeyDirection[] = [
   },
   {
     id: "integrated-solutions",
+    href: "/technologies",
     number: "05",
     title: "INTEGRATED SOLUTIONS",
     subtitle: "Zero Waste, By-product Valorization & More",
@@ -122,6 +155,7 @@ export const KEY_DIRECTIONS: KeyDirection[] = [
   },
   {
     id: "functional-ingredients",
+    href: "/technologies",
     number: "06",
     title: "FUNCTIONAL INGREDIENTS",
     subtitle: "Custom Development & Blends",

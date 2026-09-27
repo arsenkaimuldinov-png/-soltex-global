@@ -16,7 +16,7 @@ export const Footer: React.FC<FooterProps> = ({
     <footer className="relative bg-[#05180D] text-white overflow-hidden border-t border-[#133A20]">
       {/* High-Visibility Lush Botanical Green Leaves Background */}
       <div className="absolute inset-0 z-0 pointer-events-none select-none">
-        <img
+        <img loading="lazy" decoding="async"
           src="/images/footer_lush_botanical_1790272735218.jpg"
           alt={t("Lush green botanical leaves texture")}
           referrerPolicy="no-referrer"
@@ -28,7 +28,7 @@ export const Footer: React.FC<FooterProps> = ({
 
       {/* Main Footer Content */}
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 pb-12 border-b border-white/20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12 border-b border-white/20">
           
           {/* Brand Info Column (3 cols) */}
           <div className="lg:col-span-3 pe-4">
@@ -39,7 +39,7 @@ export const Footer: React.FC<FooterProps> = ({
               aria-label={t("Soltex Global Home")}
             >
               <img
-                src="/images/soltex-global-logo-transparent.png"
+                src="/images/soltex-global-logo-reversed.png"
                 alt={t("Soltex Global")}
                 style={{
                   height: '46px',
@@ -121,8 +121,8 @@ export const Footer: React.FC<FooterProps> = ({
                 {t("CONTACT")}
               </span>
               <div className="space-y-1.5 text-xs text-white/80 leading-relaxed font-medium">
-                <a href="mailto:info@soltexglobal.co" className="block hover:text-white transition-colors">
-                  {t("info@soltexglobal.co")}
+                <a href="mailto:info@soltexglobal.co" className="block break-words hover:text-white transition-colors">
+                  info@<wbr />soltexglobal.co
                 </a>
                 <span className="block text-white/70">
                   {t("Sharjah Media City (Shams), UAE")}

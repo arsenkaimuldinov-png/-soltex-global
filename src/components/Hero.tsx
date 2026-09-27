@@ -54,12 +54,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
 
             {/* Capability Metadata Line with Vertical Pipes */}
             <div className="flex flex-wrap items-center text-[10.5px] sm:text-[11px] font-tech text-[#5A6D62] tracking-widest uppercase mb-8 select-none">
-              <span className="text-[#A4B3A9] me-2.5">|</span>
-              {HERO_DATA.metadataTags.map((tag) => (
-                <React.Fragment key={tag}>
+              {/* Each tag stays on one line together with its separator, so a wrapped line never starts with a pipe */}
+              {HERO_DATA.metadataTags.map((tag, i) => (
+                <span key={tag} className="whitespace-nowrap">
+                  {i === 0 && <span className="text-[#A4B3A9] me-2.5">|</span>}
                   <span className="hover:text-[#0E482C] transition-colors">{t(tag)}</span>
                   <span className="text-[#A4B3A9] mx-2.5">|</span>
-                </React.Fragment>
+                </span>
               ))}
             </div>
 

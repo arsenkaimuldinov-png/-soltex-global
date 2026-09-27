@@ -10,6 +10,23 @@ export interface VideoMaterial {
   tag: string;
 }
 
+/** Real Soltex presentation video shown in the homepage "Video Materials" block. */
+export interface CompanyVideo {
+  id: string;
+  number: string;
+  category: string;
+  /** Full one-line title (used for accessible names). */
+  title: string;
+  /** Display headline; "\n" marks the intended line break. */
+  headline: string;
+  description: string;
+  /** Local MP4 in /public/videos, when the file has been imported. */
+  src?: string;
+  /** External source (Google Drive), used until a local MP4 is available. */
+  externalUrl: string;
+  thumbnail: string;
+}
+
 export interface KeyDirection {
   id: string;
   number: string;
@@ -17,6 +34,8 @@ export interface KeyDirection {
   subtitle?: string;
   description: string;
   image?: string;
+  /** Page the card links to (technology dossier, or the technologies overview). */
+  href: string;
   rawMaterials: string[];
   endProducts: string[];
   technologyFeatures: string[];

@@ -36,6 +36,19 @@
   .font-tech {
     font-family: 'JetBrains Mono', monospace;
   }
+
+  /* Typographic polish (all languages): balanced headings avoid one-word last lines,
+     "pretty" paragraphs avoid orphans. Browsers without support simply ignore these. */
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+  }
+  p, li, blockquote {
+    text-wrap: pretty;
+  }
+  /* A single word longer than the line (e.g. long Arabic compound terms on 320px phones) breaks instead of overflowing */
+  h1, h2, h3, h4 {
+    overflow-wrap: break-word;
+  }
 }
 
 /* Editorial Page & Section Transitions */
@@ -190,6 +203,7 @@ html:lang(ar) h1, html:lang(ar) h2, html:lang(ar) h3 { line-height: 1.3; }
 }
 [dir="rtl"] .lucide-arrow-right,
 [dir="rtl"] .lucide-arrow-left,
+[dir="rtl"] .lucide-arrow-up-right,
 [dir="rtl"] .lucide-chevron-right,
 [dir="rtl"] .lucide-chevron-left {
   transform: scaleX(-1);
@@ -221,3 +235,13 @@ html:lang(es) :is(p, div, li) {
 }
 /* Chinese display headings need more line-height than the Latin-tuned 1.06. */
 html:lang(zh) h1, html:lang(zh) h2 { line-height: 1.25; }
+
+/* Home EPCM step labels: whole words only. Longer RU/TR/ES/AR terms get a little more width
+   instead of being split mid-word (the row itself scrolls horizontally below xl). */
+html:lang(ru) .epcm-step-title,
+html:lang(tr) .epcm-step-title,
+html:lang(es) .epcm-step-title,
+html:lang(ar) .epcm-step-title {
+  max-width: 120px;
+  overflow-wrap: normal;
+}

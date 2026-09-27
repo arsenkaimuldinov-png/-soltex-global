@@ -40,7 +40,7 @@ export const TechnologiesPage: React.FC<TechnologiesPageProps> = ({ onOpenProjec
       {/* Visual Editorial Technology Roster */}
       <section className="py-16 lg:py-24">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div className="flex items-center justify-between mb-12 pb-4 border-b border-[#16211B]/10">
+          <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 mb-12 pb-4 border-b border-[#16211B]/10">
             <div className="text-xs font-mono uppercase tracking-widest text-[#334439]">
               {tr("SHOWING {count} PATENTED PROCESSING PLATFORMS", { count: <span className="font-bold text-[#0E482C]">{TECHNOLOGIES_DATA.length}</span> })}
             </div>
@@ -132,11 +132,11 @@ export const TechnologiesPage: React.FC<TechnologiesPageProps> = ({ onOpenProjec
                             loading="lazy"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
-                          <div className="absolute bottom-4 start-4 end-4 flex items-center justify-between text-white text-xs font-mono">
-                            <span className="text-[#BA9B60] tracking-wider uppercase font-semibold">
+                          <div className="absolute bottom-4 start-4 end-4 flex items-end justify-between gap-3 text-white text-xs font-mono">
+                            <span className="text-[#BA9B60] tracking-wider uppercase font-semibold min-w-0">
                               {t("STAGE VERIFIED TECHNOLOGY")}
                             </span>
-                            <span className="text-white/80 group-hover:text-white flex items-center gap-1">
+                            <span className="text-white/80 group-hover:text-white flex items-center gap-1 whitespace-nowrap shrink-0">
                               {t("View Specs")}{" "}<ArrowRight className="w-3 h-3" />
                             </span>
                           </div>

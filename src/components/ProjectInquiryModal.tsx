@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, CheckCircle2, ArrowRight, ShieldCheck } from 'lucide-react';
 import { useI18n } from '../i18n/I18nProvider';
+import { useDialog } from '../hooks/useDialog';
 
 interface ProjectInquiryModalProps {
   isOpen: boolean;
@@ -14,10 +15,12 @@ export const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({
   preselectedTopic
 }) => {
   const { t, tr } = useI18n();
+  const formId = React.useId();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  useDialog(isOpen, onClose);
 
   if (!isOpen) return null;
 
@@ -40,7 +43,12 @@ export const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+      role="dialog"
+      aria-modal="true"
+      aria-label={t("EPCM PROJECT INTAKE")}
+    >
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-[#07130D]/80 backdrop-blur-xs transition-opacity duration-300"
@@ -115,10 +123,10 @@ export const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({
 
             {/* Field 1: YOUR NAME */}
             <div>
-              <label className="block font-tech text-[11px] uppercase tracking-wider text-[#334439] font-bold mb-1.5">
+              <label htmlFor={`${formId}-0`} className="block font-tech text-[11px] uppercase tracking-wider text-[#334439] font-bold mb-1.5">
                 {t("YOUR NAME")}
               </label>
-              <input
+              <input id={`${formId}-0`}
                 type="text"
                 required
                 value={name}
@@ -130,10 +138,10 @@ export const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({
 
             {/* Field 2: PHONE NUMBER */}
             <div>
-              <label className="block font-tech text-[11px] uppercase tracking-wider text-[#334439] font-bold mb-1.5">
+              <label htmlFor={`${formId}-1`} className="block font-tech text-[11px] uppercase tracking-wider text-[#334439] font-bold mb-1.5">
                 {t("PHONE NUMBER")}
               </label>
-              <input
+              <input id={`${formId}-1`}
                 type="tel"
                 required
                 value={phone}

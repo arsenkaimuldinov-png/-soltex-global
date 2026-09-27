@@ -3,14 +3,19 @@ import { ArrowRight, Leaf, Wheat, Flower2, Sprout, Factory, FlaskConical, X, Che
 import { KEY_DIRECTIONS } from '../data/soltexData';
 import { KeyDirection } from '../types';
 import { useI18n } from '../i18n/I18nProvider';
+import { useDialog } from '../hooks/useDialog';
+import { Link } from '../i18n/Link';
 
 interface KeyDirectionsProps {
+  /** Opens the project inquiry form preset to a technology (used by the SPECS dialog). */
   onSelectTechnology: (techTitle: string) => void;
 }
 
 export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology }) => {
   const { t } = useI18n();
   const [selectedTechModal, setSelectedTechModal] = useState<KeyDirection | null>(null);
+  const closeTechModal = React.useCallback(() => setSelectedTechModal(null), []);
+  useDialog(!!selectedTechModal, closeTechModal);
 
   // Dedicated icons matching the 6 card directions from reference
   const getDirectionIcon = (id: string) => {
@@ -48,12 +53,11 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
           {KEY_DIRECTIONS.map((tech) => (
             <div
               key={tech.id}
-              onClick={() => onSelectTechnology(tech.title)}
-              className="group flex flex-col bg-[#F5F3EC] border border-[#16211B]/10 overflow-hidden hover:border-[#0E482C]/40 hover:shadow-md transition-all duration-300 cursor-pointer"
+              className="group relative flex flex-col bg-[#F5F3EC] border border-[#16211B]/10 overflow-hidden hover:border-[#0E482C]/40 hover:shadow-md transition-all duration-300 cursor-pointer"
             >
               {/* Card Photo (Flush top with 4:3 aspect ratio) */}
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#EAE7DE]">
-                <img
+                <img loading="lazy" decoding="async"
                   src={tech.image}
                   alt={t(tech.title)}
                   referrerPolicy="no-referrer"
@@ -71,7 +75,13 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
 
                   {/* Technology Title */}
                   <h3 className="font-tech text-xs sm:text-[13px] font-extrabold text-[#111814] tracking-wider uppercase mb-1.5 leading-snug group-hover:text-[#0E482C] transition-colors">
-                    {t(tech.title)}
+                    {/* Stretched link: the whole card opens the technology page; SPECS stays a separate button */}
+                    <Link
+                      to={tech.href}
+                      className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-[#0E482C]"
+                    >
+                      {t(tech.title)}
+                    </Link>
                   </h3>
 
                   {/* Subtitle / Sources */}
@@ -82,7 +92,7 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
 
                 {/* Card Action Link */}
                 <div className="pt-2 border-t border-[#16211B]/8 flex items-center justify-between">
-                  <span className="font-tech text-[10px] sm:text-[10.5px] font-bold text-[#111814] uppercase tracking-wider group-hover:text-[#0E482C] flex items-center gap-1.5 transition-colors">
+                  <span className="font-tech text-[10px] sm:text-[10.5px] font-bold text-[#111814] uppercase tracking-wider group-hover:text-[#0E482C] flex items-center gap-1.5 whitespace-nowrap transition-colors">
                     <span>{t("LEARN MORE")}</span>
                     <ArrowRight className="w-3 h-3 text-[#B89758] group-hover:translate-x-0.5 transition-transform" />
                   </span>
@@ -93,7 +103,7 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
                       e.stopPropagation();
                       setSelectedTechModal(tech);
                     }}
-                    className="text-[9.5px] font-tech text-[#5A6D62] hover:text-[#0E482C] uppercase underline underline-offset-2 ms-auto"
+                    className="relative z-10 -my-2 py-2 ps-3 text-[9.5px] font-tech text-[#5A6D62] hover:text-[#0E482C] uppercase underline underline-offset-2 ms-auto"
                     title={t("View Technical Specifications")}
                   >
                     {t("SPECS")}

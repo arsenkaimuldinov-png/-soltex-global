@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { ArrowRight, X, ShieldCheck, FileText, CheckCircle2 } from 'lucide-react';
 import { withLineBreaks } from '../i18n/translate';
 import { useI18n } from '../i18n/I18nProvider';
+import { Link } from '../i18n/Link';
+import { useDialog } from '../hooks/useDialog';
 
 interface IntellectualPropertyProps {
   onOpenProjectModal: (techName?: string) => void;
@@ -80,6 +82,8 @@ const PATENTS_DATA: PatentCard[] = [
 export const IntellectualProperty: React.FC<IntellectualPropertyProps> = ({ onOpenProjectModal }) => {
   const { t } = useI18n();
   const [selectedPatent, setSelectedPatent] = useState<PatentCard | null>(null);
+  const closePatent = React.useCallback(() => setSelectedPatent(null), []);
+  useDialog(!!selectedPatent, closePatent);
 
   return (
     <section id="intellectual-property" className="w-full bg-[#F5F4EE] border-b border-[#16211B]/12 py-10 sm:py-12 lg:py-14">
@@ -95,13 +99,13 @@ export const IntellectualProperty: React.FC<IntellectualPropertyProps> = ({ onOp
               {t("Our technologies are protected by patents and patent applications in multiple jurisdictions.")}
             </p>
             <div>
-              <button
-                onClick={() => onOpenProjectModal(t('Intellectual Property Licensing Inquiry'))}
+              <Link
+                to="/technologies/patents"
                 className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#0E482C] text-white text-[10.5px] font-bold tracking-wider uppercase font-tech hover:bg-[#0A3620] transition-colors rounded-none shadow-xs group cursor-pointer"
               >
                 <span>{t("EXPLORE OUR IP PORTFOLIO")}</span>
                 <ArrowRight className="w-3.5 h-3.5 text-[#D4B982] group-hover:translate-x-0.5 transition-transform" />
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -110,8 +114,17 @@ export const IntellectualProperty: React.FC<IntellectualPropertyProps> = ({ onOp
             {PATENTS_DATA.map((patent) => (
               <div
                 key={patent.id}
+                role="button"
+                tabIndex={0}
+                aria-haspopup="dialog"
                 onClick={() => setSelectedPatent(patent)}
-                className="bg-white border border-[#16211B]/12 p-4 sm:p-4.5 flex flex-col justify-between hover:border-[#0E482C]/50 hover:shadow-xs transition-all duration-200 cursor-pointer group"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setSelectedPatent(patent);
+                  }
+                }}
+                className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0E482C] bg-white border border-[#16211B]/12 p-4 sm:p-4.5 flex flex-col justify-between hover:border-[#0E482C]/50 hover:shadow-xs transition-all duration-200 cursor-pointer group"
               >
                 <div>
                   {/* Status Badge */}
@@ -220,7 +233,7 @@ export const IntellectualProperty: React.FC<IntellectualPropertyProps> = ({ onOp
           onClick={() => setSelectedPatent(null)}
         >
           <div
-            className="relative w-full max-w-xl bg-[#FBFBF8] border border-[#16211B]/20 shadow-2xl p-6 sm:p-8"
+            className="relative w-full max-w-xl bg-[#FBFBF8] border border-[#16211B]/20 shadow-2xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <button

@@ -40,7 +40,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({ onOpenProjectModal }
       {/* Editorial Product Index */}
       <section className="py-16 lg:py-24">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div className="flex items-center justify-between mb-12 pb-4 border-b border-[#16211B]/10">
+          <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 mb-12 pb-4 border-b border-[#16211B]/10">
             <div className="text-xs font-mono uppercase tracking-widest text-[#334439]">
               {tr("SHOWING {count} STANDARDIZED INGREDIENT LINES", { count: <span className="font-bold text-[#0E482C]">{PRODUCTS_DATA.length}</span> })}
             </div>

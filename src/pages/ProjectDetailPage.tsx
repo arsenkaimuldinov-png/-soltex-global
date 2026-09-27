@@ -73,6 +73,7 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
             src={project.image}
             alt={t(project.title)}
             className="w-full h-full object-cover opacity-90"
+            style={project.imagePosition ? { objectPosition: project.imagePosition } : undefined}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
           <div className="absolute bottom-6 start-6 end-6 max-w-[1400px] mx-auto flex flex-wrap items-end justify-between gap-4 text-white">
@@ -102,7 +103,7 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
             
             <div className="lg:col-span-8 space-y-10">
-              <ScrollReveal>
+              <ScrollReveal className="space-y-10">
                 <div>
                   <div className="text-[11px] font-mono uppercase tracking-widest text-[#0E482C] mb-3 font-semibold">
                     {t("01 · INDUSTRIAL IMPLEMENTATION CONTEXT")}
@@ -204,7 +205,7 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
 
             {/* Sidebar: Technical Details Data Sheet */}
             <div className="lg:col-span-4 space-y-8">
-              <ScrollReveal delayMs={100}>
+              <ScrollReveal className="space-y-8" delayMs={100}>
                 <div className="bg-white border border-[#16211B]/15 p-6 lg:p-8 sticky top-28 space-y-6">
                   <div className="flex items-center gap-2 pb-4 border-b border-[#16211B]/10 text-xs font-mono uppercase tracking-wider text-[#0E482C] font-semibold">
                     <Cpu className="w-4 h-4 text-[#BA9B60]" />
@@ -285,7 +286,7 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
               {project.gallery.map((img, idx) => (
                 <ScrollReveal key={idx} delayMs={idx * 100}>
                   <div className="relative aspect-[16/10] overflow-hidden border border-[#16211B]/15 bg-[#07130E] image-zoom-container">
-                    <img src={img} alt={t("{title} archive {n}", { title: t(project.title), n: idx + 1 })} className="w-full h-full object-cover" />
+                    <img loading="lazy" decoding="async" src={img} alt={t("{title} archive {n}", { title: t(project.title), n: idx + 1 })} className="w-full h-full object-cover" />
                   </div>
                 </ScrollReveal>
               ))}

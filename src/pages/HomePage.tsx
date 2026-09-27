@@ -29,14 +29,11 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 03. TECHNOLOGIES FOR HIGH-VALUE INGREDIENTS (6-Card Visual Grid) */}
       <KeyDirections onSelectTechnology={(tech) => onOpenProjectModal(tech)} />
 
-      {/* 04. FROM CONCEPT TO COMMERCIAL PRODUCTION (7-Stage Workflow Process) */}
+      {/* 04. FROM CONCEPT TO COMMERCIAL PRODUCTION (approved 8-stage EPCM sequence from EPCM_STAGES) */}
       <EpcmStages onOpenProjectModal={(stage) => onOpenProjectModal(stage)} />
 
-      {/* 05. FEATURED PROJECTS (Visual 3-Card Grid: Uzbekistan Pectin, Israel Soy, View All Projects) */}
-      <VideoBlock
-        onOpenVideoModal={onOpenVideo}
-        onOpenProjectModal={(proj) => onOpenProjectModal(proj)}
-      />
+      {/* 05. VIDEO MATERIALS (two Soltex presentation videos + All Projects card) */}
+      <VideoBlock />
 
       {/* 06. TECHNOLOGY & INTELLECTUAL PROPERTY (4 Patent Cards) */}
       <IntellectualProperty

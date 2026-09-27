@@ -111,7 +111,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenProjectModal }) => {
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             <div className="lg:col-span-5 space-y-6">
-              <ScrollReveal>
+              <ScrollReveal className="space-y-6">
                 <div className="text-[11px] font-mono uppercase tracking-widest text-[#0E482C] font-semibold">
                   {t("02 · CORE CAPABILITIES")}
                 </div>

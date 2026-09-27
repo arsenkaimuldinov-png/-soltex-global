@@ -197,7 +197,7 @@ export const ProductDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
 
             {/* Right Column: Specification Matrix Sidebar */}
             <div className="lg:col-span-4 space-y-8">
-              <ScrollReveal delayMs={100}>
+              <ScrollReveal className="space-y-8" delayMs={100}>
                 <div className="bg-white border border-[#16211B]/15 p-6 lg:p-8 sticky top-28 space-y-6">
                   <div>
                     <div className="flex items-center gap-2 pb-3 border-b border-[#16211B]/10 text-xs font-mono uppercase tracking-wider text-[#0E482C]">

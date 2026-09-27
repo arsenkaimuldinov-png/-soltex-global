@@ -7,6 +7,7 @@ import { useI18n } from '../i18n/I18nProvider';
 
 export const ContactPage: React.FC = () => {
   const { t, tr } = useI18n();
+  const formId = React.useId();
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -105,10 +106,10 @@ export const ContactPage: React.FC = () => {
                   {/* Name + Phone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-xs font-mono uppercase tracking-wider text-[#334439] font-bold mb-2">
+                      <label htmlFor={`${formId}-0`} className="block text-xs font-mono uppercase tracking-wider text-[#334439] font-bold mb-2">
                         {t("NAME")} <span className="text-[#BA9B60]">*</span>
                       </label>
-                      <input
+                      <input id={`${formId}-0`}
                         type="text"
                         required
                         placeholder={t("Dr. Alexander Vance")}
@@ -119,10 +120,10 @@ export const ContactPage: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-mono uppercase tracking-wider text-[#334439] font-bold mb-2">
+                      <label htmlFor={`${formId}-1`} className="block text-xs font-mono uppercase tracking-wider text-[#334439] font-bold mb-2">
                         {t("PHONE")} <span className="text-[#BA9B60]">*</span>
                       </label>
-                      <input
+                      <input id={`${formId}-1`}
                         type="tel"
                         required
                         placeholder="+971 50 000 0000"
@@ -136,10 +137,10 @@ export const ContactPage: React.FC = () => {
                   {/* Email + Company */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-xs font-mono uppercase tracking-wider text-[#334439] font-bold mb-2">
+                      <label htmlFor={`${formId}-2`} className="block text-xs font-mono uppercase tracking-wider text-[#334439] font-bold mb-2">
                         {t("EMAIL")} <span className="text-[#BA9B60]">*</span>
                       </label>
-                      <input
+                      <input id={`${formId}-2`}
                         type="email"
                         required
                         placeholder={t("project.desk@company.com")}
@@ -150,10 +151,10 @@ export const ContactPage: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-mono uppercase tracking-wider text-[#334439] font-bold mb-2">
+                      <label htmlFor={`${formId}-3`} className="block text-xs font-mono uppercase tracking-wider text-[#334439] font-bold mb-2">
                         {t("COMPANY")} <span className="text-[#BA9B60]">*</span>
                       </label>
-                      <input
+                      <input id={`${formId}-3`}
                         type="text"
                         required
                         placeholder={t("AgriTech Agro Holding")}
@@ -166,10 +167,10 @@ export const ContactPage: React.FC = () => {
 
                   {/* Short Project Description */}
                   <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-[#334439] font-bold mb-2">
+                    <label htmlFor={`${formId}-4`} className="block text-xs font-mono uppercase tracking-wider text-[#334439] font-bold mb-2">
                       {t("SHORT PROJECT DESCRIPTION")}
                     </label>
-                    <textarea
+                    <textarea id={`${formId}-4`}
                       rows={4}
                       placeholder={t("Outline target raw material (e.g. apple pomace, soy, inulin), planned scale, or modernization goals...")}
                       value={formData.description}
@@ -200,7 +201,7 @@ export const ContactPage: React.FC = () => {
 
             {/* Right Column: Global Office Directory & Direct Channels */}
             <div className="lg:col-span-5 space-y-8">
-              <ScrollReveal delayMs={100}>
+              <ScrollReveal className="space-y-8" delayMs={100}>
                 {/* Central Engineering Bureau Card */}
                 <div className="bg-[#07130E] text-white p-8 border border-[#16211B]/40 relative overflow-hidden">
                   <div className="text-[10px] font-mono uppercase tracking-widest text-[#BA9B60] mb-3 font-semibold">

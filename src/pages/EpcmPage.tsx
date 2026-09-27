@@ -4,51 +4,19 @@ import { CheckCircle2, ArrowRight, ShieldCheck, Factory, Cpu, Layers, HardHat, F
 import { PageHeader } from '../components/PageHeader';
 import { CtaSection } from '../components/CtaSection';
 import { ScrollReveal } from '../components/ScrollReveal';
-import { EPCM_SERVICES_DETAILED } from '../data/pagesData';
+import { EPCM_STAGES } from '../data/soltexData';
 import { useI18n } from '../i18n/I18nProvider';
 
-// Visual image mapping for each major EPCM stage
-const EPCM_STAGE_IMAGES: Record<string, { src: string; caption: string }> = {
-  '01': {
-    src: '/images/tech_lab_flasks_1790271257443.jpg',
-    caption: 'Feedstock Laboratory Profiling & Extraction Assay'
-  },
-  '02': {
-    src: '/images/tech_citrus_oranges_1790271213504.jpg',
-    caption: 'Raw Biomass Mass Balance & Financial Modeling'
-  },
-  '03': {
-    src: '/images/tech_integrated_plant_1790271239031.jpg',
-    caption: '3D BIM Digital Twin & Process Instrumentation Diagram'
-  },
-  '04': {
-    src: '/images/video_epcm_facility_1790267893198.jpg',
-    caption: 'Proprietary Stainless Reactor Fabrication & FAT Inspection'
-  },
-  '05': {
-    src: '/images/video_plant_processing_1790267879744.jpg',
-    caption: 'Hygienic Cleanroom Piping Installation & Orbital Welds'
-  },
-  '06': {
-    src: '/images/hero_plant_pristine_1790269454820.jpg',
-    caption: 'Hydrostatic Calibration & Automated SCADA Tuning'
-  },
-  '07': {
-    src: '/images/flagship_siberian_wellness_1790267904663.jpg',
-    caption: 'Live Feedstock Commercial Ramp-up & Operator Training'
-  },
-  '08': {
-    src: '/images/hero_industrial_plant_1790267866540.jpg',
-    caption: 'Continuous 72-Hour Run at 100% Target Capacity'
-  },
-  '09': {
-    src: '/images/project_pectin_uzbekistan_1790271708882.jpg',
-    caption: 'International Certification: ISO 22000 & HACCP Audit'
-  },
-  '10': {
-    src: '/images/project_soy_israel_1790271724797.jpg',
-    caption: 'Long-Term Technological Upgrades & Diagnostic Support'
-  }
+// Illustration per approved EPCM stage (keyed by stage number). Stage content comes from EPCM_STAGES.
+const EPCM_STAGE_IMAGES: Record<string, string> = {
+  '01': '/images/tech_lab_flasks_1790271257443.jpg',
+  '02': '/images/tech_citrus_oranges_1790271213504.jpg',
+  '03': '/images/tech_integrated_plant_1790271239031.jpg',
+  '04': '/images/video_epcm_facility_1790267893198.jpg',
+  '05': '/images/video_plant_processing_1790267879744.jpg',
+  '06': '/images/hero_plant_pristine_1790269454820.jpg',
+  '07': '/images/flagship_siberian_wellness_1790267904663.jpg',
+  '08': '/images/hero_industrial_plant_1790267866540.jpg'
 };
 
 interface EpcmPageProps {
@@ -86,7 +54,7 @@ export const EpcmPage: React.FC<EpcmPageProps> = ({ onOpenProjectModal }) => {
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7 space-y-6">
-              <ScrollReveal>
+              <ScrollReveal className="space-y-6">
                 <div className="text-[11px] font-mono uppercase tracking-widest text-[#0E482C] font-semibold">
                   {t("01 · THE EPCM PHILOSOPHY")}
                 </div>
@@ -150,14 +118,14 @@ export const EpcmPage: React.FC<EpcmPageProps> = ({ onOpenProjectModal }) => {
                 {t("Systematic Industrial Execution Architecture")}
               </h2>
               <p className="text-sm sm:text-base text-[#334439] mt-2 font-light">
-                {t("Ten structured stages that guarantee bankable feasibility, compliant engineering, and sustained commercial yield.")}
+                {t("Eight structured stages that guarantee bankable feasibility, compliant engineering, and sustained commercial yield.")}
               </p>
             </div>
           </ScrollReveal>
 
           {/* Sequentially revealed stages with integrated imagery */}
           <div className="space-y-16">
-            {EPCM_SERVICES_DETAILED.map((stage) => {
+            {EPCM_STAGES.map((stage) => {
               const stageImg = EPCM_STAGE_IMAGES[stage.number];
 
               return (
@@ -173,12 +141,12 @@ export const EpcmPage: React.FC<EpcmPageProps> = ({ onOpenProjectModal }) => {
                           </span>
                           <span className="w-2 h-2 rounded-full bg-[#BA9B60]" />
                           <span className="text-[11px] font-mono text-[#BA9B60] uppercase tracking-wider font-semibold">
-                            {t(stage.subtitle)}
+                            {t(stage.focus)}
                           </span>
                         </div>
 
                         <h3 className="font-serif text-2xl text-[#121815] font-bold">
-                          {t(stage.stageName)}
+                          {t(stage.title)}
                         </h3>
 
                         <p className="text-sm text-[#334439] leading-relaxed font-light">
@@ -187,10 +155,10 @@ export const EpcmPage: React.FC<EpcmPageProps> = ({ onOpenProjectModal }) => {
 
                         <div className="pt-3">
                           <div className="text-[10px] font-mono uppercase tracking-wider text-[#334439]/60 mb-2">
-                            {t("Key Actions:")}
+                            {t("KEY DELIVERABLES & SCOPE")}
                           </div>
                           <div className="space-y-1.5">
-                            {stage.activities.map((act, aIdx) => (
+                            {stage.deliverables.map((act, aIdx) => (
                               <div key={aIdx} className="flex items-start gap-2 text-xs text-[#223328]">
                                 <CheckCircle2 className="w-3.5 h-3.5 text-[#0E482C] shrink-0 mt-0.5" />
                                 <span className="font-light">{t(act)}</span>
@@ -201,7 +169,7 @@ export const EpcmPage: React.FC<EpcmPageProps> = ({ onOpenProjectModal }) => {
 
                         <div className="pt-4">
                           <button
-                            onClick={() => onOpenProjectModal?.(t("Inquiry for EPCM Stage {number}: {name}", { number: stage.number, name: t(stage.stageName) }))}
+                            onClick={() => onOpenProjectModal?.(t("Inquiry for EPCM Stage {number}: {name}", { number: stage.number, name: t(stage.title) }))}
                             className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0E482C] text-white font-mono text-xs uppercase tracking-wider hover:bg-[#07130E] transition-colors cursor-pointer"
                           >
                             <span>{t("Inquire on this Stage")}</span>
@@ -215,15 +183,14 @@ export const EpcmPage: React.FC<EpcmPageProps> = ({ onOpenProjectModal }) => {
                         <div className="lg:col-span-7">
                           <div className="relative aspect-[16/10] overflow-hidden bg-[#07130E] border border-[#16211B]/15 image-zoom-container">
                             <img
-                              src={stageImg.src}
-                              alt={t(stageImg.caption)}
+                              src={stageImg}
+                              alt={t(stage.title)}
                               className="w-full h-full object-cover opacity-90 hover:opacity-100"
                               loading="lazy"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-                            <div className="absolute bottom-3 start-3 end-3 flex items-center justify-between text-xs font-mono text-white">
-                              <span className="text-white/90">{t(stageImg.caption)}</span>
-                              <span className="text-[#BA9B60] text-[10px] tracking-wider uppercase font-semibold">
+                            <div className="absolute bottom-3 start-3 end-3 flex items-end justify-end gap-3 text-xs font-mono text-white">
+                              <span className="text-[#BA9B60] text-[10px] tracking-wider uppercase font-semibold whitespace-nowrap shrink-0">
                                 {tr("EPCM PHASE {number}", { number: stage.number })}
                               </span>
                             </div>

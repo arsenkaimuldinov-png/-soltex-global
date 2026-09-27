@@ -116,7 +116,15 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
                 {metaTags.map((tag, idx) => (
                   <div key={idx} className="bg-[#F3F3EC] p-2.5 border border-[#16211B]/10">
                     <div className="text-[10px] font-mono uppercase tracking-wider text-[#334439]/70">{t(tag.label)}</div>
-                    <div className="text-xs font-bold text-[#121815] font-mono mt-0.5">{t(tag.value)}</div>
+                    <div className="text-xs font-bold text-[#121815] font-mono mt-0.5 break-words">
+                      {/* e-mail values may wrap after "@" instead of overflowing narrow cells */}
+                      {t(tag.value).split('@').map((part, i) => (
+                        <React.Fragment key={i}>
+                          {i > 0 && <>@<wbr /></>}
+                          {part}
+                        </React.Fragment>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </div>
