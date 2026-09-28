@@ -46,8 +46,7 @@ export const VIDEO_MATERIALS: VideoMaterial[] = [
 
 /**
  * Homepage "Video Materials" block — the two real Soltex presentation videos.
- * The source files live on Google Drive; they are opened externally until MP4 copies are
- * added to /public/videos (then set `src` and the block plays them in the local player).
+ * The MP4 files live in /public/videos.
  */
 export const COMPANY_VIDEOS: CompanyVideo[] = [
   {
@@ -57,7 +56,7 @@ export const COMPANY_VIDEOS: CompanyVideo[] = [
     title: "Deep Raw Material Processing — Technologies of the Future",
     headline: "Deep Raw Material Processing\nTechnologies of the Future",
     description: "Overview of Soltex production solutions, engineering design stages and implementation of high-technology equipment for agro-industrial facilities.",
-    externalUrl: "https://drive.google.com/file/d/1AsDGmbpXjS-UusxrRy0tSDTxzkvPzQAE/view",
+    src: "/videos/soltex-technologies.mp4",
     thumbnail: "/images/video_plant_processing_1790267879744.jpg"
   },
   {
@@ -67,7 +66,7 @@ export const COMPANY_VIDEOS: CompanyVideo[] = [
     title: "Our Production & EPCM Operational Standards",
     headline: "Our Production & EPCM\nOperational Standards",
     description: "A video tour of completed facilities, demonstrating engineering capabilities and quality control at every stage of project implementation.",
-    externalUrl: "https://drive.google.com/file/d/19f1N64w4Yw285duRFojtFoznL6glUezc/view",
+    src: "/videos/soltex-epcm.mp4",
     thumbnail: "/images/video_epcm_facility_1790267893198.jpg"
   }
 ];

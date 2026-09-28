@@ -20,10 +20,8 @@ export interface CompanyVideo {
   /** Display headline; "\n" marks the intended line break. */
   headline: string;
   description: string;
-  /** Local MP4 in /public/videos, when the file has been imported. */
-  src?: string;
-  /** External source (Google Drive), used until a local MP4 is available. */
-  externalUrl: string;
+  /** MP4 served from /public/videos (lower-case folder — URLs are case-sensitive on the host). */
+  src: string;
   thumbnail: string;
 }
 

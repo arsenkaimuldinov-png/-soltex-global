@@ -84,7 +84,9 @@
 }
 
 .page-transition-enter {
-  animation: pageEnter 420ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  /* No "forwards" fill: once the entrance finishes the wrapper keeps no transform, so
+     position:fixed dialogs inside pages stay anchored to the viewport. */
+  animation: pageEnter 420ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .editorial-reveal {
