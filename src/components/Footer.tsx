@@ -28,10 +28,10 @@ export const Footer: React.FC<FooterProps> = ({
 
       {/* Main Footer Content */}
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12 border-b border-white/20">
+        <div data-reveal-group className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12">
           
           {/* Brand Info Column (3 cols) */}
-          <div className="lg:col-span-3 pe-4">
+          <div data-reveal="up" className="lg:col-span-3 pe-4">
             <Link
               to="/"
               className="inline-block mb-5 focus-visible:outline-none"
@@ -60,63 +60,63 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="lg:col-span-9 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-6">
             
             {/* 01. TECHNOLOGIES */}
-            <div>
+            <div data-reveal="up">
               <span className="font-tech text-xs tracking-wider uppercase text-white font-extrabold block mb-3.5">
                 {t("TECHNOLOGIES")}
               </span>
               <ul className="space-y-2 text-xs text-white/80 font-medium">
-                <li><Link to="/technologies/pectin" className="hover:text-white hover:underline transition-colors">{t("Pectin")}</Link></li>
-                <li><Link to="/technologies/soy-protein" className="hover:text-white hover:underline transition-colors">{t("Soy Protein")}</Link></li>
-                <li><Link to="/technologies/inulin" className="hover:text-white hover:underline transition-colors">{t("Inulin")}</Link></li>
-                <li><Link to="/technologies/dietary-fibers" className="hover:text-white hover:underline transition-colors">{t("Dietary Fibers")}</Link></li>
-                <li><Link to="/technologies" className="hover:text-[#D4B982] hover:underline transition-colors">{t("All Technologies →")}</Link></li>
+                <li><Link to="/technologies/pectin" className="hover:text-white transition-colors s-link">{t("Pectin")}</Link></li>
+                <li><Link to="/technologies/soy-protein" className="hover:text-white transition-colors s-link">{t("Soy Protein")}</Link></li>
+                <li><Link to="/technologies/inulin" className="hover:text-white transition-colors s-link">{t("Inulin")}</Link></li>
+                <li><Link to="/technologies/dietary-fibers" className="hover:text-white transition-colors s-link">{t("Dietary Fibers")}</Link></li>
+                <li><Link to="/technologies" className="hover:text-[#D4B982] transition-colors s-link">{t("All Technologies →")}</Link></li>
               </ul>
             </div>
 
             {/* 02. EPCM */}
-            <div>
+            <div data-reveal="up">
               <span className="font-tech text-xs tracking-wider uppercase text-white font-extrabold block mb-3.5">
                 {t("EPCM")}
               </span>
               <ul className="space-y-2 text-xs text-white/80 font-medium">
-                <li><Link to="/epcm" className="hover:text-white hover:underline transition-colors">{t("Feasibility Study")}</Link></li>
-                <li><Link to="/epcm" className="hover:text-white hover:underline transition-colors">{t("Engineering")}</Link></li>
-                <li><Link to="/epcm" className="hover:text-white hover:underline transition-colors">{t("Procurement")}</Link></li>
-                <li><Link to="/epcm" className="hover:text-white hover:underline transition-colors">{t("Construction Management")}</Link></li>
-                <li><Link to="/epcm" className="hover:text-white hover:underline transition-colors">{t("Turnkey Process")}</Link></li>
-                <li><Link to="/epcm" className="hover:text-[#D4B982] hover:underline transition-colors">{t("All EPCM Services →")}</Link></li>
+                <li><Link to="/epcm" className="hover:text-white transition-colors s-link">{t("Feasibility Study")}</Link></li>
+                <li><Link to="/epcm" className="hover:text-white transition-colors s-link">{t("Engineering")}</Link></li>
+                <li><Link to="/epcm" className="hover:text-white transition-colors s-link">{t("Procurement")}</Link></li>
+                <li><Link to="/epcm" className="hover:text-white transition-colors s-link">{t("Construction Management")}</Link></li>
+                <li><Link to="/epcm" className="hover:text-white transition-colors s-link">{t("Turnkey Process")}</Link></li>
+                <li><Link to="/epcm" className="hover:text-[#D4B982] transition-colors s-link">{t("All EPCM Services →")}</Link></li>
               </ul>
             </div>
 
             {/* 03. PRODUCTS */}
-            <div>
+            <div data-reveal="up">
               <span className="font-tech text-xs tracking-wider uppercase text-white font-extrabold block mb-3.5">
                 {t("PRODUCTS")}
               </span>
               <ul className="space-y-2 text-xs text-white/80 font-medium">
-                <li><Link to="/products/pectin" className="hover:text-white hover:underline transition-colors">{t("Food & Pharma Pectin")}</Link></li>
-                <li><Link to="/products/soy-protein-isolate" className="hover:text-white hover:underline transition-colors">{t("Soy Protein Isolate")}</Link></li>
-                <li><Link to="/products/inulin-fos" className="hover:text-white hover:underline transition-colors">{t("Inulin & FOS")}</Link></li>
-                <li><Link to="/products/dietary-fibers" className="hover:text-white hover:underline transition-colors">{t("Dietary Fibers")}</Link></li>
-                <li><Link to="/products" className="hover:text-[#D4B982] hover:underline transition-colors">{t("All Products →")}</Link></li>
+                <li><Link to="/products/pectin" className="hover:text-white transition-colors s-link">{t("Food & Pharma Pectin")}</Link></li>
+                <li><Link to="/products/soy-protein-isolate" className="hover:text-white transition-colors s-link">{t("Soy Protein Isolate")}</Link></li>
+                <li><Link to="/products/inulin-fos" className="hover:text-white transition-colors s-link">{t("Inulin & FOS")}</Link></li>
+                <li><Link to="/products/dietary-fibers" className="hover:text-white transition-colors s-link">{t("Dietary Fibers")}</Link></li>
+                <li><Link to="/products" className="hover:text-[#D4B982] transition-colors s-link">{t("All Products →")}</Link></li>
               </ul>
             </div>
 
             {/* 04. COMPANY */}
-            <div>
+            <div data-reveal="up">
               <span className="font-tech text-xs tracking-wider uppercase text-white font-extrabold block mb-3.5">
                 {t("COMPANY")}
               </span>
               <ul className="space-y-2 text-xs text-white/80 font-medium">
-                <li><Link to="/company" className="hover:text-white hover:underline transition-colors">{t("About Soltex")}</Link></li>
-                <li><Link to="/company/global-presence" className="hover:text-white hover:underline transition-colors">{t("Global Presence")}</Link></li>
-                <li><Link to="/projects" className="hover:text-white hover:underline transition-colors">{t("Project Portfolio")}</Link></li>
-                <li><Link to="/contact" className="hover:text-[#D4B982] hover:underline transition-colors">{t("Offices & Desks →")}</Link></li>
+                <li><Link to="/company" className="hover:text-white transition-colors s-link">{t("About Soltex")}</Link></li>
+                <li><Link to="/company/global-presence" className="hover:text-white transition-colors s-link">{t("Global Presence")}</Link></li>
+                <li><Link to="/projects" className="hover:text-white transition-colors s-link">{t("Project Portfolio")}</Link></li>
+                <li><Link to="/contact" className="hover:text-[#D4B982] transition-colors s-link">{t("Offices & Desks →")}</Link></li>
               </ul>
             </div>
 
             {/* 05. CONTACT */}
-            <div>
+            <div data-reveal="up">
               <span className="font-tech text-xs tracking-wider uppercase text-white font-extrabold block mb-3.5">
                 {t("CONTACT")}
               </span>
@@ -139,6 +139,9 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
 
         </div>
+
+        {/* Divider draws across once the footer comes into view */}
+        <div data-reveal="line" className="h-px bg-white/20" aria-hidden="true" />
 
         {/* Bottom Sub-bar */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-white/70 font-tech">

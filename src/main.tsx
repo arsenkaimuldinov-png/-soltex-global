@@ -6,6 +6,10 @@ import { DEFAULT_LOCALE, isLocale } from './i18n/config';
 import { loadDictionary } from './i18n/dictionaries';
 import { localeFromLocation } from './i18n/paths';
 import { readStoredLocale } from './i18n/I18nProvider';
+import { applyMotionClasses } from './motion/prefs';
+
+// Motion system flags on <html> before the first paint (see src/styles/motion.css).
+applyMotionClasses();
 
 // Returning visitors who explicitly chose a language land on it when they open the site root.
 // Only the bare root is redirected — every other URL (including all English URLs) is served as-is.

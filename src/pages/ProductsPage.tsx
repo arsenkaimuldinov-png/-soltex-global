@@ -50,10 +50,10 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({ onOpenProjectModal }
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {PRODUCTS_DATA.map((prod: ProductItem) => (
-              <ScrollReveal key={prod.slug}>
+            {PRODUCTS_DATA.map((prod: ProductItem, i) => (
+              <ScrollReveal key={prod.slug} index={i % 3}>
                 <article
-                  className="group bg-white border border-[#16211B]/15 hover:border-[#0E482C] transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-xs hover:shadow-md h-full"
+                  className="s-card group bg-white border border-[#16211B]/15 hover:border-[#0E482C] transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-xs hover:shadow-md h-full"
                 >
                   {/* Large Product / Industrial Image Section */}
                   <div className="relative aspect-[16/10] overflow-hidden bg-[#07130E] image-zoom-container">
@@ -63,7 +63,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({ onOpenProjectModal }
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    <div className="s-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
                     {/* Category Tag */}
                     <div className="absolute top-3 start-3 bg-[#07130E]/85 backdrop-blur-xs border border-white/20 px-2.5 py-1 text-[10px] font-mono tracking-wider text-[#BA9B60] uppercase font-semibold">
@@ -96,7 +96,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({ onOpenProjectModal }
                         </div>
                         <div className="flex flex-wrap gap-1.5">
                           {prod.applications.slice(0, 3).map((app, idx) => (
-                            <span key={idx} className="bg-[#F3F3EC] px-2.5 py-1 text-[11px] font-mono text-[#223328] border border-[#16211B]/10">
+                            <span key={idx} className="bg-beige-soft px-2.5 py-1 text-[11px] font-mono text-[#223328] border border-taupe/50">
                               {t(app)}
                             </span>
                           ))}

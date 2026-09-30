@@ -50,10 +50,10 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onOpenProjectModal }
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-            {PROJECTS_DATA.map((project: ProjectItem) => (
-              <ScrollReveal key={project.slug}>
+            {PROJECTS_DATA.map((project: ProjectItem, i) => (
+              <ScrollReveal key={project.slug} index={i % 3}>
                 <article
-                  className="group bg-white border border-[#16211B]/15 hover:border-[#0E482C] transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-xs hover:shadow-lg h-full"
+                  className="s-card group bg-white border border-[#16211B]/15 hover:border-[#0E482C] transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-xs hover:shadow-lg h-full"
                 >
                   {/* Large Project Image Section with Subtle Scale */}
                   <div className="relative aspect-[16/10] overflow-hidden bg-[#07130E] image-zoom-container">
@@ -63,7 +63,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onOpenProjectModal }
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                    <div className="s-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
                     
                     {/* Category badge */}
                     <div className="absolute top-3 start-3 bg-[#07130E]/85 backdrop-blur-xs border border-white/20 px-2.5 py-1 text-[10px] font-mono tracking-wider text-[#BA9B60] uppercase font-semibold">
@@ -125,7 +125,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onOpenProjectModal }
                         <ArrowRight className="w-3.5 h-3.5 text-[#BA9B60] group-hover:translate-x-1 transition-transform" />
                       </Link>
 
-                      <span className="text-[10px] font-mono text-[#334439]/50 uppercase">
+                      <span className="s-meta text-[10px] font-mono text-[#334439]/50 uppercase">
                         {t("Turnkey EPC")}
                       </span>
                     </div>
@@ -138,7 +138,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onOpenProjectModal }
       </section>
 
       {/* Global Project Capability Summary Banner */}
-      <section className="bg-[#F3F3EC] border-y border-[#16211B]/10 py-16">
+      <section className="bg-beige-soft border-y border-taupe/50 py-16">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <ScrollReveal delayMs={50}>

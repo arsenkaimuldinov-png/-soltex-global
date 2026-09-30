@@ -26,7 +26,7 @@ export const ProductDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
           </p>
           <Link
             to="/products"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-colors s-btn"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>{t("Return to Products Index")}</span>
@@ -131,7 +131,7 @@ export const ProductDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
                   <div className="space-y-3">
                     {product.applications.map((app, idx) => (
                       <div key={idx} className="bg-white border border-[#16211B]/10 p-4 flex items-center gap-3">
-                        <span className="text-xs font-mono font-bold text-[#0E482C] bg-[#F3F3EC] px-2.5 py-1 border border-[#16211B]/10">
+                        <span className="text-xs font-mono font-bold text-[#0E482C] bg-beige-soft px-2.5 py-1 border border-taupe/50">
                           {tr("USE 0{n}", { n: idx + 1 })}
                         </span>
                         <span className="text-sm text-[#121815] font-medium">{t(app)}</span>
@@ -228,7 +228,7 @@ export const ProductDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
                   <div className="pt-4 border-t border-[#16211B]/10 space-y-3">
                     <button
                       onClick={() => onOpenProjectModal?.(t("Sample & Spec Request for {title}", { title: t(product.title) }))}
-                      className="w-full py-3.5 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                      className="w-full py-3.5 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-colors flex items-center justify-center gap-2 cursor-pointer s-btn"
                     >
                       <span>{t("Request Laboratory Sample")}</span>
                       <ArrowRight className="w-3.5 h-3.5 text-[#BA9B60]" />

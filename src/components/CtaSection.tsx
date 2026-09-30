@@ -51,11 +51,11 @@ export const CtaSection: React.FC<CtaSectionProps> = ({
       <div className="absolute top-0 end-0 w-[500px] h-[500px] bg-[#0E482C]/20 rounded-full blur-3xl pointer-events-none -me-40 -mt-40" />
 
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div data-reveal-group className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           {/* Left Column: Heading & Description */}
           <div className="lg:col-span-7">
-            <div className="inline-flex items-center gap-2 border border-[#BA9B60]/30 bg-[#BA9B60]/10 px-3.5 py-1 text-[11px] font-mono tracking-widest text-[#BA9B60] mb-6">
+            <div data-reveal="up" className="inline-flex items-center gap-2 border border-[#BA9B60]/30 bg-[#BA9B60]/10 px-3.5 py-1 text-[11px] font-mono tracking-widest text-[#BA9B60] mb-6">
               <ShieldCheck className="w-3.5 h-3.5" />
               <span className="uppercase">{t(badge)}</span>
             </div>
@@ -64,11 +64,11 @@ export const CtaSection: React.FC<CtaSectionProps> = ({
               {t(title)}
             </h2>
 
-            <p className="text-base sm:text-lg text-[#FBFBF8]/80 leading-relaxed max-w-xl font-light mb-8">
+            <p data-reveal="up" className="text-base sm:text-lg text-[#FBFBF8]/80 leading-relaxed max-w-xl font-light mb-8">
               {t(description)}
             </p>
 
-            <div className="flex flex-wrap items-center gap-6 pt-2 border-t border-white/10 text-xs font-mono text-[#FBFBF8]/70">
+            <div data-reveal="up" className="flex flex-wrap items-center gap-6 pt-2 border-t border-white/10 text-xs font-mono text-[#FBFBF8]/70">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#BA9B60]" />
                 <span>{t("Confidential Engineering Non-Disclosure")}</span>
@@ -81,7 +81,7 @@ export const CtaSection: React.FC<CtaSectionProps> = ({
           </div>
 
           {/* Right Column: Simplified Quick Lead Form (Name + Phone Only) */}
-          <div className="lg:col-span-5 bg-[#0A1A14] border border-[#16211B]/50 p-7 lg:p-8 relative shadow-xl">
+          <div data-reveal="up" style={{ '--rv-i': 3 } as React.CSSProperties} className="lg:col-span-5 bg-[#0A1A14] border border-[#16211B]/50 p-7 lg:p-8 relative shadow-xl">
             <div className="text-[10px] font-mono uppercase tracking-widest text-[#BA9B60] mb-2 font-semibold">
               {t("QUICK PROJECT INQUIRY")}
             </div>
@@ -105,7 +105,7 @@ export const CtaSection: React.FC<CtaSectionProps> = ({
                     setName('');
                     setPhone('');
                   }}
-                  className="mt-3 px-4 py-2 bg-[#0E482C] text-white text-[11px] font-mono uppercase tracking-wider hover:bg-[#07130E] transition-colors cursor-pointer"
+                  className="mt-3 px-4 py-2 bg-[#0E482C] text-white text-[11px] font-mono uppercase tracking-wider hover:bg-[#07130E] transition-colors cursor-pointer s-btn"
                 >
                   {t("Send Another Inquiry")}
                 </button>
@@ -143,7 +143,7 @@ export const CtaSection: React.FC<CtaSectionProps> = ({
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full py-4 bg-[#BA9B60] text-[#07130E] font-tech text-xs font-bold tracking-widest uppercase hover:bg-white transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md disabled:opacity-75"
+                  className="w-full py-4 bg-[#BA9B60] text-[#07130E] font-tech text-xs font-bold tracking-widest uppercase hover:bg-white transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md disabled:opacity-75 s-btn"
                 >
                   <span>{submitting ? t('PROCESSING...') : t('START YOUR PROJECT')}</span>
                   <ArrowRight className="w-4 h-4" />

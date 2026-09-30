@@ -4,6 +4,7 @@ import { withLineBreaks } from '../i18n/translate';
 import { useI18n } from '../i18n/I18nProvider';
 import { Link } from '../i18n/Link';
 import { useDialog } from '../hooks/useDialog';
+import { usePresence } from '../motion/usePresence';
 import { EPCM_STAGES } from '../data/soltexData';
 import { EpcmStage } from '../types';
 
@@ -42,24 +43,26 @@ export const EpcmStages: React.FC<EpcmStagesProps> = ({ onOpenProjectModal }) =>
   const [activeStepModal, setActiveStepModal] = useState<EpcmStage | null>(null);
   const closeStepModal = React.useCallback(() => setActiveStepModal(null), []);
   useDialog(!!activeStepModal, closeStepModal);
+  const stepModalPresence = usePresence(activeStepModal, 220);
+  const stepModal = stepModalPresence.item;
 
   return (
-    <section id="epcm" className="w-full bg-[#F5F4EE] border-b border-[#16211B]/12 py-10 sm:py-12 lg:py-14">
+    <section id="epcm" className="w-full bg-beige-soft border-b border-[#16211B]/12 py-10 sm:py-12 lg:py-14">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-stretch lg:items-center gap-8 lg:gap-10">
           
           {/* Left Column: Title, Subtitle, and Action Button */}
-          <div className="lg:w-[280px] xl:w-[300px] shrink-0 lg:border-e lg:border-[#16211B]/15 lg:pe-8 flex flex-col justify-center">
+          <div data-reveal-group className="lg:w-[280px] xl:w-[300px] shrink-0 lg:border-e lg:border-taupe/60 lg:pe-8 flex flex-col justify-center">
             <h2 className="text-xl sm:text-2xl font-extrabold text-[#111814] tracking-tight leading-[1.12] mb-2.5 font-tech uppercase">
               {withLineBreaks(t("FROM CONCEPT\nTO COMMERCIAL\nPRODUCTION"))}
             </h2>
-            <p className="text-xs sm:text-[12.5px] text-[#46574D] leading-relaxed mb-5 max-w-[260px] font-normal">
+            <p data-reveal="up" className="text-xs sm:text-[12.5px] text-[#46574D] leading-relaxed mb-5 max-w-[260px] font-normal">
               {t("Full-cycle EPC / EPCM solutions for industrial plants.")}
             </p>
-            <div>
+            <div data-reveal="up">
               <Link
                 to="/epcm"
-                className="inline-flex items-center justify-center px-4 py-2.5 bg-[#0E482C] text-white text-[10.5px] font-bold tracking-wider uppercase font-tech hover:bg-[#0A3620] transition-colors rounded-none shadow-xs group cursor-pointer"
+                className="inline-flex items-center justify-center px-4 py-2.5 bg-[#0E482C] text-white text-[10.5px] font-bold tracking-wider uppercase font-tech hover:bg-[#0A3620] transition-colors rounded-none shadow-xs group cursor-pointer s-btn"
               >
                 <span>{t("OUR EPC / EPCM APPROACH")}</span>
               </Link>
@@ -69,17 +72,19 @@ export const EpcmStages: React.FC<EpcmStagesProps> = ({ onOpenProjectModal }) =>
           {/* Right Column: 7 Sequential Process Steps Connected by Arrows */}
           {/* Below xl the step row scrolls horizontally; the soft fade at the trailing edge signals that more steps follow */}
           <div className="flex-1 overflow-x-auto pb-2 lg:pb-0 scrollbar-none max-xl:[mask-image:linear-gradient(to_right,#000_80%,transparent)] rtl:max-xl:[mask-image:linear-gradient(to_left,#000_80%,transparent)]">
-            <div className="flex items-center justify-between min-w-[780px] xl:min-w-[840px] ps-2 pe-16 xl:pe-2">
+            <div data-reveal-group className="flex items-center justify-between min-w-[780px] xl:min-w-[840px] ps-2 pe-16 xl:pe-2">
               {EPCM_STAGES.map((step, idx) => (
                 <React.Fragment key={step.id}>
                   {/* Step Item */}
                   <button
                     type="button"
                     onClick={() => setActiveStepModal(step)}
+                    data-reveal="step"
+                    style={{ '--rv-i': idx * 1.6 } as React.CSSProperties}
                     className="flex flex-col items-center group cursor-pointer text-center px-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0E482C]"
                   >
                     {/* Circular Icon Badge */}
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white border border-[#16211B]/12 shadow-2xs flex items-center justify-center text-[#0E482C] group-hover:border-[#0E482C] group-hover:scale-105 group-hover:shadow-sm transition-all duration-300">
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white border border-[#16211B]/12 shadow-2xs flex items-center justify-center text-[#0E482C] group-hover:border-[#0E482C] group-hover:scale-105 group-hover:shadow-sm group-hover:ring-4 group-hover:ring-beige transition-all duration-300">
                       {STAGE_ICONS[step.id]}
                     </div>
 
@@ -91,7 +96,7 @@ export const EpcmStages: React.FC<EpcmStagesProps> = ({ onOpenProjectModal }) =>
 
                   {/* Connecting Arrow between steps */}
                   {idx < EPCM_STAGES.length - 1 && (
-                    <div className="shrink-0 text-[#8C9E93] opacity-60 flex items-center justify-center -mt-6">
+                    <div data-reveal="line" style={{ '--rv-i': idx * 1.6 + 0.8 } as React.CSSProperties} className="shrink-0 text-[#8C9E93] opacity-60 flex items-center justify-center -mt-6">
                       <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-current fill-none stroke-[1.8] rtl:-scale-x-100" viewBox="0 0 24 24">
                         <line x1="5" y1="12" x2="19" y2="12" />
                         <polyline points="12 5 19 12 12 19" />
@@ -106,15 +111,15 @@ export const EpcmStages: React.FC<EpcmStagesProps> = ({ onOpenProjectModal }) =>
       </div>
 
       {/* Interactive Detail Modal for Process Step */}
-      {activeStepModal && (
+      {stepModal && (
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200"
+          className={`fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs s-backdrop ${stepModalPresence.exiting ? 'is-exiting' : ''}`}
           onClick={() => setActiveStepModal(null)}
         >
           <div
-            className="relative w-full max-w-xl bg-[#FBFBF8] border border-[#16211B]/20 shadow-2xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto"
+            className="s-panel relative w-full max-w-xl bg-[#FBFBF8] border border-[#16211B]/20 shadow-2xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -127,17 +132,17 @@ export const EpcmStages: React.FC<EpcmStagesProps> = ({ onOpenProjectModal }) =>
 
             <div className="flex items-center gap-2 mb-2">
               <span className="font-tech text-xs font-bold text-[#0E482C] uppercase tracking-wider">
-                {tr("EPCM STAGE {number}", { number: activeStepModal.number })}
+                {tr("EPCM STAGE {number}", { number: stepModal.number })}
               </span>
               <span className="text-[#A4B3A9]">/</span>
-              <span className="font-tech text-xs text-[#B89758]">{t(activeStepModal.focus)}</span>
+              <span className="font-tech text-xs text-[#B89758]">{t(stepModal.focus)}</span>
             </div>
 
             <h3 className="text-xl sm:text-2xl font-extrabold text-[#111814] uppercase tracking-tight mb-2 font-tech">
-              {t(activeStepModal.title)}
+              {t(stepModal.title)}
             </h3>
             <p className="text-xs sm:text-sm text-[#46574D] mb-6">
-              {t(activeStepModal.description)}
+              {t(stepModal.description)}
             </p>
 
             <div className="p-4 sm:p-5 bg-[#F5F3EC] border border-[#16211B]/10 mb-6">
@@ -145,7 +150,7 @@ export const EpcmStages: React.FC<EpcmStagesProps> = ({ onOpenProjectModal }) =>
                 {t("KEY DELIVERABLES & SCOPE")}
               </h4>
               <ul className="space-y-2 text-xs text-[#3E5045]">
-                {activeStepModal.deliverables.map((item, idx) => (
+                {stepModal.deliverables.map((item, idx) => (
                   <li key={idx} className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-[#0E482C] shrink-0 mt-0.5" />
                     <span>{t(item)}</span>
@@ -165,11 +170,11 @@ export const EpcmStages: React.FC<EpcmStagesProps> = ({ onOpenProjectModal }) =>
               <button
                 type="button"
                 onClick={() => {
-                  const stepName = activeStepModal.title;
+                  const stepName = stepModal.title;
                   setActiveStepModal(null);
                   onOpenProjectModal(t("EPCM Stage: {name}", { name: t(stepName) }));
                 }}
-                className="w-full sm:w-auto px-6 py-2.5 bg-[#0E482C] text-white text-xs font-bold uppercase font-tech tracking-wider hover:bg-[#0A3620] transition-colors flex items-center justify-center gap-2 shadow-xs"
+                className="w-full sm:w-auto px-6 py-2.5 bg-[#0E482C] text-white text-xs font-bold uppercase font-tech tracking-wider hover:bg-[#0A3620] transition-colors flex items-center justify-center gap-2 shadow-xs s-btn"
               >
                 <span>{t("CONSULT ON THIS STAGE")}</span>
                 <ArrowRight className="w-4 h-4 text-[#D4B982]" />

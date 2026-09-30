@@ -60,13 +60,13 @@ export const TechnologiesPage: React.FC<TechnologiesPageProps> = ({ onOpenProjec
 
               return (
                 <ScrollReveal key={tech.slug}>
-                  <article className="border border-[#16211B]/15 bg-white p-6 sm:p-8 lg:p-10 shadow-xs hover:border-[#0E482C] transition-all duration-300">
+                  <article className="s-card border border-[#16211B]/15 bg-white p-6 sm:p-8 lg:p-10 shadow-xs hover:border-[#0E482C] transition-all duration-300">
                     <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center ${isEven ? 'lg:flex-row-reverse' : ''}`}>
                       
                       {/* Text Column */}
                       <div className={`lg:col-span-6 space-y-5 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
                         <div className="flex items-center gap-3">
-                          <span className="font-mono text-2xl lg:text-3xl text-[#0E482C] font-bold">
+                          <span className="s-num font-mono text-2xl lg:text-3xl text-[#0E482C] font-bold">
                             {t(tech.categoryNumber)}
                           </span>
                           <span className="w-2 h-2 rounded-full bg-[#BA9B60]" />
@@ -96,7 +96,7 @@ export const TechnologiesPage: React.FC<TechnologiesPageProps> = ({ onOpenProjec
                           </div>
                           <div className="flex flex-wrap gap-1.5">
                             {tech.rawMaterials.map((mat, mIdx) => (
-                              <span key={mIdx} className="bg-[#F3F3EC] px-2.5 py-1 text-xs font-mono text-[#223328] border border-[#16211B]/10">
+                              <span key={mIdx} className="bg-beige-soft px-2.5 py-1 text-xs font-mono text-[#223328] border border-taupe/50">
                                 {t(mat)}
                               </span>
                             ))}
@@ -107,14 +107,14 @@ export const TechnologiesPage: React.FC<TechnologiesPageProps> = ({ onOpenProjec
                         <div className="pt-4 border-t border-[#16211B]/10 flex flex-wrap items-center justify-between gap-4">
                           <Link
                             to={`/technologies/${tech.slug}`}
-                            className="inline-flex items-center gap-2.5 px-6 py-3 bg-[#0E482C] text-white font-mono text-xs font-semibold tracking-widest uppercase hover:bg-[#07130E] transition-colors group"
+                            className="inline-flex items-center gap-2.5 px-6 py-3 bg-[#0E482C] text-white font-mono text-xs font-semibold tracking-widest uppercase hover:bg-[#07130E] transition-colors group s-btn"
                           >
                             <span>{t("Explore Technical Dossier")}</span>
                             <ArrowRight className="w-3.5 h-3.5 text-[#BA9B60] group-hover:translate-x-1 transition-transform" />
                           </Link>
 
                           {tech.patentInfo && (
-                            <div className="flex items-center gap-1.5 text-xs font-mono text-[#0E482C] bg-[#F3F3EC] px-3 py-1.5 border border-[#16211B]/10">
+                            <div className="flex items-center gap-1.5 text-xs font-mono text-[#0E482C] bg-beige-soft px-3 py-1.5 border border-taupe/50">
                               <ShieldCheck className="w-3.5 h-3.5 text-[#BA9B60]" />
                               <span>{t(tech.patentInfo.patentNumber)}</span>
                             </div>
@@ -131,7 +131,7 @@ export const TechnologiesPage: React.FC<TechnologiesPageProps> = ({ onOpenProjec
                             className="w-full h-full object-cover opacity-90 group-hover:opacity-100"
                             loading="lazy"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+                          <div className="s-overlay absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
                           <div className="absolute bottom-4 start-4 end-4 flex items-end justify-between gap-3 text-white text-xs font-mono">
                             <span className="text-[#BA9B60] tracking-wider uppercase font-semibold min-w-0">
                               {t("STAGE VERIFIED TECHNOLOGY")}

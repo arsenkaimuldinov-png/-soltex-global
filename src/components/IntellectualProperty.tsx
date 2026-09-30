@@ -4,6 +4,7 @@ import { withLineBreaks } from '../i18n/translate';
 import { useI18n } from '../i18n/I18nProvider';
 import { Link } from '../i18n/Link';
 import { useDialog } from '../hooks/useDialog';
+import { usePresence } from '../motion/usePresence';
 
 interface IntellectualPropertyProps {
   onOpenProjectModal: (techName?: string) => void;
@@ -84,24 +85,26 @@ export const IntellectualProperty: React.FC<IntellectualPropertyProps> = ({ onOp
   const [selectedPatent, setSelectedPatent] = useState<PatentCard | null>(null);
   const closePatent = React.useCallback(() => setSelectedPatent(null), []);
   useDialog(!!selectedPatent, closePatent);
+  const patentModalPresence = usePresence(selectedPatent, 220);
+  const patentModal = patentModalPresence.item;
 
   return (
-    <section id="intellectual-property" className="w-full bg-[#F5F4EE] border-b border-[#16211B]/12 py-10 sm:py-12 lg:py-14">
+    <section id="intellectual-property" className="w-full bg-beige-soft border-b border-[#16211B]/12 py-10 sm:py-12 lg:py-14">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-stretch lg:items-center gap-8 lg:gap-10">
           
           {/* Left Column: Title, Subtitle, and Action Button */}
-          <div className="lg:w-[280px] xl:w-[300px] shrink-0 lg:border-e lg:border-[#16211B]/15 lg:pe-8 flex flex-col justify-center">
+          <div data-reveal-group className="lg:w-[280px] xl:w-[300px] shrink-0 lg:border-e lg:border-taupe/60 lg:pe-8 flex flex-col justify-center">
             <h2 className="text-xl sm:text-2xl font-extrabold text-[#111814] tracking-tight leading-[1.15] mb-2.5 font-tech uppercase">
               {withLineBreaks(t("TECHNOLOGY &\nINTELLECTUAL PROPERTY"))}
             </h2>
-            <p className="text-xs sm:text-[12.5px] text-[#46574D] leading-relaxed mb-5 max-w-[270px] font-normal">
+            <p data-reveal="up" className="text-xs sm:text-[12.5px] text-[#46574D] leading-relaxed mb-5 max-w-[270px] font-normal">
               {t("Our technologies are protected by patents and patent applications in multiple jurisdictions.")}
             </p>
-            <div>
+            <div data-reveal="up">
               <Link
                 to="/technologies/patents"
-                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#0E482C] text-white text-[10.5px] font-bold tracking-wider uppercase font-tech hover:bg-[#0A3620] transition-colors rounded-none shadow-xs group cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#0E482C] text-white text-[10.5px] font-bold tracking-wider uppercase font-tech hover:bg-[#0A3620] transition-colors rounded-none shadow-xs group cursor-pointer s-btn"
               >
                 <span>{t("EXPLORE OUR IP PORTFOLIO")}</span>
                 <ArrowRight className="w-3.5 h-3.5 text-[#D4B982] group-hover:translate-x-0.5 transition-transform" />
@@ -110,10 +113,11 @@ export const IntellectualProperty: React.FC<IntellectualPropertyProps> = ({ onOp
           </div>
 
           {/* Right Column: 4 Patent Cards Grid */}
-          <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          <div data-reveal-group className="flex-1 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
             {PATENTS_DATA.map((patent) => (
               <div
                 key={patent.id}
+                data-reveal="up"
                 role="button"
                 tabIndex={0}
                 aria-haspopup="dialog"
@@ -124,7 +128,7 @@ export const IntellectualProperty: React.FC<IntellectualPropertyProps> = ({ onOp
                     setSelectedPatent(patent);
                   }
                 }}
-                className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0E482C] bg-white border border-[#16211B]/12 p-4 sm:p-4.5 flex flex-col justify-between hover:border-[#0E482C]/50 hover:shadow-xs transition-all duration-200 cursor-pointer group"
+                className="s-card focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0E482C] bg-white border border-[#16211B]/12 p-4 sm:p-4.5 flex flex-col justify-between hover:border-[#0E482C]/50 hover:shadow-xs transition-all duration-200 cursor-pointer group"
               >
                 <div>
                   {/* Status Badge */}
@@ -225,15 +229,15 @@ export const IntellectualProperty: React.FC<IntellectualPropertyProps> = ({ onOp
       </div>
 
       {/* Patent Details Modal */}
-      {selectedPatent && (
+      {patentModal && (
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200"
+          className={`fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs s-backdrop ${patentModalPresence.exiting ? 'is-exiting' : ''}`}
           onClick={() => setSelectedPatent(null)}
         >
           <div
-            className="relative w-full max-w-xl bg-[#FBFBF8] border border-[#16211B]/20 shadow-2xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto"
+            className="s-panel relative w-full max-w-xl bg-[#FBFBF8] border border-[#16211B]/20 shadow-2xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -247,24 +251,24 @@ export const IntellectualProperty: React.FC<IntellectualPropertyProps> = ({ onOp
             <div className="flex items-center gap-2 mb-2">
               <span className="w-2 h-2 bg-[#0E482C]" />
               <span className="font-tech text-xs font-bold text-[#0E482C] uppercase tracking-wider">
-                {t(selectedPatent.status)}
+                {t(patentModal.status)}
               </span>
               <span className="text-[#A4B3A9]">/</span>
-              <span className="font-tech text-xs text-[#B89758]">{t(selectedPatent.jurisdiction)}</span>
+              <span className="font-tech text-xs text-[#B89758]">{t(patentModal.jurisdiction)}</span>
             </div>
 
             <h3 className="text-xl sm:text-2xl font-extrabold text-[#111814] uppercase tracking-tight mb-2 font-tech">
-              {t(selectedPatent.title)}
+              {t(patentModal.title)}
             </h3>
 
             <div className="flex items-center gap-4 text-xs font-tech text-[#5A6D62] mb-4">
-              <span><strong>{t("Doc:")}</strong> {t(selectedPatent.patentNo)}</span>
+              <span><strong>{t("Doc:")}</strong> {t(patentModal.patentNo)}</span>
               <span>•</span>
-              <span><strong>{t("Jurisdiction:")}</strong> {t(selectedPatent.jurisdiction)}</span>
+              <span><strong>{t("Jurisdiction:")}</strong> {t(patentModal.jurisdiction)}</span>
             </div>
 
             <p className="text-xs sm:text-sm text-[#46574D] leading-relaxed mb-6">
-              {t(selectedPatent.abstract)}
+              {t(patentModal.abstract)}
             </p>
 
             <div className="p-4 sm:p-5 bg-[#F5F3EC] border border-[#16211B]/10 mb-6">
@@ -272,7 +276,7 @@ export const IntellectualProperty: React.FC<IntellectualPropertyProps> = ({ onOp
                 {t("KEY PATENT CLAIMS & ADVANTAGES")}
               </h4>
               <ul className="space-y-2 text-xs text-[#3E5045]">
-                {selectedPatent.claimsSummary.map((claim, idx) => (
+                {patentModal.claimsSummary.map((claim, idx) => (
                   <li key={idx} className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-[#0E482C] shrink-0 mt-0.5" />
                     <span>{t(claim)}</span>
@@ -292,11 +296,11 @@ export const IntellectualProperty: React.FC<IntellectualPropertyProps> = ({ onOp
               <button
                 type="button"
                 onClick={() => {
-                  const title = selectedPatent.title;
+                  const title = patentModal.title;
                   setSelectedPatent(null);
-                  onOpenProjectModal(t("IP Licensing: {title} ({patentNo})", { title: t(title), patentNo: selectedPatent.patentNo }));
+                  onOpenProjectModal(t("IP Licensing: {title} ({patentNo})", { title: t(title), patentNo: patentModal.patentNo }));
                 }}
-                className="w-full sm:w-auto px-6 py-2.5 bg-[#0E482C] text-white text-xs font-bold uppercase font-tech tracking-wider hover:bg-[#0A3620] transition-colors flex items-center justify-center gap-2 shadow-xs"
+                className="w-full sm:w-auto px-6 py-2.5 bg-[#0E482C] text-white text-xs font-bold uppercase font-tech tracking-wider hover:bg-[#0A3620] transition-colors flex items-center justify-center gap-2 shadow-xs s-btn"
               >
                 <span>{t("REQUEST IP SPECIFICATION")}</span>
                 <ArrowRight className="w-4 h-4 text-[#D4B982]" />

@@ -61,7 +61,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenProjectModal }) => {
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link
                   to="/technologies"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-colors s-btn"
                 >
                   <span>{t("Explore Proprietary Technologies")}</span>
                   <ArrowRight className="w-4 h-4 text-[#BA9B60]" />
@@ -123,11 +123,11 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenProjectModal }) => {
                 </p>
 
                 <div className="pt-4 grid grid-cols-2 gap-4 border-t border-[#16211B]/10 text-xs font-mono">
-                  <div className="bg-[#F3F3EC] p-3.5 border border-[#16211B]/10">
+                  <div className="bg-beige-soft p-3.5 border border-taupe/50">
                     <div className="text-[#334439]/70 uppercase">{t("Purity Target")}</div>
                     <div className="text-[#0E482C] font-bold text-lg mt-0.5">{t("> 90% Isolate")}</div>
                   </div>
-                  <div className="bg-[#F3F3EC] p-3.5 border border-[#16211B]/10">
+                  <div className="bg-beige-soft p-3.5 border border-taupe/50">
                     <div className="text-[#334439]/70 uppercase">{t("Recovery Rate")}</div>
                     <div className="text-[#0E482C] font-bold text-lg mt-0.5">{t("Up to 92%")}</div>
                   </div>
@@ -174,7 +174,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenProjectModal }) => {
       </section>
 
       {/* 5. IMAGE — High-Purity Processing Hall */}
-      <section className="py-12 bg-[#F3F3EC]/40 border-b border-[#16211B]/10">
+      <section className="py-12 bg-beige-soft border-b border-taupe/50">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
           <ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-white border border-[#16211B]/15 p-6 lg:p-8">

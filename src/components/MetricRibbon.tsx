@@ -144,9 +144,9 @@ export const MetricRibbon: React.FC = () => {
   return (
     <div className="w-full bg-[#FAF9F5] border-y border-[#16211B]/12 py-5 sm:py-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 divide-y sm:divide-y-0 lg:divide-x divide-[#16211B]/12">
+        <div data-reveal-group style={{ '--rv-d': '550ms' } as React.CSSProperties} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 divide-y sm:divide-y-0 lg:divide-x divide-[#16211B]/12">
           {/* 01. 25+ YEARS OF INDUSTRIAL EXPERIENCE */}
-          <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-2 lg:px-5 first:lg:ps-0">
+          <div data-reveal="up" className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-2 lg:px-5 first:lg:ps-0">
             <div className="text-[#0E482C] shrink-0">
               <WreathIcon className="w-10 h-10 sm:w-11 sm:h-11" />
             </div>
@@ -161,7 +161,7 @@ export const MetricRibbon: React.FC = () => {
           </div>
 
           {/* 02. 10+ COUNTRIES PROJECT EXPERIENCE */}
-          <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-2 lg:px-5">
+          <div data-reveal="up" className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-2 lg:px-5">
             <div className="text-[#0E482C] shrink-0">
               <GlobeGridIcon className="w-10 h-10 sm:w-11 sm:h-11" />
             </div>
@@ -176,7 +176,7 @@ export const MetricRibbon: React.FC = () => {
           </div>
 
           {/* 03. 20+ YEARS OF TECHNOLOGY IN OPERATION */}
-          <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-2 lg:px-5">
+          <div data-reveal="up" className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-2 lg:px-5">
             <div className="text-[#0E482C] shrink-0">
               <CogEngineIcon className="w-10 h-10 sm:w-11 sm:h-11" />
             </div>
@@ -191,7 +191,7 @@ export const MetricRibbon: React.FC = () => {
           </div>
 
           {/* 04. 300+ MILLION USD PROJECTS DELIVERED */}
-          <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-2 lg:px-5">
+          <div data-reveal="up" className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-2 lg:px-5">
             <div className="text-[#0E482C] shrink-0">
               <FactoryPlantIcon className="w-10 h-10 sm:w-11 sm:h-11" />
             </div>
@@ -206,7 +206,7 @@ export const MetricRibbon: React.FC = () => {
           </div>
 
           {/* 05. FULL-CYCLE EPC / EPCM SOLUTIONS */}
-          <div className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-2 lg:px-5 last:lg:pe-0">
+          <div data-reveal="up" className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-2 lg:px-5 last:lg:pe-0">
             <div className="text-[#0E482C] shrink-0">
               <ShieldBadgeCheckIcon className="w-10 h-10 sm:w-11 sm:h-11" />
             </div>

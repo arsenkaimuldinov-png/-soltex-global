@@ -96,7 +96,7 @@ export const ContactPage: React.FC = () => {
                         description: ''
                       });
                     }}
-                    className="mt-4 px-6 py-2.5 bg-[#0E482C] text-white font-mono text-xs tracking-wider uppercase hover:bg-[#07130E] transition-colors cursor-pointer"
+                    className="mt-4 px-6 py-2.5 bg-[#0E482C] text-white font-mono text-xs tracking-wider uppercase hover:bg-[#07130E] transition-colors cursor-pointer s-btn"
                   >
                     {t("Send Another Inquiry")}
                   </button>
@@ -189,7 +189,7 @@ export const ContactPage: React.FC = () => {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full sm:w-auto px-8 py-4 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs disabled:opacity-70"
+                      className="w-full sm:w-auto px-8 py-4 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs disabled:opacity-70 s-btn"
                     >
                       <Send className="w-4 h-4 text-[#BA9B60]" />
                       <span>{isSubmitting ? t('SENDING...') : t('SEND INQUIRY')}</span>
@@ -248,7 +248,7 @@ export const ContactPage: React.FC = () => {
                       <div key={idx} className="py-4 first:pt-0 last:pb-0">
                         <div className="flex items-center justify-between">
                           <span className="font-serif text-base font-bold text-[#121815]">{t(office.title)}</span>
-                          <span className="text-[10px] font-mono bg-[#F3F3EC] px-2 py-0.5 border border-[#16211B]/10 text-[#0E482C]">
+                          <span className="text-[10px] font-mono bg-beige-soft px-2 py-0.5 border border-taupe/50 text-[#0E482C]">
                             {t(office.region)}
                           </span>
                         </div>
@@ -273,7 +273,7 @@ export const ContactPage: React.FC = () => {
 
               <ScrollReveal delayMs={200}>
                 {/* Security & Confidentiality Badge */}
-                <div className="bg-[#F3F3EC] border border-[#16211B]/15 p-6 flex items-start gap-4">
+                <div className="bg-beige-soft border border-taupe/50 p-6 flex items-start gap-4">
                   <ShieldCheck className="w-6 h-6 text-[#0E482C] shrink-0 mt-0.5" />
                   <div className="text-xs text-[#334439] leading-relaxed">
                     <strong className="text-[#121815] block font-mono uppercase tracking-wider mb-1">

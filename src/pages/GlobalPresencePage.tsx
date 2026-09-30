@@ -93,7 +93,7 @@ export const GlobalPresencePage: React.FC<{ onOpenProjectModal?: (topic?: string
                 >
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-[10px] font-mono bg-[#F3F3EC] px-2.5 py-1 border border-[#16211B]/10 text-[#0E482C] uppercase tracking-wider font-semibold">
+                      <span className="text-[10px] font-mono bg-beige-soft px-2.5 py-1 border border-taupe/50 text-[#0E482C] uppercase tracking-wider font-semibold">
                         {t(office.region)}
                       </span>
                       <span className="text-xs font-mono text-[#334439]/60 uppercase font-semibold">
@@ -139,7 +139,7 @@ export const GlobalPresencePage: React.FC<{ onOpenProjectModal?: (topic?: string
 
                     <button
                       onClick={() => onOpenProjectModal?.(t("Regional Inquiry: {office}", { office: t(office.title) }))}
-                      className="px-4 py-2 bg-[#F3F3EC] hover:bg-[#0E482C] hover:text-white border border-[#16211B]/15 text-xs font-mono uppercase tracking-wider transition-colors cursor-pointer"
+                      className="px-4 py-2 bg-[#F3F3EC] hover:bg-[#0E482C] hover:text-white border border-[#16211B]/15 text-xs font-mono uppercase tracking-wider transition-colors cursor-pointer s-btn"
                     >
                       {t("Direct Consultation")}
                     </button>
@@ -152,7 +152,7 @@ export const GlobalPresencePage: React.FC<{ onOpenProjectModal?: (topic?: string
       </section>
 
       {/* Global Project Reference Sites */}
-      <section className="py-16 lg:py-24 bg-[#F3F3EC]/50">
+      <section className="py-16 lg:py-24 bg-beige-soft">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
           <ScrollReveal>
             <div className="text-[11px] font-mono uppercase tracking-widest text-[#0E482C] mb-2 font-semibold">

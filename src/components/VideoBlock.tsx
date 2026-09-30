@@ -6,6 +6,7 @@ import { withLineBreaks } from '../i18n/translate';
 import { useI18n } from '../i18n/I18nProvider';
 import { Link } from '../i18n/Link';
 import { useDialog } from '../hooks/useDialog';
+import { usePresence } from '../motion/usePresence';
 
 /**
  * Homepage "Video Materials" block: the two Soltex videos (served from /public/videos) + the
@@ -19,6 +20,7 @@ export const VideoBlock: React.FC = () => {
   const { t } = useI18n();
   const [playing, setPlaying] = useState<CompanyVideo | null>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
+  const lightbox = usePresence(playing, 220);
 
   const open = useCallback((video: CompanyVideo, trigger: HTMLElement) => {
     triggerRef.current = trigger;
@@ -40,11 +42,11 @@ export const VideoBlock: React.FC = () => {
           <h2 className="text-xl sm:text-2xl lg:text-[26px] font-extrabold text-[#111814] tracking-wider uppercase font-tech">
             {t("VIDEO MATERIALS")}
           </h2>
-          <div className="w-12 h-[2px] bg-[#B89758] mx-auto mt-2.5" aria-hidden="true" />
+          <div data-reveal="line" data-origin="center" className="w-12 h-[2px] bg-[#B89758] mx-auto mt-2.5" aria-hidden="true" />
         </div>
 
         {/* 5 + 5 + 2 cols from xl; below xl two video cards + a full-width All Projects card (the narrow column is too tight at 1024); stacked on mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-12 gap-5 items-stretch">
+        <div data-reveal-group className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-12 gap-5 items-stretch">
 
           {COMPANY_VIDEOS.map((video) => (
             <VideoCard key={video.id} video={video} onPlay={open} />
@@ -53,6 +55,7 @@ export const VideoBlock: React.FC = () => {
           {/* All Projects navigation card */}
           <Link
             to="/projects"
+            data-reveal="up"
             className="md:col-span-2 xl:col-span-2 bg-[#0E482C] text-white p-6 sm:p-7 xl:p-8 flex flex-col justify-between border border-[#0E482C] group hover:bg-[#0A3620] transition-colors cursor-pointer min-h-[260px] md:min-h-[230px] xl:min-h-[400px] shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B89758]"
           >
             <div>
@@ -78,7 +81,7 @@ export const VideoBlock: React.FC = () => {
         </div>
       </div>
 
-      {playing && <VideoLightbox video={playing} onClose={close} />}
+      {lightbox.item && <VideoLightbox video={lightbox.item} exiting={lightbox.exiting} onClose={close} />}
     </section>
   );
 };
@@ -144,6 +147,7 @@ const VideoCard: React.FC<{ video: CompanyVideo; onPlay: (v: CompanyVideo, trigg
   return (
     <button
       type="button"
+      data-reveal="image"
       onPointerEnter={onPointerEnter}
       onPointerLeave={stopPreview}
       onClick={(e) => {
@@ -152,7 +156,7 @@ const VideoCard: React.FC<{ video: CompanyVideo; onPlay: (v: CompanyVideo, trigg
       }}
       aria-haspopup="dialog"
       aria-label={t("Watch video: {title}", { title: t(video.title) })}
-      className="xl:col-span-5 relative group overflow-hidden bg-[#111814] border border-[#16211B]/15 shadow-xs cursor-pointer flex flex-col justify-end min-h-[360px] sm:min-h-[380px] lg:min-h-[400px] text-start touch-manipulation focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B89758]"
+      className="s-card xl:col-span-5 relative group overflow-hidden bg-[#111814] border border-[#16211B]/15 shadow-xs cursor-pointer flex flex-col justify-end min-h-[360px] sm:min-h-[380px] lg:min-h-[400px] text-start touch-manipulation focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B89758]"
     >
       <img
         src={video.thumbnail}
@@ -218,9 +222,15 @@ const VideoCard: React.FC<{ video: CompanyVideo; onPlay: (v: CompanyVideo, trigg
 };
 
 /** Native HTML5 player in a lightbox: controls, sound and fullscreen from the browser. */
-const VideoLightbox: React.FC<{ video: CompanyVideo; onClose: () => void }> = ({ video, onClose }) => {
+const VideoLightbox: React.FC<{ video: CompanyVideo; exiting: boolean; onClose: () => void }> = ({ video, exiting, onClose }) => {
   const { t } = useI18n();
   const closeRef = useRef<HTMLButtonElement>(null);
+  const playerRef = useRef<HTMLVideoElement>(null);
+
+  // Silence the player as soon as the exit transition starts
+  useEffect(() => {
+    if (exiting) playerRef.current?.pause();
+  }, [exiting]);
   useDialog(true, onClose); // Escape closes, background scroll locked
 
   useEffect(() => {
@@ -229,13 +239,13 @@ const VideoLightbox: React.FC<{ video: CompanyVideo; onClose: () => void }> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6"
+      className={`fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 ${exiting ? 'is-exiting' : ''}`}
       role="dialog"
       aria-modal="true"
       aria-label={t(video.title)}
     >
-      <div className="absolute inset-0 bg-[#07130D]/90 backdrop-blur-md" onClick={onClose} />
-      <div className="relative w-full max-w-5xl bg-black border border-white/15 shadow-2xl">
+      <div className="s-backdrop absolute inset-0 bg-[#07130D]/90 backdrop-blur-md" onClick={onClose} />
+      <div className="s-panel relative w-full max-w-5xl bg-black border border-white/15 shadow-2xl">
         <div className="flex items-center justify-between gap-4 ps-4 sm:ps-6 pe-2 sm:pe-3 py-1.5 bg-[#0A2617] border-b border-white/10 text-white">
           <span className="font-tech text-xs tracking-widest text-[#D4B982] uppercase truncate">
             {video.number} / {t(video.category)}
@@ -251,6 +261,7 @@ const VideoLightbox: React.FC<{ video: CompanyVideo; onClose: () => void }> = ({
           </button>
         </div>
         <video
+          ref={playerRef}
           src={video.src}
           poster={video.thumbnail}
           controls

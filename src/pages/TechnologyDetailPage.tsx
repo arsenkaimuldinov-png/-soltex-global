@@ -26,7 +26,7 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
           </p>
           <Link
             to="/technologies"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-colors s-btn"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>{t("Return to Technologies Index")}</span>
@@ -120,7 +120,7 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
                         className="bg-white border border-[#16211B]/10 p-6 hover:border-[#0E482C] transition-colors"
                       >
                         <div className="flex items-center gap-3 mb-2">
-                          <span className="text-xs font-mono font-bold text-[#0E482C] bg-[#F3F3EC] px-2 py-0.5 border border-[#16211B]/10">
+                          <span className="text-xs font-mono font-bold text-[#0E482C] bg-beige-soft px-2 py-0.5 border border-taupe/50">
                             {tr("STAGE 0{n}", { n: idx + 1 })}
                           </span>
                           <h3 className="font-serif text-lg font-bold text-[#121815]">
@@ -190,7 +190,7 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
                     {tech.applications.map((app, idx) => (
                       <span
                         key={idx}
-                        className="bg-[#F3F3EC] border border-[#16211B]/15 px-4 py-2 text-xs font-mono uppercase text-[#121815]"
+                        className="bg-beige-soft border border-taupe/50 px-4 py-2 text-xs font-mono uppercase text-[#121815]"
                       >
                         {t(app)}
                       </span>
@@ -270,7 +270,7 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
                     </div>
                     <div className="space-y-1.5">
                       {tech.productsProduced.map((prod, idx) => (
-                        <div key={idx} className="text-xs font-mono text-[#223328] bg-[#F3F3EC] p-2 border border-[#16211B]/10">
+                        <div key={idx} className="text-xs font-mono text-[#223328] bg-beige-soft p-2 border border-taupe/50">
                           {t(prod)}
                         </div>
                       ))}
@@ -280,7 +280,7 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: stri
                   <div className="pt-4 border-t border-[#16211B]/10 space-y-3">
                     <button
                       onClick={() => onOpenProjectModal?.(t("Engineering Consultation for {title}", { title: t(tech.title) }))}
-                      className="w-full py-3.5 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                      className="w-full py-3.5 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-colors flex items-center justify-center gap-2 cursor-pointer s-btn"
                     >
                       <span>{t("Request Process Flowsheet")}</span>
                       <ArrowRight className="w-3.5 h-3.5 text-[#BA9B60]" />

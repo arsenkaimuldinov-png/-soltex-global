@@ -4,6 +4,7 @@ import { CheckCircle2, ArrowRight, ShieldCheck, Factory, Cpu, Layers, HardHat, F
 import { PageHeader } from '../components/PageHeader';
 import { CtaSection } from '../components/CtaSection';
 import { ScrollReveal } from '../components/ScrollReveal';
+import { EpcmProcessRail, useEpcmProgress } from '../components/EpcmProcessRail';
 import { EPCM_STAGES } from '../data/soltexData';
 import { useI18n } from '../i18n/I18nProvider';
 
@@ -25,6 +26,7 @@ interface EpcmPageProps {
 
 export const EpcmPage: React.FC<EpcmPageProps> = ({ onOpenProjectModal }) => {
   const { t, tr } = useI18n();
+  const progress = useEpcmProgress(EPCM_STAGES.length);
   return (
     <div className="bg-[#FBFBF8] text-[#121815] min-h-screen">
       {/* Editorial Page Header */}
@@ -124,13 +126,20 @@ export const EpcmPage: React.FC<EpcmPageProps> = ({ onOpenProjectModal }) => {
           </ScrollReveal>
 
           {/* Sequentially revealed stages with integrated imagery */}
-          <div className="space-y-16">
-            {EPCM_STAGES.map((stage) => {
+          <div ref={progress.listRef} className="relative space-y-16">
+            <EpcmProcessRail fillRef={progress.fillRef} nodeTops={progress.nodeTops} active={progress.active} />
+            {EPCM_STAGES.map((stage, stageIdx) => {
               const stageImg = EPCM_STAGE_IMAGES[stage.number];
 
               return (
                 <ScrollReveal key={stage.number}>
-                  <div className="bg-white border border-[#16211B]/15 p-6 sm:p-8 lg:p-10 hover:border-[#0E482C] transition-all duration-300 shadow-xs">
+                  <div
+                    data-epcm-stage
+                    className={`epcm-stage-card relative bg-white border border-[#16211B]/15 p-6 sm:p-8 lg:p-10 hover:border-[#0E482C] transition-all duration-300 shadow-xs ${
+                      stageIdx === progress.active ? 'is-active' : ''
+                    }`}
+                  >
+                    <span aria-hidden="true" className="epcm-stage-line absolute top-0 inset-x-0 h-[2px] bg-[#0E482C]" />
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                       
                       {/* Left: Stage Title & Description */}
@@ -170,7 +179,7 @@ export const EpcmPage: React.FC<EpcmPageProps> = ({ onOpenProjectModal }) => {
                         <div className="pt-4">
                           <button
                             onClick={() => onOpenProjectModal?.(t("Inquiry for EPCM Stage {number}: {name}", { number: stage.number, name: t(stage.title) }))}
-                            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0E482C] text-white font-mono text-xs uppercase tracking-wider hover:bg-[#07130E] transition-colors cursor-pointer"
+                            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0E482C] text-white font-mono text-xs uppercase tracking-wider hover:bg-[#07130E] transition-colors cursor-pointer s-btn"
                           >
                             <span>{t("Inquire on this Stage")}</span>
                             <ArrowRight className="w-3.5 h-3.5 text-[#BA9B60]" />

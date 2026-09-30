@@ -75,7 +75,7 @@ export const PatentsPage: React.FC<{ onOpenProjectModal?: (topic?: string) => vo
                       
                       {/* Left: Patent ID & Key Information */}
                       <div className="lg:col-span-5 space-y-4">
-                        <div className="inline-flex items-center gap-2 bg-[#F3F3EC] border border-[#16211B]/15 px-3 py-1 text-xs font-mono text-[#0E482C] font-bold">
+                        <div className="inline-flex items-center gap-2 bg-beige-soft border border-taupe/50 px-3 py-1 text-xs font-mono text-[#0E482C] font-bold">
                           <ShieldCheck className="w-4 h-4 text-[#BA9B60]" />
                           <span>{t(patent.code)}</span>
                         </div>
@@ -110,7 +110,7 @@ export const PatentsPage: React.FC<{ onOpenProjectModal?: (topic?: string) => vo
                         <div className="pt-2">
                           <button
                             onClick={() => onOpenProjectModal?.(t("IP Licensing Inquiry for {code}", { code: t(patent.code) }))}
-                            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0E482C] text-white font-mono text-xs uppercase tracking-wider hover:bg-[#07130E] transition-colors cursor-pointer"
+                            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0E482C] text-white font-mono text-xs uppercase tracking-wider hover:bg-[#07130E] transition-colors cursor-pointer s-btn"
                           >
                             <span>{t("License This Patent")}</span>
                             <ArrowRight className="w-3.5 h-3.5 text-[#BA9B60]" />
@@ -168,7 +168,7 @@ export const PatentsPage: React.FC<{ onOpenProjectModal?: (topic?: string) => vo
       </section>
 
       {/* Non-Disclosure & IP Security Section */}
-      <section className="bg-[#F3F3EC] border-y border-[#16211B]/10 py-16">
+      <section className="bg-beige-soft border-y border-taupe/50 py-16">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <ScrollReveal delayMs={50}>

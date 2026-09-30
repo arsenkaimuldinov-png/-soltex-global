@@ -1,4 +1,19 @@
 @import "tailwindcss";
+@import "./styles/motion.css";
+
+/* Supporting warm palette from the client's brand reference. The existing Soltex greens
+   (below, --color-forest…) stay the primary identity; these are accents only:
+   section bands, labels, hairlines, hover states. Usable as Tailwind utilities
+   (bg-beige-soft, border-taupe, text-ink …). */
+@theme {
+  --color-beige: #E9DFC8;
+  --color-beige-soft: #F3EEE2;
+  --color-warm: #F8F7F2;
+  --color-taupe: #CDBA9A;
+  --color-ink: #282828;
+  --color-sage: #6B8463;
+  --color-pine: #254F3D;
+}
 
 @layer base {
   :root {

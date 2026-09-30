@@ -26,7 +26,7 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
           </p>
           <Link
             to="/projects"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-colors s-btn"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>{t("Return to Projects Index")}</span>
@@ -141,7 +141,7 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
                     {relatedTech && (
                       <Link
                         to={`/technologies/${relatedTech.slug}`}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0E482C] text-white text-xs font-mono uppercase tracking-wider hover:bg-[#07130E] transition-colors shrink-0"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0E482C] text-white text-xs font-mono uppercase tracking-wider hover:bg-[#07130E] transition-colors shrink-0 s-btn"
                       >
                         <span>{t("View Technology Dossier")}</span>
                         <ArrowRight className="w-3.5 h-3.5 text-[#BA9B60]" />
@@ -190,7 +190,7 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
                       {t("Commercial Output & Performance Validation")}
                     </h3>
 
-                    <div className="bg-[#F3F3EC] border border-[#16211B]/15 p-6 lg:p-8 space-y-4">
+                    <div className="bg-beige-soft border border-taupe/50 p-6 lg:p-8 space-y-4">
                       {project.results.map((res, idx) => (
                         <div key={idx} className="flex items-start gap-3">
                           <CheckCircle2 className="w-5 h-5 text-[#0E482C] shrink-0 mt-0.5" />
@@ -224,7 +224,7 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
                   <div className="pt-4 border-t border-[#16211B]/10">
                     <button
                       onClick={() => onOpenProjectModal?.(t("Engineering Consultation for {title}", { title: t(project.title) }))}
-                      className="w-full py-3.5 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                      className="w-full py-3.5 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-colors flex items-center justify-center gap-2 cursor-pointer s-btn"
                     >
                       <span>{t("Consult on Similar Plant")}</span>
                       <ArrowRight className="w-3.5 h-3.5 text-[#BA9B60]" />

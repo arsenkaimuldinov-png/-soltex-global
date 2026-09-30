@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, CheckCircle2, ArrowRight, ShieldCheck } from 'lucide-react';
 import { useI18n } from '../i18n/I18nProvider';
 import { useDialog } from '../hooks/useDialog';
+import { usePresence } from '../motion/usePresence';
 
 interface ProjectInquiryModalProps {
   isOpen: boolean;
@@ -21,8 +22,9 @@ export const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   useDialog(isOpen, onClose);
+  const presence = usePresence(isOpen || null, 220);
 
-  if (!isOpen) return null;
+  if (!presence.item) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,19 +46,19 @@ export const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+      className={`fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto ${presence.exiting ? 'is-exiting' : ''}`}
       role="dialog"
       aria-modal="true"
       aria-label={t("EPCM PROJECT INTAKE")}
     >
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-[#07130D]/80 backdrop-blur-xs transition-opacity duration-300"
+        className="s-backdrop fixed inset-0 bg-[#07130D]/80 backdrop-blur-xs"
         onClick={onClose}
       />
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-lg bg-[#FFFFFF] border border-[#16211B]/20 shadow-2xl z-10 overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200">
+      <div className="relative w-full max-w-lg bg-[#FFFFFF] border border-[#16211B]/20 shadow-2xl z-10 overflow-hidden my-8 s-panel">
         {/* Top Header Bar */}
         <div className="bg-[#0E482C] px-6 py-4 flex items-center justify-between text-white border-b border-[#0A3620]">
           <div className="flex items-center gap-3">
@@ -100,7 +102,7 @@ export const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({
 
             <button
               onClick={handleReset}
-              className="mt-2 inline-flex items-center justify-center px-6 py-3 bg-[#0E482C] text-white text-xs font-semibold tracking-wider uppercase hover:bg-[#0A3620] transition-colors cursor-pointer"
+              className="mt-2 inline-flex items-center justify-center px-6 py-3 bg-[#0E482C] text-white text-xs font-semibold tracking-wider uppercase hover:bg-[#0A3620] transition-colors cursor-pointer s-btn"
             >
               {t("Close Window")}
             </button>
@@ -115,7 +117,7 @@ export const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({
                 {t("Enter your contact information below. A process engineering director will call you to discuss your feedstock parameters and project scope.")}
               </p>
               {preselectedTopic && (
-                <div className="mt-2 text-[11px] font-mono text-[#0E482C] font-semibold bg-[#F3F3EC] px-2.5 py-1 inline-block border border-[#16211B]/10">
+                <div className="mt-2 text-[11px] font-mono text-[#0E482C] font-semibold bg-beige-soft px-2.5 py-1 inline-block border border-taupe/50">
                   {tr("Focus: {topic}", { topic: t(preselectedTopic) })}
                 </div>
               )}
@@ -160,7 +162,7 @@ export const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3.5 bg-[#0E482C] text-white font-tech text-xs font-bold tracking-widest uppercase hover:bg-[#0A3620] transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs disabled:opacity-70"
+              className="w-full py-3.5 bg-[#0E482C] text-white font-tech text-xs font-bold tracking-widest uppercase hover:bg-[#0A3620] transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs disabled:opacity-70 s-btn"
             >
               <span>{isSubmitting ? t('PROCESSING...') : t('START YOUR PROJECT')}</span>
               <ArrowRight className="w-4 h-4 text-[#BA9B60]" />

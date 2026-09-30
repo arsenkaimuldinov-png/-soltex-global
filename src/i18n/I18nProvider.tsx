@@ -1,5 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { flushSync } from 'react-dom';
+import { withViewTransition } from '../motion/prefs';
 import { DEFAULT_LOCALE, Locale, LocaleInfo, LOCALE_STORAGE_KEY, getLocaleInfo } from './config';
 import { getDictionary, loadDictionary } from './dictionaries';
 import { localizePath, splitLocalePath } from './paths';
@@ -105,7 +107,10 @@ export const I18nProvider: React.FC<{ children: React.ReactNode }> = ({ children
     async (next: Locale) => {
       storeLocale(next);
       await loadDictionary(next);
-      navigate(localizePath(path, next) + location.search + location.hash);
+      const to = localizePath(path, next) + location.search + location.hash;
+      withViewTransition(() => {
+        flushSync(() => navigate(to));
+      });
     },
     [navigate, path, location.search, location.hash]
   );

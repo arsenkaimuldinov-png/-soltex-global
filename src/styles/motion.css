@@ -1,0 +1,308 @@
+/* ==========================================================================
+   SOLTEX MOTION SYSTEM
+   One motion language for the whole site. Documented in docs/motion-system.md.
+
+   Primitives (all driven by data attributes + one IntersectionObserver in
+   src/motion/useRevealSystem.ts):
+     data-reveal="up"      grouped content: fade + short rise
+     data-reveal="fade"    fade only
+     data-reveal="mask"    headings: masked upward line reveal (text stays real, selectable text)
+     data-reveal="image"   framed imagery: shutter unveil + image settles 1.06 → 1
+     data-reveal="line"    technical hairlines: draw from the inline-start (RTL aware)
+     data-reveal="step"    process nodes: fade + settle from 0.9
+     data-reveal-group     children reveal together, staggered in DOM order
+   Hidden states only apply once JS has set <html class="motion-ready">, and never
+   with prefers-reduced-motion, so content is always visible without motion.
+   Progress is stored in data-rv="in|done" (not in class names, which React owns).
+   ========================================================================== */
+
+:root {
+  /* Signature easing: fast start, long precise settle ("engineered") */
+  --ease-precise: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-soft: cubic-bezier(0.55, 0, 0.8, 0.2);
+
+  --m-dur: 900ms;          /* content reveals */
+  --m-dur-mask: 1000ms;    /* heading masks */
+  --m-dur-img: 1300ms;     /* image unveil */
+  --m-dur-line: 1100ms;    /* hairlines */
+  --m-stagger: 85ms;       /* delay step inside a group */
+  --m-y: 28px;             /* rise distance */
+}
+
+/* Phones: shorter distances, quicker settle, tighter stagger — content first. */
+@media (max-width: 767px) {
+  :root {
+    --m-dur: 650ms;
+    --m-dur-mask: 750ms;
+    --m-dur-img: 900ms;
+    --m-dur-line: 800ms;
+    --m-stagger: 50ms;
+    --m-y: 14px;
+  }
+}
+
+/* ---------- Reveal primitives ---------- */
+
+.motion-ready [data-reveal]:not([data-rv="done"]) {
+  transition-property: opacity, transform, clip-path;
+  transition-duration: var(--m-dur);
+  transition-timing-function: var(--ease-precise);
+  transition-delay: calc(var(--rv-i, 0) * var(--m-stagger) + var(--rv-d, 0ms));
+}
+.motion-ready [data-reveal]:not([data-rv]) {
+  opacity: 0;
+  transform: translate3d(0, var(--m-y), 0);
+}
+
+/* fade */
+.motion-ready [data-reveal="fade"]:not([data-rv]) { transform: none; }
+
+/* mask — headings. Negative insets keep ascenders/descenders (and Arabic marks) unclipped. */
+.motion-ready [data-reveal="mask"]:not([data-rv="done"]) { transition-duration: var(--m-dur-mask); }
+.motion-ready [data-reveal="mask"]:not([data-rv]) {
+  opacity: 1;
+  clip-path: inset(0 0 100% 0);
+  transform: translate3d(0, 0.55em, 0);
+}
+.motion-ready [data-reveal="mask"][data-rv="in"] { clip-path: inset(-30% -8% -30% -8%); }
+
+/* image — shutter rises, the photograph settles */
+.motion-ready [data-reveal="image"]:not([data-rv="done"]) { transition-duration: var(--m-dur-img); }
+.motion-ready [data-reveal="image"]:not([data-rv]) {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(100% 0 0 0);
+}
+.motion-ready [data-reveal="image"][data-rv="in"] { clip-path: inset(0 0 0 0); }
+.motion-ready [data-reveal="image"]:not([data-rv="done"]) :is(img, video) {
+  transition: transform calc(var(--m-dur-img) + 400ms) var(--ease-precise) calc(var(--rv-i, 0) * var(--m-stagger) + var(--rv-d, 0ms)),
+              opacity 500ms ease;
+}
+.motion-ready [data-reveal="image"]:not([data-rv]) :is(img, video) { transform: scale(1.06); }
+
+/* line — draws from the reading start */
+.motion-ready [data-reveal="line"]:not([data-rv="done"]) { transition-duration: var(--m-dur-line); }
+.motion-ready [data-reveal="line"]:not([data-rv]) {
+  opacity: 1;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.motion-ready[dir="rtl"] [data-reveal="line"]:not([data-rv]) { transform-origin: right center; }
+.motion-ready [data-reveal="line"][data-origin="center"]:not([data-rv]) { transform-origin: center; }
+.motion-ready [data-reveal="line"][data-axis="y"]:not([data-rv]) { transform: scaleY(0); transform-origin: center top; }
+
+/* step — process nodes */
+.motion-ready [data-reveal="step"]:not([data-rv]) { transform: translate3d(0, 10px, 0) scale(0.9); }
+
+/* ---------- Choreographed entrances (hero + page headers) ---------- */
+
+@keyframes s-rise {
+  from { opacity: 0; transform: translate3d(0, var(--m-y), 0); }
+}
+@keyframes s-fade {
+  from { opacity: 0; }
+}
+@keyframes s-line-mask {
+  from { clip-path: inset(0 0 100% 0); transform: translate3d(0, 0.6em, 0); }
+  to { clip-path: inset(-30% -8% -30% -8%); transform: none; }
+}
+@keyframes s-draw-x {
+  from { transform: scaleX(0); }
+}
+@keyframes s-draw-y {
+  from { transform: scaleY(0); }
+}
+@keyframes s-settle {
+  from { transform: scale(1.07); }
+}
+
+/* `backwards` fill: the element is hidden during its delay, then keeps no residual
+   transform or clip once finished (so hover states and fixed dialogs are unaffected). */
+.motion-ready .s-seq-rise { animation: s-rise var(--m-dur) var(--ease-precise) var(--seq, 0ms) backwards; }
+.motion-ready .s-seq-fade { animation: s-fade var(--m-dur) ease var(--seq, 0ms) backwards; }
+.motion-ready .s-seq-mask { animation: s-line-mask var(--m-dur-mask) var(--ease-precise) var(--seq, 0ms) backwards; }
+.motion-ready .s-seq-draw { animation: s-draw-x var(--m-dur-line) var(--ease-precise) var(--seq, 0ms) backwards; transform-origin: left center; }
+.motion-ready[dir="rtl"] .s-seq-draw { transform-origin: right center; }
+.motion-ready .s-seq-draw-y { animation: s-draw-y 1600ms var(--ease-precise) var(--seq, 0ms) backwards; transform-origin: center top; }
+.motion-ready .s-seq-settle { animation: s-settle 2200ms var(--ease-precise) var(--seq, 0ms) backwards; }
+
+/* ---------- Page transitions (View Transitions API; CSS fallback below) ---------- */
+
+@keyframes s-vt-out {
+  to { opacity: 0; transform: translate3d(0, -10px, 0); }
+}
+@keyframes s-vt-in {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); }
+}
+::view-transition-old(root) { animation: 240ms var(--ease-in-soft) both s-vt-out; }
+::view-transition-new(root) { animation: 560ms var(--ease-precise) 70ms both s-vt-in; }
+/* The fixed header is one continuous object across pages */
+.site-header { view-transition-name: site-header; }
+::view-transition-group(site-header) { animation-duration: 0s; }
+
+/* Browsers without View Transitions keep the soft CSS entrance */
+.vt .page-transition-enter { animation: none; }
+
+/* Route hairline: a thin brand line sweeps under the header on every page change */
+@keyframes s-route-line {
+  0% { transform: scaleX(0); opacity: 1; }
+  60% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+.route-line {
+  position: absolute;
+  inset-inline: 0;
+  bottom: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-forest), var(--color-taupe));
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+}
+[dir="rtl"] .route-line { transform-origin: right center; background: linear-gradient(270deg, var(--color-forest), var(--color-taupe)); }
+.motion-ready .route-line.is-running { animation: s-route-line 900ms var(--ease-precise) both; }
+
+/* ---------- Navigation ---------- */
+
+.nav-indicator {
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 2px;
+  width: 1px;
+  background: var(--color-forest);
+  transform-origin: left center;
+  transition: transform 520ms var(--ease-precise), opacity 300ms ease;
+  pointer-events: none;
+}
+
+
+@keyframes s-menu-in {
+  from { opacity: 0; transform: translate3d(0, -8px, 0); }
+}
+@keyframes s-menu-out {
+  to { opacity: 0; transform: translate3d(0, -8px, 0); }
+}
+.motion-ready .s-menu { animation: s-menu-in 380ms var(--ease-precise) both; transform-origin: top; }
+.motion-ready .s-menu.is-exiting { animation: s-menu-out 220ms var(--ease-in-soft) both; }
+.motion-ready .s-menu > * { animation: s-rise 520ms var(--ease-precise) calc(60ms + var(--i, 0) * 40ms) backwards; }
+.s-menu { --m-y: 10px; }
+
+/* ---------- Dialogs ---------- */
+
+@keyframes s-modal-in {
+  from { opacity: 0; transform: translate3d(0, 8px, 0) scale(0.98); }
+}
+@keyframes s-modal-out {
+  to { opacity: 0; transform: translate3d(0, 6px, 0) scale(0.985); }
+}
+.motion-ready .s-backdrop { animation: s-fade 320ms ease both; }
+.motion-ready .s-panel { animation: s-modal-in 460ms var(--ease-precise) both; }
+.motion-ready .is-exiting .s-backdrop,
+.motion-ready .s-backdrop.is-exiting { animation: s-fade 220ms ease reverse both; }
+.motion-ready .is-exiting .s-panel { animation: s-modal-out 220ms var(--ease-in-soft) both; }
+
+/* ---------- Cards: "this item becomes active" ---------- */
+
+.s-card { position: relative; }
+.s-card::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 2px;
+  background: var(--color-forest);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 650ms var(--ease-precise);
+  pointer-events: none;
+  z-index: 30;
+}
+[dir="rtl"] .s-card::after { transform-origin: right center; }
+.s-card:focus-within::after { transform: scaleX(1); }
+@media (hover: hover) {
+  .s-card:hover::after { transform: scaleX(1); }
+  .s-card:hover { border-color: color-mix(in srgb, var(--color-taupe) 80%, transparent); }
+  /* technical metadata / numbering steps forward */
+  .s-card .s-meta { transition: color 400ms ease, opacity 400ms ease, letter-spacing 500ms var(--ease-precise); }
+  .s-card:hover .s-meta { color: var(--color-forest); }
+  /* image moves a hair, as if the camera leans in */
+  .s-card .s-media-shift { transition: translate 900ms var(--ease-precise); }
+  .s-card:hover .s-media-shift { translate: 0 -1.5%; }
+}
+/* section numbering steps forward like a drawing callout */
+.s-card .s-num { display: inline-block; transition: translate 600ms var(--ease-precise), color 400ms ease; }
+@media (hover: hover) { .s-card:hover .s-num { translate: 0 -2px; color: var(--color-forest-muted); } }
+/* overlay deepens slightly on hover (applies to the dark gradient layers inside cards) */
+.s-card .s-overlay { transition: opacity 600ms ease; }
+@media (hover: hover) { .s-card:hover .s-overlay { opacity: 0.85; } }
+
+/* ---------- Buttons: tactile, never bouncy ---------- */
+
+.s-btn { position: relative; overflow: hidden; isolation: isolate; }
+.s-btn::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--color-taupe);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 520ms var(--ease-precise);
+  pointer-events: none;
+}
+[dir="rtl"] .s-btn::after { transform-origin: right center; }
+@media (hover: hover) {
+  .s-btn:hover::after { transform: scaleX(1); }
+}
+.s-btn:focus-visible::after { transform: scaleX(1); }
+.s-btn:active { translate: 0 1px; }
+
+/* Text links: underline draws instead of snapping on (footer, inline links) */
+.s-link {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  transition: background-size 480ms var(--ease-precise), color 300ms ease;
+}
+[dir="rtl"] .s-link { background-position: right bottom; }
+.s-link:hover, .s-link:focus-visible { background-size: 100% 1px; }
+
+/* ---------- EPCM process rail (/epcm) ---------- */
+
+.epcm-rail-fill {
+  transform: scaleY(var(--p, 0));
+  transform-origin: center top;
+  transition: transform 180ms linear;
+}
+.epcm-node {
+  transition: background-color 500ms ease, border-color 500ms ease, box-shadow 600ms var(--ease-precise), transform 600ms var(--ease-precise);
+}
+.epcm-node.is-active {
+  background-color: var(--color-forest);
+  border-color: var(--color-forest);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-beige) 85%, transparent);
+  transform: scale(1.15);
+}
+.epcm-node.is-passed { background-color: var(--color-forest); border-color: var(--color-forest); }
+.epcm-stage-card .epcm-stage-line {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 900ms var(--ease-precise);
+}
+[dir="rtl"] .epcm-stage-card .epcm-stage-line { transform-origin: right center; }
+.epcm-stage-card.is-active .epcm-stage-line { transform: scaleX(1); }
+.epcm-stage-card .epcm-stage-number { transition: color 500ms ease, letter-spacing 600ms var(--ease-precise); }
+
+/* ---------- Reduced motion: everything visible, nothing moves ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
+  .s-card .s-media-shift, .s-card:hover .s-media-shift { translate: none !important; }
+  .s-btn:active { translate: none; }
+  .epcm-node.is-active { transform: none; }
+}

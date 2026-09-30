@@ -4,6 +4,7 @@ import { KEY_DIRECTIONS } from '../data/soltexData';
 import { KeyDirection } from '../types';
 import { useI18n } from '../i18n/I18nProvider';
 import { useDialog } from '../hooks/useDialog';
+import { usePresence } from '../motion/usePresence';
 import { Link } from '../i18n/Link';
 
 interface KeyDirectionsProps {
@@ -16,6 +17,8 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
   const [selectedTechModal, setSelectedTechModal] = useState<KeyDirection | null>(null);
   const closeTechModal = React.useCallback(() => setSelectedTechModal(null), []);
   useDialog(!!selectedTechModal, closeTechModal);
+  const techModalPresence = usePresence(selectedTechModal, 220);
+  const techModal = techModalPresence.item;
 
   // Dedicated icons matching the 6 card directions from reference
   const getDirectionIcon = (id: string) => {
@@ -45,18 +48,20 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
           <h2 className="text-xl sm:text-2xl lg:text-[26px] font-extrabold text-[#111814] tracking-wider uppercase font-tech">
             {t("TECHNOLOGIES FOR HIGH-VALUE INGREDIENTS")}
           </h2>
-          <div className="w-12 h-[2px] bg-[#B89758] mx-auto mt-2.5" aria-hidden="true" />
+          <div data-reveal="line" data-origin="center" className="w-12 h-[2px] bg-[#B89758] mx-auto mt-2.5" aria-hidden="true" />
         </div>
 
         {/* 6-Column Card Grid (Desktop: 6 across, Tablet: 3, Mobile: 1 or 2) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-4.5 lg:gap-3.5 xl:gap-4">
-          {KEY_DIRECTIONS.map((tech) => (
+        <div data-reveal-group className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-4.5 lg:gap-3.5 xl:gap-4">
+          {KEY_DIRECTIONS.map((tech, idx) => (
             <div
               key={tech.id}
-              className="group relative flex flex-col bg-[#F5F3EC] border border-[#16211B]/10 overflow-hidden hover:border-[#0E482C]/40 hover:shadow-md transition-all duration-300 cursor-pointer"
+              data-reveal="up"
+              style={{ '--rv-i': idx } as React.CSSProperties}
+              className="s-card group relative flex flex-col bg-[#F5F3EC] border border-[#16211B]/10 overflow-hidden hover:border-[#0E482C]/40 hover:shadow-md transition-all duration-300 cursor-pointer"
             >
               {/* Card Photo (Flush top with 4:3 aspect ratio) */}
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#EAE7DE]">
+              <div data-reveal="image" style={{ '--rv-i': idx } as React.CSSProperties} className="relative aspect-[4/3] w-full overflow-hidden bg-[#EAE7DE]">
                 <img loading="lazy" decoding="async"
                   src={tech.image}
                   alt={t(tech.title)}
@@ -92,7 +97,7 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
 
                 {/* Card Action Link */}
                 <div className="pt-2 border-t border-[#16211B]/8 flex items-center justify-between">
-                  <span className="font-tech text-[10px] sm:text-[10.5px] font-bold text-[#111814] uppercase tracking-wider group-hover:text-[#0E482C] flex items-center gap-1.5 whitespace-nowrap transition-colors">
+                  <span className="s-meta font-tech text-[10px] sm:text-[10.5px] font-bold text-[#111814] uppercase tracking-wider group-hover:text-[#0E482C] flex items-center gap-1.5 whitespace-nowrap transition-colors">
                     <span>{t("LEARN MORE")}</span>
                     <ArrowRight className="w-3 h-3 text-[#B89758] group-hover:translate-x-0.5 transition-transform" />
                   </span>
@@ -116,15 +121,15 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
       </div>
 
       {/* Technical Specifications Quick Modal */}
-      {selectedTechModal && (
+      {techModal && (
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200"
+          className={`fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs s-backdrop ${techModalPresence.exiting ? 'is-exiting' : ''}`}
           onClick={() => setSelectedTechModal(null)}
         >
           <div
-            className="relative w-full max-w-2xl bg-[#FBFBF8] border border-[#16211B]/20 shadow-2xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto"
+            className="s-panel relative w-full max-w-2xl bg-[#FBFBF8] border border-[#16211B]/20 shadow-2xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
@@ -144,10 +149,10 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
               </span>
             </div>
             <h3 className="text-2xl font-extrabold text-[#111814] uppercase tracking-tight mb-2 font-tech">
-              {t(selectedTechModal.title)}
+              {t(techModal.title)}
             </h3>
             <p className="text-sm text-[#46574D] mb-6">
-              {t(selectedTechModal.description)}
+              {t(techModal.description)}
             </p>
 
             {/* Spec Columns */}
@@ -158,7 +163,7 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
                   {t("RAW MATERIALS")}
                 </h4>
                 <ul className="space-y-1 text-xs text-[#3E5045]">
-                  {selectedTechModal.rawMaterials.map((item, idx) => (
+                  {techModal.rawMaterials.map((item, idx) => (
                     <li key={idx} className="flex items-center gap-1.5">
                       <span className="w-1 h-1 rounded-full bg-[#B89758]" />
                       <span>{t(item)}</span>
@@ -173,7 +178,7 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
                   {t("END PRODUCTS")}
                 </h4>
                 <ul className="space-y-1 text-xs text-[#3E5045]">
-                  {selectedTechModal.endProducts.map((item, idx) => (
+                  {techModal.endProducts.map((item, idx) => (
                     <li key={idx} className="flex items-center gap-1.5">
                       <span className="w-1 h-1 rounded-full bg-[#0E482C]" />
                       <span>{t(item)}</span>
@@ -188,7 +193,7 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
                   {t("KEY FEATURES")}
                 </h4>
                 <ul className="space-y-1 text-xs text-[#3E5045]">
-                  {selectedTechModal.technologyFeatures.map((item, idx) => (
+                  {techModal.technologyFeatures.map((item, idx) => (
                     <li key={idx} className="flex items-start gap-1.5">
                       <CheckCircle2 className="w-3.5 h-3.5 text-[#0E482C] shrink-0 mt-0.5" />
                       <span>{t(item)}</span>
@@ -210,11 +215,11 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
               <button
                 type="button"
                 onClick={() => {
-                  const title = selectedTechModal.title;
+                  const title = techModal.title;
                   setSelectedTechModal(null);
                   onSelectTechnology(title);
                 }}
-                className="w-full sm:w-auto px-6 py-2.5 bg-[#0E482C] text-white text-xs font-bold uppercase font-tech tracking-wider hover:bg-[#0A3620] transition-colors flex items-center justify-center gap-2 shadow-xs"
+                className="w-full sm:w-auto px-6 py-2.5 bg-[#0E482C] text-white text-xs font-bold uppercase font-tech tracking-wider hover:bg-[#0A3620] transition-colors flex items-center justify-center gap-2 shadow-xs s-btn"
               >
                 <span>{t("INQUIRE ABOUT THIS TECHNOLOGY")}</span>
                 <ArrowRight className="w-4 h-4 text-[#B89758]" />
