@@ -1,54 +1,64 @@
 /**
- * Post-build SEO step (runs after `vite build`, see package.json "build").
+ * Static prerendering (runs after `vite build`, see package.json "build").
  *
- * For every route × language it writes a static HTML shell into dist/ with the correct
- *   <html lang dir>, <title>, meta description, canonical, hreflang alternates and OpenGraph tags,
- * so search engines and link previews get language-specific metadata without executing JavaScript.
- * The page body is still rendered by the React app (the shell contains the same bundle).
+ * For every public route × language it renders the React app to HTML at build time and writes a
+ * complete static page into dist/: <html lang dir>, <title>, meta description, robots,
+ * canonical, hreflang, OpenGraph AND the full page body. The browser bundle then hydrates the
+ * page. Search engines, link previews and visitors without JavaScript get the real content.
  *
- * Files are written as flat "<path>.html" (e.g. dist/ru/company.html) — Netlify serves them for
- * "/ru/company" — and the `/*  /index.html  200` rewrite in netlify.toml remains the fallback
- * for any other URL. A sitemap.xml with hreflang alternates is generated as well.
+ * Output layout (portable — any static web server):
+ *   dist/index.html            /            (English home)
+ *   dist/company.html          /company
+ *   dist/ru.html               /ru
+ *   dist/ru/company.html       /ru/company
+ *   dist/404.html              unknown URLs (served with HTTP 404 — see docs/deployment.md)
+ *   dist/<locale>/404.html     unknown URLs under /<locale>/
+ *   dist/sitemap.xml           every public URL with hreflang alternates
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import { DEFAULT_LOCALE, LOCALES, Locale, getLocaleInfo } from '../src/i18n/config';
-import { absoluteUrl, getAllRoutePaths, getAlternates, getRouteMeta } from '../src/i18n/seo';
 import { localizePath } from '../src/i18n/paths';
+import { absoluteUrl, getAlternates, getNotFoundMeta, getRouteMeta, RouteMeta } from '../src/i18n/seo';
+import { getPublicPaths } from '../src/content/routes';
+import type { ContentSnapshot } from '../src/content/types';
+import { getBundle, primeBundle, renderRoute } from '../src/entry-server';
 
-const DIST = path.resolve(import.meta.dirname, '../dist');
+const ROOT = path.resolve(import.meta.dirname, '..');
+const DIST = path.join(ROOT, 'dist');
 const template = fs.readFileSync(path.join(DIST, 'index.html'), 'utf8');
 
-const dictionaries: Record<string, Record<string, string>> = { en: {} };
+// Register every language synchronously for rendering.
 for (const l of LOCALES) {
-  if (l.code === DEFAULT_LOCALE) continue;
-  dictionaries[l.code] = JSON.parse(
-    fs.readFileSync(path.resolve(import.meta.dirname, `../src/i18n/locales/${l.code}.json`), 'utf8')
-  );
+  primeBundle(l.code, {
+    ui: JSON.parse(fs.readFileSync(path.join(ROOT, `src/i18n/ui/${l.code}.json`), 'utf8')),
+    content: JSON.parse(fs.readFileSync(path.join(ROOT, `src/content/snapshot/${l.code}.json`), 'utf8')) as ContentSnapshot,
+  });
 }
 
 const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-function renderShell(routePath: string, locale: Locale): string {
+function renderPage(routePath: string, locale: Locale, meta: RouteMeta, url: string, withLinks: boolean, notFound = false): string {
   const info = getLocaleInfo(locale);
-  const dict = dictionaries[locale];
-  const t = (s: string) => (locale === DEFAULT_LOCALE ? s : dict[s] ?? s);
-  const meta = getRouteMeta(routePath, t);
-  const canonical = absoluteUrl(routePath, locale);
-
+  const canonical = absoluteUrl(routePath, meta.canonicalLocale === locale ? locale : meta.canonicalLocale);
   const head = [
     `<title>${esc(meta.title)}</title>`,
     `<meta name="description" content="${esc(meta.description)}" />`,
     `<meta name="robots" content="${meta.indexable ? 'index, follow' : 'noindex, follow'}" />`,
-    `<link rel="canonical" href="${esc(canonical)}" />`,
-    ...getAlternates(routePath).map(
-      (a) => `<link rel="alternate" hreflang="${a.hreflang}" href="${esc(a.href)}" />`
-    ),
+    ...(withLinks
+      ? [
+          `<link rel="canonical" href="${esc(canonical)}" />`,
+          ...getAlternates(routePath, meta.alternateLocales).map(
+            (a) => `<link rel="alternate" hreflang="${a.hreflang}" href="${esc(a.href)}" />`
+          ),
+        ]
+      : []),
     `<meta property="og:title" content="${esc(meta.title)}" />`,
     `<meta property="og:description" content="${esc(meta.description)}" />`,
-    `<meta property="og:url" content="${esc(canonical)}" />`,
+    ...(withLinks ? [`<meta property="og:url" content="${esc(canonical)}" />`] : []),
     `<meta property="og:locale" content="${info.ogLocale}" />`,
+    ...(meta.ogImage ? [`<meta property="og:image" content="${esc(meta.ogImage)}" />`] : []),
     ...(info.fallbackFonts
       ? [
           `<link id="i18n-fonts-${info.code}" rel="stylesheet" href="https://fonts.googleapis.com/css2?${esc(
@@ -58,6 +68,8 @@ function renderShell(routePath: string, locale: Locale): string {
       : []),
   ].join('\n    ');
 
+  const body = renderRoute(url);
+
   return template
     .replace(/<html[^>]*>/, `<html lang="${info.htmlLang}" dir="${info.dir}" class="scroll-smooth">`)
     .replace(/<title>[\s\S]*?<\/title>/, '')
@@ -65,6 +77,7 @@ function renderShell(routePath: string, locale: Locale): string {
     .replace(/<meta property="og:title"[^>]*>/, '')
     .replace(/<meta property="og:description"[^>]*>/, '')
     .replace('</head>', `  ${head}\n  </head>`)
+    .replace('<div id="root"></div>', `<div id="root"${notFound ? ' data-render="not-found"' : ''}>${body}</div>`)
     .replace(/\n[ \t]*(?=\n)/g, ''); // drop blank lines left by removed tags
 }
 
@@ -73,37 +86,53 @@ function outFile(publicPath: string): string {
   return path.join(DIST, `${publicPath.replace(/^\//, '')}.html`);
 }
 
-const routes = getAllRoutePaths();
+const write = (file: string, html: string) => {
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  fs.writeFileSync(file, html);
+};
+
+const english = getBundle(DEFAULT_LOCALE)!.content;
+const routes = getPublicPaths(english);
+const sitemapEntries: string[] = [];
 let written = 0;
+
 for (const l of LOCALES) {
+  const content = getBundle(l.code)!.content;
   for (const r of routes) {
-    const file = outFile(localizePath(r, l.code));
-    fs.mkdirSync(path.dirname(file), { recursive: true });
-    fs.writeFileSync(file, renderShell(r, l.code));
+    const meta = getRouteMeta(r, content);
+    if (!meta) throw new Error(`prerender: no content for ${r} (${l.code})`);
+    const url = localizePath(r, l.code);
+    write(outFile(url), renderPage(r, l.code, meta, url, true));
     written++;
   }
+
+  // "Page not found" document per language (rendered for a path that matches no route).
+  const notFoundUrl = localizePath('/__not-found__', l.code);
+  const nfMeta = getNotFoundMeta(getBundle(l.code)!.ui['notFound.title'], content);
+  const nfFile = l.code === DEFAULT_LOCALE ? path.join(DIST, '404.html') : path.join(DIST, l.code, '404.html');
+  write(nfFile, renderPage('/__not-found__', l.code, nfMeta, notFoundUrl, false, true));
 }
 
-// sitemap.xml with hreflang alternates
-const urls = routes
-  .flatMap((r) =>
-    LOCALES.map(
-      (l) => `  <url>
+// sitemap.xml with hreflang alternates (indexable pages only)
+for (const r of routes) {
+  for (const l of LOCALES) {
+    const meta = getRouteMeta(r, getBundle(l.code)!.content)!;
+    if (!meta.indexable || meta.canonicalLocale !== l.code) continue;
+    sitemapEntries.push(`  <url>
     <loc>${esc(absoluteUrl(r, l.code))}</loc>
-${getAlternates(r)
+${getAlternates(r, meta.alternateLocales)
   .map((a) => `    <xhtml:link rel="alternate" hreflang="${a.hreflang}" href="${esc(a.href)}" />`)
   .join('\n')}
-  </url>`
-    )
-  )
-  .join('\n');
+  </url>`);
+  }
+}
 fs.writeFileSync(
   path.join(DIST, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${urls}
+${sitemapEntries.join('\n')}
 </urlset>
 `
 );
 
-console.log(`prerender: ${written} localized HTML shells + sitemap.xml (${routes.length} routes × ${LOCALES.length} languages)`);
+console.log(`prerender: ${written} pages (${routes.length} routes × ${LOCALES.length} languages) + ${LOCALES.length} not-found pages + sitemap.xml`);

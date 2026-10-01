@@ -1,0 +1,996 @@
+[
+  {
+    "id": "product-pectin",
+    "status": "published",
+    "order": 1,
+    "slug": "pectin",
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "categoryNumber": "01",
+    "categoryTitle": {
+      "en": "HYDROCOLLOIDS & GELLING AGENTS",
+      "ru": "ГИДРОКОЛЛОИДЫ И ЖЕЛИРУЮЩИЕ АГЕНТЫ",
+      "zh": "水胶体与胶凝剂",
+      "tr": "HİDROKOLLOİDLER VE JELLEŞTİRİCİLER",
+      "ar": "الغرويات المائية وعوامل التهلّم",
+      "es": "HIDROCOLOIDES Y GELIFICANTES"
+    },
+    "title": {
+      "en": "Food & Pharmaceutical Grade Pectin",
+      "ru": "Пектин пищевого и фармацевтического качества",
+      "zh": "食品级与医药级果胶",
+      "tr": "Gıda ve farmasötik kalitede pektin",
+      "ar": "بكتين من الدرجة الغذائية والدوائية",
+      "es": "Pectina de grado alimentario y farmacéutico"
+    },
+    "description": {
+      "en": "Purified biopolymers produced via patented alcohol-free cavitation extraction from apple pomace, citrus peels, and sugar beet pulp.",
+      "ru": "Очищенные биополимеры, получаемые запатентованной безалкогольной кавитационной экстракцией из яблочных выжимок, цитрусовой кожуры и свекловичного жома.",
+      "zh": "采用专利无醇空化提取技术，从苹果渣、柑橘皮和甜菜粕中制得的纯化生物聚合物。",
+      "tr": "Elma posası, narenciye kabukları ve şeker pancarı posasından patentli alkolsüz kavitasyon ekstraksiyonu ile üretilen saflaştırılmış biyopolimerler.",
+      "ar": "بوليمرات حيوية منقّاة منتجة بالاستخلاص بالتكهف الخالي من الكحول الحاصل على براءة اختراع من تفل التفاح وقشور الحمضيات ولب بنجر السكر.",
+      "es": "Biopolímeros purificados obtenidos mediante extracción patentada por cavitación sin alcohol a partir de orujo de manzana, cáscaras de cítricos y pulpa de remolacha azucarera."
+    },
+    "rawMaterials": [
+      {
+        "en": "Apple Pomace",
+        "ru": "Яблочные выжимки",
+        "zh": "苹果渣",
+        "tr": "Elma posası",
+        "ar": "تفل التفاح",
+        "es": "Orujo de manzana"
+      },
+      {
+        "en": "Citrus Peel",
+        "ru": "Цитрусовая кожура",
+        "zh": "柑橘皮",
+        "tr": "Narenciye kabuğu",
+        "ar": "قشور الحمضيات",
+        "es": "Cáscara de cítricos"
+      },
+      {
+        "en": "Sugar Beet Marc",
+        "ru": "Свекловичный жом",
+        "zh": "甜菜渣",
+        "tr": "Şeker pancarı küspesi",
+        "ar": "ثفل بنجر السكر",
+        "es": "Bagazo de remolacha azucarera"
+      }
+    ],
+    "productionTechnology": {
+      "en": "Alcohol-free hydrodynamic cavitation extraction and membrane ultrafiltration (Patent Application No. 113754)",
+      "ru": "Безалкогольная гидродинамическая кавитационная экстракция и мембранная ультрафильтрация (заявка на патент № 113754)",
+      "zh": "无醇水力空化提取与膜超滤（专利申请号 113754）",
+      "tr": "Alkolsüz hidrodinamik kavitasyon ekstraksiyonu ve membran ultrafiltrasyon (Patent Başvurusu No. 113754)",
+      "ar": "استخلاص بالتكهف الهيدروديناميكي خالٍ من الكحول وترشيح فائق غشائي (طلب براءة الاختراع رقم 113754)",
+      "es": "Extracción por cavitación hidrodinámica sin alcohol y ultrafiltración por membrana (solicitud de patente n.º 113754)"
+    },
+    "applications": [
+      {
+        "en": "Confectionery: jellies, gummies, fruit pastes, bakery glazes",
+        "ru": "Кондитерские изделия: желе, жевательный мармелад, фруктовые пасты, глазури для выпечки",
+        "zh": "糖果：果冻、软糖、果糕、烘焙糖霜",
+        "tr": "Şekerleme: jöleler, yumuşak şekerler, meyve ezmeleri, fırın glazürleri",
+        "ar": "الحلويات: الهلام، والحلوى الجيلاتينية، ومعاجين الفاكهة، وطبقات تزيين المخبوزات",
+        "es": "Confitería: gelatinas, caramelos de goma, pastas de fruta, glaseados de panadería"
+      },
+      {
+        "en": "Dairy: drinkable yogurts, sour cream structure stabilization, acidified milk drinks",
+        "ru": "Молочные продукты: питьевые йогурты, стабилизация структуры сметаны, кисломолочные напитки",
+        "zh": "乳制品：饮用型酸奶、酸奶油结构稳定、酸性乳饮料",
+        "tr": "Süt ürünleri: içilebilir yoğurtlar, ekşi krema yapı stabilizasyonu, asitlendirilmiş süt içecekleri",
+        "ar": "الألبان: الزبادي القابل للشرب، وتثبيت قوام القشدة الحامضة، ومشروبات الحليب المحمّضة",
+        "es": "Lácteos: yogures bebibles, estabilización de la estructura de la crema agria, bebidas lácteas acidificadas"
+      },
+      {
+        "en": "Beverages: mouthfeel optimization, fruit suspension in nectars",
+        "ru": "Напитки: оптимизация ощущения во рту, удержание фруктовой взвеси в нектарах",
+        "zh": "饮料：口感优化、果肉在果汁饮料中的悬浮",
+        "tr": "İçecekler: ağız hissi optimizasyonu, nektarlarda meyve süspansiyonu",
+        "ar": "المشروبات: تحسين الإحساس في الفم، وتعليق قطع الفاكهة في النكتار",
+        "es": "Bebidas: optimización de la sensación en boca, suspensión de fruta en néctares"
+      },
+      {
+        "en": "Pharmaceuticals: capsule excipients, gastro-protective formulations",
+        "ru": "Фармацевтика: вспомогательные вещества для капсул, гастропротекторные составы",
+        "zh": "医药：胶囊辅料、胃保护配方",
+        "tr": "İlaç: kapsül yardımcı maddeleri, gastro-koruyucu formülasyonlar",
+        "ar": "المستحضرات الدوائية: سواغات الكبسولات، وتركيبات حماية المعدة",
+        "es": "Farmacia: excipientes para cápsulas, formulaciones gastroprotectoras"
+      }
+    ],
+    "characteristics": [
+      {
+        "en": "Degree of esterification tailored from 30% to 75%",
+        "ru": "Степень этерификации настраивается от 30% до 75%",
+        "zh": "酯化度可在 30% 至 75% 之间定制",
+        "tr": "%30 ile %75 arasında ayarlanabilen esterleşme derecesi",
+        "ar": "درجة أسترة قابلة للضبط من 30% إلى 75%",
+        "es": "Grado de esterificación ajustable del 30% al 75%"
+      },
+      {
+        "en": "Exceptional gel elasticity and thermal reversibility",
+        "ru": "Исключительная эластичность и термообратимость геля",
+        "zh": "出色的凝胶弹性与热可逆性",
+        "tr": "Olağanüstü jel elastikiyeti ve termal geri dönüşümlülük",
+        "ar": "مرونة استثنائية للهلام وقابلية انعكاس حراري",
+        "es": "Excepcional elasticidad del gel y reversibilidad térmica"
+      },
+      {
+        "en": "Clean label, non-GMO, certified Kosher and Halal compliant",
+        "ru": "«Чистая этикетка», без ГМО, сертифицированное соответствие требованиям Kosher и Halal",
+        "zh": "清洁标签、非转基因，经认证符合 Kosher 和 Halal 要求",
+        "tr": "Temiz etiket, GDO'suz, Kosher ve Helal uyumlu sertifikalı",
+        "ar": "ملصق نظيف، غير معدّل وراثيًا، ومعتمد بالتوافق مع متطلبات Kosher وHalal",
+        "es": "Etiqueta limpia, no transgénica, con cumplimiento certificado Kosher y Halal"
+      },
+      {
+        "en": "Free of residual chemical solvent traces",
+        "ru": "Отсутствие следов остаточных химических растворителей",
+        "zh": "无残留化学溶剂",
+        "tr": "Kalıntı kimyasal çözücü izi içermez",
+        "ar": "خالٍ من أي آثار متبقية للمذيبات الكيميائية",
+        "es": "Libre de trazas residuales de disolventes químicos"
+      }
+    ],
+    "relatedTechnologyId": "technology-pectin",
+    "relatedProjectId": "project-siberian-wellness",
+    "image": {
+      "mediaId": "media-tech-pectin-apples-1790271159655"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "3b2532e90fde610d",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "3b2532e90fde610d",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "3b2532e90fde610d",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "3b2532e90fde610d",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "3b2532e90fde610d",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "product-soy-protein-isolate",
+    "status": "published",
+    "order": 2,
+    "slug": "soy-protein-isolate",
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "categoryNumber": "02",
+    "categoryTitle": {
+      "en": "PLANT PROTEIN ISOLATES",
+      "ru": "РАСТИТЕЛЬНЫЕ БЕЛКОВЫЕ ИЗОЛЯТЫ",
+      "zh": "植物分离蛋白",
+      "tr": "BİTKİSEL PROTEİN İZOLATLARI",
+      "ar": "البروتينات النباتية المعزولة",
+      "es": "AISLADOS DE PROTEÍNA VEGETAL"
+    },
+    "title": {
+      "en": "Enzymatically Hydrolyzed Soy Protein Isolate (≥90%)",
+      "ru": "Изолят соевого белка ферментативного гидролиза (≥90%)",
+      "zh": "酶解大豆分离蛋白（≥90%）",
+      "tr": "Enzimatik hidrolize soya protein izolatı (≥%90)",
+      "ar": "بروتين الصويا المعزول المحلّل إنزيميًا (≥90%)",
+      "es": "Aislado de proteína de soja hidrolizado enzimáticamente (≥90%)"
+    },
+    "description": {
+      "en": "High-purity plant protein isolate with elevated solubility index and neutral organoleptics, produced via targeted micro-dose enzymatic hydrolysis.",
+      "ru": "Растительный белковый изолят высокой чистоты с повышенным индексом растворимости и нейтральной органолептикой, получаемый направленным ферментативным гидролизом микродозами.",
+      "zh": "采用定向微剂量酶解工艺生产的高纯度植物分离蛋白，溶解指数高，感官特性中性。",
+      "tr": "Hedefe yönelik mikro doz enzimatik hidroliz ile üretilen, yüksek çözünürlük indeksine ve nötr organoleptik özelliklere sahip yüksek saflıkta bitkisel protein izolatı.",
+      "ar": "بروتين نباتي معزول عالي النقاوة بمؤشر ذوبانية مرتفع وخصائص حسية محايدة، منتج بالتحلل المائي الإنزيمي الموجّه بجرعات ميكروية.",
+      "es": "Aislado de proteína vegetal de alta pureza con un elevado índice de solubilidad y organoléptica neutra, obtenido mediante hidrólisis enzimática dirigida en microdosis."
+    },
+    "rawMaterials": [
+      {
+        "en": "Non-GMO Defatted Soybean White Flakes (PDI > 80)",
+        "ru": "Обезжиренные соевые «белые лепестки» без ГМО (PDI > 80)",
+        "zh": "非转基因脱脂大豆白片（PDI > 80）",
+        "tr": "GDO'suz yağı alınmış soya beyaz yaprakları (PDI > 80)",
+        "ar": "رقائق صويا بيضاء منزوعة الدهن وغير معدّلة وراثيًا (PDI > 80)",
+        "es": "Escamas blancas de soja desgrasadas no transgénicas (PDI > 80)"
+      }
+    ],
+    "productionTechnology": {
+      "en": "Aqueous extraction, micro-dose bromelain hydrolysis, and steam flash deodorization (Patent RU 2709384 C1)",
+      "ru": "Водная экстракция, гидролиз микродозами бромелаина и мгновенная паровая дезодорация (патент RU 2709384 C1)",
+      "zh": "水相提取、微剂量菠萝蛋白酶水解及蒸汽闪蒸脱臭（专利 RU 2709384 C1）",
+      "tr": "Sulu ekstraksiyon, mikro doz bromelain hidrolizi ve anlık buharla deodorizasyon (Patent RU 2709384 C1)",
+      "ar": "استخلاص مائي وتحلل مائي بجرعات ميكروية من البروميلين وإزالة فورية للروائح بالبخار (براءة RU 2709384 C1)",
+      "es": "Extracción acuosa, hidrólisis con microdosis de bromelina y desodorización instantánea con vapor (patente RU 2709384 C1)"
+    },
+    "applications": [
+      {
+        "en": "Sports nutrition protein powders, dry blends and ready-to-drink shakes",
+        "ru": "Протеиновые порошки для спортивного питания, сухие смеси и готовые к употреблению коктейли",
+        "zh": "运动营养蛋白粉、干混料及即饮奶昔",
+        "tr": "Sporcu beslenmesi protein tozları, kuru karışımlar ve içime hazır içecekler",
+        "ar": "مساحيق بروتين التغذية الرياضية والخلطات الجافة والمخفوقات الجاهزة للشرب",
+        "es": "Proteínas en polvo para nutrición deportiva, mezclas secas y batidos listos para beber"
+      },
+      {
+        "en": "Meat processing: brine injection, boiled sausages, minced meat extension",
+        "ru": "Мясопереработка: шприцевание рассолом, варёные колбасы, наполнение фарша",
+        "zh": "肉制品加工：注射盐水、熟香肠、肉糜增量",
+        "tr": "Et işleme: salamura enjeksiyonu, haşlanmış sosisler, kıyma verim artırma",
+        "ar": "تصنيع اللحوم: حقن المحلول الملحي، والنقانق المسلوقة، وزيادة حجم اللحم المفروم",
+        "es": "Procesamiento cárnico: inyección de salmuera, embutidos cocidos, extensión de carne picada"
+      },
+      {
+        "en": "Plant-based dairy: soy milks, tofu, vegan yogurts and desserts",
+        "ru": "Растительные альтернативы молочным продуктам: соевое молоко, тофу, веганские йогурты и десерты",
+        "zh": "植物基乳制品：豆奶、豆腐、纯素酸奶及甜品",
+        "tr": "Bitkisel süt ürünleri: soya sütü, tofu, vegan yoğurtlar ve tatlılar",
+        "ar": "الألبان النباتية: حليب الصويا، والتوفو، والزبادي والحلويات النباتية",
+        "es": "Lácteos vegetales: bebidas de soja, tofu, yogures y postres veganos"
+      },
+      {
+        "en": "Functional nutrition bars and clinical dietary supplements",
+        "ru": "Батончики функционального питания и БАДы для клинического питания",
+        "zh": "功能营养棒及临床膳食补充剂",
+        "tr": "Fonksiyonel beslenme barları ve klinik diyet takviyeleri",
+        "ar": "ألواح التغذية الوظيفية والمكمّلات الغذائية العلاجية",
+        "es": "Barritas de nutrición funcional y suplementos dietéticos clínicos"
+      }
+    ],
+    "characteristics": [
+      {
+        "en": "Crude protein content ≥90% on dry basis",
+        "ru": "Содержание сырого протеина ≥90% в пересчёте на сухое вещество",
+        "zh": "干基粗蛋白含量 ≥90%",
+        "tr": "Kuru bazda ≥%90 ham protein içeriği",
+        "ar": "محتوى البروتين الخام ≥90% على أساس المادة الجافة",
+        "es": "Contenido de proteína bruta ≥90% en base seca"
+      },
+      {
+        "en": "Nitrogen Solubility Index (NSI) > 85%",
+        "ru": "Индекс растворимости азота (NSI) > 85%",
+        "zh": "氮溶解指数（NSI）> 85%",
+        "tr": "Azot çözünürlük indeksi (NSI) > %85",
+        "ar": "مؤشر ذوبانية النيتروجين (NSI) > 85%",
+        "es": "Índice de solubilidad del nitrógeno (NSI) > 85%"
+      },
+      {
+        "en": "Peptide cleavage < 10 kDa ensuring 6.8x increased digestibility",
+        "ru": "Расщепление пептидов < 10 кДа, обеспечивающее повышение усвояемости в 6,8 раза",
+        "zh": "肽链切割 < 10 kDa，消化性提高 6.8 倍",
+        "tr": "Sindirilebilirliği 6,8 kat artıran < 10 kDa peptit parçalanması",
+        "ar": "تقطيع الببتيدات < 10 kDa بما يضمن زيادة قابلية الهضم 6.8 مرة",
+        "es": "Escisión de péptidos < 10 kDa que garantiza una digestibilidad 6,8 veces mayor"
+      },
+      {
+        "en": "Virtually zero beany odor or bitter aftertaste",
+        "ru": "Практически полное отсутствие бобового запаха и горького привкуса",
+        "zh": "几乎无豆腥味和苦涩后味",
+        "tr": "Neredeyse sıfır fasulye kokusu veya acı tat",
+        "ar": "خلوّ شبه تام من رائحة الفول والطعم المرّ",
+        "es": "Prácticamente sin olor a leguminosa ni regusto amargo"
+      }
+    ],
+    "relatedTechnologyId": "technology-soy-protein",
+    "relatedProjectId": "project-agritech-kazakhstan",
+    "image": {
+      "mediaId": "media-tech-soy-beans-1790271178494"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "96d9c755f3c95a1d",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "96d9c755f3c95a1d",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "96d9c755f3c95a1d",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "96d9c755f3c95a1d",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "96d9c755f3c95a1d",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "product-inulin-fos",
+    "status": "published",
+    "order": 3,
+    "slug": "inulin-fos",
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "categoryNumber": "03",
+    "categoryTitle": {
+      "en": "FUNCTIONAL PREBIOTICS & SWEETENERS",
+      "ru": "ФУНКЦИОНАЛЬНЫЕ ПРЕБИОТИКИ И ПОДСЛАСТИТЕЛИ",
+      "zh": "功能性益生元与甜味剂",
+      "tr": "FONKSİYONEL PREBİYOTİKLER VE TATLANDIRICILAR",
+      "ar": "البريبايوتيك الوظيفية والمحلّيات",
+      "es": "PREBIÓTICOS FUNCIONALES Y EDULCORANTES"
+    },
+    "title": {
+      "en": "Inulin & Fructooligosaccharides (FOS)",
+      "ru": "Инулин и фруктоолигосахариды (ФОС)",
+      "zh": "菊粉与低聚果糖（FOS）",
+      "tr": "İnülin ve fruktooligosakkaritler (FOS)",
+      "ar": "الإينولين والفركتوأوليغوسكاريدات (FOS)",
+      "es": "Inulina y fructooligosacáridos (FOS)"
+    },
+    "description": {
+      "en": "Natural prebiotic dietary fructans extracted from Jerusalem artichoke tubers and chicory roots, offering gut health benefits and sugar/fat replacement.",
+      "ru": "Натуральные пребиотические пищевые фруктаны, извлекаемые из клубней топинамбура и корней цикория, полезные для здоровья кишечника и замены сахара / жира.",
+      "zh": "从菊芋块茎和菊苣根中提取的天然益生元膳食果聚糖，有益肠道健康，可替代糖和脂肪。",
+      "tr": "Yer elması yumruları ve hindiba köklerinden elde edilen, bağırsak sağlığına katkı sağlayan ve şeker/yağ ikamesi sunan doğal prebiyotik diyet fruktanları.",
+      "ar": "فركتانات غذائية بريبايوتيكية طبيعية مستخلصة من درنات الطرطوفة وجذور الهندباء، تقدّم فوائد لصحة الأمعاء وبديلًا للسكر والدهون.",
+      "es": "Fructanos dietéticos prebióticos naturales extraídos de tubérculos de tupinambo y raíces de achicoria, con beneficios para la salud intestinal y como sustitutos de azúcar/grasa."
+    },
+    "rawMaterials": [
+      {
+        "en": "Jerusalem Artichoke Tubers (Helianthus tuberosus)",
+        "ru": "Клубни топинамбура (Helianthus tuberosus)",
+        "zh": "菊芋块茎（Helianthus tuberosus）",
+        "tr": "Yer elması yumruları (Helianthus tuberosus)",
+        "ar": "درنات الطرطوفة (Helianthus tuberosus)",
+        "es": "Tubérculos de tupinambo (Helianthus tuberosus)"
+      },
+      {
+        "en": "Chicory Roots",
+        "ru": "Корни цикория",
+        "zh": "菊苣根",
+        "tr": "Hindiba kökleri",
+        "ar": "جذور الهندباء",
+        "es": "Raíces de achicoria"
+      }
+    ],
+    "productionTechnology": {
+      "en": "Multi-stage countercurrent aqueous diffusion, decolorization and low-temperature crystallization",
+      "ru": "Многоступенчатая противоточная водная диффузия, обесцвечивание и низкотемпературная кристаллизация",
+      "zh": "多级逆流水相扩散、脱色及低温结晶",
+      "tr": "Çok kademeli ters akımlı sulu difüzyon, renk giderme ve düşük sıcaklıkta kristalizasyon",
+      "ar": "انتشار مائي متعدد المراحل بالتيار المعاكس وإزالة اللون وتبلور عند درجة حرارة منخفضة",
+      "es": "Difusión acuosa a contracorriente en múltiples etapas, decoloración y cristalización a baja temperatura"
+    },
+    "applications": [
+      {
+        "en": "Dairy & Ice Cream: fat replacer imparting creamy mouthfeel without caloric burden",
+        "ru": "Молочные продукты и мороженое: заменитель жира, придающий сливочную текстуру без лишних калорий",
+        "zh": "乳制品与冰淇淋：脂肪替代物，带来奶油般口感而不增加热量负担",
+        "tr": "Süt ürünleri ve dondurma: kalori yükü olmadan kremsi ağız hissi veren yağ ikamesi",
+        "ar": "الألبان والمثلجات: بديل للدهون يمنح إحساسًا كريميًا في الفم دون عبء سعرات حرارية",
+        "es": "Lácteos y helados: sustituto de grasa que aporta una textura cremosa sin carga calórica"
+      },
+      {
+        "en": "Bakery: moisture retention and dietary fiber fortification",
+        "ru": "Выпечка: удержание влаги и обогащение пищевыми волокнами",
+        "zh": "烘焙：保持水分及强化膳食纤维",
+        "tr": "Unlu mamuller: nem tutma ve diyet lifi ile zenginleştirme",
+        "ar": "المخبوزات: الاحتفاظ بالرطوبة والتدعيم بالألياف الغذائية",
+        "es": "Panadería: retención de humedad y enriquecimiento con fibra dietética"
+      },
+      {
+        "en": "Specialty Nutrition: glycemic control for diabetic nutrition",
+        "ru": "Специализированное питание: контроль гликемии в питании при диабете",
+        "zh": "特殊营养：用于糖尿病营养的血糖控制",
+        "tr": "Özel beslenme: diyabetik beslenmede glisemik kontrol",
+        "ar": "التغذية المتخصصة: التحكم في سكر الدم في تغذية مرضى السكري",
+        "es": "Nutrición especializada: control glucémico en la nutrición para diabéticos"
+      },
+      {
+        "en": "Dietary supplements: prebiotic capsules and soluble gut health sachets",
+        "ru": "БАДы: пребиотические капсулы и растворимые саше для здоровья кишечника",
+        "zh": "膳食补充剂：益生元胶囊及可溶性肠道健康小袋",
+        "tr": "Diyet takviyeleri: prebiyotik kapsüller ve çözünür bağırsak sağlığı saşeleri",
+        "ar": "المكمّلات الغذائية: كبسولات بريبايوتيك وأكياس قابلة للذوبان لصحة الأمعاء",
+        "es": "Suplementos dietéticos: cápsulas prebióticas y sobres solubles para la salud intestinal"
+      }
+    ],
+    "characteristics": [
+      {
+        "en": "Polymerization degree available in short (DP 3–10) and long chain (DP > 23)",
+        "ru": "Степень полимеризации: короткоцепочечный (DP 3–10) и длинноцепочечный (DP > 23)",
+        "zh": "聚合度可选短链（DP 3–10）和长链（DP > 23）",
+        "tr": "Kısa zincirli (DP 3–10) ve uzun zincirli (DP > 23) polimerizasyon derecesi seçenekleri",
+        "ar": "درجة البلمرة متوفرة بسلاسل قصيرة (DP 3–10) وطويلة (DP > 23)",
+        "es": "Grado de polimerización disponible en cadena corta (DP 3–10) y larga (DP > 23)"
+      },
+      {
+        "en": "Pure white crystalline powder, highly soluble in liquids",
+        "ru": "Чистый белый кристаллический порошок, хорошо растворимый в жидкостях",
+        "zh": "纯白色结晶粉末，易溶于液体",
+        "tr": "Sıvılarda yüksek çözünürlüğe sahip saf beyaz kristal toz",
+        "ar": "مسحوق بلوري أبيض نقي عالي الذوبان في السوائل",
+        "es": "Polvo cristalino blanco puro, altamente soluble en líquidos"
+      },
+      {
+        "en": "Caloric value under 1.5 kcal/g with low glycemic index",
+        "ru": "Калорийность менее 1,5 ккал/г при низком гликемическом индексе",
+        "zh": "热量低于 1.5 kcal/g，血糖指数低",
+        "tr": "Düşük glisemik indeksle 1,5 kcal/g'ın altında kalori değeri",
+        "ar": "قيمة سعرية أقل من 1.5 kcal/g مع مؤشر جلايسيمي منخفض",
+        "es": "Valor calórico inferior a 1,5 kcal/g con bajo índice glucémico"
+      },
+      {
+        "en": "Promotes beneficial bifidobacteria growth in microflora",
+        "ru": "Способствует росту полезных бифидобактерий в микрофлоре",
+        "zh": "促进肠道菌群中有益双歧杆菌生长",
+        "tr": "Mikroflorada yararlı bifidobakterilerin büyümesini destekler",
+        "ar": "يعزّز نمو البكتيريا المشقوقة المفيدة في الفلورا المعوية",
+        "es": "Favorece el crecimiento de bifidobacterias beneficiosas en la microbiota"
+      }
+    ],
+    "relatedTechnologyId": "technology-inulin",
+    "relatedProjectId": "project-siberian-wellness",
+    "image": {
+      "mediaId": "media-tech-inulin-roots-1790271193455"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "379d22696ea6e2bc",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "379d22696ea6e2bc",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "379d22696ea6e2bc",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "379d22696ea6e2bc",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "379d22696ea6e2bc",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "product-dietary-fibers",
+    "status": "published",
+    "order": 4,
+    "slug": "dietary-fibers",
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "categoryNumber": "04",
+    "categoryTitle": {
+      "en": "STRUCTURAL TEXTURIZERS & FIBERS",
+      "ru": "СТРУКТУРООБРАЗУЮЩИЕ ТЕКСТУРАТОРЫ И ВОЛОКНА",
+      "zh": "结构型质构改良剂与纤维",
+      "tr": "YAPISAL TEKSTÜR DÜZENLEYİCİLER VE LİFLER",
+      "ar": "محسّنات القوام الهيكلية والألياف",
+      "es": "TEXTURIZANTES ESTRUCTURALES Y FIBRAS"
+    },
+    "title": {
+      "en": "Purified Soluble & Insoluble Dietary Fibers",
+      "ru": "Очищенные растворимые и нерастворимые пищевые волокна",
+      "zh": "纯化可溶性与不溶性膳食纤维",
+      "tr": "Saflaştırılmış çözünür ve çözünmez diyet lifleri",
+      "ar": "ألياف غذائية منقّاة قابلة وغير قابلة للذوبان",
+      "es": "Fibras dietéticas solubles e insolubles purificadas"
+    },
+    "description": {
+      "en": "High-fiber natural ingredients from apple, citrus, and beet by-products, engineered for optimal water and oil absorption in food production.",
+      "ru": "Натуральные ингредиенты с высоким содержанием волокон из побочных продуктов переработки яблок, цитрусовых и свёклы, разработанные для оптимального поглощения воды и масла в пищевом производстве.",
+      "zh": "以苹果、柑橘和甜菜副产品为原料的高纤维天然配料，专为食品生产中的最佳吸水吸油性能而设计。",
+      "tr": "Gıda üretiminde optimum su ve yağ emilimi için tasarlanmış, elma, narenciye ve pancar yan ürünlerinden elde edilen yüksek lifli doğal bileşenler.",
+      "ar": "مكونات طبيعية غنية بالألياف من المنتجات الثانوية للتفاح والحمضيات والبنجر، مصمّمة لامتصاص مثالي للماء والزيت في إنتاج الأغذية.",
+      "es": "Ingredientes naturales ricos en fibra a partir de subproductos de manzana, cítricos y remolacha, diseñados para una absorción óptima de agua y aceite en la producción de alimentos."
+    },
+    "rawMaterials": [
+      {
+        "en": "Apple Pomace",
+        "ru": "Яблочные выжимки",
+        "zh": "苹果渣",
+        "tr": "Elma posası",
+        "ar": "تفل التفاح",
+        "es": "Orujo de manzana"
+      },
+      {
+        "en": "Citrus Marc",
+        "ru": "Цитрусовые выжимки",
+        "zh": "柑橘渣",
+        "tr": "Narenciye posası",
+        "ar": "تفل الحمضيات",
+        "es": "Orujo de cítricos"
+      },
+      {
+        "en": "Sugar Beet Marc",
+        "ru": "Свекловичный жом",
+        "zh": "甜菜渣",
+        "tr": "Şeker pancarı küspesi",
+        "ar": "ثفل بنجر السكر",
+        "es": "Bagazo de remolacha azucarera"
+      }
+    ],
+    "productionTechnology": {
+      "en": "Micro-washing, gentle thermal sterilization and air-classifier micronization",
+      "ru": "Микропромывка, щадящая термическая стерилизация и микронизация с воздушной классификацией",
+      "zh": "微洗涤、温和热灭菌及气流分级微粉化",
+      "tr": "Mikro yıkama, hassas termal sterilizasyon ve hava sınıflandırıcılı mikronizasyon",
+      "ar": "غسل دقيق وتعقيم حراري لطيف وطحن دقيق بمصنّف هوائي",
+      "es": "Microlavado, esterilización térmica suave y micronización con clasificador por aire"
+    },
+    "applications": [
+      {
+        "en": "Processed meats and sausages: binding purge liquids and preventing shrinkage",
+        "ru": "Мясные изделия и колбасы: связывание отделяющейся влаги и предотвращение усадки",
+        "zh": "加工肉制品和香肠：结合析出液体，防止收缩",
+        "tr": "İşlenmiş et ürünleri ve sosisler: sızan sıvıların bağlanması ve büzülmenin önlenmesi",
+        "ar": "اللحوم المصنّعة والنقانق: ربط السوائل المنفصلة ومنع الانكماش",
+        "es": "Carnes procesadas y embutidos: fijación de exudados y prevención de la merma"
+      },
+      {
+        "en": "Bakery products: extending shelf life and preventing staling",
+        "ru": "Хлебобулочные изделия: продление срока годности и замедление черствения",
+        "zh": "烘焙产品：延长货架期，防止老化",
+        "tr": "Unlu mamuller: raf ömrünün uzatılması ve bayatlamanın önlenmesi",
+        "ar": "منتجات المخبوزات: إطالة مدة الصلاحية ومنع التعتّق",
+        "es": "Productos de panadería: prolongación de la vida útil y prevención del endurecimiento"
+      },
+      {
+        "en": "Prepared sauces and dressings: natural viscosity without synthetic gums",
+        "ru": "Готовые соусы и заправки: натуральная вязкость без синтетических камедей",
+        "zh": "预制酱料和调味汁：天然黏度，无需合成胶",
+        "tr": "Hazır soslar ve salata sosları: sentetik zamklar olmadan doğal viskozite",
+        "ar": "الصلصات والتتبيلات الجاهزة: لزوجة طبيعية دون صموغ صناعية",
+        "es": "Salsas y aderezos preparados: viscosidad natural sin gomas sintéticas"
+      }
+    ],
+    "characteristics": [
+      {
+        "en": "Total Dietary Fiber (TDF) ≥ 75–85%",
+        "ru": "Общее содержание пищевых волокон (TDF) ≥ 75–85%",
+        "zh": "总膳食纤维（TDF）≥ 75–85%",
+        "tr": "Toplam diyet lifi (TDF) ≥ %75–85",
+        "ar": "إجمالي الألياف الغذائية (TDF) ≥ 75–85%",
+        "es": "Fibra dietética total (TDF) ≥ 75–85%"
+      },
+      {
+        "en": "Water binding capacity 1:8 to 1:12",
+        "ru": "Водосвязывающая способность от 1:8 до 1:12",
+        "zh": "持水能力 1:8 至 1:12",
+        "tr": "1:8 ile 1:12 arasında su bağlama kapasitesi",
+        "ar": "قدرة ربط الماء من 1:8 إلى 1:12",
+        "es": "Capacidad de retención de agua de 1:8 a 1:12"
+      },
+      {
+        "en": "Neutral pleasant aroma and fine particle size (100–200 mesh)",
+        "ru": "Нейтральный приятный аромат и мелкий размер частиц (100–200 меш)",
+        "zh": "气味中性宜人，粒度细（100–200 目）",
+        "tr": "Nötr, hoş aroma ve ince partikül boyutu (100–200 mesh)",
+        "ar": "رائحة محايدة لطيفة وحجم جسيمات دقيق (100–200 mesh)",
+        "es": "Aroma neutro agradable y tamaño de partícula fino (100–200 mesh)"
+      },
+      {
+        "en": "100% natural, clean label declaration",
+        "ru": "100% натуральный продукт, декларация «чистой этикетки»",
+        "zh": "100% 天然，清洁标签声明",
+        "tr": "%100 doğal, temiz etiket beyanı",
+        "ar": "طبيعي 100% مع إعلان ملصق نظيف",
+        "es": "100% natural, declaración de etiqueta limpia"
+      }
+    ],
+    "relatedTechnologyId": "technology-dietary-fibers",
+    "relatedProjectId": "project-siberian-wellness",
+    "image": {
+      "mediaId": "media-tech-citrus-oranges-1790271213504"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "d04e61470f4818c7",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "d04e61470f4818c7",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "d04e61470f4818c7",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "d04e61470f4818c7",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "d04e61470f4818c7",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "product-concentrated-bases",
+    "status": "published",
+    "order": 5,
+    "slug": "concentrated-bases",
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "categoryNumber": "05",
+    "categoryTitle": {
+      "en": "NATURAL BASES & EXTRACTS",
+      "ru": "НАТУРАЛЬНЫЕ ОСНОВЫ И ЭКСТРАКТЫ",
+      "zh": "天然基料与提取物",
+      "tr": "DOĞAL BAZLAR VE EKSTRAKTLAR",
+      "ar": "القواعد والمستخلصات الطبيعية",
+      "es": "BASES Y EXTRACTOS NATURALES"
+    },
+    "title": {
+      "en": "Concentrated Natural Juices & Bases (BRIX 70)",
+      "ru": "Натуральные концентрированные соки и основы (BRIX 70)",
+      "zh": "天然浓缩果汁及基料（BRIX 70）",
+      "tr": "Konsantre doğal meyve suları ve bazlar (BRIX 70)",
+      "ar": "عصائر وقواعد طبيعية مركّزة (BRIX 70)",
+      "es": "Jugos y bases naturales concentrados (BRIX 70)"
+    },
+    "description": {
+      "en": "High-density natural fruit and berry concentrates and purees processed under low vacuum conditions with integrated volatile aroma capture.",
+      "ru": "Высокоплотные натуральные фруктовые и ягодные концентраты и пюре, получаемые в условиях низкого вакуума с интегрированным улавливанием летучих ароматов.",
+      "zh": "在低真空条件下加工、并集成挥发性香气回收的高浓度天然水果和浆果浓缩物及果浆。",
+      "tr": "Entegre uçucu aroma yakalama ile düşük vakum koşullarında işlenen yüksek yoğunluklu doğal meyve ve orman meyvesi konsantreleri ve püreleri.",
+      "ar": "مركّزات وهريس فاكهة وتوتيات طبيعية عالية الكثافة، معالجة في ظروف تفريغ منخفض مع التقاط متكامل للنكهات المتطايرة.",
+      "es": "Concentrados y purés naturales de fruta y bayas de alta densidad, procesados en condiciones de bajo vacío con captura integrada de aromas volátiles."
+    },
+    "rawMaterials": [
+      {
+        "en": "Fresh Apples",
+        "ru": "Свежие яблоки",
+        "zh": "新鲜苹果",
+        "tr": "Taze elma",
+        "ar": "تفاح طازج",
+        "es": "Manzanas frescas"
+      },
+      {
+        "en": "Pomegranates",
+        "ru": "Гранаты",
+        "zh": "石榴",
+        "tr": "Nar",
+        "ar": "الرمان",
+        "es": "Granadas"
+      },
+      {
+        "en": "Grapes",
+        "ru": "Виноград",
+        "zh": "葡萄",
+        "tr": "Üzüm",
+        "ar": "العنب",
+        "es": "Uvas"
+      },
+      {
+        "en": "Berries",
+        "ru": "Ягоды",
+        "zh": "浆果",
+        "tr": "Orman meyveleri",
+        "ar": "التوتيات",
+        "es": "Bayas"
+      },
+      {
+        "en": "Tomatoes",
+        "ru": "Томаты",
+        "zh": "番茄",
+        "tr": "Domates",
+        "ar": "الطماطم",
+        "es": "Tomates"
+      }
+    ],
+    "productionTechnology": {
+      "en": "Enzymatic depectinization, cross-flow filtration, multi-effect vacuum evaporation, and aseptic packaging",
+      "ru": "Ферментативная депектинизация, тангенциальная фильтрация, многокорпусное вакуумное выпаривание и асептическая упаковка",
+      "zh": "酶法脱果胶、错流过滤、多效真空蒸发及无菌包装",
+      "tr": "Enzimatik depektinizasyon, çapraz akış filtrasyonu, çok etkili vakum evaporasyonu ve aseptik ambalajlama",
+      "ar": "إزالة البكتين إنزيميًا وترشيح بالتدفق المتقاطع وتبخير بالتفريغ متعدد التأثير وتعبئة معقّمة",
+      "es": "Despectinización enzimática, filtración tangencial, evaporación al vacío de múltiple efecto y envasado aséptico"
+    },
+    "applications": [
+      {
+        "en": "Reconstituted premium 100% juices and fruit nectars",
+        "ru": "Восстановленные 100% соки премиум-класса и фруктовые нектары",
+        "zh": "复原的高端 100% 果汁及果汁饮料",
+        "tr": "Rekonstitüe birinci sınıf %100 meyve suları ve meyve nektarları",
+        "ar": "عصائر ممتازة معاد تكوينها 100% ونكتار فاكهة",
+        "es": "Jugos 100% premium reconstituidos y néctares de fruta"
+      },
+      {
+        "en": "Confectionery jellies, gummy candy bases and fruit preps",
+        "ru": "Кондитерские желе, основы для жевательного мармелада и фруктовые наполнители",
+        "zh": "糖果果冻、软糖基料及水果预制料",
+        "tr": "Şekerleme jöleleri, yumuşak şeker bazları ve meyve hazırlıkları",
+        "ar": "هلام الحلويات وقواعد الحلوى الجيلاتينية ومستحضرات الفاكهة",
+        "es": "Gelatinas de confitería, bases para caramelos de goma y preparados de fruta"
+      },
+      {
+        "en": "Brewing, cider production and flavored beverage syrups",
+        "ru": "Пивоварение, производство сидра и ароматизированные сиропы для напитков",
+        "zh": "啤酒酿造、苹果酒生产及调味饮料糖浆",
+        "tr": "Bira üretimi, elma şarabı üretimi ve aromalı içecek şurupları",
+        "ar": "صناعة الجعة وإنتاج عصير التفاح المخمّر وشراب المشروبات المنكّهة",
+        "es": "Elaboración de cerveza, producción de sidra y jarabes para bebidas saborizadas"
+      }
+    ],
+    "characteristics": [
+      {
+        "en": "Concentration up to BRIX 70 with absolute optical clarity",
+        "ru": "Концентрирование до BRIX 70 с абсолютной оптической прозрачностью",
+        "zh": "浓缩至 BRIX 70，具有绝对的光学澄清度",
+        "tr": "Mutlak optik berraklıkla BRIX 70'e kadar konsantrasyon",
+        "ar": "تركيز حتى BRIX 70 مع صفاء بصري مطلق",
+        "es": "Concentración hasta BRIX 70 con claridad óptica absoluta"
+      },
+      {
+        "en": "Intact volatile natural aroma profile returned to concentrate",
+        "ru": "Сохранённый натуральный профиль летучих ароматов, возвращаемый в концентрат",
+        "zh": "完整保留的天然挥发性香气回调至浓缩物中",
+        "tr": "Konsantreye geri kazandırılan, bozulmamış uçucu doğal aroma profili",
+        "ar": "ملف نكهة طبيعي متطاير سليم يُعاد إلى المركّز",
+        "es": "Perfil aromático natural volátil intacto reincorporado al concentrado"
+      },
+      {
+        "en": "Zero added sugars, preservatives or chemical colorants",
+        "ru": "Без добавления сахаров, консервантов и химических красителей",
+        "zh": "零添加糖、防腐剂或化学色素",
+        "tr": "Sıfır ilave şeker, koruyucu veya kimyasal renklendirici",
+        "ar": "خالٍ تمامًا من السكريات المضافة والمواد الحافظة والملوّنات الكيميائية",
+        "es": "Sin azúcares añadidos, conservantes ni colorantes químicos"
+      },
+      {
+        "en": "Aseptic 200L drums and bag-in-box long-term ambient storage",
+        "ru": "Асептические бочки 200 л и Bag-in-Box для длительного хранения при температуре окружающей среды",
+        "zh": "无菌 200L 桶装及袋中袋，常温长期储存",
+        "tr": "Uzun süreli ortam sıcaklığında depolama için aseptik 200 L variller ve bag-in-box",
+        "ar": "براميل معقّمة سعة 200 لتر وأكياس داخل صناديق للتخزين الطويل في درجة الحرارة المحيطة",
+        "es": "Bidones asépticos de 200 L y bag-in-box para almacenamiento prolongado a temperatura ambiente"
+      }
+    ],
+    "relatedTechnologyId": "technology-concentrated-bases",
+    "relatedProjectId": "project-aznar-pomegranate",
+    "image": {
+      "mediaId": "media-tech-lab-flasks-1790271257443"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "1a3df8e27622fce8",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "1a3df8e27622fce8",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "1a3df8e27622fce8",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "1a3df8e27622fce8",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "1a3df8e27622fce8",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "product-bioactive-compounds",
+    "status": "published",
+    "order": 6,
+    "slug": "bioactive-compounds",
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "categoryNumber": "06",
+    "categoryTitle": {
+      "en": "PHARMACEUTICAL INGREDIENTS",
+      "ru": "ФАРМАЦЕВТИЧЕСКИЕ ИНГРЕДИЕНТЫ",
+      "zh": "医药配料",
+      "tr": "FARMASÖTİK BİLEŞENLER",
+      "ar": "المكونات الدوائية",
+      "es": "INGREDIENTES FARMACÉUTICOS"
+    },
+    "title": {
+      "en": "Plant Bioactive Extracts & Specialty Oils",
+      "ru": "Растительные биоактивные экстракты и специальные масла",
+      "zh": "植物生物活性提取物与特种油脂",
+      "tr": "Bitkisel biyoaktif ekstraktlar ve özel yağlar",
+      "ar": "مستخلصات نباتية نشطة بيولوجيًا وزيوت متخصصة",
+      "es": "Extractos vegetales bioactivos y aceites especiales"
+    },
+    "description": {
+      "en": "Rare active botanical compounds including natural pomegranate tannins, amaranth oil (squalene), and high-purity phytosterols.",
+      "ru": "Редкие активные растительные соединения, включая натуральные танины граната, масло амаранта (сквален) и фитостерины высокой чистоты.",
+      "zh": "稀有的植物活性化合物，包括天然石榴单宁、苋菜籽油（角鲨烯）及高纯度植物甾醇。",
+      "tr": "Doğal nar tanenleri, amarant yağı (skualen) ve yüksek saflıkta fitosteroller dahil nadir aktif bitkisel bileşikler.",
+      "ar": "مركبات نباتية نشطة نادرة تشمل العفص الطبيعي للرمان وزيت القطيفة (السكوالين) والستيرولات النباتية عالية النقاوة.",
+      "es": "Compuestos botánicos activos poco comunes, como taninos naturales de granada, aceite de amaranto (escualeno) y fitoesteroles de alta pureza."
+    },
+    "rawMaterials": [
+      {
+        "en": "Pomegranate Seeds & Rinds",
+        "ru": "Гранатовые косточки и кожура",
+        "zh": "石榴籽与石榴皮",
+        "tr": "Nar çekirdekleri ve kabukları",
+        "ar": "بذور الرمان وقشوره",
+        "es": "Semillas y cáscaras de granada"
+      },
+      {
+        "en": "Amaranth Grains",
+        "ru": "Зерно амаранта",
+        "zh": "苋菜籽",
+        "tr": "Amarant taneleri",
+        "ar": "حبوب القطيفة",
+        "es": "Granos de amaranto"
+      },
+      {
+        "en": "Grape Seeds",
+        "ru": "Виноградные косточки",
+        "zh": "葡萄籽",
+        "tr": "Üzüm çekirdekleri",
+        "ar": "بذور العنب",
+        "es": "Semillas de uva"
+      }
+    ],
+    "productionTechnology": {
+      "en": "Supercritical CO2 extraction, countercurrent solvent-free extraction, and molecular distillation",
+      "ru": "Сверхкритическая экстракция CO2, противоточная экстракция без растворителей и молекулярная дистилляция",
+      "zh": "超临界 CO2 提取、逆流无溶剂提取及分子蒸馏",
+      "tr": "Süperkritik CO2 ekstraksiyonu, ters akımlı çözücüsüz ekstraksiyon ve moleküler damıtma",
+      "ar": "استخلاص فوق حرج بثاني أكسيد الكربون CO2، واستخلاص بالتيار المعاكس بدون مذيبات، وتقطير جزيئي",
+      "es": "Extracción supercrítica con CO2, extracción a contracorriente sin disolventes y destilación molecular"
+    },
+    "applications": [
+      {
+        "en": "Pharmaceutical active ingredients and antioxidant supplements",
+        "ru": "Фармацевтические активные ингредиенты и антиоксидантные добавки",
+        "zh": "医药活性成分及抗氧化补充剂",
+        "tr": "Farmasötik aktif bileşenler ve antioksidan takviyeler",
+        "ar": "مكونات دوائية نشطة ومكمّلات مضادة للأكسدة",
+        "es": "Principios activos farmacéuticos y suplementos antioxidantes"
+      },
+      {
+        "en": "Anti-aging cosmetics, serums and dermatological formulations",
+        "ru": "Антивозрастная косметика, сыворотки и дерматологические составы",
+        "zh": "抗衰老化妆品、精华液及皮肤病学配方",
+        "tr": "Yaşlanma karşıtı kozmetikler, serumlar ve dermatolojik formülasyonlar",
+        "ar": "مستحضرات تجميل مضادة للشيخوخة وأمصال وتركيبات جلدية",
+        "es": "Cosmética antienvejecimiento, sérums y formulaciones dermatológicas"
+      },
+      {
+        "en": "Functional health oils and cardioprotective nutritional blends",
+        "ru": "Функциональные оздоровительные масла и кардиопротекторные пищевые смеси",
+        "zh": "功能性健康油脂及心脏保护营养复配料",
+        "tr": "Fonksiyonel sağlık yağları ve kardiyoprotektif besin karışımları",
+        "ar": "زيوت صحية وظيفية وخلطات غذائية واقية للقلب",
+        "es": "Aceites funcionales saludables y mezclas nutricionales cardioprotectoras"
+      }
+    ],
+    "characteristics": [
+      {
+        "en": "High concentrations of target bioactives (e.g. Squalene up to 8% in amaranth oil)",
+        "ru": "Высокая концентрация целевых биоактивных веществ (например, сквален до 8% в масле амаранта)",
+        "zh": "目标生物活性物质浓度高（例如苋菜籽油中角鲨烯含量最高 8%）",
+        "tr": "Hedef biyoaktiflerin yüksek konsantrasyonları (ör. amarant yağında %8'e kadar skualen)",
+        "ar": "تركيزات عالية من المركبات النشطة المستهدفة (مثل السكوالين حتى 8% في زيت القطيفة)",
+        "es": "Altas concentraciones de bioactivos objetivo (p. ej., escualeno de hasta el 8% en el aceite de amaranto)"
+      },
+      {
+        "en": "Punicalagin purity > 40% in dry extract form",
+        "ru": "Чистота пуникалагина > 40% в форме сухого экстракта",
+        "zh": "干提取物中石榴皮鞣质纯度 > 40%",
+        "tr": "Kuru ekstrakt formunda punikalajin saflığı > %40",
+        "ar": "نقاوة البونيكالاجين > 40% في صورة مستخلص جاف",
+        "es": "Pureza de punicalagina > 40% en forma de extracto seco"
+      },
+      {
+        "en": "Zero solvent residue, cold extraction at sub-critical temperatures",
+        "ru": "Нулевой остаток растворителей, холодная экстракция при субкритических температурах",
+        "zh": "零溶剂残留，亚临界温度下冷提取",
+        "tr": "Sıfır çözücü kalıntısı, kritik altı sıcaklıklarda soğuk ekstraksiyon",
+        "ar": "صفر بقايا مذيبات، واستخلاص بارد عند درجات حرارة دون الحرجة",
+        "es": "Cero residuos de disolventes, extracción en frío a temperaturas subcríticas"
+      },
+      {
+        "en": "Certified for cosmetics and dietary supplement safety standards",
+        "ru": "Сертифицировано по стандартам безопасности для косметики и БАДов",
+        "zh": "通过化妆品及膳食补充剂安全标准认证",
+        "tr": "Kozmetik ve diyet takviyesi güvenlik standartlarına göre sertifikalı",
+        "ar": "معتمد وفق معايير سلامة مستحضرات التجميل والمكمّلات الغذائية",
+        "es": "Certificado según normas de seguridad para cosméticos y suplementos dietéticos"
+      }
+    ],
+    "relatedTechnologyId": "technology-pomegranate",
+    "relatedProjectId": "project-aznar-pomegranate",
+    "image": {
+      "mediaId": "media-tech-integrated-plant-1790271239031"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "41cf392d3c86b952",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "41cf392d3c86b952",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "41cf392d3c86b952",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "41cf392d3c86b952",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "41cf392d3c86b952",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  }
+]

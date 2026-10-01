@@ -1,0 +1,194 @@
+[
+  {
+    "id": "media-flagship-siberian-wellness-1790267904663",
+    "kind": "image",
+    "src": "/images/flagship_siberian_wellness_1790267904663.jpg",
+    "width": 1376,
+    "height": 768,
+    "alt": null
+  },
+  {
+    "id": "media-footer-lush-botanical-1790272735218",
+    "kind": "image",
+    "src": "/images/footer_lush_botanical_1790272735218.jpg",
+    "width": 1376,
+    "height": 768,
+    "alt": null
+  },
+  {
+    "id": "media-hero-industrial-plant-1790267866540",
+    "kind": "image",
+    "src": "/images/hero_industrial_plant_1790267866540.jpg",
+    "width": 1376,
+    "height": 768,
+    "alt": null
+  },
+  {
+    "id": "media-hero-plant-pristine-1790269454820",
+    "kind": "image",
+    "src": "/images/hero_plant_pristine_1790269454820.jpg",
+    "width": 1376,
+    "height": 768,
+    "alt": null
+  },
+  {
+    "id": "media-hero-soltex-panoramic-plant-1790270267701",
+    "kind": "image",
+    "src": "/images/hero_soltex_panoramic_plant_1790270267701.jpg",
+    "width": 1376,
+    "height": 768,
+    "alt": null
+  },
+  {
+    "id": "media-project-soy-israel-1790271724797",
+    "kind": "image",
+    "src": "/images/project_soy_israel_1790271724797.jpg",
+    "width": 1376,
+    "height": 768,
+    "alt": null
+  },
+  {
+    "id": "media-projects-agritech-kazakhstan",
+    "kind": "image",
+    "src": "/images/projects/agritech-kazakhstan.jpg",
+    "width": 1378,
+    "height": 642,
+    "alt": null
+  },
+  {
+    "id": "media-projects-aznar-pomegranate",
+    "kind": "image",
+    "src": "/images/projects/aznar-pomegranate.jpg",
+    "width": 662,
+    "height": 554,
+    "alt": null
+  },
+  {
+    "id": "media-projects-siberian-wellness",
+    "kind": "image",
+    "src": "/images/projects/siberian-wellness.jpg",
+    "width": 599,
+    "height": 218,
+    "alt": null
+  },
+  {
+    "id": "media-projects-solbar-israel",
+    "kind": "image",
+    "src": "/images/projects/solbar-israel.jpg",
+    "width": 617,
+    "height": 322,
+    "alt": null
+  },
+  {
+    "id": "media-projects-solbar-nebraska",
+    "kind": "image",
+    "src": "/images/projects/solbar-nebraska.jpg",
+    "width": 610,
+    "height": 310,
+    "alt": null
+  },
+  {
+    "id": "media-projects-solbar-ningbo",
+    "kind": "image",
+    "src": "/images/projects/solbar-ningbo.jpg",
+    "width": 617,
+    "height": 297,
+    "alt": null
+  },
+  {
+    "id": "media-soltex-epcm",
+    "kind": "video",
+    "src": "/videos/soltex-epcm.mp4",
+    "width": null,
+    "height": null,
+    "alt": null
+  },
+  {
+    "id": "media-soltex-global-logo-reversed",
+    "kind": "image",
+    "src": "/images/soltex-global-logo-reversed.png",
+    "width": 1280,
+    "height": 440,
+    "alt": null
+  },
+  {
+    "id": "media-soltex-global-logo-transparent",
+    "kind": "image",
+    "src": "/images/soltex-global-logo-transparent.png",
+    "width": 1280,
+    "height": 440,
+    "alt": null
+  },
+  {
+    "id": "media-soltex-technologies",
+    "kind": "video",
+    "src": "/videos/soltex-technologies.mp4",
+    "width": null,
+    "height": null,
+    "alt": null
+  },
+  {
+    "id": "media-tech-citrus-oranges-1790271213504",
+    "kind": "image",
+    "src": "/images/tech_citrus_oranges_1790271213504.jpg",
+    "width": 1200,
+    "height": 896,
+    "alt": null
+  },
+  {
+    "id": "media-tech-integrated-plant-1790271239031",
+    "kind": "image",
+    "src": "/images/tech_integrated_plant_1790271239031.jpg",
+    "width": 1200,
+    "height": 896,
+    "alt": null
+  },
+  {
+    "id": "media-tech-inulin-roots-1790271193455",
+    "kind": "image",
+    "src": "/images/tech_inulin_roots_1790271193455.jpg",
+    "width": 1200,
+    "height": 896,
+    "alt": null
+  },
+  {
+    "id": "media-tech-lab-flasks-1790271257443",
+    "kind": "image",
+    "src": "/images/tech_lab_flasks_1790271257443.jpg",
+    "width": 1200,
+    "height": 896,
+    "alt": null
+  },
+  {
+    "id": "media-tech-pectin-apples-1790271159655",
+    "kind": "image",
+    "src": "/images/tech_pectin_apples_1790271159655.jpg",
+    "width": 1200,
+    "height": 896,
+    "alt": null
+  },
+  {
+    "id": "media-tech-soy-beans-1790271178494",
+    "kind": "image",
+    "src": "/images/tech_soy_beans_1790271178494.jpg",
+    "width": 1200,
+    "height": 896,
+    "alt": null
+  },
+  {
+    "id": "media-video-epcm-facility-1790267893198",
+    "kind": "image",
+    "src": "/images/video_epcm_facility_1790267893198.jpg",
+    "width": 1376,
+    "height": 768,
+    "alt": null
+  },
+  {
+    "id": "media-video-plant-processing-1790267879744",
+    "kind": "image",
+    "src": "/images/video_plant_processing_1790267879744.jpg",
+    "width": 1376,
+    "height": 768,
+    "alt": null
+  }
+]

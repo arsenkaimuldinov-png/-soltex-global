@@ -1,0 +1,690 @@
+[
+  {
+    "id": "epcm-stage-01",
+    "status": "published",
+    "order": 1,
+    "number": "01",
+    "title": {
+      "en": "FEASIBILITY STUDY",
+      "ru": "ТЕХНИКО-ЭКОНОМИЧЕСКОЕ ОБОСНОВАНИЕ",
+      "zh": "可行性研究",
+      "tr": "FİZİBİLİTE ETÜDÜ",
+      "ar": "دراسة الجدوى",
+      "es": "ESTUDIO DE VIABILIDAD"
+    },
+    "focus": {
+      "en": "Technical & Economic Viability",
+      "ru": "Техническая и экономическая целесообразность",
+      "zh": "技术与经济可行性",
+      "tr": "Teknik ve Ekonomik Yapılabilirlik",
+      "ar": "الجدوى الفنية والاقتصادية",
+      "es": "Viabilidad técnica y económica"
+    },
+    "description": {
+      "en": "Raw material analysis, financial calculations and project feasibility assessment.",
+      "ru": "Анализ сырья, финансовые расчёты и оценка реализуемости проекта.",
+      "zh": "原料分析、财务测算及项目可行性评估。",
+      "tr": "Hammadde analizi, finansal hesaplamalar ve proje fizibilite değerlendirmesi.",
+      "ar": "تحليل المواد الخام والحسابات المالية وتقييم جدوى المشروع.",
+      "es": "Análisis de materias primas, cálculos financieros y evaluación de la viabilidad del proyecto."
+    },
+    "deliverables": [
+      {
+        "en": "Raw Material Laboratory Testing",
+        "ru": "Лабораторные испытания сырья",
+        "zh": "原料实验室检测",
+        "tr": "Hammadde Laboratuvar Testleri",
+        "ar": "الاختبارات المخبرية للمواد الخام",
+        "es": "Ensayos de laboratorio de materias primas"
+      },
+      {
+        "en": "Mass & Energy Balance Model",
+        "ru": "Модель материального и энергетического баланса",
+        "zh": "物料与能量平衡模型",
+        "tr": "Kütle ve Enerji Dengesi Modeli",
+        "ar": "نموذج موازنة الكتلة والطاقة",
+        "es": "Modelo de balance de masa y energía"
+      },
+      {
+        "en": "CAPEX / OPEX Financial Model",
+        "ru": "Финансовая модель CAPEX / OPEX",
+        "zh": "CAPEX / OPEX 财务模型",
+        "tr": "CAPEX / OPEX Finansal Modeli",
+        "ar": "النموذج المالي CAPEX / OPEX",
+        "es": "Modelo financiero CAPEX / OPEX"
+      }
+    ],
+    "image": {
+      "mediaId": "media-tech-lab-flasks-1790271257443"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "0b2ced4a255f590b",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "0b2ced4a255f590b",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "0b2ced4a255f590b",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "0b2ced4a255f590b",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "0b2ced4a255f590b",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "epcm-stage-02",
+    "status": "published",
+    "order": 2,
+    "number": "02",
+    "title": {
+      "en": "CONCEPT & TECHNICAL ASSIGNMENT",
+      "ru": "КОНЦЕПЦИЯ И ТЕХНИЧЕСКОЕ ЗАДАНИЕ",
+      "zh": "概念设计与技术任务书",
+      "tr": "KONSEPT VE TEKNİK ŞARTNAME",
+      "ar": "المفهوم والمواصفات الفنية",
+      "es": "CONCEPTO Y ESPECIFICACIÓN TÉCNICA"
+    },
+    "focus": {
+      "en": "Process Architecture",
+      "ru": "Архитектура технологического процесса",
+      "zh": "工艺架构",
+      "tr": "Proses Mimarisi",
+      "ar": "بنية العمليات",
+      "es": "Arquitectura de proceso"
+    },
+    "description": {
+      "en": "Definition of process workflows, material balances and project scope.",
+      "ru": "Определение технологических процессов, материальных балансов и объёма проекта.",
+      "zh": "确定工艺流程、物料平衡及项目范围。",
+      "tr": "Proses iş akışlarının, malzeme dengelerinin ve proje kapsamının tanımlanması.",
+      "ar": "تحديد مسارات العمليات وموازنات المواد ونطاق المشروع.",
+      "es": "Definición de los flujos de proceso, los balances de materia y el alcance del proyecto."
+    },
+    "deliverables": [
+      {
+        "en": "Process Flow Diagrams (PFD)",
+        "ru": "Технологические схемы (PFD)",
+        "zh": "工艺流程图（PFD）",
+        "tr": "Proses Akış Diyagramları (PFD)",
+        "ar": "مخططات تدفق العمليات (PFD)",
+        "es": "Diagramas de flujo de proceso (PFD)"
+      },
+      {
+        "en": "Preliminary Plant Master Plan",
+        "ru": "Предварительный генеральный план завода",
+        "zh": "工厂初步总体规划",
+        "tr": "Ön Tesis Master Planı",
+        "ar": "المخطط العام الأولي للمصنع",
+        "es": "Plan maestro preliminar de la planta"
+      },
+      {
+        "en": "Technical Requirements Document",
+        "ru": "Документ с техническими требованиями",
+        "zh": "技术要求文件",
+        "tr": "Teknik Gereksinimler Dokümanı",
+        "ar": "وثيقة المتطلبات الفنية",
+        "es": "Documento de requisitos técnicos"
+      }
+    ],
+    "image": {
+      "mediaId": "media-tech-citrus-oranges-1790271213504"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "cbcdf768eddd63cc",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "cbcdf768eddd63cc",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "cbcdf768eddd63cc",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "cbcdf768eddd63cc",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "cbcdf768eddd63cc",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "epcm-stage-03",
+    "status": "published",
+    "order": 3,
+    "number": "03",
+    "title": {
+      "en": "ENGINEERING & DESIGN",
+      "ru": "ИНЖИНИРИНГ И ПРОЕКТИРОВАНИЕ",
+      "zh": "工程与设计",
+      "tr": "MÜHENDİSLİK VE TASARIM",
+      "ar": "الهندسة والتصميم",
+      "es": "INGENIERÍA Y DISEÑO"
+    },
+    "focus": {
+      "en": "Comprehensive Engineering",
+      "ru": "Комплексный инжиниринг",
+      "zh": "综合工程设计",
+      "tr": "Kapsamlı Mühendislik",
+      "ar": "هندسة شاملة",
+      "es": "Ingeniería integral"
+    },
+    "description": {
+      "en": "3D BIM modelling and preparation of design, architectural and working documentation.",
+      "ru": "3D BIM-моделирование и подготовка проектной, архитектурной и рабочей документации.",
+      "zh": "3D BIM 建模，编制设计、建筑及施工图文件。",
+      "tr": "3D BIM modelleme ile tasarım, mimari ve uygulama dokümantasyonunun hazırlanması.",
+      "ar": "النمذجة ثلاثية الأبعاد بتقنية BIM وإعداد وثائق التصميم والوثائق المعمارية ووثائق التنفيذ.",
+      "es": "Modelado 3D BIM y elaboración de la documentación de diseño, arquitectónica y de ejecución."
+    },
+    "deliverables": [
+      {
+        "en": "Piping & Instrumentation Diagrams (P&ID)",
+        "ru": "Схемы трубопроводов и КИП (P&ID)",
+        "zh": "管道与仪表流程图（P&ID）",
+        "tr": "Borulama ve Enstrümantasyon Diyagramları (P&ID)",
+        "ar": "مخططات الأنابيب والأجهزة (P&ID)",
+        "es": "Diagramas de tuberías e instrumentación (P&ID)"
+      },
+      {
+        "en": "3D BIM Digital Twin",
+        "ru": "Цифровой двойник 3D BIM",
+        "zh": "3D BIM 数字孪生",
+        "tr": "3D BIM Dijital İkiz",
+        "ar": "التوأم الرقمي ثلاثي الأبعاد بتقنية BIM",
+        "es": "Gemelo digital 3D BIM"
+      },
+      {
+        "en": "Civil, Structural & Architectural Docs",
+        "ru": "Строительная, конструктивная и архитектурная документация",
+        "zh": "土建、结构及建筑文件",
+        "tr": "İnşaat, Statik ve Mimari Dokümanlar",
+        "ar": "الوثائق المدنية والإنشائية والمعمارية",
+        "es": "Documentación civil, estructural y arquitectónica"
+      }
+    ],
+    "image": {
+      "mediaId": "media-tech-integrated-plant-1790271239031"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "c7e51fd40761ebea",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "c7e51fd40761ebea",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "c7e51fd40761ebea",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "c7e51fd40761ebea",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "c7e51fd40761ebea",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "epcm-stage-04",
+    "status": "published",
+    "order": 4,
+    "number": "04",
+    "title": {
+      "en": "EQUIPMENT SUPPLY",
+      "ru": "ПОСТАВКА ОБОРУДОВАНИЯ",
+      "zh": "设备供应",
+      "tr": "EKİPMAN TEDARİKİ",
+      "ar": "توريد المعدات",
+      "es": "SUMINISTRO DE EQUIPOS"
+    },
+    "focus": {
+      "en": "Manufacturing & Procurement",
+      "ru": "Изготовление и закупки",
+      "zh": "制造与采购",
+      "tr": "İmalat ve Tedarik",
+      "ar": "التصنيع والمشتريات",
+      "es": "Fabricación y aprovisionamiento"
+    },
+    "description": {
+      "en": "Procurement, manufacturing and quality verification of industrial equipment.",
+      "ru": "Закупка, изготовление и контроль качества промышленного оборудования.",
+      "zh": "工业设备的采购、制造及质量验证。",
+      "tr": "Endüstriyel ekipmanların tedariki, imalatı ve kalite doğrulaması.",
+      "ar": "شراء المعدات الصناعية وتصنيعها والتحقق من جودتها.",
+      "es": "Aprovisionamiento, fabricación y verificación de calidad de equipos industriales."
+    },
+    "deliverables": [
+      {
+        "en": "Factory Acceptance Tests (FAT)",
+        "ru": "Заводские приёмочные испытания (FAT)",
+        "zh": "工厂验收测试（FAT）",
+        "tr": "Fabrika Kabul Testleri (FAT)",
+        "ar": "اختبارات القبول في المصنع (FAT)",
+        "es": "Pruebas de aceptación en fábrica (FAT)"
+      },
+      {
+        "en": "Quality Compliance Audits",
+        "ru": "Аудиты соответствия требованиям качества",
+        "zh": "质量合规审核",
+        "tr": "Kalite Uygunluk Denetimleri",
+        "ar": "عمليات تدقيق الامتثال للجودة",
+        "es": "Auditorías de cumplimiento de calidad"
+      },
+      {
+        "en": "International Logistics Management",
+        "ru": "Управление международной логистикой",
+        "zh": "国际物流管理",
+        "tr": "Uluslararası Lojistik Yönetimi",
+        "ar": "إدارة الخدمات اللوجستية الدولية",
+        "es": "Gestión de logística internacional"
+      }
+    ],
+    "image": {
+      "mediaId": "media-video-epcm-facility-1790267893198"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "20b8cb25f0ef69c5",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "20b8cb25f0ef69c5",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "20b8cb25f0ef69c5",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "20b8cb25f0ef69c5",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "20b8cb25f0ef69c5",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "epcm-stage-05",
+    "status": "published",
+    "order": 5,
+    "number": "05",
+    "title": {
+      "en": "CONSTRUCTION & INSTALLATION",
+      "ru": "СТРОИТЕЛЬСТВО И МОНТАЖ",
+      "zh": "施工与安装",
+      "tr": "İNŞAAT VE MONTAJ",
+      "ar": "الإنشاء والتركيب",
+      "es": "CONSTRUCCIÓN E INSTALACIÓN"
+    },
+    "focus": {
+      "en": "On-Site Execution",
+      "ru": "Работы на площадке",
+      "zh": "现场实施",
+      "tr": "Sahada Uygulama",
+      "ar": "التنفيذ في الموقع",
+      "es": "Ejecución en obra"
+    },
+    "description": {
+      "en": "Facility construction, mechanical assembly, piping and equipment installation.",
+      "ru": "Строительство объекта, механический монтаж, прокладка трубопроводов и установка оборудования.",
+      "zh": "设施施工、机械安装、管道及设备安装。",
+      "tr": "Tesis inşaatı, mekanik montaj, borulama ve ekipman kurulumu.",
+      "ar": "تشييد المنشأة والتركيب الميكانيكي ومدّ الأنابيب وتركيب المعدات.",
+      "es": "Construcción de la instalación, montaje mecánico, tuberías e instalación de equipos."
+    },
+    "deliverables": [
+      {
+        "en": "Civil Works Supervision",
+        "ru": "Надзор за строительными работами",
+        "zh": "土建工程监理",
+        "tr": "İnşaat İşleri Denetimi",
+        "ar": "الإشراف على الأعمال المدنية",
+        "es": "Supervisión de obra civil"
+      },
+      {
+        "en": "Mechanical Assembly & Piping",
+        "ru": "Механический монтаж и трубопроводы",
+        "zh": "机械安装与管道",
+        "tr": "Mekanik Montaj ve Borulama",
+        "ar": "التركيب الميكانيكي والأنابيب",
+        "es": "Montaje mecánico y tuberías"
+      },
+      {
+        "en": "Electrical & Cleanroom Installation",
+        "ru": "Электромонтаж и монтаж чистых помещений",
+        "zh": "电气及洁净室安装",
+        "tr": "Elektrik ve Temiz Oda Kurulumu",
+        "ar": "التركيبات الكهربائية وتركيب الغرف النظيفة",
+        "es": "Instalación eléctrica y de salas limpias"
+      }
+    ],
+    "image": {
+      "mediaId": "media-video-plant-processing-1790267879744"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "193b032644ddf981",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "193b032644ddf981",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "193b032644ddf981",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "193b032644ddf981",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "193b032644ddf981",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "epcm-stage-06",
+    "status": "published",
+    "order": 6,
+    "number": "06",
+    "title": {
+      "en": "COMMISSIONING & COLD RUNS",
+      "ru": "ПУСКОНАЛАДКА И ХОЛОДНАЯ ОБКАТКА",
+      "zh": "调试与冷试车",
+      "tr": "DEVREYE ALMA VE SOĞUK TESTLER",
+      "ar": "التشغيل التجريبي والتشغيل البارد",
+      "es": "PUESTA EN MARCHA Y PRUEBAS EN FRÍO"
+    },
+    "focus": {
+      "en": "Systems Verification",
+      "ru": "Проверка систем",
+      "zh": "系统验证",
+      "tr": "Sistem Doğrulaması",
+      "ar": "التحقق من الأنظمة",
+      "es": "Verificación de sistemas"
+    },
+    "description": {
+      "en": "Testing of equipment and industrial automation systems before production launch.",
+      "ru": "Испытания оборудования и систем промышленной автоматизации перед запуском производства.",
+      "zh": "投产前对设备及工业自动化系统进行测试。",
+      "tr": "Üretime geçmeden önce ekipmanın ve endüstriyel otomasyon sistemlerinin test edilmesi.",
+      "ar": "اختبار المعدات وأنظمة الأتمتة الصناعية قبل بدء الإنتاج.",
+      "es": "Pruebas de los equipos y de los sistemas de automatización industrial antes del arranque de la producción."
+    },
+    "deliverables": [
+      {
+        "en": "Dry & Cold Testing Runs",
+        "ru": "Сухие и холодные испытания",
+        "zh": "干式及冷态试车",
+        "tr": "Kuru ve Soğuk Test Çalıştırmaları",
+        "ar": "التشغيل الجاف والتجارب الباردة",
+        "es": "Pruebas en seco y en frío"
+      },
+      {
+        "en": "SCADA & PLC Automation Tuning",
+        "ru": "Наладка автоматизации SCADA и ПЛК",
+        "zh": "SCADA 与 PLC 自动化调试",
+        "tr": "SCADA ve PLC Otomasyon Ayarı",
+        "ar": "ضبط أتمتة SCADA وPLC",
+        "es": "Ajuste de automatización SCADA y PLC"
+      },
+      {
+        "en": "Safety Invariant Checklists",
+        "ru": "Контрольные листы проверки безопасности",
+        "zh": "安全保障检查清单",
+        "tr": "Güvenlik Kontrol Listeleri",
+        "ar": "قوائم التحقق من السلامة",
+        "es": "Listas de verificación de seguridad"
+      }
+    ],
+    "image": {
+      "mediaId": "media-hero-plant-pristine-1790269454820"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "bbae38c522358868",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "bbae38c522358868",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "bbae38c522358868",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "bbae38c522358868",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "bbae38c522358868",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "epcm-stage-07",
+    "status": "published",
+    "order": 7,
+    "number": "07",
+    "title": {
+      "en": "REACHING DESIGN CAPACITY",
+      "ru": "ВЫХОД НА ПРОЕКТНУЮ МОЩНОСТЬ",
+      "zh": "达到设计产能",
+      "tr": "TASARIM KAPASİTESİNE ULAŞMA",
+      "ar": "بلوغ الطاقة التصميمية",
+      "es": "ALCANCE DE LA CAPACIDAD DE DISEÑO"
+    },
+    "focus": {
+      "en": "Capacity Ramp-up",
+      "ru": "Выход на мощность",
+      "zh": "产能爬坡",
+      "tr": "Kapasite Artırımı",
+      "ar": "الرفع التدريجي للطاقة الإنتاجية",
+      "es": "Aumento progresivo de la capacidad"
+    },
+    "description": {
+      "en": "Process fine-tuning to achieve contracted production volumes and quality targets.",
+      "ru": "Тонкая настройка процесса для достижения контрактных объёмов производства и целевых показателей качества.",
+      "zh": "对工艺进行精细调整，以达到合同约定的产量和质量目标。",
+      "tr": "Sözleşmede belirlenen üretim hacimlerine ve kalite hedeflerine ulaşmak için prosesin ince ayarı.",
+      "ar": "الضبط الدقيق للعمليات لتحقيق أحجام الإنتاج وأهداف الجودة المتعاقد عليها.",
+      "es": "Ajuste fino del proceso para alcanzar los volúmenes de producción y los objetivos de calidad contratados."
+    },
+    "deliverables": [
+      {
+        "en": "Live Product Hot Runs",
+        "ru": "Горячие испытания на рабочем продукте",
+        "zh": "实际产品热试车",
+        "tr": "Gerçek Ürünle Sıcak Testler",
+        "ar": "تجارب التشغيل الساخن بالمنتج الفعلي",
+        "es": "Pruebas en caliente con producto real"
+      },
+      {
+        "en": "Throughput & Yield Verification",
+        "ru": "Проверка производительности и выхода продукта",
+        "zh": "产量与收率验证",
+        "tr": "Kapasite ve Verim Doğrulaması",
+        "ar": "التحقق من الطاقة الإنتاجية والمردود",
+        "es": "Verificación de capacidad y rendimiento"
+      },
+      {
+        "en": "Official Handover Protocol",
+        "ru": "Официальный протокол передачи",
+        "zh": "正式移交协议",
+        "tr": "Resmi Teslim Protokolü",
+        "ar": "بروتوكول التسليم الرسمي",
+        "es": "Protocolo oficial de entrega"
+      }
+    ],
+    "image": {
+      "mediaId": "media-flagship-siberian-wellness-1790267904663"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "a901a279f7e5f8ae",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "a901a279f7e5f8ae",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "a901a279f7e5f8ae",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "a901a279f7e5f8ae",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "a901a279f7e5f8ae",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "epcm-stage-08",
+    "status": "published",
+    "order": 8,
+    "number": "08",
+    "title": {
+      "en": "MAINTENANCE & SUPPORT",
+      "ru": "ОБСЛУЖИВАНИЕ И ПОДДЕРЖКА",
+      "zh": "维护与支持",
+      "tr": "BAKIM VE DESTEK",
+      "ar": "الصيانة والدعم",
+      "es": "MANTENIMIENTO Y SOPORTE"
+    },
+    "focus": {
+      "en": "Operational Lifecycle",
+      "ru": "Эксплуатационный жизненный цикл",
+      "zh": "运营生命周期",
+      "tr": "Operasyonel Yaşam Döngüsü",
+      "ar": "دورة الحياة التشغيلية",
+      "es": "Ciclo de vida operativo"
+    },
+    "description": {
+      "en": "Technical audits, consumables, training and ongoing technology upgrades.",
+      "ru": "Технические аудиты, расходные материалы, обучение и постоянная модернизация технологий.",
+      "zh": "技术审核、耗材供应、培训及持续的技术升级。",
+      "tr": "Teknik denetimler, sarf malzemeleri, eğitim ve sürekli teknoloji güncellemeleri.",
+      "ar": "عمليات التدقيق الفني والمواد الاستهلاكية والتدريب والتحديث المستمر للتقنيات.",
+      "es": "Auditorías técnicas, consumibles, formación y actualización tecnológica continua."
+    },
+    "deliverables": [
+      {
+        "en": "Local Operators Certification",
+        "ru": "Сертификация местных операторов",
+        "zh": "本地操作人员认证",
+        "tr": "Yerel Operatör Sertifikasyonu",
+        "ar": "اعتماد المشغّلين المحليين",
+        "es": "Certificación de operadores locales"
+      },
+      {
+        "en": "Consumables & Spare Parts Supply",
+        "ru": "Поставка расходных материалов и запасных частей",
+        "zh": "耗材与备件供应",
+        "tr": "Sarf Malzemesi ve Yedek Parça Tedariki",
+        "ar": "توريد المواد الاستهلاكية وقطع الغيار",
+        "es": "Suministro de consumibles y repuestos"
+      },
+      {
+        "en": "Remote Diagnostic Monitoring",
+        "ru": "Удалённый диагностический мониторинг",
+        "zh": "远程诊断监测",
+        "tr": "Uzaktan Tanı İzleme",
+        "ar": "المراقبة التشخيصية عن بُعد",
+        "es": "Monitorización de diagnóstico remoto"
+      }
+    ],
+    "image": {
+      "mediaId": "media-hero-industrial-plant-1790267866540"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "58acbc034791621d",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "58acbc034791621d",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "58acbc034791621d",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "58acbc034791621d",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "58acbc034791621d",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  }
+]

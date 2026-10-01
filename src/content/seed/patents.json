@@ -1,0 +1,746 @@
+[
+  {
+    "legalStatus": "granted",
+    "statusLabel": {
+      "en": "PATENT GRANTED",
+      "ru": "ПАТЕНТ ВЫДАН",
+      "zh": "专利已授权",
+      "tr": "PATENT VERİLDİ",
+      "ar": "براءة ممنوحة",
+      "es": "PATENTE CONCEDIDA"
+    },
+    "patentLabel": {
+      "en": "Patent No.",
+      "ru": "Патент №",
+      "zh": "专利号",
+      "tr": "Patent No.",
+      "ar": "رقم البراءة",
+      "es": "Patente n.º"
+    },
+    "jurisdiction": {
+      "en": "Bulgaria",
+      "ru": "Болгария",
+      "zh": "保加利亚",
+      "tr": "Bulgaristan",
+      "ar": "بلغاريا",
+      "es": "Bulgaria"
+    },
+    "abstract": {
+      "en": "Proprietary alcohol-free extraction process and system for high-gelling apple pectin from fresh and dried apple pomace with closed-loop acid recovery.",
+      "ru": "Собственный безалкогольный процесс и система экстракции высокожелирующего яблочного пектина из свежих и сухих яблочных выжимок с замкнутым циклом регенерации кислоты.",
+      "zh": "自有无醇提取工艺及系统，以新鲜及干燥苹果渣生产高凝胶苹果果胶，并实现闭环酸回收。",
+      "tr": "Taze ve kurutulmuş elma posasından, kapalı döngü asit geri kazanımıyla yüksek jelleşme gücüne sahip elma pektini üretimi için tescilli alkolsüz ekstraksiyon prosesi ve sistemi.",
+      "ar": "عملية ونظام خاصان للاستخلاص الخالي من الكحول لإنتاج بكتين تفاح عالي التهلّم من تفل التفاح الطازج والمجفف مع استعادة الحمض بدورة مغلقة.",
+      "es": "Proceso y sistema propios de extracción sin alcohol para obtener pectina de manzana de alto poder gelificante a partir de orujo de manzana fresco y seco, con recuperación de ácido en circuito cerrado."
+    },
+    "claimsSummary": [
+      {
+        "en": "Acid-free and alcohol-free hydro-thermal extraction",
+        "ru": "Бескислотная и безалкогольная гидротермическая экстракция",
+        "zh": "无酸无醇水热提取",
+        "tr": "Asitsiz ve alkolsüz hidrotermal ekstraksiyon",
+        "ar": "استخلاص حراري مائي خالٍ من الأحماض والكحول",
+        "es": "Extracción hidrotérmica sin ácidos ni alcohol"
+      },
+      {
+        "en": "Ultrafiltration membrane concentration at low thermal stress",
+        "ru": "Мембранное ультрафильтрационное концентрирование при низкой тепловой нагрузке",
+        "zh": "低热应力下的超滤膜浓缩",
+        "tr": "Düşük termal stres altında ultrafiltrasyon membran konsantrasyonu",
+        "ar": "تركيز بأغشية الترشيح الفائق عند إجهاد حراري منخفض",
+        "es": "Concentración por membranas de ultrafiltración con bajo estrés térmico"
+      },
+      {
+        "en": "High methoxyl esterification preservation (DM > 68%)",
+        "ru": "Сохранение высокой степени метоксилирования (DM > 68%)",
+        "zh": "保持高甲氧基酯化度（DM > 68%）",
+        "tr": "Yüksek metoksil esterleşmesinin korunması (DM > %68)",
+        "ar": "الحفاظ على الأسترة العالية للميثوكسيل (DM > 68%)",
+        "es": "Preservación de una alta esterificación de metoxilo (DM > 68%)"
+      }
+    ],
+    "registryNumber": null,
+    "code": null,
+    "location": null,
+    "overview": null,
+    "keyPillars": null,
+    "industrialImplementation": null,
+    "image": null,
+    "imageCaption": null,
+    "id": "patent-bg-66235-b1",
+    "status": "published",
+    "order": 1,
+    "placements": [
+      "home"
+    ],
+    "patentNo": "BG 66235 B1",
+    "title": {
+      "en": "APPLE PECTIN PRODUCTION TECHNOLOGY",
+      "ru": "ТЕХНОЛОГИЯ ПРОИЗВОДСТВА ЯБЛОЧНОГО ПЕКТИНА",
+      "zh": "苹果果胶生产技术",
+      "tr": "ELMA PEKTİNİ ÜRETİM TEKNOLOJİSİ",
+      "ar": "تقنية إنتاج بكتين التفاح",
+      "es": "TECNOLOGÍA DE PRODUCCIÓN DE PECTINA DE MANZANA"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "d7e870a74626725e",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "d7e870a74626725e",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "d7e870a74626725e",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "d7e870a74626725e",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "d7e870a74626725e",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "legalStatus": "granted",
+    "statusLabel": {
+      "en": "PATENT GRANTED",
+      "ru": "ПАТЕНТ ВЫДАН",
+      "zh": "专利已授权",
+      "tr": "PATENT VERİLDİ",
+      "ar": "براءة ممنوحة",
+      "es": "PATENTE CONCEDIDA"
+    },
+    "patentLabel": {
+      "en": "Patent No.",
+      "ru": "Патент №",
+      "zh": "专利号",
+      "tr": "Patent No.",
+      "ar": "رقم البراءة",
+      "es": "Patente n.º"
+    },
+    "jurisdiction": {
+      "en": "Bulgaria",
+      "ru": "Болгария",
+      "zh": "保加利亚",
+      "tr": "Bulgaristan",
+      "ar": "بلغاريا",
+      "es": "Bulgaria"
+    },
+    "abstract": {
+      "en": "Continuous counter-current extraction method for obtaining pharmaceutical and food grade pectin from orange, lemon and grapefruit peels.",
+      "ru": "Непрерывный противоточный метод экстракции для получения пектина фармацевтического и пищевого качества из кожуры апельсина, лимона и грейпфрута.",
+      "zh": "从橙、柠檬和葡萄柚皮中获取医药级及食品级果胶的连续逆流提取方法。",
+      "tr": "Portakal, limon ve greyfurt kabuklarından farmasötik ve gıda kalitesinde pektin elde etmek için sürekli ters akımlı ekstraksiyon yöntemi.",
+      "ar": "طريقة استخلاص مستمرة بالتيار المعاكس للحصول على بكتين من الدرجة الدوائية والغذائية من قشور البرتقال والليمون والجريب فروت.",
+      "es": "Método de extracción continua a contracorriente para obtener pectina de grado farmacéutico y alimentario a partir de cáscaras de naranja, limón y pomelo."
+    },
+    "claimsSummary": [
+      {
+        "en": "Continuous diffusion extractor with dynamic pH regulation",
+        "ru": "Непрерывный диффузионный экстрактор с динамическим регулированием pH",
+        "zh": "动态 pH 调节的连续扩散提取器",
+        "tr": "Dinamik pH regülasyonlu sürekli difüzyon ekstraktörü",
+        "ar": "مستخلِص انتشاري مستمر مع تنظيم ديناميكي لدرجة pH",
+        "es": "Extractor de difusión continua con regulación dinámica del pH"
+      },
+      {
+        "en": "Integrated essential oil and terpene recovery pre-treatment",
+        "ru": "Интегрированная предварительная обработка с извлечением эфирного масла и терпенов",
+        "zh": "集成精油与萜烯回收的预处理",
+        "tr": "Entegre uçucu yağ ve terpen geri kazanımlı ön işlem",
+        "ar": "معالجة مسبقة متكاملة لاستعادة الزيوت العطرية والتربينات",
+        "es": "Pretratamiento integrado con recuperación de aceites esenciales y terpenos"
+      },
+      {
+        "en": "Low chemical consumption and reduced effluent volume",
+        "ru": "Низкий расход химикатов и сокращённый объём стоков",
+        "zh": "化学品消耗低，废水量少",
+        "tr": "Düşük kimyasal tüketimi ve azaltılmış atık su hacmi",
+        "ar": "استهلاك منخفض للمواد الكيميائية وحجم أقل من النفايات السائلة",
+        "es": "Bajo consumo de productos químicos y menor volumen de efluentes"
+      }
+    ],
+    "registryNumber": null,
+    "code": null,
+    "location": null,
+    "overview": null,
+    "keyPillars": null,
+    "industrialImplementation": null,
+    "image": null,
+    "imageCaption": null,
+    "id": "patent-bg-63596-b1",
+    "status": "published",
+    "order": 2,
+    "placements": [
+      "home"
+    ],
+    "patentNo": "BG 63596 B1",
+    "title": {
+      "en": "CITRUS PECTIN PRODUCTION TECHNOLOGY",
+      "ru": "ТЕХНОЛОГИЯ ПРОИЗВОДСТВА ЦИТРУСОВОГО ПЕКТИНА",
+      "zh": "柑橘果胶生产技术",
+      "tr": "NARENCİYE PEKTİNİ ÜRETİM TEKNOLOJİSİ",
+      "ar": "تقنية إنتاج بكتين الحمضيات",
+      "es": "TECNOLOGÍA DE PRODUCCIÓN DE PECTINA DE CÍTRICOS"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "bedc4279bdc51cfb",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "bedc4279bdc51cfb",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "bedc4279bdc51cfb",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "bedc4279bdc51cfb",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "bedc4279bdc51cfb",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "legalStatus": "application",
+    "statusLabel": {
+      "en": "PATENT APPLICATION",
+      "ru": "ЗАЯВКА НА ПАТЕНТ",
+      "zh": "专利申请",
+      "tr": "PATENT BAŞVURUSU",
+      "ar": "طلب براءة اختراع",
+      "es": "SOLICITUD DE PATENTE"
+    },
+    "patentLabel": {
+      "en": "Application No.",
+      "ru": "Заявка №",
+      "zh": "申请号",
+      "tr": "Başvuru No.",
+      "ar": "رقم الطلب",
+      "es": "Solicitud n.º"
+    },
+    "jurisdiction": {
+      "en": "Bulgaria",
+      "ru": "Болгария",
+      "zh": "保加利亚",
+      "tr": "Bulgaristan",
+      "ar": "بلغاريا",
+      "es": "Bulgaria"
+    },
+    "abstract": {
+      "en": "Novel isoelectric precipitation and membrane filtration line yielding neutral-flavor, high-dispersibility soy protein isolate (≥90% protein dry basis).",
+      "ru": "Новая линия изоэлектрического осаждения и мембранной фильтрации, дающая изолят соевого белка с нейтральным вкусом и высокой диспергируемостью (≥90% белка в пересчёте на сухое вещество).",
+      "zh": "新型等电沉淀与膜过滤生产线，产出口味中性、分散性高的大豆分离蛋白（干基蛋白 ≥90%）。",
+      "tr": "Nötr tatlı, yüksek dağılabilirliğe sahip soya protein izolatı (kuru bazda ≥%90 protein) üreten yeni izoelektrik çöktürme ve membran filtrasyon hattı.",
+      "ar": "خط جديد للترسيب عند نقطة التعادل الكهربائي والترشيح الغشائي ينتج بروتين صويا معزولًا بنكهة محايدة وقابلية تشتت عالية (≥90% بروتين على أساس المادة الجافة).",
+      "es": "Nueva línea de precipitación isoeléctrica y filtración por membrana que produce aislado de proteína de soja de sabor neutro y alta dispersabilidad (≥90% de proteína en base seca)."
+    },
+    "claimsSummary": [
+      {
+        "en": "Multi-stage aqueous alkaline extraction and decanter separation",
+        "ru": "Многоступенчатая водно-щелочная экстракция и декантерное разделение",
+        "zh": "多级碱性水相提取及卧螺离心分离",
+        "tr": "Çok kademeli sulu alkali ekstraksiyon ve dekantör ayırma",
+        "ar": "استخلاص مائي قلوي متعدد المراحل وفصل بجهاز الطرد المركزي",
+        "es": "Extracción acuosa alcalina en múltiples etapas y separación por decantador"
+      },
+      {
+        "en": "Cross-flow ultrafiltration / diafiltration protein fractionation",
+        "ru": "Фракционирование белка тангенциальной ультрафильтрацией / диафильтрацией",
+        "zh": "错流超滤 / 渗滤蛋白分级",
+        "tr": "Çapraz akış ultrafiltrasyon / diyafiltrasyon ile protein fraksiyonlama",
+        "ar": "تجزئة البروتين بالترشيح الفائق / الترشيح الغشائي بالتدفق المتقاطع",
+        "es": "Fraccionamiento proteico por ultrafiltración / diafiltración tangencial"
+      },
+      {
+        "en": "Flash pasteurization and high-yield gentle spray atomization",
+        "ru": "Мгновенная пастеризация и щадящее распылительное диспергирование с высоким выходом",
+        "zh": "闪蒸巴氏杀菌及高收率温和喷雾雾化",
+        "tr": "Anlık pastörizasyon ve yüksek verimli hassas püskürtmeli atomizasyon",
+        "ar": "بسترة فورية ورذاذ لطيف عالي المردود",
+        "es": "Pasteurización flash y atomización suave de alto rendimiento"
+      }
+    ],
+    "registryNumber": null,
+    "code": null,
+    "location": null,
+    "overview": null,
+    "keyPillars": null,
+    "industrialImplementation": null,
+    "image": null,
+    "imageCaption": null,
+    "id": "patent-bg-114363-a1",
+    "status": "published",
+    "order": 3,
+    "placements": [
+      "home"
+    ],
+    "patentNo": "BG 114363 A1",
+    "title": {
+      "en": "SOY PROTEIN ISOLATE PRODUCTION TECHNOLOGY",
+      "ru": "ТЕХНОЛОГИЯ ПРОИЗВОДСТВА ИЗОЛЯТА СОЕВОГО БЕЛКА",
+      "zh": "大豆分离蛋白生产技术",
+      "tr": "SOYA PROTEİN İZOLATI ÜRETİM TEKNOLOJİSİ",
+      "ar": "تقنية إنتاج بروتين الصويا المعزول",
+      "es": "TECNOLOGÍA DE PRODUCCIÓN DE AISLADO DE PROTEÍNA DE SOJA"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "b01e7eadb3eaf07d",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "b01e7eadb3eaf07d",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "b01e7eadb3eaf07d",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "b01e7eadb3eaf07d",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "b01e7eadb3eaf07d",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "legalStatus": "application",
+    "statusLabel": {
+      "en": "PATENT APPLICATION",
+      "ru": "ЗАЯВКА НА ПАТЕНТ",
+      "zh": "专利申请",
+      "tr": "PATENT BAŞVURUSU",
+      "ar": "طلب براءة اختراع",
+      "es": "SOLICITUD DE PATENTE"
+    },
+    "patentLabel": {
+      "en": "Application No.",
+      "ru": "Заявка №",
+      "zh": "申请号",
+      "tr": "Başvuru No.",
+      "ar": "رقم الطلب",
+      "es": "Solicitud n.º"
+    },
+    "jurisdiction": {
+      "en": "Bulgaria",
+      "ru": "Болгария",
+      "zh": "保加利亚",
+      "tr": "Bulgaristan",
+      "ar": "بلغاريا",
+      "es": "Bulgaria"
+    },
+    "abstract": {
+      "en": "High-purity fructan and inulin extraction system from Jerusalem artichoke tubers and chicory roots without harsh chemical decolorization.",
+      "ru": "Система экстракции высокочистых фруктанов и инулина из клубней топинамбура и корней цикория без агрессивного химического обесцвечивания.",
+      "zh": "无需强烈化学脱色，从菊芋块茎和菊苣根中提取高纯度果聚糖和菊粉的系统。",
+      "tr": "Sert kimyasal renk giderme olmadan yer elması yumruları ve hindiba köklerinden yüksek saflıkta fruktan ve inülin ekstraksiyon sistemi.",
+      "ar": "نظام استخلاص عالي النقاوة للفركتان والإينولين من درنات الطرطوفة وجذور الهندباء دون إزالة لون كيميائية قاسية.",
+      "es": "Sistema de extracción de fructanos e inulina de alta pureza a partir de tubérculos de tupinambo y raíces de achicoria sin decoloración química agresiva."
+    },
+    "claimsSummary": [
+      {
+        "en": "Pulsed electric or cavitation-assisted cell disruption",
+        "ru": "Разрушение клеток импульсным электрическим полем или кавитацией",
+        "zh": "脉冲电场或空化辅助细胞破壁",
+        "tr": "Darbeli elektrik alanı veya kavitasyon destekli hücre parçalama",
+        "ar": "تكسير الخلايا بالمجال الكهربائي النبضي أو بمساعدة التكهف",
+        "es": "Ruptura celular por campo eléctrico pulsado o asistida por cavitación"
+      },
+      {
+        "en": "Continuous chromatographic fractionation for controlled DP spectrum",
+        "ru": "Непрерывное хроматографическое фракционирование для контролируемого спектра DP",
+        "zh": "连续色谱分离，控制聚合度（DP）分布",
+        "tr": "Kontrollü DP dağılımı için sürekli kromatografik fraksiyonlama",
+        "ar": "تجزئة كروماتوغرافية مستمرة لطيف DP متحكم به",
+        "es": "Fraccionamiento cromatográfico continuo para un espectro de DP controlado"
+      },
+      {
+        "en": "Crystallization with minimal mother-liquor waste",
+        "ru": "Кристаллизация с минимальными отходами маточного раствора",
+        "zh": "结晶过程母液废弃极少",
+        "tr": "Minimum ana çözelti atığıyla kristalizasyon",
+        "ar": "تبلور بأدنى قدر من نفايات المحلول الأم",
+        "es": "Cristalización con mínimos residuos de aguas madres"
+      }
+    ],
+    "registryNumber": null,
+    "code": null,
+    "location": null,
+    "overview": null,
+    "keyPillars": null,
+    "industrialImplementation": null,
+    "image": null,
+    "imageCaption": null,
+    "id": "patent-bg-114364-a1",
+    "status": "published",
+    "order": 4,
+    "placements": [
+      "home"
+    ],
+    "patentNo": "BG 114364 A1",
+    "title": {
+      "en": "INULIN PRODUCTION TECHNOLOGY",
+      "ru": "ТЕХНОЛОГИЯ ПРОИЗВОДСТВА ИНУЛИНА",
+      "zh": "菊粉生产技术",
+      "tr": "İNÜLİN ÜRETİM TEKNOLOJİSİ",
+      "ar": "تقنية إنتاج الإينولين",
+      "es": "TECNOLOGÍA DE PRODUCCIÓN DE INULINA"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "09628dae8d13290a",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "09628dae8d13290a",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "09628dae8d13290a",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "09628dae8d13290a",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "09628dae8d13290a",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "legalStatus": null,
+    "statusLabel": null,
+    "patentLabel": null,
+    "jurisdiction": null,
+    "abstract": null,
+    "claimsSummary": null,
+    "registryNumber": "01",
+    "code": {
+      "en": "PATENT APPLICATION NO. 113754",
+      "ru": "ЗАЯВКА НА ПАТЕНТ № 113754",
+      "zh": "专利申请号 113754",
+      "tr": "PATENT BAŞVURUSU NO. 113754",
+      "ar": "طلب براءة الاختراع رقم 113754",
+      "es": "SOLICITUD DE PATENTE N.º 113754"
+    },
+    "location": {
+      "en": "Namangan, Uzbekistan · Siberian Wellness Plant",
+      "ru": "Наманган, Узбекистан · завод Siberian Wellness",
+      "zh": "乌兹别克斯坦纳曼干 · Siberian Wellness 工厂",
+      "tr": "Namangan, Özbekistan · Siberian Wellness Tesisi",
+      "ar": "نمنغان، أوزبكستان · مصنع Siberian Wellness",
+      "es": "Namangán, Uzbekistán · Planta Siberian Wellness"
+    },
+    "overview": {
+      "en": "Advanced hydrodynamic cavitation extraction of pectin and dietary fibers. This innovation has been successfully scaled and is in operation at one of the most advanced bio-refining plants in Asia, proving its commercial and environmental efficiency.",
+      "ru": "Передовая гидродинамическая кавитационная экстракция пектина и пищевых волокон. Эта инновация успешно масштабирована и работает на одном из самых современных заводов биорефайнинга в Азии, подтверждая свою коммерческую и экологическую эффективность.",
+      "zh": "先进的果胶与膳食纤维水力空化提取技术。该创新已成功放大，并在亚洲最先进的生物炼制工厂之一投入运行，证明了其商业与环境效益。",
+      "tr": "Pektin ve diyet liflerinin ileri hidrodinamik kavitasyon ekstraksiyonu. Bu yenilik başarıyla ölçeklendirilmiş olup Asya'nın en gelişmiş biyorafineri tesislerinden birinde işletilmekte, ticari ve çevresel verimliliğini kanıtlamaktadır.",
+      "ar": "استخلاص متقدم للبكتين والألياف الغذائية بالتكهف الهيدروديناميكي. وقد جرى توسيع نطاق هذا الابتكار بنجاح وهو قيد التشغيل في أحد أكثر مصانع التكرير الحيوي تقدمًا في آسيا، مما يثبت كفاءته التجارية والبيئية.",
+      "es": "Extracción avanzada de pectina y fibras dietéticas por cavitación hidrodinámica. Esta innovación se ha escalado con éxito y está en operación en una de las biorrefinerías más avanzadas de Asia, lo que demuestra su eficiencia comercial y ambiental."
+    },
+    "keyPillars": [
+      {
+        "title": {
+          "en": "Alcohol-Free Green Standard",
+          "ru": "Безалкогольный «зелёный» стандарт",
+          "zh": "无醇绿色标准",
+          "tr": "Alkolsüz yeşil standart",
+          "ar": "المعيار الأخضر الخالي من الكحول",
+          "es": "Estándar verde sin alcohol"
+        },
+        "description": {
+          "en": "The technology completely eliminates the use of alcohols in the precipitation phase, ensuring absolute food safety of the final product and minimizing fire hazard zoning.",
+          "ru": "Технология полностью исключает применение спиртов на стадии осаждения, обеспечивая абсолютную пищевую безопасность готового продукта и минимизируя пожароопасное зонирование.",
+          "zh": "该技术在沉淀阶段完全不使用醇类，确保终产品绝对的食品安全，并最大限度减少火灾危险分区。",
+          "tr": "Teknoloji, çöktürme aşamasında alkol kullanımını tamamen ortadan kaldırarak nihai ürünün mutlak gıda güvenliğini sağlar ve yangın tehlikesi bölgelendirmesini en aza indirir.",
+          "ar": "تلغي التقنية استخدام الكحول تمامًا في مرحلة الترسيب، بما يضمن سلامة غذائية مطلقة للمنتج النهائي ويقلّل إلى أدنى حد من تقسيم مناطق خطر الحريق.",
+          "es": "La tecnología elimina por completo el uso de alcoholes en la fase de precipitación, garantizando la seguridad alimentaria absoluta del producto final y reduciendo al mínimo la zonificación por riesgo de incendio."
+        }
+      },
+      {
+        "title": {
+          "en": "Minimal Chemical Footprint",
+          "ru": "Минимальная химическая нагрузка",
+          "zh": "极低化学品足迹",
+          "tr": "Minimum kimyasal ayak izi",
+          "ar": "الحد الأدنى من البصمة الكيميائية",
+          "es": "Huella química mínima"
+        },
+        "description": {
+          "en": "Instead of aggressive hydrochloric or nitric acid-base catalysts, a mild food-grade organic acid is applied in minimal quantities.",
+          "ru": "Вместо агрессивных кислотно-щелочных катализаторов на основе соляной или азотной кислоты в минимальных количествах применяется мягкая органическая кислота пищевого качества.",
+          "zh": "以少量温和的食品级有机酸取代强烈的盐酸或硝酸酸碱催化剂。",
+          "tr": "Agresif hidroklorik veya nitrik asit-baz katalizörleri yerine minimum miktarda hafif, gıda sınıfı organik asit uygulanır.",
+          "ar": "بدلًا من المحفزات الحمضية القاعدية القوية القائمة على حمض الهيدروكلوريك أو النيتريك، يُستخدم حمض عضوي غذائي معتدل بكميات ضئيلة.",
+          "es": "En lugar de catalizadores ácido-base agresivos a base de ácido clorhídrico o nítrico, se aplica un ácido orgánico suave de grado alimentario en cantidades mínimas."
+        }
+      },
+      {
+        "title": {
+          "en": "Gentle Purification",
+          "ru": "Щадящая очистка",
+          "zh": "温和纯化",
+          "tr": "Hassas saflaştırma",
+          "ar": "تنقية لطيفة",
+          "es": "Purificación suave"
+        },
+        "description": {
+          "en": "The process includes washing out ballast substances, mild processing, and membrane ultrafiltration to obtain a pure solid yield that preserves the natural macromolecular structure.",
+          "ru": "Процесс включает вымывание балластных веществ, мягкую обработку и мембранную ультрафильтрацию для получения чистого твёрдого продукта с сохранением природной макромолекулярной структуры.",
+          "zh": "工艺包括洗除杂质物质、温和处理及膜超滤，获得保持天然大分子结构的纯净固体产品。",
+          "tr": "Proses; balast maddelerin yıkanmasını, hafif işlemeyi ve doğal makromoleküler yapıyı koruyan saf bir katı ürün elde etmek için membran ultrafiltrasyonu içerir.",
+          "ar": "تشمل العملية غسل المواد غير المرغوبة، ومعالجة معتدلة، وترشيحًا فائقًا غشائيًا للحصول على منتج صلب نقي يحافظ على البنية الجزيئية الكبيرة الطبيعية.",
+          "es": "El proceso incluye el lavado de sustancias de lastre, un procesamiento suave y ultrafiltración por membrana para obtener un producto sólido puro que preserva la estructura macromolecular natural."
+        }
+      }
+    ],
+    "industrialImplementation": {
+      "en": "Siberian Wellness Turnkey Bio-Refining Facility (500 t/y Pectin, 800 t/y Dietary Fibers)",
+      "ru": "Комплекс биорефайнинга Siberian Wellness «под ключ» (500 т/год пектина, 800 т/год пищевых волокон)",
+      "zh": "Siberian Wellness 交钥匙生物炼制工厂（果胶 500 吨/年，膳食纤维 800 吨/年）",
+      "tr": "Siberian Wellness anahtar teslim biyorafineri tesisi (500 t/yıl pektin, 800 t/yıl diyet lifi)",
+      "ar": "منشأة Siberian Wellness للتكرير الحيوي بنظام تسليم المفتاح (500 طن/سنة بكتين، 800 طن/سنة ألياف غذائية)",
+      "es": "Instalación de biorrefinería llave en mano Siberian Wellness (500 t/año de pectina, 800 t/año de fibras dietéticas)"
+    },
+    "image": {
+      "mediaId": "media-flagship-siberian-wellness-1790267904663"
+    },
+    "imageCaption": {
+      "en": "Namangan Pectin Processing Complex (1,000 t/y output operating under Patent No. 113754)",
+      "ru": "Пектиновый перерабатывающий комплекс в Намангане (1 000 т/год, работает по патенту № 113754)",
+      "zh": "纳曼干果胶加工综合体（年产 1,000 吨，依据专利号 113754 运行）",
+      "tr": "Namangan pektin işleme kompleksi (Patent No. 113754 kapsamında işletilen 1.000 t/yıl üretim)",
+      "ar": "مجمّع نمنغان لمعالجة البكتين (إنتاج 1,000 طن/سنة يعمل وفق براءة الاختراع رقم 113754)",
+      "es": "Complejo de procesamiento de pectina de Namangán (producción de 1 000 t/año que opera con la patente n.º 113754)"
+    },
+    "id": "patent-113754",
+    "status": "published",
+    "order": 5,
+    "placements": [
+      "registry"
+    ],
+    "patentNo": "113754",
+    "title": {
+      "en": "Eco-Friendly 'Green' Pectin & Dietary Fiber Production Technology",
+      "ru": "Технология экологичного «зелёного» производства пектина и пищевых волокон",
+      "zh": "环保“绿色”果胶与膳食纤维生产技术",
+      "tr": "Çevre dostu 'yeşil' pektin ve diyet lifi üretim teknolojisi",
+      "ar": "تقنية إنتاج «أخضر» صديق للبيئة للبكتين والألياف الغذائية",
+      "es": "Tecnología de producción ecológica «verde» de pectina y fibra dietética"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "e062c725eb46fc47",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "e062c725eb46fc47",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "e062c725eb46fc47",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "e062c725eb46fc47",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "e062c725eb46fc47",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "legalStatus": null,
+    "statusLabel": null,
+    "patentLabel": null,
+    "jurisdiction": null,
+    "abstract": null,
+    "claimsSummary": null,
+    "registryNumber": "02",
+    "code": {
+      "en": "PATENT RU 2709384 C1",
+      "ru": "ПАТЕНТ RU 2709384 C1",
+      "zh": "专利 RU 2709384 C1",
+      "tr": "PATENT RU 2709384 C1",
+      "ar": "براءة الاختراع RU 2709384 C1",
+      "es": "PATENTE RU 2709384 C1"
+    },
+    "location": {
+      "en": "Almaty Region, Kazakhstan · Agritech LLC Plant",
+      "ru": "Алматинская область, Казахстан · завод Agritech LLC",
+      "zh": "哈萨克斯坦阿拉木图州 · Agritech LLC 工厂",
+      "tr": "Almatı Bölgesi, Kazakistan · Agritech LLC Tesisi",
+      "ar": "منطقة ألماتي، كازاخستان · مصنع Agritech LLC",
+      "es": "Región de Almaty, Kazajistán · Planta Agritech LLC"
+    },
+    "overview": {
+      "en": "The method eliminates the main drawbacks of traditional isolate production: raw material protein loss, high reagent costs, and poor water solubility. This innovation has been successfully scaled across modern plants in Israel, China, USA, and Kazakhstan.",
+      "ru": "Метод устраняет основные недостатки традиционного производства изолята: потери белка сырья, высокие затраты на реагенты и низкую растворимость в воде. Эта инновация успешно масштабирована на современных заводах в Израиле, Китае, США и Казахстане.",
+      "zh": "该方法消除了传统分离蛋白生产的主要缺点：原料蛋白损失、试剂成本高以及水溶性差。该创新已在以色列、中国、美国和哈萨克斯坦的现代化工厂中成功放大应用。",
+      "tr": "Yöntem, geleneksel izolat üretiminin başlıca dezavantajlarını ortadan kaldırır: hammadde protein kaybı, yüksek reaktif maliyetleri ve düşük suda çözünürlük. Bu yenilik İsrail, Çin, ABD ve Kazakistan'daki modern tesislerde başarıyla ölçeklendirilmiştir.",
+      "ar": "تلغي الطريقة العيوب الرئيسية لإنتاج المعزول التقليدي: فقدان بروتين المواد الخام، وارتفاع تكاليف الكواشف، وضعف الذوبانية في الماء. وقد جرى توسيع نطاق هذا الابتكار بنجاح في مصانع حديثة في إسرائيل والصين والولايات المتحدة وكازاخستان.",
+      "es": "El método elimina los principales inconvenientes de la producción tradicional de aislados: pérdida de proteína de la materia prima, altos costos de reactivos y baja solubilidad en agua. Esta innovación se ha escalado con éxito en modernas plantas de Israel, China, EE. UU. y Kazajistán."
+    },
+    "keyPillars": [
+      {
+        "title": {
+          "en": "Optimized Hydrolysis",
+          "ru": "Оптимизированный гидролиз",
+          "zh": "优化水解",
+          "tr": "Optimize hidroliz",
+          "ar": "تحلل مائي محسّن",
+          "es": "Hidrólisis optimizada"
+        },
+        "description": {
+          "en": "The expensive enzyme (bromelain) is used in micro-doses (0.2–1%) and is added only to the protein already purified from fiber and sugars, radically reducing processing costs.",
+          "ru": "Дорогостоящий фермент (бромелаин) используется в микродозах (0,2–1%) и вносится только в белок, уже очищенный от клетчатки и сахаров, что радикально снижает затраты на переработку.",
+          "zh": "昂贵的酶（菠萝蛋白酶）以微剂量（0.2–1%）使用，且仅添加到已去除纤维和糖类的蛋白中，大幅降低加工成本。",
+          "tr": "Pahalı enzim (bromelain) mikro dozlarda (%0,2–1) kullanılır ve yalnızca lif ve şekerlerden arındırılmış proteine eklenir; bu da işleme maliyetlerini radikal biçimde düşürür.",
+          "ar": "يُستخدم الإنزيم مرتفع التكلفة (البروميلين) بجرعات ميكروية (0.2–1%) ويُضاف فقط إلى البروتين المنقّى مسبقًا من الألياف والسكريات، مما يخفّض تكاليف المعالجة جذريًا.",
+          "es": "La costosa enzima (bromelina) se utiliza en microdosis (0,2–1%) y se añade únicamente a la proteína ya purificada de fibra y azúcares, lo que reduce radicalmente los costos de procesamiento."
+        }
+      },
+      {
+        "title": {
+          "en": "Perfect Digestibility",
+          "ru": "Превосходная усвояемость",
+          "zh": "卓越消化性",
+          "tr": "Mükemmel sindirilebilirlik",
+          "ar": "قابلية هضم مثالية",
+          "es": "Digestibilidad perfecta"
+        },
+        "description": {
+          "en": "Cleaving the molecular lattice into small peptides (up to 10 kDa) increases the water solubility of the final product by 6.8 times compared to standard isolates.",
+          "ru": "Расщепление молекулярной структуры на короткие пептиды (до 10 кДа) повышает растворимость готового продукта в воде в 6,8 раза по сравнению со стандартными изолятами.",
+          "zh": "将分子结构切割为小分子肽（最高 10 kDa），与标准分离蛋白相比，终产品水溶性提高 6.8 倍。",
+          "tr": "Moleküler yapının küçük peptitlere (10 kDa'ya kadar) parçalanması, standart izolatlara kıyasla nihai ürünün suda çözünürlüğünü 6,8 kat artırır.",
+          "ar": "يؤدي تقطيع البنية الجزيئية إلى ببتيدات صغيرة (حتى 10 kDa) إلى زيادة ذوبانية المنتج النهائي في الماء بمقدار 6.8 مرة مقارنةً بالمعزولات القياسية.",
+          "es": "La escisión de la red molecular en pequeños péptidos (hasta 10 kDa) aumenta 6,8 veces la solubilidad en agua del producto final en comparación con los aislados estándar."
+        }
+      },
+      {
+        "title": {
+          "en": "Premium Organoleptics",
+          "ru": "Органолептика премиум-класса",
+          "zh": "高端感官品质",
+          "tr": "Üstün organoleptik özellikler",
+          "ar": "خصائص حسية ممتازة",
+          "es": "Organoléptica superior"
+        },
+        "description": {
+          "en": "Instant steam thermal shock (135–140°C for 0.2 sec) followed by rapid vacuum cooling (to 55°C) vaporizes specific soy odors without protein denaturation, yielding a homogeneous, light-colored isolate.",
+          "ru": "Мгновенный паровой термоудар (135–140°C в течение 0,2 с) с последующим быстрым вакуумным охлаждением (до 55°C) удаляет характерные соевые запахи без денатурации белка, давая однородный изолят светлого цвета.",
+          "zh": "瞬时蒸汽热冲击（135–140°C，0.2 秒）后快速真空冷却（至 55°C），在不使蛋白变性的情况下去除大豆特有气味，得到均匀、浅色的分离蛋白。",
+          "tr": "Anlık buhar termal şoku (0,2 sn boyunca 135–140°C) ve ardından hızlı vakum soğutma (55°C'ye kadar), proteini denatüre etmeden soyaya özgü kokuları buharlaştırır ve homojen, açık renkli bir izolat sağlar.",
+          "ar": "صدمة حرارية فورية بالبخار (135–140°C لمدة 0.2 ثانية) يليها تبريد سريع بالتفريغ (حتى 55°C) يُبخّر روائح الصويا المميزة دون تمسخ البروتين، لينتج معزولًا متجانسًا فاتح اللون.",
+          "es": "Un choque térmico instantáneo con vapor (135–140°C durante 0,2 s) seguido de un enfriamiento rápido al vacío (hasta 55°C) evapora los olores característicos de la soja sin desnaturalizar la proteína, dando un aislado homogéneo y de color claro."
+        }
+      }
+    ],
+    "industrialImplementation": {
+      "en": "Agritech LLC Soybean Processing Complex (Zhanatlab, Kazakhstan) and Solbar industrial assets worldwide",
+      "ru": "Соевый перерабатывающий комплекс Agritech LLC (Жанатлап, Казахстан) и промышленные активы Solbar по всему миру",
+      "zh": "Agritech LLC 大豆加工综合体（哈萨克斯坦扎纳特拉普）及 Solbar 全球工业资产",
+      "tr": "Agritech LLC soya işleme kompleksi (Canatlap, Kazakistan) ve dünya genelindeki Solbar endüstriyel varlıkları",
+      "ar": "مجمّع Agritech LLC لمعالجة فول الصويا (جاناتلاب، كازاخستان) وأصول Solbar الصناعية حول العالم",
+      "es": "Complejo de procesamiento de soja de Agritech LLC (Zhanatlab, Kazajistán) y activos industriales de Solbar en todo el mundo"
+    },
+    "image": {
+      "mediaId": "media-project-soy-israel-1790271724797"
+    },
+    "imageCaption": {
+      "en": "Industrial Soy Protein Isolate Complex (17,000 t/y operating under Patent RU 2709384 C1)",
+      "ru": "Промышленный комплекс изолята соевого белка (17 000 т/год, работает по патенту RU 2709384 C1)",
+      "zh": "工业化大豆分离蛋白综合体（年产 17,000 吨，依据专利 RU 2709384 C1 运行）",
+      "tr": "Endüstriyel soya protein izolatı kompleksi (Patent RU 2709384 C1 kapsamında işletilen 17.000 t/yıl)",
+      "ar": "مجمّع صناعي لبروتين الصويا المعزول (17,000 طن/سنة يعمل وفق براءة الاختراع RU 2709384 C1)",
+      "es": "Complejo industrial de aislado de proteína de soja (17 000 t/año que opera con la patente RU 2709384 C1)"
+    },
+    "id": "patent-ru-2709384-c1",
+    "status": "published",
+    "order": 6,
+    "placements": [
+      "registry"
+    ],
+    "patentNo": "RU 2709384 C1",
+    "title": {
+      "en": "Innovative Soy Protein Isolate Production: Enzymatic Hydrolysis Technology",
+      "ru": "Инновационное производство изолята соевого белка: технология ферментативного гидролиза",
+      "zh": "创新大豆分离蛋白生产：酶解技术",
+      "tr": "Yenilikçi soya protein izolatı üretimi: enzimatik hidroliz teknolojisi",
+      "ar": "إنتاج مبتكر لبروتين الصويا المعزول: تقنية التحلل المائي الإنزيمي",
+      "es": "Producción innovadora de aislado de proteína de soja: tecnología de hidrólisis enzimática"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "862ec47617051246",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "862ec47617051246",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "862ec47617051246",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "862ec47617051246",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "862ec47617051246",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  }
+]

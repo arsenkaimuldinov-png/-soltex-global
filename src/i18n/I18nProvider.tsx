@@ -3,19 +3,22 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { flushSync } from 'react-dom';
 import { withViewTransition } from '../motion/prefs';
 import { DEFAULT_LOCALE, Locale, LocaleInfo, LOCALE_STORAGE_KEY, getLocaleInfo } from './config';
-import { getDictionary, loadDictionary } from './dictionaries';
+import { englishUi, getBundle, loadBundle, LocaleBundle, UiKey } from './bundles';
 import { localizePath, splitLocalePath } from './paths';
-import { Dictionary, TranslateParams, translate, translateRich } from './translate';
+import { TranslateParams, translate, translateRich } from './translate';
+import type { ContentApi } from '../content/getters';
 
 export interface I18nContextValue {
   locale: Locale;
   info: LocaleInfo;
   /** Current path without the locale prefix ("/", "/company", …). */
   path: string;
-  /** Translate an English master string (non-strings pass through unchanged). */
-  t: <T>(input: T, params?: TranslateParams) => T extends string ? string : T;
-  /** Translate a sentence with inline React elements: tr('Hi {name}.', { name: <b>…</b> }). */
-  tr: (key: string, nodes: Record<string, React.ReactNode>) => React.ReactNode;
+  /** UI string by stable key (navigation, buttons, labels, form texts, system messages). */
+  t: (key: UiKey, params?: TranslateParams) => string;
+  /** UI string with inline React elements: tr('form.thanks', { name: <b>…</b> }). */
+  tr: (key: UiKey, nodes: Record<string, React.ReactNode>) => React.ReactNode;
+  /** Content of the current language (pages, projects, technologies, …). */
+  content: ContentApi;
   /** Prefix an internal locale-less path with the current locale. */
   lp: (path: string) => string;
   /** Switch language, staying on the same page. */
@@ -58,22 +61,23 @@ export const I18nProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const { locale, path } = splitLocalePath(location.pathname);
   const info = getLocaleInfo(locale);
 
-  // Dictionaries are preloaded before first render (main.tsx) and before switching.
-  // If a locale is reached some other way (e.g. browser back button), load it on demand.
-  const [dict, setDict] = useState<Dictionary>(() => getDictionary(locale) ?? {});
-  const [dictLocale, setDictLocale] = useState<Locale>(() => (getDictionary(locale) ? locale : DEFAULT_LOCALE));
+  // Bundles are preloaded before the first render (main.tsx / prerender) and before switching.
+  // If a locale is reached some other way (e.g. browser back button), load it on demand and
+  // keep showing English until it arrives.
+  const [bundle, setBundle] = useState<LocaleBundle>(() => getBundle(locale) ?? getBundle(DEFAULT_LOCALE)!);
+  const [bundleLocale, setBundleLocale] = useState<Locale>(() => (getBundle(locale) ? locale : DEFAULT_LOCALE));
 
   useEffect(() => {
     let active = true;
-    const cached = getDictionary(locale);
+    const cached = getBundle(locale);
     if (cached) {
-      setDict(cached);
-      setDictLocale(locale);
+      setBundle(cached);
+      setBundleLocale(locale);
     } else {
-      loadDictionary(locale).then((d) => {
+      loadBundle(locale).then((b) => {
         if (!active) return;
-        setDict(d);
-        setDictLocale(locale);
+        setBundle(b);
+        setBundleLocale(locale);
       });
     }
     return () => {
@@ -89,16 +93,16 @@ export const I18nProvider: React.FC<{ children: React.ReactNode }> = ({ children
     ensureLocaleFonts(info);
   }, [info]);
 
-  const effectiveLocale = dictLocale === locale ? locale : DEFAULT_LOCALE;
+  const active = bundleLocale === locale ? bundle : getBundle(DEFAULT_LOCALE)!;
 
   const t = useCallback(
-    <T,>(input: T, params?: TranslateParams) => translate(dict, effectiveLocale, input, params),
-    [dict, effectiveLocale]
-  ) as I18nContextValue['t'];
+    (key: UiKey, params?: TranslateParams) => translate(active.ui, englishUi, key, params),
+    [active]
+  );
 
   const tr = useCallback(
-    (key: string, nodes: Record<string, React.ReactNode>) => translateRich(dict, effectiveLocale, key, nodes),
-    [dict, effectiveLocale]
+    (key: UiKey, nodes: Record<string, React.ReactNode>) => translateRich(active.ui, englishUi, key, nodes),
+    [active]
   );
 
   const lp = useCallback((p: string) => localizePath(p, locale), [locale]);
@@ -106,7 +110,7 @@ export const I18nProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const switchLocale = useCallback(
     async (next: Locale) => {
       storeLocale(next);
-      await loadDictionary(next);
+      await loadBundle(next);
       const to = localizePath(path, next) + location.search + location.hash;
       withViewTransition(() => {
         flushSync(() => navigate(to));
@@ -116,8 +120,8 @@ export const I18nProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 
   const value = useMemo<I18nContextValue>(
-    () => ({ locale, info, path, t, tr, lp, switchLocale }),
-    [locale, info, path, t, tr, lp, switchLocale]
+    () => ({ locale, info, path, t, tr, content: active.content, lp, switchLocale }),
+    [locale, info, path, t, tr, active, lp, switchLocale]
   );
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;

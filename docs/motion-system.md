@@ -6,7 +6,8 @@
 | File | Role |
 |---|---|
 | `src/styles/motion.css` | All motion tokens, primitives, keyframes, hover systems, reduced-motion rules |
-| `src/motion/prefs.ts` | Sets `html.motion-ready` / `html.vt` before first paint; `withViewTransition()` |
+| `index.html` (inline boot script) | Sets `html.motion-ready` / `html.vt` before the first paint of the prerendered HTML; 4 s safety timer reveals everything without animation if the app script never loads |
+| `src/motion/prefs.ts` | Keeps the classes in sync with the reduced-motion preference; `markHydrated()` cancels the safety timer; `withViewTransition()` |
 | `src/motion/useRevealSystem.ts` | The single IntersectionObserver (+ MutationObserver) driving all reveals |
 | `src/motion/usePresence.ts` | Keeps dialogs/menus mounted ~220 ms for exit transitions |
 | `src/components/ScrollReveal.tsx` | `<ScrollReveal variant index group>` wrapper (renders `data-reveal`) |
@@ -51,5 +52,5 @@ Used in: home EPCM and IP bands; bottom summary bands on Projects, Patents, Abou
 
 ## Accessibility & performance
 - `prefers-reduced-motion`: no `motion-ready` class → nothing is hidden, no reveals, no view transitions, no hover movement; transitions shortened globally.
-- Content is never gated on JS: hidden states only exist under `html.motion-ready`.
+- Content is never gated on JS: pages are prerendered as full HTML, hidden states only exist under `html.motion-ready`, and the boot script's safety timer removes that class if the app does not start within 4 s (Phase 1).
 - Only transform / opacity / clip-path are animated; one observer for the whole site; the EPCM scroll listener is attached only while the list is visible and rAF-throttled. No new dependencies.

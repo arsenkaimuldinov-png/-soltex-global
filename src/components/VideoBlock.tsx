@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Play, ArrowRight, FolderGit2, X } from 'lucide-react';
-import { CompanyVideo } from '../types';
-import { COMPANY_VIDEOS } from '../data/soltexData';
+import type { Video as CompanyVideo } from '../content/types';
+import { useContent, usePage } from '../content/useContent';
 import { withLineBreaks } from '../i18n/translate';
 import { useI18n } from '../i18n/I18nProvider';
 import { Link } from '../i18n/Link';
@@ -17,7 +17,8 @@ import { usePresence } from '../motion/usePresence';
  * - Click / tap / Enter / Space: opens the video in a lightbox with native controls and sound.
  */
 export const VideoBlock: React.FC = () => {
-  const { t } = useI18n();
+  const { c } = usePage('home');
+  const { videos } = useContent();
   const [playing, setPlaying] = useState<CompanyVideo | null>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
   const lightbox = usePresence(playing, 220);
@@ -40,7 +41,7 @@ export const VideoBlock: React.FC = () => {
         {/* Section Header */}
         <div className="text-center mb-10 sm:mb-12">
           <h2 className="text-xl sm:text-2xl lg:text-[26px] font-extrabold text-[#111814] tracking-wider uppercase font-tech">
-            {t("VIDEO MATERIALS")}
+            {c('videosHeading')}
           </h2>
           <div data-reveal="line" data-origin="center" className="w-12 h-[2px] bg-[#B89758] mx-auto mt-2.5" aria-hidden="true" />
         </div>
@@ -48,7 +49,7 @@ export const VideoBlock: React.FC = () => {
         {/* 5 + 5 + 2 cols from xl; below xl two video cards + a full-width All Projects card (the narrow column is too tight at 1024); stacked on mobile */}
         <div data-reveal-group className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-12 gap-5 items-stretch">
 
-          {COMPANY_VIDEOS.map((video) => (
+          {videos.map((video) => (
             <VideoCard key={video.id} video={video} onPlay={open} />
           ))}
 
@@ -64,16 +65,16 @@ export const VideoBlock: React.FC = () => {
               </div>
 
               <h3 className="font-tech text-base sm:text-lg font-extrabold text-white tracking-wider uppercase mb-3 leading-snug">
-                {withLineBreaks(t("VIEW ALL\nPROJECTS"))}
+                {withLineBreaks(c('allProjectsTitle'))}
               </h3>
 
               <p className="text-xs sm:text-[12.5px] text-white/80 leading-relaxed font-normal">
-                {t("Discover more projects and engineering success stories.")}
+                {c('allProjectsText')}
               </p>
             </div>
 
             <div className="pt-6 border-t border-white/20 flex items-center gap-2 text-[10.5px] sm:text-xs font-tech font-bold text-white uppercase tracking-wider group-hover:text-[#D4B982] transition-colors">
-              <span>{t("ALL PROJECTS")}</span>
+              <span>{c('allProjectsCta')}</span>
               <ArrowRight className="w-3.5 h-3.5 text-[#D4B982] group-hover:translate-x-1 transition-transform" />
             </div>
           </Link>
@@ -155,11 +156,11 @@ const VideoCard: React.FC<{ video: CompanyVideo; onPlay: (v: CompanyVideo, trigg
         onPlay(video, e.currentTarget);
       }}
       aria-haspopup="dialog"
-      aria-label={t("Watch video: {title}", { title: t(video.title) })}
+      aria-label={t('video.watchAria', { title: video.title })}
       className="s-card xl:col-span-5 relative group overflow-hidden bg-[#111814] border border-[#16211B]/15 shadow-xs cursor-pointer flex flex-col justify-end min-h-[360px] sm:min-h-[380px] lg:min-h-[400px] text-start touch-manipulation focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B89758]"
     >
       <img
-        src={video.thumbnail}
+        src={video.poster.src}
         alt=""
         loading="lazy"
         decoding="async"
@@ -172,7 +173,7 @@ const VideoCard: React.FC<{ video: CompanyVideo; onPlay: (v: CompanyVideo, trigg
       {armed && (
         <video
           ref={videoRef}
-          src={video.src}
+          src={video.video.src}
           muted
           loop
           playsInline
@@ -204,16 +205,16 @@ const VideoCard: React.FC<{ video: CompanyVideo; onPlay: (v: CompanyVideo, trigg
 
       <div className="relative z-10 p-5 sm:p-6 lg:p-7">
         <p className="font-tech text-xs sm:text-sm font-bold text-[#D4B982] tracking-wider uppercase mb-2">
-          {video.number} / {t(video.category)}
+          {video.number} / {video.category}
         </p>
         <h3 className="font-tech text-base sm:text-lg lg:text-[19px] font-extrabold text-white tracking-wide uppercase leading-tight mb-3.5">
-          {withLineBreaks(t(video.headline))}
+          {withLineBreaks(video.headline)}
         </h3>
         <p className="text-[12px] sm:text-[12.5px] text-white/80 leading-relaxed border-t border-white/15 pt-3 mb-4">
-          {t(video.description)}
+          {video.description}
         </p>
         <span className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-tech font-bold text-white uppercase tracking-wider group-hover:text-[#D4B982] transition-colors">
-          <span>{t("WATCH VIDEO")}</span>
+          <span>{t('video.watch')}</span>
           <ArrowRight className="w-3.5 h-3.5 text-[#D4B982] group-hover:translate-x-1 transition-transform" />
         </span>
       </div>
@@ -242,33 +243,33 @@ const VideoLightbox: React.FC<{ video: CompanyVideo; exiting: boolean; onClose: 
       className={`fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 ${exiting ? 'is-exiting' : ''}`}
       role="dialog"
       aria-modal="true"
-      aria-label={t(video.title)}
+      aria-label={video.title}
     >
       <div className="s-backdrop absolute inset-0 bg-[#07130D]/90 backdrop-blur-md" onClick={onClose} />
       <div className="s-panel relative w-full max-w-5xl bg-black border border-white/15 shadow-2xl">
         <div className="flex items-center justify-between gap-4 ps-4 sm:ps-6 pe-2 sm:pe-3 py-1.5 bg-[#0A2617] border-b border-white/10 text-white">
           <span className="font-tech text-xs tracking-widest text-[#D4B982] uppercase truncate">
-            {video.number} / {t(video.category)}
+            {video.number} / {video.category}
           </span>
           <button
             ref={closeRef}
             type="button"
             onClick={onClose}
             className="shrink-0 p-2.5 text-white/70 hover:text-white transition-colors focus-visible:outline-2 focus-visible:outline-[#D4B982]"
-            aria-label={t("Close video")}
+            aria-label={t('video.close')}
           >
             <X className="w-5 h-5" />
           </button>
         </div>
         <video
           ref={playerRef}
-          src={video.src}
-          poster={video.thumbnail}
+          src={video.video.src}
+          poster={video.poster.src}
           controls
           autoPlay
           playsInline
           preload="auto"
-          aria-label={t(video.title)}
+          aria-label={video.title}
           className="block w-full aspect-video max-h-[calc(100dvh-7rem)] bg-black"
         />
       </div>

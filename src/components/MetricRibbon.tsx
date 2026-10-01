@@ -1,6 +1,7 @@
 import React from 'react';
 import { withLineBreaks } from '../i18n/translate';
-import { useI18n } from '../i18n/I18nProvider';
+import { useContent } from '../content/useContent';
+import { interpolateNodes } from '../content/getters';
 
 // Custom precision SVG icons matching the client reference screenshot
 export const WreathIcon: React.FC<{ className?: string }> = ({ className = 'w-10 h-10' }) => (
@@ -139,85 +140,54 @@ export const ShieldBadgeCheckIcon: React.FC<{ className?: string }> = ({ classNa
   </svg>
 );
 
+/** Icon per metric (presentation is code-owned; values and labels are content). */
+const METRIC_ICONS: Record<string, React.FC<{ className?: string }>> = {
+  'metric-experience': WreathIcon,
+  'metric-countries': GlobeGridIcon,
+  'metric-technology': CogEngineIcon,
+  'metric-projects': FactoryPlantIcon,
+  'metric-epcm': ShieldBadgeCheckIcon,
+};
+
 export const MetricRibbon: React.FC = () => {
-  const { t, tr } = useI18n();
+  const { settings } = useContent();
+  const metrics = settings.metrics;
   return (
     <div className="w-full bg-[#FAF9F5] border-y border-[#16211B]/12 py-5 sm:py-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div data-reveal-group style={{ '--rv-d': '550ms' } as React.CSSProperties} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 divide-y sm:divide-y-0 lg:divide-x divide-[#16211B]/12">
-          {/* 01. 25+ YEARS OF INDUSTRIAL EXPERIENCE */}
-          <div data-reveal="up" className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-2 lg:px-5 first:lg:ps-0">
-            <div className="text-[#0E482C] shrink-0">
-              <WreathIcon className="w-10 h-10 sm:w-11 sm:h-11" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-tech text-xl sm:text-2xl font-extrabold text-[#111814] tracking-tight leading-none mb-1">
-                25+
-              </span>
-              <span className="text-[10px] sm:text-[11px] font-bold text-[#111814] uppercase tracking-wider leading-tight">
-                {withLineBreaks(t("YEARS OF\nINDUSTRIAL\nEXPERIENCE"))}
-              </span>
-            </div>
-          </div>
-
-          {/* 02. 10+ COUNTRIES PROJECT EXPERIENCE */}
-          <div data-reveal="up" className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-2 lg:px-5">
-            <div className="text-[#0E482C] shrink-0">
-              <GlobeGridIcon className="w-10 h-10 sm:w-11 sm:h-11" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-tech text-xl sm:text-2xl font-extrabold text-[#111814] tracking-tight leading-none mb-1">
-                10+
-              </span>
-              <span className="text-[10px] sm:text-[11px] font-bold text-[#111814] uppercase tracking-wider leading-tight">
-                {withLineBreaks(t("COUNTRIES\nPROJECT\nEXPERIENCE"))}
-              </span>
-            </div>
-          </div>
-
-          {/* 03. 20+ YEARS OF TECHNOLOGY IN OPERATION */}
-          <div data-reveal="up" className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-2 lg:px-5">
-            <div className="text-[#0E482C] shrink-0">
-              <CogEngineIcon className="w-10 h-10 sm:w-11 sm:h-11" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-tech text-xl sm:text-2xl font-extrabold text-[#111814] tracking-tight leading-none mb-1">
-                20+
-              </span>
-              <span className="text-[10px] sm:text-[11px] font-bold text-[#111814] uppercase tracking-wider leading-tight">
-                {withLineBreaks(t("YEARS OF\nTECHNOLOGY\nIN OPERATION"))}
-              </span>
-            </div>
-          </div>
-
-          {/* 04. 300+ MILLION USD PROJECTS DELIVERED */}
-          <div data-reveal="up" className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-2 lg:px-5">
-            <div className="text-[#0E482C] shrink-0">
-              <FactoryPlantIcon className="w-10 h-10 sm:w-11 sm:h-11" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-tech text-xl sm:text-2xl font-extrabold text-[#111814] tracking-tight leading-none mb-1">
-                300+
-              </span>
-              <span className="text-[10px] sm:text-[11px] font-bold text-[#111814] uppercase tracking-wider leading-tight">
-                {withLineBreaks(t("MILLION USD\nPROJECTS\nDELIVERED"))}
-              </span>
-            </div>
-          </div>
-
-          {/* 05. FULL-CYCLE EPC / EPCM SOLUTIONS */}
-          <div data-reveal="up" className="flex items-center gap-3.5 sm:gap-4 py-3 sm:py-2 lg:px-5 last:lg:pe-0">
-            <div className="text-[#0E482C] shrink-0">
-              <ShieldBadgeCheckIcon className="w-10 h-10 sm:w-11 sm:h-11" />
-            </div>
-            <div className="flex flex-col justify-center">
-              <span className="text-[11px] sm:text-xs font-extrabold text-[#111814] uppercase tracking-wider leading-tight">
-                {withLineBreaks(tr("FULL-CYCLE\n{epc}\nSOLUTIONS", {
-                  epc: <span className="text-[#0E482C]">{t("EPC / EPCM")}</span>,
-                }))}
-              </span>
-            </div>
-          </div>
+          {metrics.map((metric, idx) => {
+            const Icon = METRIC_ICONS[metric.id] ?? ShieldBadgeCheckIcon;
+            const edge = idx === 0 ? 'first:lg:ps-0' : idx === metrics.length - 1 ? 'last:lg:pe-0' : '';
+            return metric.value !== null ? (
+              <div key={metric.id} data-reveal="up" className={['flex items-center gap-3.5 sm:gap-4 py-3 sm:py-2 lg:px-5', edge].filter(Boolean).join(' ')}>
+                <div className="text-[#0E482C] shrink-0">
+                  <Icon className="w-10 h-10 sm:w-11 sm:h-11" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-tech text-xl sm:text-2xl font-extrabold text-[#111814] tracking-tight leading-none mb-1">
+                    {metric.value}
+                  </span>
+                  <span className="text-[10px] sm:text-[11px] font-bold text-[#111814] uppercase tracking-wider leading-tight">
+                    {withLineBreaks(metric.label)}
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <div key={metric.id} data-reveal="up" className={['flex items-center gap-3.5 sm:gap-4 py-3 sm:py-2 lg:px-5', edge].filter(Boolean).join(' ')}>
+                <div className="text-[#0E482C] shrink-0">
+                  <Icon className="w-10 h-10 sm:w-11 sm:h-11" />
+                </div>
+                <div className="flex flex-col justify-center">
+                  <span className="text-[11px] sm:text-xs font-extrabold text-[#111814] uppercase tracking-wider leading-tight">
+                    {withLineBreaks(interpolateNodes(metric.label, {
+                      highlight: <span className="text-[#0E482C]">{metric.highlight}</span>,
+                    }))}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

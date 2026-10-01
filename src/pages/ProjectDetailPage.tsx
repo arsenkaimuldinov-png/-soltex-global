@@ -1,68 +1,73 @@
 import React from 'react';
+import { topicCopy, topicRef, topicUi, type InquiryTopic } from '../services/leads/topics';
 import { useParams } from 'react-router-dom';
 import { Link } from '../i18n/Link';
 import { ArrowLeft, ArrowRight, MapPin, Calendar, CheckCircle2, ShieldCheck, Cpu, Building2, Layers } from 'lucide-react';
 import { PageHeader } from '../components/PageHeader';
 import { CtaSection } from '../components/CtaSection';
 import { ScrollReveal } from '../components/ScrollReveal';
-import { PROJECTS_DATA, ProjectItem, TECHNOLOGIES_DATA } from '../data/pagesData';
+import type { Project as ProjectItem } from '../content/types';
+import { useContent, usePage } from '../content/useContent';
 import { useI18n } from '../i18n/I18nProvider';
 
-export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string) => void }> = ({ onOpenProjectModal }) => {
+export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: InquiryTopic) => void }> = ({ onOpenProjectModal }) => {
   const { t, tr } = useI18n();
+  const { c, cr, media } = usePage('projectDetail');
+  const content = useContent();
+  const projects = content.projects;
   const { slug } = useParams<{ slug: string }>();
 
-  const projectIndex = PROJECTS_DATA.findIndex((p) => p.slug === slug);
-  const project: ProjectItem | undefined = PROJECTS_DATA[projectIndex];
+  const projectIndex = projects.findIndex((p) => p.slug === slug);
+  const project: ProjectItem | undefined = projects[projectIndex];
 
   if (!project) {
     return (
       <div className="bg-[#FBFBF8] min-h-screen pt-36 pb-24 text-[#121815]">
         <div className="max-w-[800px] mx-auto px-6 text-center">
-          <div className="text-xs font-mono uppercase text-[#0E482C] mb-4">{t("404 · Project Not Found")}</div>
-          <h1 className="font-serif text-4xl mb-4">{t("Project Case Study Unavailable")}</h1>
+          <div className="text-xs font-mono uppercase text-[#0E482C] mb-4">{t('projectDetail.notFoundEyebrow')}</div>
+          <h1 className="font-serif text-4xl mb-4">{t('projectDetail.notFoundTitle')}</h1>
           <p className="text-[#334439] mb-8 font-light">
-            {t("The requested industrial facility record could not be found in our verified project archives.")}
+            {t('projectDetail.notFoundText')}
           </p>
           <Link
             to="/projects"
             className="inline-flex items-center gap-2 px-6 py-3 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-colors s-btn"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>{t("Return to Projects Index")}</span>
+            <span>{t('projectDetail.backToIndex')}</span>
           </Link>
         </div>
       </div>
     );
   }
 
-  const prevProject = projectIndex > 0 ? PROJECTS_DATA[projectIndex - 1] : PROJECTS_DATA[PROJECTS_DATA.length - 1];
-  const nextProject = projectIndex < PROJECTS_DATA.length - 1 ? PROJECTS_DATA[projectIndex + 1] : PROJECTS_DATA[0];
+  const prevProject = projectIndex > 0 ? projects[projectIndex - 1] : projects[projects.length - 1];
+  const nextProject = projectIndex < projects.length - 1 ? projects[projectIndex + 1] : projects[0];
 
-  const relatedTech = TECHNOLOGIES_DATA.find((t) => t.slug === project.relatedTechSlug);
+  const relatedTech = content.technologyById(project.relatedTechnologyId);
 
   return (
     <div className="bg-[#FBFBF8] text-[#121815] min-h-screen">
       {/* 1. HERO & PAGE HEADER */}
       <PageHeader
         badgeNumber={project.categoryNumber}
-        badgeLabel={t("{category} · CASE STUDY", { category: t(project.category) })}
-        title={t(project.title)}
-        subtitle={`${t(project.type)} — ${t(project.country)}`}
-        description={t(project.overview)}
+        badgeLabel={c('badgeLabel', { category: project.category })}
+        title={project.title}
+        subtitle={`${project.type} — ${project.country}`}
+        description={project.overview}
         breadcrumbs={[
-          { label: 'Projects', href: '/projects' },
+          { label: t('breadcrumb.projects'), href: '/projects' },
           { label: project.title }
         ]}
         metaTags={[
-          { label: 'Country / Geography', value: project.country },
-          { label: 'Project Years', value: project.years },
-          { label: 'Installed Capacity', value: project.capacity || 'Custom Industrial' },
-          { label: 'Contract Scope', value: 'Turnkey EPC / EPCM' }
+          { label: t('projectDetail.metaCountry'), value: project.country },
+          { label: t('projectDetail.metaYears'), value: project.years },
+          { label: t('projectDetail.metaCapacity'), value: project.capacity || c('capacityFallback') },
+          { label: t('projectDetail.metaContractScope'), value: c('contractScopeValue') }
         ]}
         primaryAction={{
-          label: 'Request Similar Facility Audit',
-          onClick: () => onOpenProjectModal?.(t("Inquiry for project model: {title}", { title: t(project.title) }))
+          label: c('headerActionLabel'),
+          onClick: () => onOpenProjectModal?.(topicCopy('projectDetail', 'headerInquiryTopic', { title: topicRef('project', project.id) }))
         }}
       />
 
@@ -70,8 +75,8 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
       <section className="bg-[#07130E] border-b border-[#16211B]/15 overflow-hidden">
         <div className="relative aspect-[21/9] sm:aspect-[24/9] w-full min-h-[380px] image-zoom-container">
           <img
-            src={project.image}
-            alt={t(project.title)}
+            src={project.image.src}
+            alt={project.title}
             className="w-full h-full object-cover opacity-90"
             style={project.imagePosition ? { objectPosition: project.imagePosition } : undefined}
           />
@@ -80,17 +85,17 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
             <div className="flex items-center gap-4 text-xs font-mono">
               <span className="flex items-center gap-1.5 text-white/90">
                 <MapPin className="w-4 h-4 text-[#BA9B60]" />
-                {t(project.country)}
+                {project.country}
               </span>
               <span className="text-white/40">|</span>
               <span className="flex items-center gap-1.5 text-white/90">
                 <Calendar className="w-4 h-4 text-[#BA9B60]" />
-                {t(project.years)}
+                {project.years}
               </span>
             </div>
             {project.capacity && (
               <div className="text-[#BA9B60] text-sm font-mono font-bold bg-black/50 px-3.5 py-1.5 border border-white/10">
-                {tr("ANNUAL OUTPUT: {capacity}", { capacity: t(project.capacity) })}
+                {tr('projectDetail.annualOutput', { capacity: project.capacity })}
               </div>
             )}
           </div>
@@ -106,15 +111,15 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
               <ScrollReveal className="space-y-10">
                 <div>
                   <div className="text-[11px] font-mono uppercase tracking-widest text-[#0E482C] mb-3 font-semibold">
-                    {t("01 · INDUSTRIAL IMPLEMENTATION CONTEXT")}
+                    {c('contextEyebrow')}
                   </div>
                   <h2 className="font-serif text-3xl sm:text-4xl text-[#121815] mb-6">
-                    {t("Commercial Mandate & Engineering Background")}
+                    {c('contextHeading')}
                   </h2>
                   <div className="prose prose-stone text-base sm:text-lg text-[#334439] leading-relaxed space-y-4 font-light">
-                    <p>{t(project.overview)}</p>
+                    <p>{project.overview}</p>
                     <p>
-                      {t("Constructed in strict accordance with Soltex Global’s proprietary process parameters, combining energy-efficient thermodynamic flow balances, continuous automated separation, and cleanroom stainless-steel pipeline routing.")}
+                      {c('contextParagraph')}
                     </p>
                   </div>
                 </div>
@@ -124,26 +129,26 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
               <ScrollReveal>
                 <div className="border-t border-[#16211B]/10 pt-10">
                   <div className="text-[11px] font-mono uppercase tracking-widest text-[#0E482C] mb-3 font-semibold">
-                    {t("02 · INTEGRATED PROCESS TECHNOLOGY")}
+                    {c('technologyEyebrow')}
                   </div>
                   <h3 className="font-serif text-2xl text-[#121815] mb-4">
-                    {tr("Applied Process: {technology}", { technology: t(project.technology) })}
+                    {cr('technologyHeading', { technology: project.technology })}
                   </h3>
                   <p className="text-sm text-[#334439] leading-relaxed font-light mb-6">
-                    {t("This installation operates under proprietary separation thermodynamics that maximize target active yield while preventing product discoloration and protein denaturation.")}
+                    {c('technologyParagraph')}
                   </p>
 
                   <div className="bg-[#F3F3EC] p-5 border border-[#16211B]/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div className="text-xs font-mono text-[#334439]">
-                      <span className="font-bold text-[#0E482C] block mb-0.5">{t("PATENT & IP CERTIFICATION")}</span>
-                      <span>{t("Verified commercial implementation of Soltex process platform")}</span>
+                      <span className="font-bold text-[#0E482C] block mb-0.5">{c('certificationTitle')}</span>
+                      <span>{c('certificationText')}</span>
                     </div>
                     {relatedTech && (
                       <Link
                         to={`/technologies/${relatedTech.slug}`}
                         className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0E482C] text-white text-xs font-mono uppercase tracking-wider hover:bg-[#07130E] transition-colors shrink-0 s-btn"
                       >
-                        <span>{t("View Technology Dossier")}</span>
+                        <span>{t('common.viewTechnologyDossier')}</span>
                         <ArrowRight className="w-3.5 h-3.5 text-[#BA9B60]" />
                       </Link>
                     )}
@@ -155,10 +160,10 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
               <ScrollReveal>
                 <div className="border-t border-[#16211B]/10 pt-10">
                   <div className="text-[11px] font-mono uppercase tracking-widest text-[#0E482C] mb-3 font-semibold">
-                    {t("03 · TURNKEY EPCM RESPONSIBILITY")}
+                    {c('scopeEyebrow')}
                   </div>
                   <h3 className="font-serif text-2xl text-[#121815] mb-6">
-                    {t("Scope of Delivery & Work Completed")}
+                    {c('scopeHeading')}
                   </h3>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -171,7 +176,7 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
                           {idx + 1}
                         </div>
                         <div className="text-sm text-[#223328] font-medium leading-snug">
-                          {t(item)}
+                          {item}
                         </div>
                       </div>
                     ))}
@@ -184,17 +189,17 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
                 <ScrollReveal>
                   <div className="border-t border-[#16211B]/10 pt-10">
                     <div className="text-[11px] font-mono uppercase tracking-widest text-[#0E482C] mb-3 font-semibold">
-                      {t("04 · PERFORMANCE GUARANTEES")}
+                      {c('resultsEyebrow')}
                     </div>
                     <h3 className="font-serif text-2xl text-[#121815] mb-6">
-                      {t("Commercial Output & Performance Validation")}
+                      {c('resultsHeading')}
                     </h3>
 
                     <div className="bg-beige-soft border border-taupe/50 p-6 lg:p-8 space-y-4">
                       {project.results.map((res, idx) => (
                         <div key={idx} className="flex items-start gap-3">
                           <CheckCircle2 className="w-5 h-5 text-[#0E482C] shrink-0 mt-0.5" />
-                          <span className="text-base text-[#121815] font-medium">{t(res)}</span>
+                          <span className="text-base text-[#121815] font-medium">{res}</span>
                         </div>
                       ))}
                     </div>
@@ -209,24 +214,24 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
                 <div className="bg-white border border-[#16211B]/15 p-6 lg:p-8 sticky top-28 space-y-6">
                   <div className="flex items-center gap-2 pb-4 border-b border-[#16211B]/10 text-xs font-mono uppercase tracking-wider text-[#0E482C] font-semibold">
                     <Cpu className="w-4 h-4 text-[#BA9B60]" />
-                    <span>{t("Technical Data Sheet")}</span>
+                    <span>{t('projectDetail.dataSheet')}</span>
                   </div>
 
                   <div className="divide-y divide-[#16211B]/10">
                     {project.specs.map((spec, idx) => (
                       <div key={idx} className="py-3 flex flex-col">
-                        <span className="text-[11px] font-mono uppercase tracking-wider text-[#334439]/70">{t(spec.label)}</span>
-                        <span className="text-sm font-semibold text-[#121815] font-mono mt-0.5">{t(spec.value)}</span>
+                        <span className="text-[11px] font-mono uppercase tracking-wider text-[#334439]/70">{spec.label}</span>
+                        <span className="text-sm font-semibold text-[#121815] font-mono mt-0.5">{spec.value}</span>
                       </div>
                     ))}
                   </div>
 
                   <div className="pt-4 border-t border-[#16211B]/10">
                     <button
-                      onClick={() => onOpenProjectModal?.(t("Engineering Consultation for {title}", { title: t(project.title) }))}
+                      onClick={() => onOpenProjectModal?.(topicUi('common.engineeringConsultationTopic', { title: topicRef('project', project.id) }))}
                       className="w-full py-3.5 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-colors flex items-center justify-center gap-2 cursor-pointer s-btn"
                     >
-                      <span>{t("Consult on Similar Plant")}</span>
+                      <span>{t('projectDetail.consultSimilar')}</span>
                       <ArrowRight className="w-3.5 h-3.5 text-[#BA9B60]" />
                     </button>
 
@@ -235,7 +240,7 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
                       className="w-full mt-3 py-3 border border-[#16211B]/20 text-[#334439] font-mono text-xs tracking-widest uppercase hover:bg-[#F3F3EC] transition-colors flex items-center justify-center gap-2"
                     >
                       <ArrowLeft className="w-3.5 h-3.5" />
-                      <span>{t("All Projects Index")}</span>
+                      <span>{t('projectDetail.allProjects')}</span>
                     </Link>
                   </div>
                 </div>
@@ -251,18 +256,18 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
         <ScrollReveal>
           <div className="relative aspect-[21/9] sm:aspect-[24/9] w-full min-h-[380px] image-zoom-container">
             <img
-              src="/images/tech_integrated_plant_1790271239031.jpg"
-              alt={t("Hygienic Separation Equipment Hall")}
+              src={media('archiveBandImage').src}
+              alt={c('archiveImageAlt')}
               className="w-full h-full object-cover opacity-90"
               loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
             <div className="absolute bottom-6 start-6 end-6 max-w-[1400px] mx-auto text-white">
               <div className="text-[10px] font-mono text-[#BA9B60] uppercase tracking-widest">
-                {t("ARCHIVAL ENGINEERING RECORD")}
+                {c('archiveEyebrow')}
               </div>
               <div className="font-serif text-xl sm:text-2xl text-[#FBFBF8] mt-1">
-                {t("Precision Separation & Multi-Stage Evaporation Infrastructure")}
+                {c('archiveTitle')}
               </div>
             </div>
           </div>
@@ -275,10 +280,10 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
           <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
             <ScrollReveal>
               <div className="text-[11px] font-mono uppercase tracking-widest text-[#0E482C] mb-3 font-semibold">
-                {t("05 · FACILITY ARCHIVE IMAGERY")}
+                {c('galleryEyebrow')}
               </div>
               <h3 className="font-serif text-3xl text-[#121815] mb-8">
-                {t("Site Photographic Documentation")}
+                {c('galleryHeading')}
               </h3>
             </ScrollReveal>
 
@@ -286,7 +291,7 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
               {project.gallery.map((img, idx) => (
                 <ScrollReveal key={idx} delayMs={idx * 100}>
                   <div className="relative aspect-[16/10] overflow-hidden border border-[#16211B]/15 bg-[#07130E] image-zoom-container">
-                    <img loading="lazy" decoding="async" src={img} alt={t("{title} archive {n}", { title: t(project.title), n: idx + 1 })} className="w-full h-full object-cover" />
+                    <img loading="lazy" decoding="async" src={img.src} alt={t('projectDetail.galleryAlt', { title: project.title, n: idx + 1 })} className="w-full h-full object-cover" />
                   </div>
                 </ScrollReveal>
               ))}
@@ -304,9 +309,9 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
           >
             <ArrowLeft className="w-5 h-5 text-[#BA9B60] group-hover:-translate-x-1 transition-transform" />
             <div>
-              <div className="text-[10px] font-mono uppercase text-[#334439]/60">{t("PREVIOUS PROJECT")}</div>
-              <div className="font-serif text-lg text-[#121815] group-hover:text-[#0E482C] font-semibold">{t(prevProject.title)}</div>
-              <div className="text-xs font-mono text-[#334439]/80">{t(prevProject.country)} · {t(prevProject.years)}</div>
+              <div className="text-[10px] font-mono uppercase text-[#334439]/60">{t('projectDetail.previous')}</div>
+              <div className="font-serif text-lg text-[#121815] group-hover:text-[#0E482C] font-semibold">{prevProject.title}</div>
+              <div className="text-xs font-mono text-[#334439]/80">{prevProject.country} · {prevProject.years}</div>
             </div>
           </Link>
 
@@ -315,9 +320,9 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
             className="group p-6 bg-white border border-[#16211B]/10 hover:border-[#0E482C] transition-colors flex items-center justify-between text-end"
           >
             <div>
-              <div className="text-[10px] font-mono uppercase text-[#334439]/60">{t("NEXT PROJECT")}</div>
-              <div className="font-serif text-lg text-[#121815] group-hover:text-[#0E482C] font-semibold">{t(nextProject.title)}</div>
-              <div className="text-xs font-mono text-[#334439]/80">{t(nextProject.country)} · {t(nextProject.years)}</div>
+              <div className="text-[10px] font-mono uppercase text-[#334439]/60">{t('projectDetail.next')}</div>
+              <div className="font-serif text-lg text-[#121815] group-hover:text-[#0E482C] font-semibold">{nextProject.title}</div>
+              <div className="text-xs font-mono text-[#334439]/80">{nextProject.country} · {nextProject.years}</div>
             </div>
             <ArrowRight className="w-5 h-5 text-[#BA9B60] group-hover:translate-x-1 transition-transform" />
           </Link>
@@ -326,10 +331,9 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: string)
 
       {/* 9. CTA */}
       <CtaSection
-        badge={t("ENGINEERING FEASIBILITY")}
-        title={t("Inquire About Engineering a Plant Like {title}", { title: t(project.title) })}
-        description={t("Our multi-disciplinary chemical engineering team provides full cycle basic engineering, capital expenditure budgeting, and yield performance guarantees.")}
-        topic={t("Project Case Study Inquiry: {title}", { title: t(project.title) })}
+        badge={c('ctaBadge')}
+        title={c('ctaTitle', { title: project.title })}
+        description={c('ctaDescription')}
       />
     </div>
   );

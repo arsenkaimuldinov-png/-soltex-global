@@ -24,5 +24,20 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "noEmit": true
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/i18n/dictionaries.ts",
+    "src/components/AboutModal.tsx",
+    "src/components/ContactModal.tsx",
+    "src/components/FeaturedProject.tsx",
+    "src/components/FinalCta.tsx",
+    "src/components/IndustriesModal.tsx",
+    "src/components/InsightsModal.tsx",
+    "src/components/MissionDark.tsx",
+    "src/components/SectorsGrid.tsx",
+    "src/components/VideoModal.tsx",
+    "src/components/WhySoltex.tsx"
+  ]
 }

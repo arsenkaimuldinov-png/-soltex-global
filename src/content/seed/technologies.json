@@ -1,0 +1,1755 @@
+[
+  {
+    "id": "technology-pectin",
+    "status": "published",
+    "order": 1,
+    "slug": "pectin",
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "categoryNumber": "01",
+    "categoryTitle": {
+      "en": "PECTIN & DIETARY FIBERS",
+      "ru": "ПЕКТИН И ПИЩЕВЫЕ ВОЛОКНА",
+      "zh": "果胶与膳食纤维",
+      "tr": "PEKTİN VE DİYET LİFLERİ",
+      "ar": "البكتين والألياف الغذائية",
+      "es": "PECTINA Y FIBRAS DIETÉTICAS"
+    },
+    "title": {
+      "en": "Eco-Friendly 'Green' Pectin & Dietary Fiber Production",
+      "ru": "Экологичное «зелёное» производство пектина и пищевых волокон",
+      "zh": "环保“绿色”果胶与膳食纤维生产",
+      "tr": "Çevre dostu 'yeşil' pektin ve diyet lifi üretimi",
+      "ar": "إنتاج «أخضر» صديق للبيئة للبكتين والألياف الغذائية",
+      "es": "Producción ecológica «verde» de pectina y fibra dietética"
+    },
+    "subtitle": {
+      "en": "Alcohol-free cavitation extraction for pharmaceutical and food-grade hydrocolloids",
+      "ru": "Безалкогольная кавитационная экстракция гидроколлоидов фармацевтического и пищевого качества",
+      "zh": "用于医药级和食品级水胶体的无醇空化提取",
+      "tr": "Farmasötik ve gıda kalitesinde hidrokolloidler için alkolsüz kavitasyon ekstraksiyonu",
+      "ar": "استخلاص بالتكهف خالٍ من الكحول للغرويات المائية من الدرجة الدوائية والغذائية",
+      "es": "Extracción por cavitación sin alcohol para hidrocoloides de grado farmacéutico y alimentario"
+    },
+    "overview": {
+      "en": "Pectin and dietary fibers are high-demand ingredients for the food and cosmetics industries. Modern market demands require high product purity and a transition to safe, non-toxic extraction methods. Soltex patented technology completely replaces harsh chemical reagents with gentle cavitation and organic catalysts.",
+      "ru": "Пектин и пищевые волокна — востребованные ингредиенты для пищевой и косметической промышленности. Современный рынок требует высокой чистоты продукции и перехода на безопасные, нетоксичные методы экстракции. Запатентованная технология Soltex полностью заменяет агрессивные химические реагенты щадящей кавитацией и органическими катализаторами.",
+      "zh": "果胶和膳食纤维是食品和化妆品行业需求旺盛的配料。现代市场要求产品具有高纯度，并转向安全、无毒的提取方法。Soltex 专利技术以温和的空化作用和有机催化剂完全取代了刺激性化学试剂。",
+      "tr": "Pektin ve diyet lifleri, gıda ve kozmetik sektörlerinde yüksek talep gören bileşenlerdir. Modern pazar talepleri yüksek ürün saflığı ve güvenli, toksik olmayan ekstraksiyon yöntemlerine geçiş gerektirir. Soltex'in patentli teknolojisi, sert kimyasal reaktiflerin yerine tamamen hassas kavitasyon ve organik katalizörler kullanır.",
+      "ar": "يُعد البكتين والألياف الغذائية من المكونات عالية الطلب في صناعتي الأغذية ومستحضرات التجميل. وتتطلب احتياجات السوق الحديثة نقاوة عالية للمنتج والتحول إلى طرق استخلاص آمنة وغير سامة. وتستبدل تقنية Soltex الحاصلة على براءة اختراع الكواشف الكيميائية القاسية استبدالًا كاملًا بالتكهف اللطيف والمحفزات العضوية.",
+      "es": "La pectina y las fibras dietéticas son ingredientes muy demandados por las industrias alimentaria y cosmética. Las exigencias del mercado actual requieren una alta pureza del producto y la transición hacia métodos de extracción seguros y no tóxicos. La tecnología patentada de Soltex sustituye por completo los reactivos químicos agresivos por una cavitación suave y catalizadores orgánicos."
+    },
+    "patentInfo": {
+      "patentNumber": {
+        "en": "Patent Application No. 113754",
+        "ru": "Заявка на патент № 113754",
+        "zh": "专利申请号 113754",
+        "tr": "Patent Başvurusu No. 113754",
+        "ar": "طلب براءة الاختراع رقم 113754",
+        "es": "Solicitud de patente n.º 113754"
+      },
+      "location": {
+        "en": "Commercial installation: Namangan, Uzbekistan (Siberian Wellness)",
+        "ru": "Промышленная установка: Наманган, Узбекистан (Siberian Wellness)",
+        "zh": "商业化装置：乌兹别克斯坦纳曼干（Siberian Wellness）",
+        "tr": "Ticari kurulum: Namangan, Özbekistan (Siberian Wellness)",
+        "ar": "التركيب التجاري: نمنغان، أوزبكستان (Siberian Wellness)",
+        "es": "Instalación comercial: Namangán, Uzbekistán (Siberian Wellness)"
+      },
+      "keyPoints": [
+        {
+          "en": "Alcohol-Free Green Standard: completely eliminates the use of alcohols, ensuring absolute food safety and simplified permitting.",
+          "ru": "Безалкогольный «зелёный» стандарт: полностью исключает применение спиртов, обеспечивая абсолютную пищевую безопасность и упрощённое получение разрешений.",
+          "zh": "无醇绿色标准：完全不使用醇类，确保绝对的食品安全并简化许可审批。",
+          "tr": "Alkolsüz yeşil standart: alkol kullanımını tamamen ortadan kaldırarak mutlak gıda güvenliği ve basitleştirilmiş izin süreci sağlar.",
+          "ar": "المعيار الأخضر الخالي من الكحول: يلغي استخدام الكحول تمامًا، بما يضمن سلامة غذائية مطلقة وتبسيط إجراءات الترخيص.",
+          "es": "Estándar verde sin alcohol: elimina por completo el uso de alcoholes, garantizando una seguridad alimentaria absoluta y una tramitación de permisos simplificada."
+        },
+        {
+          "en": "Minimal Chemical Footprint: instead of aggressive acid-base catalysts, a mild organic acid is applied in minimal quantities.",
+          "ru": "Минимальная химическая нагрузка: вместо агрессивных кислотно-щелочных катализаторов в минимальных количествах применяется мягкая органическая кислота.",
+          "zh": "极低化学品足迹：以少量温和有机酸取代强酸碱催化剂。",
+          "tr": "Minimum kimyasal ayak izi: agresif asit-baz katalizörleri yerine minimum miktarda hafif bir organik asit uygulanır.",
+          "ar": "الحد الأدنى من البصمة الكيميائية: بدلًا من المحفزات الحمضية القاعدية القوية، يُستخدم حمض عضوي معتدل بكميات ضئيلة.",
+          "es": "Huella química mínima: en lugar de catalizadores ácido-base agresivos, se aplica un ácido orgánico suave en cantidades mínimas."
+        },
+        {
+          "en": "Gentle Purification: washes out ballast substances, mild processing, and membrane filtration to preserve the native molecular structure.",
+          "ru": "Щадящая очистка: вымывание балластных веществ, мягкая обработка и мембранная фильтрация для сохранения нативной молекулярной структуры.",
+          "zh": "温和纯化：洗除杂质物质、温和处理及膜过滤，以保持天然分子结构。",
+          "tr": "Hassas saflaştırma: balast maddelerin yıkanması, hafif işleme ve membran filtrasyon ile doğal moleküler yapı korunur.",
+          "ar": "تنقية لطيفة: غسل المواد غير المرغوبة، ومعالجة معتدلة، وترشيح غشائي للحفاظ على البنية الجزيئية الأصلية.",
+          "es": "Purificación suave: lavado de sustancias de lastre, procesamiento suave y filtración por membrana para preservar la estructura molecular nativa."
+        }
+      ]
+    },
+    "rawMaterials": [
+      {
+        "en": "Apple Pomace",
+        "ru": "Яблочные выжимки",
+        "zh": "苹果渣",
+        "tr": "Elma posası",
+        "ar": "تفل التفاح",
+        "es": "Orujo de manzana"
+      },
+      {
+        "en": "Citrus Peel (Orange, Lemon, Lime)",
+        "ru": "Цитрусовая кожура (апельсин, лимон, лайм)",
+        "zh": "柑橘皮（橙、柠檬、青柠）",
+        "tr": "Narenciye kabuğu (portakal, limon, misket limonu)",
+        "ar": "قشور الحمضيات (البرتقال، الليمون، الليم)",
+        "es": "Cáscara de cítricos (naranja, limón, lima)"
+      },
+      {
+        "en": "Sugar Beet Marc",
+        "ru": "Свекловичный жом",
+        "zh": "甜菜渣",
+        "tr": "Şeker pancarı küspesi",
+        "ar": "ثفل بنجر السكر",
+        "es": "Bagazo de remolacha azucarera"
+      },
+      {
+        "en": "Pomegranate Residues",
+        "ru": "Остатки переработки граната",
+        "zh": "石榴残渣",
+        "tr": "Nar kalıntıları",
+        "ar": "مخلفات الرمان",
+        "es": "Residuos de granada"
+      }
+    ],
+    "processPrinciples": [
+      {
+        "title": {
+          "en": "Hydrodynamic Cavitation",
+          "ru": "Гидродинамическая кавитация",
+          "zh": "水力空化",
+          "tr": "Hidrodinamik kavitasyon",
+          "ar": "التكهف الهيدروديناميكي",
+          "es": "Cavitación hidrodinámica"
+        },
+        "description": {
+          "en": "Intense micro-implosions rupture plant cell walls without thermal degradation, releasing intact pectin chains.",
+          "ru": "Интенсивные микроимплозии разрушают клеточные стенки растений без термической деградации, высвобождая неповреждённые цепи пектина.",
+          "zh": "强烈的微内爆在不发生热降解的情况下破坏植物细胞壁，释放完整的果胶链。",
+          "tr": "Yoğun mikro patlamalar, termal bozunma olmadan bitki hücre duvarlarını parçalayarak bozulmamış pektin zincirlerini serbest bırakır.",
+          "ar": "تؤدي الانفجارات الداخلية الدقيقة المكثفة إلى تمزيق جدران الخلايا النباتية دون تحلل حراري، فتُطلق سلاسل البكتين سليمة.",
+          "es": "Intensas microimplosiones rompen las paredes celulares vegetales sin degradación térmica, liberando cadenas de pectina intactas."
+        }
+      },
+      {
+        "title": {
+          "en": "Organic Acid Hydrolysis",
+          "ru": "Гидролиз органической кислотой",
+          "zh": "有机酸水解",
+          "tr": "Organik asit hidrolizi",
+          "ar": "التحلل المائي بالأحماض العضوية",
+          "es": "Hidrólisis con ácidos orgánicos"
+        },
+        "description": {
+          "en": "Replaces hydrochloric and nitric acids with food-grade organic acids, eliminating chloride corrosion and toxic effluents.",
+          "ru": "Заменяет соляную и азотную кислоты органическими кислотами пищевого качества, исключая хлоридную коррозию и токсичные стоки.",
+          "zh": "以食品级有机酸取代盐酸和硝酸，消除氯化物腐蚀和有毒废水。",
+          "tr": "Hidroklorik ve nitrik asitlerin yerine gıda sınıfı organik asitler kullanılarak klorür korozyonu ve toksik atık sular ortadan kaldırılır.",
+          "ar": "يستبدل حمضي الهيدروكلوريك والنيتريك بأحماض عضوية غذائية، مما يلغي تآكل الكلوريد والنفايات السائلة السامة.",
+          "es": "Sustituye los ácidos clorhídrico y nítrico por ácidos orgánicos de grado alimentario, eliminando la corrosión por cloruros y los efluentes tóxicos."
+        }
+      },
+      {
+        "title": {
+          "en": "Membrane Ultrafiltration",
+          "ru": "Мембранная ультрафильтрация",
+          "zh": "膜超滤",
+          "tr": "Membran ultrafiltrasyon",
+          "ar": "الترشيح الفائق الغشائي",
+          "es": "Ultrafiltración por membrana"
+        },
+        "description": {
+          "en": "Multi-stage concentration and diafiltration removes low-molecular-weight sugars and bitter polyphenols without precipitation by alcohol.",
+          "ru": "Многоступенчатое концентрирование и диафильтрация удаляют низкомолекулярные сахара и горькие полифенолы без осаждения спиртом.",
+          "zh": "多级浓缩与渗滤去除低分子糖类和苦味多酚，无需醇沉。",
+          "tr": "Çok kademeli konsantrasyon ve diyafiltrasyon, alkolle çöktürmeye gerek kalmadan düşük molekül ağırlıklı şekerleri ve acı polifenolleri uzaklaştırır.",
+          "ar": "يزيل التركيز والترشيح الغشائي المتعدد المراحل السكريات منخفضة الوزن الجزيئي والبوليفينولات المرّة دون الحاجة إلى الترسيب بالكحول.",
+          "es": "La concentración y diafiltración en múltiples etapas eliminan los azúcares de bajo peso molecular y los polifenoles amargos sin precipitación con alcohol."
+        }
+      },
+      {
+        "title": {
+          "en": "Low-Temperature Vacuum Drying",
+          "ru": "Низкотемпературная вакуумная сушка",
+          "zh": "低温真空干燥",
+          "tr": "Düşük sıcaklıkta vakum kurutma",
+          "ar": "التجفيف بالتفريغ عند درجة حرارة منخفضة",
+          "es": "Secado al vacío a baja temperatura"
+        },
+        "description": {
+          "en": "Gentle dehydration preserves gelling capability (USA SAG rating) and optimal degree of esterification.",
+          "ru": "Щадящее обезвоживание сохраняет желирующую способность (показатель USA SAG) и оптимальную степень этерификации.",
+          "zh": "温和脱水，保持凝胶能力（USA SAG 值）和最佳酯化度。",
+          "tr": "Hassas su giderme, jelleşme kabiliyetini (USA SAG değeri) ve optimum esterleşme derecesini korur.",
+          "ar": "يحافظ التجفيف اللطيف على قدرة التهلّم (تصنيف USA SAG) وعلى الدرجة المثلى من الأسترة.",
+          "es": "La deshidratación suave preserva la capacidad gelificante (grado USA SAG) y un grado óptimo de esterificación."
+        }
+      }
+    ],
+    "keyAdvantages": [
+      {
+        "en": "Elimination of flammable alcohol recovery cycles and explosion-proof zoning costs",
+        "ru": "Исключение циклов регенерации легковоспламеняющегося спирта и затрат на взрывозащищённое зонирование",
+        "zh": "免除易燃醇回收循环及防爆分区成本",
+        "tr": "Yanıcı alkol geri kazanım döngülerinin ve patlamaya dayanıklı bölgelendirme maliyetlerinin ortadan kaldırılması",
+        "ar": "إلغاء دورات استعادة الكحول القابل للاشتعال وتكاليف التقسيم إلى مناطق مقاومة للانفجار",
+        "es": "Eliminación de los ciclos de recuperación de alcohol inflamable y de los costos de zonificación antiexplosiva"
+      },
+      {
+        "en": "Reduction of freshwater consumption by up to 60% through closed-loop recirculation",
+        "ru": "Сокращение потребления свежей воды до 60% за счёт замкнутой рециркуляции",
+        "zh": "通过闭环循环，淡水消耗最多降低 60%",
+        "tr": "Kapalı döngü resirkülasyon ile tatlı su tüketiminde %60'a varan azalma",
+        "ar": "خفض استهلاك المياه العذبة بنسبة تصل إلى 60% عبر إعادة التدوير بدورة مغلقة",
+        "es": "Reducción del consumo de agua dulce de hasta un 60% mediante recirculación en circuito cerrado"
+      },
+      {
+        "en": "Preservation of high molecular weight and superior gelling strength",
+        "ru": "Сохранение высокой молекулярной массы и превосходной прочности геля",
+        "zh": "保持高分子量和优异的凝胶强度",
+        "tr": "Yüksek molekül ağırlığının ve üstün jel mukavemetinin korunması",
+        "ar": "الحفاظ على الوزن الجزيئي العالي وقوة التهلّم الفائقة",
+        "es": "Preservación de un alto peso molecular y de una fuerza de gel superior"
+      },
+      {
+        "en": "Simultaneous co-production of purified insoluble and soluble dietary fibers",
+        "ru": "Одновременное производство очищенных нерастворимых и растворимых пищевых волокон",
+        "zh": "同步联产纯化的不溶性和可溶性膳食纤维",
+        "tr": "Saflaştırılmış çözünmez ve çözünür diyet liflerinin eş zamanlı ortak üretimi",
+        "ar": "إنتاج مشترك متزامن للألياف الغذائية المنقّاة غير القابلة للذوبان والقابلة للذوبان",
+        "es": "Coproducción simultánea de fibras dietéticas purificadas insolubles y solubles"
+      }
+    ],
+    "applications": [
+      {
+        "en": "Confectionery, jellies, marmalades and bakery fillings (High-Methoxyl)",
+        "ru": "Кондитерские изделия, желе, мармелад и начинки для выпечки (высокоэтерифицированный)",
+        "zh": "糖果、果冻、果酱软糖及烘焙馅料（高甲氧基）",
+        "tr": "Şekerleme, jöleler, marmelatlar ve fırın dolguları (yüksek metoksilli)",
+        "ar": "الحلويات والهلام والمرملاد وحشوات المخبوزات (عالي الميثوكسيل)",
+        "es": "Confitería, caramelos de goma, mermeladas y rellenos de panadería (alto metoxilo)"
+      },
+      {
+        "en": "Low-sugar fruit preserves, dairy and yogurt fruit preps (Low-Methoxyl)",
+        "ru": "Фруктовые консервы с пониженным содержанием сахара, фруктовые наполнители для молочных продуктов и йогуртов (низкоэтерифицированный)",
+        "zh": "低糖果酱、乳制品及酸奶果料（低甲氧基）",
+        "tr": "Düşük şekerli meyve konserveleri, süt ürünleri ve yoğurt için meyve hazırlıkları (düşük metoksilli)",
+        "ar": "مربيات الفاكهة منخفضة السكر ومستحضرات الفاكهة لمنتجات الألبان والزبادي (منخفض الميثوكسيل)",
+        "es": "Conservas de fruta bajas en azúcar, preparados de fruta para lácteos y yogures (bajo metoxilo)"
+      },
+      {
+        "en": "Pharmaceutical encapsulation, detox formulations and nutraceuticals",
+        "ru": "Фармацевтическое капсулирование, детокс-составы и нутрицевтики",
+        "zh": "医药胶囊、排毒配方及营养保健品",
+        "tr": "Farmasötik kapsülleme, detoks formülasyonları ve nutrasötikler",
+        "ar": "التغليف الدوائي في الكبسولات وتركيبات التخلص من السموم والمغذيات الصحية",
+        "es": "Encapsulación farmacéutica, formulaciones detox y nutracéuticos"
+      },
+      {
+        "en": "Natural cosmetic emulsion stabilizing and moisture-binding hydrogels",
+        "ru": "Натуральная стабилизация косметических эмульсий и влагоудерживающие гидрогели",
+        "zh": "天然化妆品乳液稳定及保湿水凝胶",
+        "tr": "Doğal kozmetik emülsiyon stabilizasyonu ve nem bağlayıcı hidrojeller",
+        "ar": "تثبيت طبيعي لمستحلبات التجميل وهلاميات مائية رابطة للرطوبة",
+        "es": "Estabilización natural de emulsiones cosméticas e hidrogeles retenedores de humedad"
+      }
+    ],
+    "productsProduced": [
+      {
+        "en": "High-Methoxyl (HM) Pectin (60–75% esterification)",
+        "ru": "Высокоэтерифицированный (HM) пектин (степень этерификации 60–75%)",
+        "zh": "高甲氧基（HM）果胶（酯化度 60–75%）",
+        "tr": "Yüksek metoksilli (HM) pektin (%60–75 esterleşme)",
+        "ar": "بكتين عالي الميثوكسيل (HM) (أسترة 60–75%)",
+        "es": "Pectina de alto metoxilo (HM) (esterificación del 60–75%)"
+      },
+      {
+        "en": "Low-Methoxyl (LM) & Amidated Pectin",
+        "ru": "Низкоэтерифицированный (LM) и амидированный пектин",
+        "zh": "低甲氧基（LM）及酰胺化果胶",
+        "tr": "Düşük metoksilli (LM) ve amidlenmiş pektin",
+        "ar": "بكتين منخفض الميثوكسيل (LM) وبكتين أميدي",
+        "es": "Pectina de bajo metoxilo (LM) y amidada"
+      },
+      {
+        "en": "Purified Soluble Apple/Citrus Fibers",
+        "ru": "Очищенные растворимые яблочные / цитрусовые волокна",
+        "zh": "纯化可溶性苹果 / 柑橘纤维",
+        "tr": "Saflaştırılmış çözünür elma/narenciye lifleri",
+        "ar": "ألياف تفاح / حمضيات منقّاة قابلة للذوبان",
+        "es": "Fibras solubles purificadas de manzana/cítricos"
+      },
+      {
+        "en": "Insoluble Micro-milled Dietary Fiber (up to 85% TDF)",
+        "ru": "Нерастворимые пищевые волокна микропомола (до 85% TDF)",
+        "zh": "不溶性微粉化膳食纤维（TDF 最高 85%）",
+        "tr": "Çözünmez mikro öğütülmüş diyet lifi (%85'e kadar TDF)",
+        "ar": "ألياف غذائية غير قابلة للذوبان مطحونة طحنًا دقيقًا (حتى 85% TDF)",
+        "es": "Fibra dietética insoluble micromolida (hasta 85% TDF)"
+      }
+    ],
+    "relatedProjectIds": [
+      "project-siberian-wellness",
+      "project-yantai-dsm-andre-pectin",
+      "project-aznar-pomegranate"
+    ],
+    "image": {
+      "mediaId": "media-tech-pectin-apples-1790271159655"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "56cc32f096661858",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "56cc32f096661858",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "56cc32f096661858",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "56cc32f096661858",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "56cc32f096661858",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "technology-soy-protein",
+    "status": "published",
+    "order": 2,
+    "slug": "soy-protein",
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "categoryNumber": "02",
+    "categoryTitle": {
+      "en": "SOY PROTEIN & BIOCHEMISTRY",
+      "ru": "СОЕВЫЙ БЕЛОК И БИОХИМИЯ",
+      "zh": "大豆蛋白与生物化学",
+      "tr": "SOYA PROTEİNİ VE BİYOKİMYA",
+      "ar": "بروتين الصويا والكيمياء الحيوية",
+      "es": "PROTEÍNA DE SOJA Y BIOQUÍMICA"
+    },
+    "title": {
+      "en": "Innovative Soy Protein Isolate Production: Enzymatic Hydrolysis",
+      "ru": "Инновационное производство изолята соевого белка: ферментативный гидролиз",
+      "zh": "创新大豆分离蛋白生产：酶解工艺",
+      "tr": "Yenilikçi soya protein izolatı üretimi: enzimatik hidroliz",
+      "ar": "إنتاج مبتكر لبروتين الصويا المعزول: التحلل المائي الإنزيمي",
+      "es": "Producción innovadora de aislado de proteína de soja: hidrólisis enzimática"
+    },
+    "subtitle": {
+      "en": "Micro-dose bromelain hydrolysis and flash steam deodorization for high-solubility isolate",
+      "ru": "Гидролиз микродозами бромелаина и мгновенная паровая дезодорация для получения изолята с высокой растворимостью",
+      "zh": "微剂量菠萝蛋白酶水解与闪蒸蒸汽脱臭，生产高溶解性分离蛋白",
+      "tr": "Yüksek çözünürlüklü izolat için mikro doz bromelain hidrolizi ve anlık buharla deodorizasyon",
+      "ar": "تحلل مائي بجرعات ميكروية من البروميلين وإزالة فورية للروائح بالبخار لإنتاج معزول عالي الذوبانية",
+      "es": "Hidrólisis con microdosis de bromelina y desodorización instantánea con vapor para un aislado de alta solubilidad"
+    },
+    "overview": {
+      "en": "Soy protein isolate is a high-margin product in demand for sports and baby nutrition, meat processing, and dairy alternatives. Soltex proprietary process eliminates the main drawbacks of traditional extraction: raw material loss, high reagent costs, and poor solubility.",
+      "ru": "Изолят соевого белка — высокомаржинальный продукт, востребованный в спортивном и детском питании, мясопереработке и производстве альтернатив молочным продуктам. Собственный процесс Soltex устраняет основные недостатки традиционной экстракции: потери сырья, высокие затраты на реагенты и низкую растворимость.",
+      "zh": "大豆分离蛋白是一种高利润产品，广泛用于运动营养、婴幼儿营养、肉制品加工及乳制品替代品。Soltex 自有工艺消除了传统提取的主要缺点：原料损失、试剂成本高以及溶解性差。",
+      "tr": "Soya protein izolatı; sporcu ve bebek beslenmesi, et işleme ve süt alternatiflerinde talep gören yüksek marjlı bir üründür. Soltex'in tescilli prosesi, geleneksel ekstraksiyonun başlıca dezavantajlarını ortadan kaldırır: hammadde kaybı, yüksek reaktif maliyetleri ve düşük çözünürlük.",
+      "ar": "يُعد بروتين الصويا المعزول منتجًا عالي الهامش مطلوبًا في التغذية الرياضية وتغذية الأطفال وتصنيع اللحوم وبدائل الألبان. وتُلغي العملية الخاصة بـ Soltex العيوب الرئيسية للاستخلاص التقليدي: فقدان المواد الخام وارتفاع تكاليف الكواشف وضعف الذوبانية.",
+      "es": "El aislado de proteína de soja es un producto de alto margen demandado en nutrición deportiva e infantil, procesamiento cárnico y alternativas lácteas. El proceso propio de Soltex elimina los principales inconvenientes de la extracción tradicional: pérdida de materia prima, altos costos de reactivos y baja solubilidad."
+    },
+    "patentInfo": {
+      "patentNumber": {
+        "en": "Patent RU 2709384 C1",
+        "ru": "Патент RU 2709384 C1",
+        "zh": "专利 RU 2709384 C1",
+        "tr": "Patent RU 2709384 C1",
+        "ar": "براءة الاختراع RU 2709384 C1",
+        "es": "Patente RU 2709384 C1"
+      },
+      "location": {
+        "en": "Implemented at modern facilities in Israel, China, USA and Kazakhstan",
+        "ru": "Внедрена на современных предприятиях в Израиле, Китае, США и Казахстане",
+        "zh": "已在以色列、中国、美国和哈萨克斯坦的现代化工厂中实施",
+        "tr": "İsrail, Çin, ABD ve Kazakistan'daki modern tesislerde uygulanmıştır",
+        "ar": "مطبّقة في منشآت حديثة في إسرائيل والصين والولايات المتحدة وكازاخستان",
+        "es": "Implementada en modernas instalaciones de Israel, China, EE. UU. y Kazajistán"
+      },
+      "keyPoints": [
+        {
+          "en": "Optimized Hydrolysis: expensive enzyme (bromelain) is used in micro-doses (0.2–1%) and is added only to protein already purified from fiber and sugars, radically reducing processing costs.",
+          "ru": "Оптимизированный гидролиз: дорогостоящий фермент (бромелаин) используется в микродозах (0,2–1%) и вносится только в белок, уже очищенный от клетчатки и сахаров, что радикально снижает затраты на переработку.",
+          "zh": "优化水解：昂贵的酶（菠萝蛋白酶）以微剂量（0.2–1%）使用，且仅添加到已去除纤维和糖类的蛋白中，大幅降低加工成本。",
+          "tr": "Optimize hidroliz: pahalı enzim (bromelain) mikro dozlarda (%0,2–1) kullanılır ve yalnızca lif ve şekerlerden arındırılmış proteine eklenir; bu da işleme maliyetlerini radikal biçimde düşürür.",
+          "ar": "تحلل مائي محسّن: يُستخدم الإنزيم مرتفع التكلفة (البروميلين) بجرعات ميكروية (0.2–1%) ويُضاف فقط إلى البروتين المنقّى مسبقًا من الألياف والسكريات، مما يخفّض تكاليف المعالجة جذريًا.",
+          "es": "Hidrólisis optimizada: la costosa enzima (bromelina) se utiliza en microdosis (0,2–1%) y se añade únicamente a la proteína ya purificada de fibra y azúcares, lo que reduce radicalmente los costos de procesamiento."
+        },
+        {
+          "en": "Perfect Digestibility: cleaving the molecular lattice into small peptides (up to 10 kDa) increases the solubility of the final product by 6.8 times.",
+          "ru": "Превосходная усвояемость: расщепление молекулярной структуры на короткие пептиды (до 10 кДа) повышает растворимость готового продукта в 6,8 раза.",
+          "zh": "卓越消化性：将分子结构切割为小分子肽（最高 10 kDa），使终产品的溶解度提高 6.8 倍。",
+          "tr": "Mükemmel sindirilebilirlik: moleküler yapının küçük peptitlere (10 kDa'ya kadar) parçalanması, nihai ürünün çözünürlüğünü 6,8 kat artırır.",
+          "ar": "قابلية هضم مثالية: يؤدي تقطيع البنية الجزيئية إلى ببتيدات صغيرة (حتى 10 kDa) إلى زيادة ذوبانية المنتج النهائي بمقدار 6.8 مرة.",
+          "es": "Digestibilidad perfecta: la escisión de la red molecular en pequeños péptidos (hasta 10 kDa) aumenta 6,8 veces la solubilidad del producto final."
+        },
+        {
+          "en": "Premium Organoleptics: instant steam thermal shock (135–140°C for 0.2 sec) followed by rapid vacuum cooling (to 55°C) vaporizes specific soy odor without protein denaturation.",
+          "ru": "Органолептика премиум-класса: мгновенный паровой термоудар (135–140°C в течение 0,2 с) с последующим быстрым вакуумным охлаждением (до 55°C) удаляет характерный соевый запах без денатурации белка.",
+          "zh": "高端感官品质：瞬时蒸汽热冲击（135–140°C，0.2 秒）后快速真空冷却（至 55°C），在不使蛋白变性的情况下去除大豆特有气味。",
+          "tr": "Üstün organoleptik özellikler: anlık buhar termal şoku (0,2 sn boyunca 135–140°C) ve ardından hızlı vakum soğutma (55°C'ye kadar), proteini denatüre etmeden soyaya özgü kokuyu buharlaştırır.",
+          "ar": "خصائص حسية ممتازة: صدمة حرارية فورية بالبخار (135–140°C لمدة 0.2 ثانية) يليها تبريد سريع بالتفريغ (حتى 55°C) يُبخّر رائحة الصويا المميزة دون تمسخ البروتين.",
+          "es": "Organoléptica superior: un choque térmico instantáneo con vapor (135–140°C durante 0,2 s) seguido de un enfriamiento rápido al vacío (hasta 55°C) evapora el olor característico de la soja sin desnaturalizar la proteína."
+        }
+      ]
+    },
+    "rawMaterials": [
+      {
+        "en": "Defatted White Flake (PDI > 80)",
+        "ru": "Обезжиренный «белый лепесток» (PDI > 80)",
+        "zh": "脱脂白片（PDI > 80）",
+        "tr": "Yağı alınmış beyaz yaprak (PDI > 80)",
+        "ar": "رقائق الصويا البيضاء منزوعة الدهن (PDI > 80)",
+        "es": "Escamas blancas desgrasadas (PDI > 80)"
+      },
+      {
+        "en": "Non-GMO Soybean Meal",
+        "ru": "Соевый шрот без ГМО",
+        "zh": "非转基因豆粕",
+        "tr": "GDO'suz soya küspesi",
+        "ar": "كُسب صويا غير معدّل وراثيًا",
+        "es": "Harina de soja no transgénica"
+      },
+      {
+        "en": "Whole Soybeans",
+        "ru": "Цельные соевые бобы",
+        "zh": "整粒大豆",
+        "tr": "Tam soya fasulyesi",
+        "ar": "حبوب صويا كاملة",
+        "es": "Soja en grano entero"
+      }
+    ],
+    "processPrinciples": [
+      {
+        "title": {
+          "en": "Aqueous Alkaline Extraction",
+          "ru": "Водно-щелочная экстракция",
+          "zh": "碱性水相提取",
+          "tr": "Sulu alkali ekstraksiyon",
+          "ar": "الاستخلاص المائي القلوي",
+          "es": "Extracción acuosa alcalina"
+        },
+        "description": {
+          "en": "Mild dissolution of globular proteins at pH 8.0–8.5 with high solid-to-liquid separation efficiency.",
+          "ru": "Мягкое растворение глобулярных белков при pH 8,0–8,5 с высокой эффективностью разделения твёрдой и жидкой фаз.",
+          "zh": "在 pH 8.0–8.5 条件下温和溶解球蛋白，固液分离效率高。",
+          "tr": "Yüksek katı-sıvı ayırma verimiyle, pH 8,0–8,5'te globüler proteinlerin hafif çözündürülmesi.",
+          "ar": "إذابة معتدلة للبروتينات الكروية عند pH 8.0–8.5 مع كفاءة عالية في فصل المواد الصلبة عن السائلة.",
+          "es": "Disolución suave de proteínas globulares a pH 8,0–8,5 con alta eficiencia de separación sólido-líquido."
+        }
+      },
+      {
+        "title": {
+          "en": "Isoelectric Precipitation",
+          "ru": "Изоэлектрическое осаждение",
+          "zh": "等电沉淀",
+          "tr": "İzoelektrik çöktürme",
+          "ar": "الترسيب عند نقطة التعادل الكهربائي",
+          "es": "Precipitación isoeléctrica"
+        },
+        "description": {
+          "en": "Rapid separation of globulins at isoelectric point (pH 4.5), recovering clear whey side-stream.",
+          "ru": "Быстрое выделение глобулинов в изоэлектрической точке (pH 4,5) с получением прозрачной сыворотки как побочного потока.",
+          "zh": "在等电点（pH 4.5）快速分离球蛋白，并回收澄清的乳清副产物流。",
+          "tr": "Globülinlerin izoelektrik noktada (pH 4,5) hızla ayrılması ve berrak peynir altı suyu yan akışının geri kazanılması.",
+          "ar": "فصل سريع للغلوبيولينات عند نقطة التعادل الكهربائي (pH 4.5) مع استعادة تدفق جانبي صافٍ من مصل الصويا.",
+          "es": "Separación rápida de las globulinas en el punto isoeléctrico (pH 4,5), recuperando un flujo secundario de suero transparente."
+        }
+      },
+      {
+        "title": {
+          "en": "Targeted Enzymatic Cleavage",
+          "ru": "Направленное ферментативное расщепление",
+          "zh": "定向酶切",
+          "tr": "Hedefe yönelik enzimatik parçalama",
+          "ar": "التقطيع الإنزيمي الموجّه",
+          "es": "Escisión enzimática dirigida"
+        },
+        "description": {
+          "en": "Micro-dosed bromelain breaks bitter hydrophobic bonds without over-hydrolyzing into free amino acids.",
+          "ru": "Микродозы бромелаина разрывают горькие гидрофобные связи без избыточного гидролиза до свободных аминокислот.",
+          "zh": "微剂量菠萝蛋白酶切断苦味疏水键，避免过度水解为游离氨基酸。",
+          "tr": "Mikro dozda bromelain, serbest amino asitlere aşırı hidroliz olmadan acı hidrofobik bağları kırar.",
+          "ar": "يكسر البروميلين بجرعات ميكروية الروابط الكارهة للماء المسببة للمرارة دون تحلل مائي مفرط إلى أحماض أمينية حرة.",
+          "es": "La bromelina en microdosis rompe los enlaces hidrofóbicos amargos sin una hidrólisis excesiva hasta aminoácidos libres."
+        }
+      },
+      {
+        "title": {
+          "en": "Flash Steam Deodorization",
+          "ru": "Мгновенная паровая дезодорация",
+          "zh": "闪蒸蒸汽脱臭",
+          "tr": "Anlık buharla deodorizasyon",
+          "ar": "إزالة الروائح الفورية بالبخار",
+          "es": "Desodorización instantánea con vapor"
+        },
+        "description": {
+          "en": "Ultra-fast direct steam contact flash vaporizes hexanal and volatile beany ketones.",
+          "ru": "Сверхбыстрый прямой контакт с паром мгновенно испаряет гексаналь и летучие кетоны с бобовым запахом.",
+          "zh": "超快速直接蒸汽接触，闪蒸去除己醛和挥发性豆腥味酮类。",
+          "tr": "Ultra hızlı doğrudan buhar teması, heksanal ve uçucu fasulye kokulu ketonları anında buharlaştırır.",
+          "ar": "يؤدي التلامس المباشر فائق السرعة مع البخار إلى تبخير الهكسانال والكيتونات المتطايرة ذات رائحة الفول فورًا.",
+          "es": "El contacto directo ultrarrápido con vapor evapora instantáneamente el hexanal y las cetonas volátiles con olor a leguminosa."
+        }
+      }
+    ],
+    "keyAdvantages": [
+      {
+        "en": "6.8x increase in nitrogen solubility index (NSI > 85%) across wide pH ranges",
+        "ru": "Увеличение индекса растворимости азота в 6,8 раза (NSI > 85%) в широком диапазоне pH",
+        "zh": "氮溶解指数提高 6.8 倍（NSI > 85%），适用于宽 pH 范围",
+        "tr": "Geniş pH aralıklarında azot çözünürlük indeksinde 6,8 kat artış (NSI > %85)",
+        "ar": "زيادة بمقدار 6.8 مرة في مؤشر ذوبانية النيتروجين (NSI > 85%) عبر نطاقات واسعة من pH",
+        "es": "Aumento de 6,8 veces del índice de solubilidad del nitrógeno (NSI > 85%) en amplios rangos de pH"
+      },
+      {
+        "en": "Ultra-neutral flavor profile suitable for premium dairy and sports beverages",
+        "ru": "Максимально нейтральный вкусовой профиль для молочных и спортивных напитков премиум-класса",
+        "zh": "极其中性的风味，适用于高端乳制品和运动饮料",
+        "tr": "Birinci sınıf süt ve sporcu içecekleri için son derece nötr tat profili",
+        "ar": "نكهة شديدة الحياد مناسبة لمنتجات الألبان والمشروبات الرياضية الممتازة",
+        "es": "Perfil de sabor ultraneutro, apto para bebidas lácteas y deportivas de gama alta"
+      },
+      {
+        "en": "Lower enzyme consumption cost compared to conventional whole-mash enzymatic plants",
+        "ru": "Более низкие затраты на ферменты по сравнению с традиционными заводами ферментативной обработки всей массы",
+        "zh": "与传统全浆酶解工厂相比，酶耗成本更低",
+        "tr": "Geleneksel tam püre enzimatik tesislere kıyasla daha düşük enzim tüketim maliyeti",
+        "ar": "تكلفة أقل لاستهلاك الإنزيم مقارنةً بالمصانع الإنزيمية التقليدية التي تعالج الكتلة بكاملها",
+        "es": "Menor costo de consumo de enzimas frente a las plantas enzimáticas convencionales que tratan toda la masa"
+      },
+      {
+        "en": "Full byproduct valorization: soy fiber, phosphatide emulsion, and purified soy oil",
+        "ru": "Полная валоризация побочных продуктов: соевые волокна, фосфатидная эмульсия и очищенное соевое масло",
+        "zh": "副产品全面高值化利用：大豆纤维、磷脂乳液和精制大豆油",
+        "tr": "Yan ürünlerin tam değerlendirilmesi: soya lifi, fosfatit emülsiyonu ve rafine soya yağı",
+        "ar": "تثمين كامل للمنتجات الثانوية: ألياف الصويا ومستحلب الفوسفاتيد وزيت الصويا المنقّى",
+        "es": "Valorización completa de subproductos: fibra de soja, emulsión de fosfátidos y aceite de soja purificado"
+      }
+    ],
+    "applications": [
+      {
+        "en": "Sports nutrition protein shakes and clinical dietary blends",
+        "ru": "Протеиновые коктейли для спортивного питания и смеси для клинического диетического питания",
+        "zh": "运动营养蛋白奶昔及临床膳食配方",
+        "tr": "Sporcu beslenmesi protein içecekleri ve klinik diyet karışımları",
+        "ar": "مخفوقات بروتين التغذية الرياضية وخلطات التغذية العلاجية",
+        "es": "Batidos proteicos de nutrición deportiva y mezclas dietéticas clínicas"
+      },
+      {
+        "en": "Infant formulas and functional plant-based dairy alternatives",
+        "ru": "Детские смеси и функциональные растительные альтернативы молочным продуктам",
+        "zh": "婴儿配方食品及功能性植物基乳制品替代品",
+        "tr": "Bebek formülleri ve fonksiyonel bitkisel süt alternatifleri",
+        "ar": "حليب الرضّع وبدائل الألبان النباتية الوظيفية",
+        "es": "Fórmulas infantiles y alternativas lácteas vegetales funcionales"
+      },
+      {
+        "en": "Brine injection for whole muscle meat and emulsion sausages",
+        "ru": "Шприцевание рассолом цельномышечного мяса и эмульгированных колбас",
+        "zh": "整块肌肉肉制品注射盐水及乳化香肠",
+        "tr": "Bütün kas eti ve emülsiyon sosisleri için salamura enjeksiyonu",
+        "ar": "حقن المحلول الملحي في اللحوم الكاملة والنقانق المستحلبة",
+        "es": "Inyección de salmuera en carne de músculo entero y embutidos emulsionados"
+      },
+      {
+        "en": "Protein fortification in bakery, snacks and confectionery bars",
+        "ru": "Обогащение белком выпечки, снеков и кондитерских батончиков",
+        "zh": "烘焙食品、零食及糖果棒的蛋白强化",
+        "tr": "Unlu mamuller, atıştırmalıklar ve şekerleme barlarında protein zenginleştirme",
+        "ar": "تدعيم المخبوزات والوجبات الخفيفة وألواح الحلويات بالبروتين",
+        "es": "Enriquecimiento proteico de panadería, snacks y barritas de confitería"
+      }
+    ],
+    "productsProduced": [
+      {
+        "en": "Soy Protein Isolate (≥90% dry basis protein content)",
+        "ru": "Изолят соевого белка (содержание белка ≥90% в пересчёте на сухое вещество)",
+        "zh": "大豆分离蛋白（干基蛋白含量 ≥90%）",
+        "tr": "Soya protein izolatı (kuru bazda ≥%90 protein içeriği)",
+        "ar": "بروتين الصويا المعزول (محتوى بروتين ≥90% على أساس المادة الجافة)",
+        "es": "Aislado de proteína de soja (contenido proteico ≥90% en base seca)"
+      },
+      {
+        "en": "Functional Soy Concentrates (≥70% protein)",
+        "ru": "Функциональные соевые концентраты (≥70% белка)",
+        "zh": "功能性大豆浓缩蛋白（蛋白 ≥70%）",
+        "tr": "Fonksiyonel soya konsantreleri (≥%70 protein)",
+        "ar": "مركّزات صويا وظيفية (≥70% بروتين)",
+        "es": "Concentrados funcionales de soja (≥70% de proteína)"
+      },
+      {
+        "en": "Dietary Soy Cotyledon Fiber (≥75% dietary fiber)",
+        "ru": "Пищевые волокна семядолей сои (≥75% пищевых волокон)",
+        "zh": "大豆子叶膳食纤维（膳食纤维 ≥75%）",
+        "tr": "Diyet soya kotiledon lifi (≥%75 diyet lifi)",
+        "ar": "ألياف فلقات الصويا الغذائية (≥75% ألياف غذائية)",
+        "es": "Fibra dietética de cotiledón de soja (≥75% de fibra dietética)"
+      },
+      {
+        "en": "Lecithin & Phosphatide Emulsion",
+        "ru": "Лецитин и фосфатидная эмульсия",
+        "zh": "卵磷脂与磷脂乳液",
+        "tr": "Lesitin ve fosfatit emülsiyonu",
+        "ar": "الليسيثين ومستحلب الفوسفاتيد",
+        "es": "Lecitina y emulsión de fosfátidos"
+      }
+    ],
+    "relatedProjectIds": [
+      "project-solbar-israel",
+      "project-solbar-ningbo",
+      "project-solbar-nebraska",
+      "project-agritech-kazakhstan",
+      "project-cargill-brazil"
+    ],
+    "image": {
+      "mediaId": "media-tech-soy-beans-1790271178494"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "99231226b78a60d2",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "99231226b78a60d2",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "99231226b78a60d2",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "99231226b78a60d2",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "99231226b78a60d2",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "technology-inulin",
+    "status": "published",
+    "order": 3,
+    "slug": "inulin",
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "categoryNumber": "03",
+    "categoryTitle": {
+      "en": "INULIN & PREBIOTIC FRACTIONS",
+      "ru": "ИНУЛИН И ПРЕБИОТИЧЕСКИЕ ФРАКЦИИ",
+      "zh": "菊粉与益生元组分",
+      "tr": "İNÜLİN VE PREBİYOTİK FRAKSİYONLAR",
+      "ar": "الإينولين والأجزاء البريبايوتيكية",
+      "es": "INULINA Y FRACCIONES PREBIÓTICAS"
+    },
+    "title": {
+      "en": "Jerusalem Artichoke & Chicory Deep Inulin Processing",
+      "ru": "Глубокая переработка топинамбура и цикория в инулин",
+      "zh": "菊芋与菊苣菊粉深加工",
+      "tr": "Yer elması ve hindibadan ileri inülin işleme",
+      "ar": "المعالجة العميقة للطرطوفة والهندباء لإنتاج الإينولين",
+      "es": "Procesamiento profundo de tupinambo y achicoria para obtener inulina"
+    },
+    "subtitle": {
+      "en": "Continuous counter-current diffusion and chromatographic purification for prebiotic fibers",
+      "ru": "Непрерывная противоточная диффузия и хроматографическая очистка для получения пребиотических волокон",
+      "zh": "连续逆流扩散与色谱纯化，生产益生元纤维",
+      "tr": "Prebiyotik lifler için sürekli ters akımlı difüzyon ve kromatografik saflaştırma",
+      "ar": "انتشار مستمر بالتيار المعاكس وتنقية كروماتوغرافية لإنتاج الألياف البريبايوتيكية",
+      "es": "Difusión continua a contracorriente y purificación cromatográfica para fibras prebióticas"
+    },
+    "overview": {
+      "en": "Soltex delivers industrial extraction lines for Jerusalem artichoke tubers and chicory roots, producing pure inulin powder, fructooligosaccharides (FOS), and natural prebiotic syrups for diabetes care and gut health.",
+      "ru": "Soltex поставляет промышленные линии экстракции для клубней топинамбура и корней цикория, производящие чистый порошковый инулин, фруктоолигосахариды (ФОС) и натуральные пребиотические сиропы для диабетического питания и здоровья кишечника.",
+      "zh": "Soltex 为菊芋块茎和菊苣根提供工业化提取生产线，生产纯菊粉粉末、低聚果糖（FOS）及天然益生元糖浆，用于糖尿病营养和肠道健康。",
+      "tr": "Soltex, yer elması yumruları ve hindiba kökleri için endüstriyel ekstraksiyon hatları sunar; diyabet bakımı ve bağırsak sağlığı için saf inülin tozu, fruktooligosakkaritler (FOS) ve doğal prebiyotik şuruplar üretir.",
+      "ar": "توفّر Soltex خطوط استخلاص صناعية لدرنات الطرطوفة وجذور الهندباء، تنتج مسحوق إينولين نقيًا والفركتوأوليغوسكاريدات (FOS) وشراب بريبايوتيك طبيعي لرعاية مرضى السكري وصحة الأمعاء.",
+      "es": "Soltex suministra líneas industriales de extracción para tubérculos de tupinambo y raíces de achicoria que producen inulina en polvo pura, fructooligosacáridos (FOS) y jarabes prebióticos naturales para el cuidado de la diabetes y la salud intestinal."
+    },
+    "patentInfo": null,
+    "rawMaterials": [
+      {
+        "en": "Jerusalem Artichoke Tubers",
+        "ru": "Клубни топинамбура",
+        "zh": "菊芋块茎",
+        "tr": "Yer elması yumruları",
+        "ar": "درنات الطرطوفة",
+        "es": "Tubérculos de tupinambo"
+      },
+      {
+        "en": "Chicory Roots",
+        "ru": "Корни цикория",
+        "zh": "菊苣根",
+        "tr": "Hindiba kökleri",
+        "ar": "جذور الهندباء",
+        "es": "Raíces de achicoria"
+      },
+      {
+        "en": "Agave Stems",
+        "ru": "Стебли агавы",
+        "zh": "龙舌兰茎",
+        "tr": "Agave gövdeleri",
+        "ar": "سيقان الأغاف",
+        "es": "Tallos de agave"
+      }
+    ],
+    "processPrinciples": [
+      {
+        "title": {
+          "en": "Gentle Counter-Current Diffusion",
+          "ru": "Щадящая противоточная диффузия",
+          "zh": "温和逆流扩散",
+          "tr": "Hassas ters akımlı difüzyon",
+          "ar": "الانتشار اللطيف بالتيار المعاكس",
+          "es": "Difusión suave a contracorriente"
+        },
+        "description": {
+          "en": "Multi-stage heated water leaching preserves high polymerization degree (DP 10–35).",
+          "ru": "Многоступенчатое выщелачивание горячей водой сохраняет высокую степень полимеризации (DP 10–35).",
+          "zh": "多级热水浸提，保持较高的聚合度（DP 10–35）。",
+          "tr": "Çok kademeli sıcak su ile özütleme, yüksek polimerizasyon derecesini (DP 10–35) korur.",
+          "ar": "ترشيح متعدد المراحل بالماء الساخن يحافظ على درجة بلمرة عالية (DP 10–35).",
+          "es": "La lixiviación con agua caliente en múltiples etapas preserva un alto grado de polimerización (DP 10–35)."
+        }
+      },
+      {
+        "title": {
+          "en": "Decolorization & Ultrafiltration",
+          "ru": "Обесцвечивание и ультрафильтрация",
+          "zh": "脱色与超滤",
+          "tr": "Renk giderme ve ultrafiltrasyon",
+          "ar": "إزالة اللون والترشيح الفائق",
+          "es": "Decoloración y ultrafiltración"
+        },
+        "description": {
+          "en": "Removal of pigments, proteins, and polyphenols without aggressive chemical bleaching.",
+          "ru": "Удаление пигментов, белков и полифенолов без агрессивного химического отбеливания.",
+          "zh": "去除色素、蛋白质和多酚，无需强烈的化学漂白。",
+          "tr": "Agresif kimyasal ağartma olmadan pigmentlerin, proteinlerin ve polifenollerin uzaklaştırılması.",
+          "ar": "إزالة الأصباغ والبروتينات والبوليفينولات دون تبييض كيميائي قاسٍ.",
+          "es": "Eliminación de pigmentos, proteínas y polifenoles sin blanqueo químico agresivo."
+        }
+      },
+      {
+        "title": {
+          "en": "Chromatographic Ion Exchange",
+          "ru": "Хроматографический ионный обмен",
+          "zh": "色谱离子交换",
+          "tr": "Kromatografik iyon değişimi",
+          "ar": "التبادل الأيوني الكروماتوغرافي",
+          "es": "Intercambio iónico cromatográfico"
+        },
+        "description": {
+          "en": "Fractionation of long-chain inulin from mono- and disaccharides for high purity grades.",
+          "ru": "Отделение длинноцепочечного инулина от моно- и дисахаридов для получения марок высокой чистоты.",
+          "zh": "将长链菊粉与单糖和双糖分离，获得高纯度等级产品。",
+          "tr": "Yüksek saflık sınıfları için uzun zincirli inülinin mono ve disakkaritlerden ayrılması.",
+          "ar": "فصل الإينولين طويل السلسلة عن السكريات الأحادية والثنائية للحصول على درجات عالية النقاوة.",
+          "es": "Fraccionamiento de la inulina de cadena larga respecto a mono- y disacáridos para obtener grados de alta pureza."
+        }
+      },
+      {
+        "title": {
+          "en": "Controlled Crystallization & Spray Drying",
+          "ru": "Контролируемая кристаллизация и распылительная сушка",
+          "zh": "控温结晶与喷雾干燥",
+          "tr": "Kontrollü kristalizasyon ve püskürtmeli kurutma",
+          "ar": "التبلور المتحكم به والتجفيف بالرذاذ",
+          "es": "Cristalización controlada y secado por atomización"
+        },
+        "description": {
+          "en": "Low-temperature evaporation ensuring non-caking, free-flowing crystalline powder.",
+          "ru": "Низкотемпературное выпаривание обеспечивает неслёживающийся сыпучий кристаллический порошок.",
+          "zh": "低温蒸发，确保得到不结块、流动性好的结晶粉末。",
+          "tr": "Topaklanmayan, serbest akışlı kristal toz sağlayan düşük sıcaklıkta buharlaştırma.",
+          "ar": "تبخير عند درجة حرارة منخفضة يضمن مسحوقًا بلوريًا انسيابيًا غير متكتّل.",
+          "es": "Evaporación a baja temperatura que garantiza un polvo cristalino que no se apelmaza y fluye libremente."
+        }
+      }
+    ],
+    "keyAdvantages": [
+      {
+        "en": "Complete extraction yield of fructans exceeding 92% of dry tuber mass",
+        "ru": "Полный выход фруктанов при экстракции — свыше 92% сухой массы клубней",
+        "zh": "果聚糖提取总收率超过干块茎质量的 92%",
+        "tr": "Kuru yumru kütlesinin %92'sini aşan tam fruktan ekstraksiyon verimi",
+        "ar": "مردود استخلاص كامل للفركتانات يتجاوز 92% من كتلة الدرنات الجافة",
+        "es": "Rendimiento de extracción completo de fructanos superior al 92% de la masa seca del tubérculo"
+      },
+      {
+        "en": "Option for co-production of functional fructose syrups (BRIX 70+)",
+        "ru": "Возможность попутного производства функциональных фруктозных сиропов (BRIX 70+)",
+        "zh": "可联产功能性果糖糖浆（BRIX 70+）",
+        "tr": "Fonksiyonel fruktoz şuruplarının ortak üretimi seçeneği (BRIX 70+)",
+        "ar": "إمكانية الإنتاج المشترك لشراب الفركتوز الوظيفي (BRIX 70+)",
+        "es": "Opción de coproducir jarabes funcionales de fructosa (BRIX 70+)"
+      },
+      {
+        "en": "Zero waste: press cake converted into animal feed pellets or dietary fiber",
+        "ru": "Безотходность: жмых перерабатывается в кормовые гранулы или пищевые волокна",
+        "zh": "零废弃：压榨饼转化为饲料颗粒或膳食纤维",
+        "tr": "Sıfır atık: pres keki hayvan yemi peletine veya diyet lifine dönüştürülür",
+        "ar": "صفر نفايات: تحويل كعكة العصر إلى كريات علف حيواني أو ألياف غذائية",
+        "es": "Residuo cero: la torta de prensado se convierte en pélets para alimento animal o en fibra dietética"
+      },
+      {
+        "en": "Energy integration with factory steam condensation recovery",
+        "ru": "Энергоинтеграция с рекуперацией заводского парового конденсата",
+        "zh": "与工厂蒸汽冷凝水回收进行能源集成",
+        "tr": "Fabrika buhar kondensatı geri kazanımı ile enerji entegrasyonu",
+        "ar": "تكامل الطاقة مع استعادة متكثّف البخار في المصنع",
+        "es": "Integración energética con la recuperación de condensado de vapor de la planta"
+      }
+    ],
+    "applications": [
+      {
+        "en": "Sugar and fat replacement in chocolates, baked goods and dairy",
+        "ru": "Замена сахара и жира в шоколаде, выпечке и молочных продуктах",
+        "zh": "巧克力、烘焙食品和乳制品中的糖和脂肪替代",
+        "tr": "Çikolata, unlu mamuller ve süt ürünlerinde şeker ve yağ ikamesi",
+        "ar": "بديل للسكر والدهون في الشوكولاتة والمخبوزات ومنتجات الألبان",
+        "es": "Sustitución de azúcar y grasa en chocolates, productos horneados y lácteos"
+      },
+      {
+        "en": "Clinical nutrition and glycemic control dietary supplements",
+        "ru": "Клиническое питание и БАДы для контроля гликемии",
+        "zh": "临床营养及控糖膳食补充剂",
+        "tr": "Klinik beslenme ve glisemik kontrol takviyeleri",
+        "ar": "التغذية العلاجية والمكمّلات الغذائية للتحكم في سكر الدم",
+        "es": "Nutrición clínica y suplementos dietéticos para el control glucémico"
+      },
+      {
+        "en": "Baby foods and digestive prebiotic formulation",
+        "ru": "Детское питание и пребиотические составы для пищеварения",
+        "zh": "婴幼儿食品及助消化益生元配方",
+        "tr": "Bebek mamaları ve sindirime yönelik prebiyotik formülasyonlar",
+        "ar": "أغذية الأطفال والتركيبات البريبايوتيكية الداعمة للهضم",
+        "es": "Alimentos infantiles y formulaciones prebióticas digestivas"
+      },
+      {
+        "en": "Functional beverages and dietary prebiotic fibers",
+        "ru": "Функциональные напитки и пищевые пребиотические волокна",
+        "zh": "功能饮料及益生元膳食纤维",
+        "tr": "Fonksiyonel içecekler ve prebiyotik diyet lifleri",
+        "ar": "المشروبات الوظيفية والألياف الغذائية البريبايوتيكية",
+        "es": "Bebidas funcionales y fibras dietéticas prebióticas"
+      }
+    ],
+    "productsProduced": [
+      {
+        "en": "Standard Inulin Powder (DP 10–12)",
+        "ru": "Стандартный порошковый инулин (DP 10–12)",
+        "zh": "标准菊粉粉末（DP 10–12）",
+        "tr": "Standart inülin tozu (DP 10–12)",
+        "ar": "مسحوق إينولين قياسي (DP 10–12)",
+        "es": "Inulina estándar en polvo (DP 10–12)"
+      },
+      {
+        "en": "High-Performance (HP) Long-Chain Inulin (DP > 23)",
+        "ru": "Высокоэффективный (HP) длинноцепочечный инулин (DP > 23)",
+        "zh": "高性能（HP）长链菊粉（DP > 23）",
+        "tr": "Yüksek performanslı (HP) uzun zincirli inülin (DP > 23)",
+        "ar": "إينولين طويل السلسلة عالي الأداء (HP) (DP > 23)",
+        "es": "Inulina de cadena larga de alto rendimiento (HP) (DP > 23)"
+      },
+      {
+        "en": "Fructooligosaccharide (FOS) Syrups & Powders",
+        "ru": "Фруктоолигосахаридные (ФОС) сиропы и порошки",
+        "zh": "低聚果糖（FOS）糖浆及粉末",
+        "tr": "Fruktooligosakkarit (FOS) şurupları ve tozları",
+        "ar": "شراب ومساحيق الفركتوأوليغوسكاريدات (FOS)",
+        "es": "Jarabes y polvos de fructooligosacáridos (FOS)"
+      },
+      {
+        "en": "Jerusalem Artichoke Dietary Fiber Flour",
+        "ru": "Мука из пищевых волокон топинамбура",
+        "zh": "菊芋膳食纤维粉",
+        "tr": "Yer elması diyet lifi unu",
+        "ar": "دقيق ألياف الطرطوفة الغذائية",
+        "es": "Harina de fibra dietética de tupinambo"
+      }
+    ],
+    "relatedProjectIds": [
+      "project-siberian-wellness"
+    ],
+    "image": {
+      "mediaId": "media-tech-inulin-roots-1790271193455"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "a8b6076664d70bec",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "a8b6076664d70bec",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "a8b6076664d70bec",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "a8b6076664d70bec",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "a8b6076664d70bec",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "technology-pomegranate",
+    "status": "published",
+    "order": 4,
+    "slug": "pomegranate",
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "categoryNumber": "04",
+    "categoryTitle": {
+      "en": "BIOACTIVE RESIDUES & TANNINS",
+      "ru": "БИОАКТИВНЫЕ ОСТАТКИ И ТАНИНЫ",
+      "zh": "生物活性残渣与单宁",
+      "tr": "BİYOAKTİF KALINTILAR VE TANENLER",
+      "ar": "المخلفات النشطة بيولوجيًا والعفص",
+      "es": "RESIDUOS BIOACTIVOS Y TANINOS"
+    },
+    "title": {
+      "en": "Pomegranate Processing Revolution: Tannin, Pectin & Seed Oil",
+      "ru": "Революция в переработке граната: танин, пектин и масло из косточек",
+      "zh": "石榴加工革新：单宁、果胶与籽油",
+      "tr": "Nar işlemede devrim: tanen, pektin ve çekirdek yağı",
+      "ar": "ثورة في معالجة الرمان: العفص والبكتين وزيت البذور",
+      "es": "Revolución en el procesamiento de la granada: tanino, pectina y aceite de semilla"
+    },
+    "subtitle": {
+      "en": "Comprehensive agro-waste valorization converting juicing side-streams into high-value compounds",
+      "ru": "Комплексная валоризация агроотходов: превращение побочных потоков сокового производства в ценные соединения",
+      "zh": "全面的农业废弃物高值化利用，将榨汁副产物流转化为高附加值化合物",
+      "tr": "Meyve suyu yan akışlarını yüksek değerli bileşiklere dönüştüren kapsamlı tarımsal atık değerlendirmesi",
+      "ar": "تثمين شامل للمخلفات الزراعية يحوّل التدفقات الجانبية لعصر الفاكهة إلى مركبات عالية القيمة",
+      "es": "Valorización integral de residuos agrícolas que convierte los flujos secundarios de la extracción de jugo en compuestos de alto valor"
+    },
+    "overview": {
+      "en": "Pomegranate juicing leaves over 50% of the fruit weight as peel and seeds. Soltex turnkey technology transforms this agro-industrial waste into pharmaceutical tannins, food-grade pectin, and punicalagin-rich antioxidants.",
+      "ru": "При производстве гранатового сока более 50% массы плода остаётся в виде кожуры и косточек. Технология Soltex «под ключ» превращает эти агропромышленные отходы в фармацевтические танины, пектин пищевого качества и антиоксиданты с высоким содержанием пуникалагина.",
+      "zh": "石榴榨汁后，超过 50% 的果实重量以果皮和籽的形式残留。Soltex 交钥匙技术将这些农工业废弃物转化为医药级单宁、食品级果胶和富含石榴皮鞣质的抗氧化剂。",
+      "tr": "Nar suyu üretiminde meyve ağırlığının %50'sinden fazlası kabuk ve çekirdek olarak kalır. Soltex'in anahtar teslim teknolojisi bu tarım-sanayi atığını farmasötik tanenlere, gıda kalitesinde pektine ve punikalajin açısından zengin antioksidanlara dönüştürür.",
+      "ar": "يخلّف عصر الرمان أكثر من 50% من وزن الثمرة على شكل قشور وبذور. وتحوّل تقنية Soltex بنظام تسليم المفتاح هذه النفايات الزراعية الصناعية إلى عفص دوائي وبكتين غذائي ومضادات أكسدة غنية بالبونيكالاجين.",
+      "es": "La extracción de jugo de granada deja más del 50% del peso del fruto en forma de cáscara y semillas. La tecnología llave en mano de Soltex transforma estos residuos agroindustriales en taninos farmacéuticos, pectina de grado alimentario y antioxidantes ricos en punicalagina."
+    },
+    "patentInfo": null,
+    "rawMaterials": [
+      {
+        "en": "Pomegranate Peel & Carpellary Membranes",
+        "ru": "Гранатовая кожура и перегородки плода",
+        "zh": "石榴皮及心皮隔膜",
+        "tr": "Nar kabuğu ve karpel zarları",
+        "ar": "قشور الرمان والأغشية الكربلية",
+        "es": "Cáscara de granada y membranas carpelares"
+      },
+      {
+        "en": "Pomegranate Seeds",
+        "ru": "Гранатовые косточки",
+        "zh": "石榴籽",
+        "tr": "Nar çekirdekleri",
+        "ar": "بذور الرمان",
+        "es": "Semillas de granada"
+      },
+      {
+        "en": "Grape Marc",
+        "ru": "Виноградные выжимки",
+        "zh": "葡萄渣",
+        "tr": "Üzüm posası",
+        "ar": "تفل العنب",
+        "es": "Orujo de uva"
+      }
+    ],
+    "processPrinciples": [
+      {
+        "title": {
+          "en": "Differential Milling & Washing",
+          "ru": "Дифференциальное измельчение и промывка",
+          "zh": "差异化粉碎与洗涤",
+          "tr": "Diferansiyel öğütme ve yıkama",
+          "ar": "الطحن التفاضلي والغسل",
+          "es": "Molienda diferencial y lavado"
+        },
+        "description": {
+          "en": "Clean physical separation of seeds from pericarp tissue.",
+          "ru": "Чистое механическое отделение косточек от тканей околоплодника.",
+          "zh": "将种子与果皮组织进行洁净的物理分离。",
+          "tr": "Çekirdeklerin perikarp dokusundan temiz fiziksel ayrılması.",
+          "ar": "فصل فيزيائي نظيف للبذور عن نسيج القشرة.",
+          "es": "Separación física limpia de las semillas del tejido del pericarpio."
+        }
+      },
+      {
+        "title": {
+          "en": "Selective Solvent-Free Extraction",
+          "ru": "Селективная экстракция без растворителей",
+          "zh": "选择性无溶剂提取",
+          "tr": "Seçici çözücüsüz ekstraksiyon",
+          "ar": "استخلاص انتقائي بدون مذيبات",
+          "es": "Extracción selectiva sin disolventes"
+        },
+        "description": {
+          "en": "Multi-stage countercurrent washing recovering punicalagins and ellagic acid.",
+          "ru": "Многоступенчатая противоточная промывка с извлечением пуникалагинов и эллаговой кислоты.",
+          "zh": "多级逆流洗涤，回收石榴皮鞣质和鞣花酸。",
+          "tr": "Punikalajinleri ve ellajik asidi geri kazanan çok kademeli ters akımlı yıkama.",
+          "ar": "غسل متعدد المراحل بالتيار المعاكس لاستعادة البونيكالاجينات وحمض الإيلاجيك.",
+          "es": "Lavado a contracorriente en múltiples etapas que recupera punicalaginas y ácido elágico."
+        }
+      },
+      {
+        "title": {
+          "en": "Pectin Hydrolysis & Fractionation",
+          "ru": "Гидролиз и фракционирование пектина",
+          "zh": "果胶水解与分级",
+          "tr": "Pektin hidrolizi ve fraksiyonlama",
+          "ar": "التحلل المائي للبكتين وتجزئته",
+          "es": "Hidrólisis y fraccionamiento de la pectina"
+        },
+        "description": {
+          "en": "Extraction of unique high-viscosity pomegranate peel pectin.",
+          "ru": "Извлечение уникального высоковязкого пектина из гранатовой кожуры.",
+          "zh": "提取独特的高黏度石榴皮果胶。",
+          "tr": "Nar kabuğundan özgün, yüksek viskoziteli pektin ekstraksiyonu.",
+          "ar": "استخلاص بكتين فريد عالي اللزوجة من قشور الرمان.",
+          "es": "Extracción de una pectina única de alta viscosidad a partir de la cáscara de granada."
+        }
+      },
+      {
+        "title": {
+          "en": "Cold-Press & Supercritical Seed Oil Extraction",
+          "ru": "Холодный отжим и сверхкритическая экстракция масла из косточек",
+          "zh": "冷榨及超临界籽油提取",
+          "tr": "Soğuk pres ve süperkritik çekirdek yağı ekstraksiyonu",
+          "ar": "العصر البارد والاستخلاص فوق الحرج لزيت البذور",
+          "es": "Extracción de aceite de semilla por prensado en frío y supercrítica"
+        },
+        "description": {
+          "en": "Recovery of rare conjugated fatty acids (punicic acid > 70%).",
+          "ru": "Извлечение редких сопряжённых жирных кислот (пуниковая кислота > 70%).",
+          "zh": "回收稀有共轭脂肪酸（石榴酸 > 70%）。",
+          "tr": "Nadir konjuge yağ asitlerinin geri kazanımı (punisik asit > %70).",
+          "ar": "استعادة الأحماض الدهنية المقترنة النادرة (حمض البونيسيك > 70%).",
+          "es": "Recuperación de ácidos grasos conjugados poco comunes (ácido punícico > 70%)."
+        }
+      }
+    ],
+    "keyAdvantages": [
+      {
+        "en": "Full commercial monetization of fruit processing residues",
+        "ru": "Полная коммерческая монетизация остатков переработки фруктов",
+        "zh": "水果加工残渣的全面商业变现",
+        "tr": "Meyve işleme kalıntılarının tam ticari değerlendirilmesi",
+        "ar": "تحقيق عائد تجاري كامل من مخلفات معالجة الفاكهة",
+        "es": "Monetización comercial completa de los residuos del procesamiento de frutas"
+      },
+      {
+        "en": "Production of highly sought-after natural preservatives and cosmetics active ingredients",
+        "ru": "Производство высоко востребованных натуральных консервантов и активных ингредиентов для косметики",
+        "zh": "生产备受青睐的天然防腐剂和化妆品活性成分",
+        "tr": "Yüksek talep gören doğal koruyucular ve kozmetik aktif bileşenlerin üretimi",
+        "ar": "إنتاج مواد حافظة طبيعية ومكونات تجميلية نشطة عالية الطلب",
+        "es": "Producción de conservantes naturales y principios activos cosméticos muy demandados"
+      },
+      {
+        "en": "Zero-discharge wastewater management with clean solid fuel cake",
+        "ru": "Управление сточными водами с нулевым сбросом и получением чистого твёрдотопливного брикета",
+        "zh": "废水零排放管理，产出清洁的固体燃料饼",
+        "tr": "Temiz katı yakıt keki ile sıfır deşarjlı atık su yönetimi",
+        "ar": "إدارة مياه الصرف دون أي تصريف مع إنتاج كعكة وقود صلب نظيفة",
+        "es": "Gestión de aguas residuales con descarga cero y obtención de una torta limpia de combustible sólido"
+      }
+    ],
+    "applications": [
+      {
+        "en": "Natural antioxidants and active cosmetics formulations",
+        "ru": "Натуральные антиоксиданты и составы активной косметики",
+        "zh": "天然抗氧化剂及功效型化妆品配方",
+        "tr": "Doğal antioksidanlar ve aktif kozmetik formülasyonları",
+        "ar": "مضادات أكسدة طبيعية وتركيبات تجميلية نشطة",
+        "es": "Antioxidantes naturales y formulaciones de cosmética activa"
+      },
+      {
+        "en": "Pharmaceutical cardiovascular and anti-inflammatory extracts",
+        "ru": "Фармацевтические экстракты кардиологического и противовоспалительного действия",
+        "zh": "心血管及抗炎类医药提取物",
+        "tr": "Kardiyovasküler ve antiinflamatuvar farmasötik ekstraktlar",
+        "ar": "مستخلصات دوائية للقلب والأوعية الدموية ومضادة للالتهاب",
+        "es": "Extractos farmacéuticos cardiovasculares y antiinflamatorios"
+      },
+      {
+        "en": "Specialty baking texturizers and astringent hydrocolloids",
+        "ru": "Специальные текстураторы для хлебопечения и вяжущие гидроколлоиды",
+        "zh": "特种烘焙质构改良剂及收敛性水胶体",
+        "tr": "Özel fırıncılık tekstür düzenleyicileri ve buruk hidrokolloidler",
+        "ar": "محسّنات قوام متخصصة للمخبوزات وغرويات مائية قابضة",
+        "es": "Texturizantes especiales de panificación e hidrocoloides astringentes"
+      }
+    ],
+    "productsProduced": [
+      {
+        "en": "Pomegranate Peel Pectin",
+        "ru": "Пектин из гранатовой кожуры",
+        "zh": "石榴皮果胶",
+        "tr": "Nar kabuğu pektini",
+        "ar": "بكتين قشور الرمان",
+        "es": "Pectina de cáscara de granada"
+      },
+      {
+        "en": "Purified Ellagitannins & Punicalagin Extract (≥40%)",
+        "ru": "Очищенные эллаготанины и экстракт пуникалагина (≥40%)",
+        "zh": "纯化鞣花单宁及石榴皮鞣质提取物（≥40%）",
+        "tr": "Saflaştırılmış elajitaninler ve punikalajin ekstraktı (≥%40)",
+        "ar": "إيلاجيتانينات منقّاة ومستخلص البونيكالاجين (≥40%)",
+        "es": "Elagitaninos purificados y extracto de punicalagina (≥40%)"
+      },
+      {
+        "en": "Virgin Pomegranate Seed Oil (Omega-5 Punicic Acid)",
+        "ru": "Нерафинированное масло гранатовых косточек (пуниковая кислота Омега-5)",
+        "zh": "初榨石榴籽油（Omega-5 石榴酸）",
+        "tr": "Natürel nar çekirdeği yağı (Omega-5 punisik asit)",
+        "ar": "زيت بذور الرمان البكر (حمض البونيسيك أوميغا-5)",
+        "es": "Aceite virgen de semilla de granada (ácido punícico omega-5)"
+      },
+      {
+        "en": "Dietary Pomegranate Fiber Flour",
+        "ru": "Мука из пищевых волокон граната",
+        "zh": "石榴膳食纤维粉",
+        "tr": "Nar diyet lifi unu",
+        "ar": "دقيق ألياف الرمان الغذائية",
+        "es": "Harina de fibra dietética de granada"
+      }
+    ],
+    "relatedProjectIds": [
+      "project-aznar-pomegranate"
+    ],
+    "image": {
+      "mediaId": "media-tech-citrus-oranges-1790271213504"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "ff91d78cef1a347e",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "ff91d78cef1a347e",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "ff91d78cef1a347e",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "ff91d78cef1a347e",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "ff91d78cef1a347e",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "technology-dietary-fibers",
+    "status": "published",
+    "order": 5,
+    "slug": "dietary-fibers",
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "categoryNumber": "05",
+    "categoryTitle": {
+      "en": "PLANT FIBERS & TEXTURIZERS",
+      "ru": "РАСТИТЕЛЬНЫЕ ВОЛОКНА И ТЕКСТУРАТОРЫ",
+      "zh": "植物纤维与质构改良剂",
+      "tr": "BİTKİSEL LİFLER VE TEKSTÜR DÜZENLEYİCİLER",
+      "ar": "الألياف النباتية ومحسّنات القوام",
+      "es": "FIBRAS VEGETALES Y TEXTURIZANTES"
+    },
+    "title": {
+      "en": "Purified Dietary Fibers: Apple, Citrus, Beet & Grains",
+      "ru": "Очищенные пищевые волокна: яблоко, цитрусовые, свёкла и зерновые",
+      "zh": "纯化膳食纤维：苹果、柑橘、甜菜与谷物",
+      "tr": "Saflaştırılmış diyet lifleri: elma, narenciye, pancar ve tahıllar",
+      "ar": "ألياف غذائية منقّاة: التفاح والحمضيات والبنجر والحبوب",
+      "es": "Fibras dietéticas purificadas: manzana, cítricos, remolacha y cereales"
+    },
+    "subtitle": {
+      "en": "Micro-milling and gentle thermal activation for superior water and oil retention",
+      "ru": "Микропомол и щадящая термическая активация для превосходного удержания воды и масла",
+      "zh": "微粉碎与温和热活化，实现卓越的持水持油性能",
+      "tr": "Üstün su ve yağ tutma için mikro öğütme ve hassas termal aktivasyon",
+      "ar": "طحن دقيق وتنشيط حراري لطيف لاحتفاظ فائق بالماء والزيت",
+      "es": "Micromolienda y activación térmica suave para una retención superior de agua y aceite"
+    },
+    "overview": {
+      "en": "Industrial micronization and solvent-free extraction systems for producing soluble and insoluble dietary fibers from fruit pomace, grain, and vegetable processing side-streams.",
+      "ru": "Промышленные системы микронизации и экстракции без растворителей для производства растворимых и нерастворимых пищевых волокон из фруктовых выжимок, зерновых и побочных потоков переработки овощей.",
+      "zh": "工业化微粉化与无溶剂提取系统，利用果渣、谷物及蔬菜加工副产物流生产可溶性和不溶性膳食纤维。",
+      "tr": "Meyve posası, tahıl ve sebze işleme yan akışlarından çözünür ve çözünmez diyet lifi üretimi için endüstriyel mikronizasyon ve çözücüsüz ekstraksiyon sistemleri.",
+      "ar": "أنظمة صناعية للطحن الدقيق والاستخلاص بدون مذيبات لإنتاج الألياف الغذائية القابلة وغير القابلة للذوبان من تفل الفاكهة والحبوب والتدفقات الجانبية لمعالجة الخضروات.",
+      "es": "Sistemas industriales de micronización y extracción sin disolventes para producir fibras dietéticas solubles e insolubles a partir de orujo de frutas, cereales y flujos secundarios del procesamiento de hortalizas."
+    },
+    "patentInfo": null,
+    "rawMaterials": [
+      {
+        "en": "Apple Pomace",
+        "ru": "Яблочные выжимки",
+        "zh": "苹果渣",
+        "tr": "Elma posası",
+        "ar": "تفل التفاح",
+        "es": "Orujo de manzana"
+      },
+      {
+        "en": "Citrus Marc",
+        "ru": "Цитрусовые выжимки",
+        "zh": "柑橘渣",
+        "tr": "Narenciye posası",
+        "ar": "تفل الحمضيات",
+        "es": "Orujo de cítricos"
+      },
+      {
+        "en": "Sugar Beet Pulp",
+        "ru": "Свекловичный жом",
+        "zh": "甜菜粕",
+        "tr": "Şeker pancarı posası",
+        "ar": "لب بنجر السكر",
+        "es": "Pulpa de remolacha azucarera"
+      },
+      {
+        "en": "Wheat & Oat Bran",
+        "ru": "Пшеничные и овсяные отруби",
+        "zh": "小麦麸与燕麦麸",
+        "tr": "Buğday ve yulaf kepeği",
+        "ar": "نخالة القمح والشوفان",
+        "es": "Salvado de trigo y avena"
+      }
+    ],
+    "processPrinciples": [
+      {
+        "title": {
+          "en": "Ballast Sugar Leaching",
+          "ru": "Выщелачивание балластных сахаров",
+          "zh": "杂质糖浸出",
+          "tr": "Balast şekerlerin özütlenmesi",
+          "ar": "ترشيح السكريات غير المرغوبة",
+          "es": "Lixiviación de azúcares de lastre"
+        },
+        "description": {
+          "en": "Mild water washing to remove residual mono- and disaccharides without fiber breakdown.",
+          "ru": "Мягкая промывка водой для удаления остаточных моно- и дисахаридов без разрушения волокон.",
+          "zh": "温和水洗去除残余单糖和双糖，不破坏纤维结构。",
+          "tr": "Lif yapısını bozmadan kalıntı mono ve disakkaritleri uzaklaştırmak için hafif su ile yıkama.",
+          "ar": "غسل معتدل بالماء لإزالة السكريات الأحادية والثنائية المتبقية دون تكسير الألياف.",
+          "es": "Lavado suave con agua para eliminar los mono- y disacáridos residuales sin degradar la fibra."
+        }
+      },
+      {
+        "title": {
+          "en": "Sterilization & Gentle Dehydration",
+          "ru": "Стерилизация и щадящее обезвоживание",
+          "zh": "灭菌与温和脱水",
+          "tr": "Sterilizasyon ve hassas su giderme",
+          "ar": "التعقيم والتجفيف اللطيف",
+          "es": "Esterilización y deshidratación suave"
+        },
+        "description": {
+          "en": "Rapid flash drying preventing caramelization and preserving capillary porosity.",
+          "ru": "Быстрая мгновенная сушка, предотвращающая карамелизацию и сохраняющая капиллярную пористость.",
+          "zh": "快速闪蒸干燥，防止焦糖化并保持毛细孔隙结构。",
+          "tr": "Karamelizasyonu önleyen ve kapiler gözenekliliği koruyan hızlı anlık kurutma.",
+          "ar": "تجفيف فوري سريع يمنع الكرملة ويحافظ على المسامية الشعرية.",
+          "es": "Secado flash rápido que evita la caramelización y preserva la porosidad capilar."
+        }
+      },
+      {
+        "title": {
+          "en": "Jet-Milling & Micronization",
+          "ru": "Струйный помол и микронизация",
+          "zh": "气流粉碎与微粉化",
+          "tr": "Jet öğütme ve mikronizasyon",
+          "ar": "الطحن النفاث والطحن الدقيق",
+          "es": "Molienda por chorro y micronización"
+        },
+        "description": {
+          "en": "Precise particle size classification from 50 to 250 microns for smooth mouthfeel.",
+          "ru": "Точная классификация частиц от 50 до 250 микрон для мягкого ощущения во рту.",
+          "zh": "精确的粒径分级（50 至 250 微米），带来细腻口感。",
+          "tr": "Pürüzsüz ağız hissi için 50 ile 250 mikron arasında hassas partikül boyutu sınıflandırması.",
+          "ar": "تصنيف دقيق لحجم الجسيمات من 50 إلى 250 ميكرون لإحساس ناعم في الفم.",
+          "es": "Clasificación precisa del tamaño de partícula de 50 a 250 micras para una sensación suave en boca."
+        }
+      }
+    ],
+    "keyAdvantages": [
+      {
+        "en": "High water-holding capacity (1:8 to 1:12) and oil-binding capacity (1:4 to 1:6)",
+        "ru": "Высокая водоудерживающая (от 1:8 до 1:12) и жиросвязывающая (от 1:4 до 1:6) способность",
+        "zh": "高持水能力（1:8 至 1:12）与持油能力（1:4 至 1:6）",
+        "tr": "Yüksek su tutma (1:8 ile 1:12) ve yağ bağlama (1:4 ile 1:6) kapasitesi",
+        "ar": "قدرة عالية على الاحتفاظ بالماء (من 1:8 إلى 1:12) وربط الزيت (من 1:4 إلى 1:6)",
+        "es": "Alta capacidad de retención de agua (de 1:8 a 1:12) y de fijación de aceite (de 1:4 a 1:6)"
+      },
+      {
+        "en": "Clean label ingredient replacing chemical emulsifiers and modified starches",
+        "ru": "Ингредиент «чистой этикетки», заменяющий химические эмульгаторы и модифицированные крахмалы",
+        "zh": "清洁标签配料，可替代化学乳化剂和变性淀粉",
+        "tr": "Kimyasal emülgatörlerin ve modifiye nişastaların yerini alan temiz etiketli bileşen",
+        "ar": "مكوّن ذو ملصق نظيف يحلّ محل المستحلبات الكيميائية والنشويات المعدّلة",
+        "es": "Ingrediente de etiqueta limpia que sustituye a emulsionantes químicos y almidones modificados"
+      },
+      {
+        "en": "Neutral color and odor with long shelf-life stability",
+        "ru": "Нейтральные цвет и запах, стабильность при длительном хранении",
+        "zh": "色泽与气味中性，货架期稳定",
+        "tr": "Nötr renk ve koku, uzun raf ömrü stabilitesi",
+        "ar": "لون ورائحة محايدان مع ثبات طويل الأمد في مدة الصلاحية",
+        "es": "Color y olor neutros con estabilidad durante una larga vida útil"
+      }
+    ],
+    "applications": [
+      {
+        "en": "Meat emulsions, minced cutlets and sausages (yield increase and fat replacement)",
+        "ru": "Мясные эмульсии, рубленые котлеты и колбасы (повышение выхода и замена жира)",
+        "zh": "肉糜乳化制品、肉饼及香肠（提高出品率并替代脂肪）",
+        "tr": "Et emülsiyonları, kıyma köfteler ve sosisler (verim artışı ve yağ ikamesi)",
+        "ar": "مستحلبات اللحوم والكفتة المفرومة والنقانق (زيادة المردود واستبدال الدهون)",
+        "es": "Emulsiones cárnicas, hamburguesas de carne picada y embutidos (mayor rendimiento y sustitución de grasa)"
+      },
+      {
+        "en": "Bakery and breadmaking (freshness preservation and crumb softness)",
+        "ru": "Выпечка и хлебопечение (сохранение свежести и мягкости мякиша)",
+        "zh": "烘焙与面包制作（保持新鲜度和面心柔软）",
+        "tr": "Unlu mamuller ve ekmekçilik (tazeliğin korunması ve iç yumuşaklığı)",
+        "ar": "المخبوزات وصناعة الخبز (الحفاظ على الطزاجة ونعومة اللب)",
+        "es": "Panadería y panificación (conservación de la frescura y suavidad de la miga)"
+      },
+      {
+        "en": "Extruded breakfast cereals, pasta and dietary snacks",
+        "ru": "Экструдированные сухие завтраки, макаронные изделия и диетические снеки",
+        "zh": "挤压早餐谷物、面食及膳食零食",
+        "tr": "Ekstrüde kahvaltılık gevrekler, makarna ve diyet atıştırmalıkları",
+        "ar": "حبوب الإفطار المبثوقة والمعكرونة والوجبات الخفيفة الغذائية",
+        "es": "Cereales de desayuno extruidos, pastas y snacks dietéticos"
+      }
+    ],
+    "productsProduced": [
+      {
+        "en": "Apple Dietary Fiber Powder",
+        "ru": "Порошок яблочных пищевых волокон",
+        "zh": "苹果膳食纤维粉",
+        "tr": "Elma diyet lifi tozu",
+        "ar": "مسحوق ألياف التفاح الغذائية",
+        "es": "Fibra dietética de manzana en polvo"
+      },
+      {
+        "en": "Citrus Fiber (High Hydration Capacity)",
+        "ru": "Цитрусовое волокно (высокая гидратационная способность)",
+        "zh": "柑橘纤维（高水合能力）",
+        "tr": "Narenciye lifi (yüksek hidrasyon kapasitesi)",
+        "ar": "ألياف الحمضيات (قدرة ترطيب عالية)",
+        "es": "Fibra de cítricos (alta capacidad de hidratación)"
+      },
+      {
+        "en": "Sugar Beet Dietary Fiber",
+        "ru": "Пищевые волокна сахарной свёклы",
+        "zh": "甜菜膳食纤维",
+        "tr": "Şeker pancarı diyet lifi",
+        "ar": "ألياف بنجر السكر الغذائية",
+        "es": "Fibra dietética de remolacha azucarera"
+      },
+      {
+        "en": "Micro-milled Oat and Wheat Fibers",
+        "ru": "Овсяные и пшеничные волокна микропомола",
+        "zh": "微粉化燕麦及小麦纤维",
+        "tr": "Mikro öğütülmüş yulaf ve buğday lifleri",
+        "ar": "ألياف الشوفان والقمح المطحونة طحنًا دقيقًا",
+        "es": "Fibras de avena y trigo micromolidas"
+      }
+    ],
+    "relatedProjectIds": [
+      "project-siberian-wellness",
+      "project-aznar-pomegranate"
+    ],
+    "image": {
+      "mediaId": "media-tech-citrus-oranges-1790271213504"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "2634e36ca4d61f86",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "2634e36ca4d61f86",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "2634e36ca4d61f86",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "2634e36ca4d61f86",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "2634e36ca4d61f86",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "technology-concentrated-bases",
+    "status": "published",
+    "order": 6,
+    "slug": "concentrated-bases",
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "categoryNumber": "06",
+    "categoryTitle": {
+      "en": "CONCENTRATES & PUREES",
+      "ru": "КОНЦЕНТРАТЫ И ПЮРЕ",
+      "zh": "浓缩物与果浆",
+      "tr": "KONSANTRELER VE PÜRELER",
+      "ar": "المركّزات والهريس",
+      "es": "CONCENTRADOS Y PURÉS"
+    },
+    "title": {
+      "en": "Automated Lines for Concentrated Juices & Bases",
+      "ru": "Автоматизированные линии для концентрированных соков и основ",
+      "zh": "浓缩果汁及基料自动化生产线",
+      "tr": "Konsantre meyve suları ve bazlar için otomatik hatlar",
+      "ar": "خطوط آلية للعصائر المركّزة والقواعد",
+      "es": "Líneas automatizadas para jugos concentrados y bases"
+    },
+    "subtitle": {
+      "en": "Falling film evaporation and aseptic filling for premium BRIX 70 fruit concentrates",
+      "ru": "Выпаривание в падающей плёнке и асептический розлив для фруктовых концентратов премиум-класса BRIX 70",
+      "zh": "降膜蒸发与无菌灌装，生产高端 BRIX 70 水果浓缩物",
+      "tr": "Birinci sınıf BRIX 70 meyve konsantreleri için düşen film evaporasyonu ve aseptik dolum",
+      "ar": "تبخير بالغشاء الهابط وتعبئة معقّمة لمركّزات فاكهة ممتازة بدرجة BRIX 70",
+      "es": "Evaporación de película descendente y llenado aséptico para concentrados de fruta premium BRIX 70"
+    },
+    "overview": {
+      "en": "Soltex designs and installs high-capacity automated lines for the concentration of fruit juices, vegetable purees, and clear concentrates up to BRIX 70 with full aroma recovery systems.",
+      "ru": "Soltex проектирует и монтирует высокопроизводительные автоматизированные линии концентрирования фруктовых соков, овощных пюре и осветлённых концентратов до BRIX 70 с полными системами улавливания аромата.",
+      "zh": "Soltex 设计并安装大产能自动化生产线，用于果汁、蔬菜浆及清汁浓缩（最高 BRIX 70），配备完整的香气回收系统。",
+      "tr": "Soltex, tam aroma geri kazanım sistemleriyle meyve sularının, sebze pürelerinin ve BRIX 70'e kadar berrak konsantrelerin konsantrasyonu için yüksek kapasiteli otomatik hatlar tasarlar ve kurar.",
+      "ar": "تصمّم Soltex وتركّب خطوطًا آلية عالية الطاقة لتركيز عصائر الفاكهة وهريس الخضروات والمركّزات الصافية حتى BRIX 70 مع أنظمة كاملة لاستعادة النكهة.",
+      "es": "Soltex diseña e instala líneas automatizadas de alta capacidad para la concentración de jugos de fruta, purés de hortalizas y concentrados clarificados hasta BRIX 70, con sistemas completos de recuperación de aromas."
+    },
+    "patentInfo": null,
+    "rawMaterials": [
+      {
+        "en": "Apples",
+        "ru": "Яблоки",
+        "zh": "苹果",
+        "tr": "Elma",
+        "ar": "التفاح",
+        "es": "Manzanas"
+      },
+      {
+        "en": "Grapes",
+        "ru": "Виноград",
+        "zh": "葡萄",
+        "tr": "Üzüm",
+        "ar": "العنب",
+        "es": "Uvas"
+      },
+      {
+        "en": "Pomegranates",
+        "ru": "Гранаты",
+        "zh": "石榴",
+        "tr": "Nar",
+        "ar": "الرمان",
+        "es": "Granadas"
+      },
+      {
+        "en": "Tomatoes",
+        "ru": "Томаты",
+        "zh": "番茄",
+        "tr": "Domates",
+        "ar": "الطماطم",
+        "es": "Tomates"
+      },
+      {
+        "en": "Berries",
+        "ru": "Ягоды",
+        "zh": "浆果",
+        "tr": "Orman meyveleri",
+        "ar": "التوتيات",
+        "es": "Bayas"
+      },
+      {
+        "en": "Carrots",
+        "ru": "Морковь",
+        "zh": "胡萝卜",
+        "tr": "Havuç",
+        "ar": "الجزر",
+        "es": "Zanahorias"
+      }
+    ],
+    "processPrinciples": [
+      {
+        "title": {
+          "en": "Enzymatic Clarification & Microfiltration",
+          "ru": "Ферментативное осветление и микрофильтрация",
+          "zh": "酶法澄清与微滤",
+          "tr": "Enzimatik berraklaştırma ve mikrofiltrasyon",
+          "ar": "الترويق الإنزيمي والترشيح الدقيق",
+          "es": "Clarificación enzimática y microfiltración"
+        },
+        "description": {
+          "en": "Depectinization and ceramic crossflow filtration for crystal clarity.",
+          "ru": "Депектинизация и керамическая тангенциальная фильтрация для кристальной прозрачности.",
+          "zh": "脱果胶处理与陶瓷错流过滤，获得晶莹澄清度。",
+          "tr": "Kristal berraklık için depektinizasyon ve seramik çapraz akış filtrasyonu.",
+          "ar": "إزالة البكتين والترشيح الخزفي بالتدفق المتقاطع لتحقيق صفاء بلوري.",
+          "es": "Despectinización y filtración tangencial cerámica para una claridad cristalina."
+        }
+      },
+      {
+        "title": {
+          "en": "Multi-Effect Falling Film Evaporators",
+          "ru": "Многокорпусные выпарные аппараты с падающей плёнкой",
+          "zh": "多效降膜蒸发器",
+          "tr": "Çok etkili düşen film evaporatörleri",
+          "ar": "مبخّرات بالغشاء الهابط متعددة التأثير",
+          "es": "Evaporadores de película descendente de múltiple efecto"
+        },
+        "description": {
+          "en": "Low-temperature vacuum boiling with minimal thermal load on fruit nutrients.",
+          "ru": "Низкотемпературное вакуумное кипение с минимальной тепловой нагрузкой на питательные вещества плодов.",
+          "zh": "低温真空沸腾，对水果营养成分的热负荷极小。",
+          "tr": "Meyve besin öğelerine minimum ısıl yük bindiren düşük sıcaklıkta vakum kaynatma.",
+          "ar": "غليان بالتفريغ عند درجة حرارة منخفضة مع أدنى حمل حراري على المغذيات في الفاكهة.",
+          "es": "Ebullición al vacío a baja temperatura con una carga térmica mínima sobre los nutrientes de la fruta."
+        }
+      },
+      {
+        "title": {
+          "en": "Integrated Aroma Recovery",
+          "ru": "Интегрированное улавливание аромата",
+          "zh": "一体化香气回收",
+          "tr": "Entegre aroma geri kazanımı",
+          "ar": "استعادة متكاملة للنكهة",
+          "es": "Recuperación integrada de aromas"
+        },
+        "description": {
+          "en": "Condensation of delicate volatile natural top notes for standard back-blending.",
+          "ru": "Конденсация тонких летучих натуральных верхних нот для стандартного обратного купажирования.",
+          "zh": "冷凝回收细腻的天然挥发性头香，用于标准回调。",
+          "tr": "Standart geri harmanlama için hassas uçucu doğal üst notaların yoğuşturulması.",
+          "ar": "تكثيف النغمات العليا الطبيعية المتطايرة الدقيقة لإعادة مزجها وفق المعيار.",
+          "es": "Condensación de las delicadas notas de salida naturales volátiles para su reincorporación estándar."
+        }
+      },
+      {
+        "title": {
+          "en": "Aseptic Bag-in-Box / Drum Filling",
+          "ru": "Асептический розлив в Bag-in-Box / бочки",
+          "zh": "无菌袋中袋 / 桶装灌装",
+          "tr": "Aseptik bag-in-box / varil dolumu",
+          "ar": "تعبئة معقّمة في أكياس داخل صناديق / براميل",
+          "es": "Llenado aséptico en bag-in-box / bidones"
+        },
+        "description": {
+          "en": "Sterile high-speed filling for long ambient logistics.",
+          "ru": "Стерильный высокоскоростной розлив для длительной логистики при температуре окружающей среды.",
+          "zh": "无菌高速灌装，适合常温长途物流。",
+          "tr": "Uzun süreli ortam sıcaklığında lojistik için steril yüksek hızlı dolum.",
+          "ar": "تعبئة معقّمة عالية السرعة لخدمات لوجستية طويلة في درجة الحرارة المحيطة.",
+          "es": "Llenado estéril de alta velocidad para una logística prolongada a temperatura ambiente."
+        }
+      }
+    ],
+    "keyAdvantages": [
+      {
+        "en": "Production of premium clarity concentrates (BRIX 70) and dense purees (BRIX 36+)",
+        "ru": "Производство концентратов премиальной прозрачности (BRIX 70) и плотных пюре (BRIX 36+)",
+        "zh": "生产高端澄清浓缩汁（BRIX 70）及高浓度果浆（BRIX 36+）",
+        "tr": "Birinci sınıf berraklıkta konsantreler (BRIX 70) ve yoğun püreler (BRIX 36+) üretimi",
+        "ar": "إنتاج مركّزات فائقة الصفاء (BRIX 70) وهريس كثيف (BRIX 36+)",
+        "es": "Producción de concentrados de claridad premium (BRIX 70) y purés densos (BRIX 36+)"
+      },
+      {
+        "en": "Thermal efficiency through mechanical vapor recompression (MVR)",
+        "ru": "Тепловая эффективность за счёт механической рекомпрессии пара (MVR)",
+        "zh": "通过机械蒸汽再压缩（MVR）实现热效率",
+        "tr": "Mekanik buhar yeniden sıkıştırma (MVR) ile termal verimlilik",
+        "ar": "كفاءة حرارية عبر إعادة الضغط الميكانيكي للبخار (MVR)",
+        "es": "Eficiencia térmica mediante recompresión mecánica de vapor (MVR)"
+      },
+      {
+        "en": "Fully automated CIP/SIP sanitization cycles",
+        "ru": "Полностью автоматизированные циклы санитарной обработки CIP/SIP",
+        "zh": "全自动 CIP/SIP 清洗消毒循环",
+        "tr": "Tam otomatik CIP/SIP sanitasyon döngüleri",
+        "ar": "دورات تعقيم CIP/SIP مؤتمتة بالكامل",
+        "es": "Ciclos de higienización CIP/SIP totalmente automatizados"
+      }
+    ],
+    "applications": [
+      {
+        "en": "Beverage bottling and soft drink reconstitution",
+        "ru": "Розлив напитков и восстановление безалкогольных напитков",
+        "zh": "饮料灌装及软饮料复原",
+        "tr": "İçecek şişeleme ve alkolsüz içecek rekonstitüsyonu",
+        "ar": "تعبئة المشروبات وإعادة تكوين المشروبات الغازية",
+        "es": "Embotellado de bebidas y reconstitución de refrescos"
+      },
+      {
+        "en": "Confectionery syrups, jams and jelly fillings",
+        "ru": "Кондитерские сиропы, джемы и желейные начинки",
+        "zh": "糖果糖浆、果酱及果冻馅料",
+        "tr": "Şekerleme şurupları, reçeller ve jöle dolguları",
+        "ar": "شراب الحلويات والمربيات وحشوات الهلام",
+        "es": "Jarabes de confitería, mermeladas y rellenos de gelatina"
+      },
+      {
+        "en": "Fruit base preparations for dairy and baby foods",
+        "ru": "Фруктовые основы для молочных продуктов и детского питания",
+        "zh": "用于乳制品和婴幼儿食品的水果基料",
+        "tr": "Süt ürünleri ve bebek mamaları için meyve bazlı hazırlıklar",
+        "ar": "مستحضرات قواعد الفاكهة لمنتجات الألبان وأغذية الأطفال",
+        "es": "Preparados de base de fruta para lácteos y alimentos infantiles"
+      }
+    ],
+    "productsProduced": [
+      {
+        "en": "Clear Apple Juice Concentrate (BRIX 70)",
+        "ru": "Осветлённый концентрат яблочного сока (BRIX 70)",
+        "zh": "澄清苹果浓缩汁（BRIX 70）",
+        "tr": "Berrak elma suyu konsantresi (BRIX 70)",
+        "ar": "مركّز عصير تفاح صافٍ (BRIX 70)",
+        "es": "Concentrado de jugo de manzana clarificado (BRIX 70)"
+      },
+      {
+        "en": "Pomegranate Concentrate (BRIX 65)",
+        "ru": "Гранатовый концентрат (BRIX 65)",
+        "zh": "石榴浓缩汁（BRIX 65）",
+        "tr": "Nar konsantresi (BRIX 65)",
+        "ar": "مركّز الرمان (BRIX 65)",
+        "es": "Concentrado de granada (BRIX 65)"
+      },
+      {
+        "en": "Grape Must & Juices",
+        "ru": "Виноградное сусло и соки",
+        "zh": "葡萄汁与葡萄原汁",
+        "tr": "Üzüm şırası ve meyve suları",
+        "ar": "عصير العنب غير المخمّر والعصائر",
+        "es": "Mosto de uva y jugos"
+      },
+      {
+        "en": "Aseptic Fruit Purees (BRIX 36+)",
+        "ru": "Асептические фруктовые пюре (BRIX 36+)",
+        "zh": "无菌果浆（BRIX 36+）",
+        "tr": "Aseptik meyve püreleri (BRIX 36+)",
+        "ar": "هريس فاكهة معقّم (BRIX 36+)",
+        "es": "Purés de fruta asépticos (BRIX 36+)"
+      }
+    ],
+    "relatedProjectIds": [
+      "project-aznar-pomegranate"
+    ],
+    "image": {
+      "mediaId": "media-tech-lab-flasks-1790271257443"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "7905459af8e0681b",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "7905459af8e0681b",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "7905459af8e0681b",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "7905459af8e0681b",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "7905459af8e0681b",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  }
+]

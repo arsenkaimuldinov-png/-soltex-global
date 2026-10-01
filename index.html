@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Motion boot: set the motion classes before the first paint of the prerendered HTML, with a
+         safety timer that reveals everything (without animation) if the app script fails to load.
+         Keep in sync with src/motion/prefs.ts. -->
+    <script>(function(){try{var d=document.documentElement,b=window.__soltexMotion={};if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('motion-ready');if(typeof document.startViewTransition==='function')d.classList.add('vt');b.timer=setTimeout(function(){b.fallbackFired=true;d.classList.remove('motion-ready','vt');},4000);}catch(e){}})();</script>
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />

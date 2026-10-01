@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
-import { HERO_DATA } from '../data/soltexData';
 import { useI18n } from '../i18n/I18nProvider';
+import { usePage } from '../content/useContent';
 
 interface HeroProps {
   onOpenProjectModal: () => void;
@@ -9,6 +9,9 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
   const { t } = useI18n();
+  const { c, list, media } = usePage('home');
+  const heroImage = media('heroImage');
+  const heroTags = list<{ label: string }>('heroTags');
   return (
     <section data-motion="manual" className="relative pt-24 sm:pt-28 lg:pt-32 pb-12 sm:pb-16 lg:pb-20 bg-[#FBFBF8] overflow-hidden border-b border-[#16211B]/10 min-h-[580px] lg:min-h-[660px] flex items-center">
       {/* Desktop Panoramic Image Container: Positioned on the right ~54% */}
@@ -16,8 +19,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
         <div className="relative w-full h-full">
           {/* Undistorted High-Resolution Rectangular Industrial Plant Image */}
           <img
-            src={HERO_DATA.heroImage}
-            alt={t("Soltex Global Turnkey Industrial Processing Plant Facility")}
+            src={heroImage.src}
+            alt={c('heroImageAlt')}
             referrerPolicy="no-referrer"
             className="s-seq-settle w-full h-full object-cover object-[right_center]"
           />
@@ -36,29 +39,29 @@ export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
             <div className="flex items-center gap-3 mb-5">
               <span className="s-seq-draw w-8 sm:w-10 h-[2px] bg-[#B89758] shrink-0" style={{ '--seq': '120ms' } as React.CSSProperties} aria-hidden="true" />
               <span className="s-seq-rise font-tech text-xs font-semibold tracking-widest text-[#55695E] uppercase" style={{ '--seq': '220ms' } as React.CSSProperties}>
-                {t(HERO_DATA.eyebrow)}
+                {c('heroEyebrow')}
               </span>
             </div>
 
             {/* Main Headline: Large Bold Uppercase */}
             <h1 className="text-3xl sm:text-5xl lg:text-[46px] xl:text-[52px] font-extrabold tracking-tight leading-[1.06] mb-5">
-              <span className="s-seq-mask block text-[#0E482C]" style={{ '--seq': '330ms' } as React.CSSProperties}>{t("ENGINEERING")}</span>
-              <span className="s-seq-mask block text-[#111814]" style={{ '--seq': '430ms' } as React.CSSProperties}>{t("ADVANCED PLANT")}</span>
-              <span className="s-seq-mask block text-[#111814]" style={{ '--seq': '530ms' } as React.CSSProperties}>{t("PROCESSING FACILITIES")}</span>
+              <span className="s-seq-mask block text-[#0E482C]" style={{ '--seq': '330ms' } as React.CSSProperties}>{c('heroHeadlineLine1')}</span>
+              <span className="s-seq-mask block text-[#111814]" style={{ '--seq': '430ms' } as React.CSSProperties}>{c('heroHeadlineLine2')}</span>
+              <span className="s-seq-mask block text-[#111814]" style={{ '--seq': '530ms' } as React.CSSProperties}>{c('heroHeadlineLine3')}</span>
             </h1>
 
             {/* Description Paragraph */}
             <p className="s-seq-rise text-sm sm:text-base text-[#46574D] leading-relaxed mb-6 max-w-[600px] font-normal" style={{ '--seq': '680ms' } as React.CSSProperties}>
-              {t(HERO_DATA.description)}
+              {c('heroDescription')}
             </p>
 
             {/* Capability Metadata Line with Vertical Pipes */}
             <div className="s-seq-fade flex flex-wrap items-center text-[10.5px] sm:text-[11px] font-tech text-[#5A6D62] tracking-widest uppercase mb-8 select-none" style={{ '--seq': '800ms' } as React.CSSProperties}>
               {/* Each tag stays on one line together with its separator, so a wrapped line never starts with a pipe */}
-              {HERO_DATA.metadataTags.map((tag, i) => (
-                <span key={tag} className="whitespace-nowrap">
+              {heroTags.map((tag, i) => (
+                <span key={i} className="whitespace-nowrap">
                   {i === 0 && <span className="text-[#A4B3A9] me-2.5">|</span>}
-                  <span className="hover:text-[#0E482C] transition-colors">{t(tag)}</span>
+                  <span className="hover:text-[#0E482C] transition-colors">{tag.label}</span>
                   <span className="text-[#A4B3A9] mx-2.5">|</span>
                 </span>
               ))}
@@ -71,7 +74,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
                 style={{ '--seq': '880ms' } as React.CSSProperties}
                 className="s-seq-rise s-btn inline-flex items-center justify-center gap-3 px-7 py-3.5 bg-[#0E482C] text-white text-xs font-bold tracking-wider uppercase hover:bg-[#0A3620] transition-colors shadow-xs group cursor-pointer border border-[#0E482C] rounded-none"
               >
-                <span>{t("START YOUR PROJECT")}</span>
+                <span>{t('common.startYourProject')}</span>
                 <ArrowRight className="w-4 h-4 text-[#D4B982] group-hover:translate-x-1 transition-transform" />
               </button>
 
@@ -80,22 +83,22 @@ export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
                 style={{ '--seq': '960ms' } as React.CSSProperties}
                 className="s-seq-rise inline-flex items-center justify-center px-7 py-3.5 bg-white border border-[#16211B]/20 text-[#111814] text-xs font-bold tracking-wider uppercase hover:bg-[#FAF9F5] hover:border-[#16211B]/40 transition-colors shadow-2xs rounded-none"
               >
-                <span>{t("EXPLORE TECHNOLOGIES")}</span>
+                <span>{c('heroSecondaryCta')}</span>
               </a>
             </div>
 
             {/* USP Note with Subtle Gold Dot */}
             <div className="s-seq-fade flex items-center gap-2.5 text-xs text-[#526458]" style={{ '--seq': '1060ms' } as React.CSSProperties}>
               <span className="w-1.5 h-1.5 rounded-full bg-[#B89758] shrink-0" aria-hidden="true" />
-              <span>{t(HERO_DATA.usp)}</span>
+              <span>{c('heroUsp')}</span>
             </div>
           </div>
 
           {/* Mobile / Tablet Image Representation (Stack cleanly on smaller viewports) */}
           <div className="s-seq-fade lg:hidden w-full aspect-[16/10] overflow-hidden border border-[#16211B]/10 mt-6 shadow-sm" style={{ '--seq': '400ms' } as React.CSSProperties}>
             <img
-              src={HERO_DATA.heroImage}
-              alt={t("Soltex Global Turnkey Industrial Processing Plant Facility")}
+              src={heroImage.src}
+              alt={c('heroImageAlt')}
               referrerPolicy="no-referrer"
               className="s-seq-settle w-full h-full object-cover object-[right_center]"
             />

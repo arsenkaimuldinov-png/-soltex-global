@@ -2,12 +2,17 @@ import React from 'react';
 import { Link } from '../i18n/Link';
 import { ArrowRight, ChevronRight } from 'lucide-react';
 import { useI18n } from '../i18n/I18nProvider';
+import type { PageHeaderContent } from '../content/types';
 
 interface BreadcrumbItem {
   label: string;
   href?: string;
 }
 
+/**
+ * Presentation-only page header. Every text it receives is already in the visitor's language
+ * (page content via usePage(), UI labels via t()).
+ */
 interface PageHeaderProps {
   badgeNumber?: string;
   badgeLabel?: string;
@@ -49,17 +54,17 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10">
         {/* Breadcrumbs */}
         {breadcrumbs && breadcrumbs.length > 0 && (
-          <nav aria-label={t("Breadcrumb")} style={{ '--seq': '60ms' } as React.CSSProperties} className="s-seq-fade flex items-center gap-2 text-[11px] font-mono tracking-wider uppercase text-[#334439]/70 mb-6">
-            <Link to="/" className="hover:text-[#0E482C] transition-colors">{t("HOME")}</Link>
+          <nav aria-label={t('common.breadcrumb')} style={{ '--seq': '60ms' } as React.CSSProperties} className="s-seq-fade flex items-center gap-2 text-[11px] font-mono tracking-wider uppercase text-[#334439]/70 mb-6">
+            <Link to="/" className="hover:text-[#0E482C] transition-colors">{t('nav.home')}</Link>
             {breadcrumbs.map((crumb, idx) => (
               <React.Fragment key={idx}>
                 <ChevronRight className="w-3 h-3 text-[#16211B]/30" />
                 {crumb.href ? (
                   <Link to={crumb.href} className="hover:text-[#0E482C] transition-colors">
-                    {t(crumb.label)}
+                    {crumb.label}
                   </Link>
                 ) : (
-                  <span className="text-[#0E482C] font-semibold">{t(crumb.label)}</span>
+                  <span className="text-[#0E482C] font-semibold">{crumb.label}</span>
                 )}
               </React.Fragment>
             ))}
@@ -69,9 +74,9 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
         {/* Section Index Badge */}
         <div className="flex items-center gap-4 mb-6">
           <div className="s-seq-rise inline-flex items-center gap-3 border border-taupe/70 bg-beige-soft px-3.5 py-1 text-[11px] font-mono tracking-widest text-[#0E482C]" style={{ '--seq': '140ms' } as React.CSSProperties}>
-            <span className="font-bold">{t(badgeNumber)}</span>
+            <span className="font-bold">{badgeNumber}</span>
             <span className="w-1.5 h-1.5 bg-[#BA9B60] rounded-full" />
-            <span className="font-semibold uppercase tracking-wider">{t(badgeLabel)}</span>
+            <span className="font-semibold uppercase tracking-wider">{badgeLabel}</span>
           </div>
           {/* technical hairline drawn from the section index */}
           <span className="s-seq-draw hidden sm:block h-px w-16 lg:w-24 bg-taupe" style={{ '--seq': '300ms' } as React.CSSProperties} aria-hidden="true" />
@@ -80,16 +85,16 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
           <div className="lg:col-span-8">
             <h1 style={{ '--seq': '260ms' } as React.CSSProperties} className="s-seq-mask font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#121815] leading-[1.08] tracking-tight mb-4">
-              {t(title)}
+              {title}
             </h1>
             {subtitle && (
               <p style={{ '--seq': '420ms' } as React.CSSProperties} className="s-seq-rise font-serif italic text-lg sm:text-xl lg:text-2xl text-[#0E482C] mb-5">
-                {t(subtitle)}
+                {subtitle}
               </p>
             )}
             {description && (
               <p style={{ '--seq': '520ms' } as React.CSSProperties} className="s-seq-rise text-base sm:text-lg text-[#334439] leading-relaxed max-w-3xl">
-                {t(description)}
+                {description}
               </p>
             )}
           </div>
@@ -101,7 +106,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
                   to={primaryAction.href}
                   className="inline-flex items-center gap-3 px-6 py-3.5 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-all duration-200 group border border-[#0E482C] s-btn"
                 >
-                  <span>{t(primaryAction.label)}</span>
+                  <span>{primaryAction.label}</span>
                   <ArrowRight className="w-4 h-4 text-[#BA9B60] group-hover:translate-x-1 transition-transform" />
                 </Link>
               ) : (
@@ -109,7 +114,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
                   onClick={primaryAction.onClick}
                   className="inline-flex items-center gap-3 px-6 py-3.5 bg-[#0E482C] text-white font-mono text-xs tracking-widest uppercase hover:bg-[#07130E] transition-all duration-200 group border border-[#0E482C] cursor-pointer s-btn"
                 >
-                  <span>{t(primaryAction.label)}</span>
+                  <span>{primaryAction.label}</span>
                   <ArrowRight className="w-4 h-4 text-[#BA9B60] group-hover:translate-x-1 transition-transform" />
                 </button>
               )
@@ -119,10 +124,10 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
               <div className="w-full grid grid-cols-2 gap-3 pt-4 border-t border-[#16211B]/10 lg:w-auto lg:min-w-[280px]">
                 {metaTags.map((tag, idx) => (
                   <div key={idx} style={{ '--seq': `${720 + idx * 70}ms` } as React.CSSProperties} className="s-seq-rise bg-beige-soft/70 p-2.5 border border-taupe/45">
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-[#334439]/70">{t(tag.label)}</div>
+                    <div className="text-[10px] font-mono uppercase tracking-wider text-[#334439]/70">{tag.label}</div>
                     <div className="text-xs font-bold text-[#121815] font-mono mt-0.5 break-words">
                       {/* e-mail values may wrap after "@" instead of overflowing narrow cells */}
-                      {t(tag.value).split('@').map((part, i) => (
+                      {tag.value.split('@').map((part, i) => (
                         <React.Fragment key={i}>
                           {i > 0 && <>@<wbr /></>}
                           {part}
@@ -139,3 +144,16 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
     </section>
   );
 };
+
+/** Map a page's content header to <PageHeader> props (title, subtitle, description, meta cells). */
+export function pageHeaderProps(header: PageHeaderContent | null) {
+  if (!header) throw new Error('Page has no header content');
+  return {
+    badgeNumber: header.badgeNumber,
+    badgeLabel: header.badgeLabel,
+    title: header.title,
+    subtitle: header.subtitle ?? undefined,
+    description: header.description ?? undefined,
+    metaTags: header.meta,
+  };
+}

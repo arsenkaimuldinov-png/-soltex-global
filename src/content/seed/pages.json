@@ -1,0 +1,4236 @@
+[
+  {
+    "id": "page-home",
+    "status": "published",
+    "order": 1,
+    "key": "home",
+    "kind": "page",
+    "header": null,
+    "copy": {
+      "allProjectsCta": {
+        "en": "ALL PROJECTS",
+        "ru": "ВСЕ ПРОЕКТЫ",
+        "zh": "全部项目",
+        "tr": "TÜM PROJELER",
+        "ar": "جميع المشاريع",
+        "es": "TODOS LOS PROYECTOS"
+      },
+      "allProjectsText": {
+        "en": "Discover more projects and engineering success stories.",
+        "ru": "Узнайте больше о проектах и успешных инженерных решениях.",
+        "zh": "了解更多项目及工程成功案例。",
+        "tr": "Daha fazla projeyi ve mühendislik başarı hikâyelerini keşfedin.",
+        "ar": "اكتشف المزيد من المشاريع وقصص النجاح الهندسية.",
+        "es": "Descubra más proyectos y casos de éxito de ingeniería."
+      },
+      "allProjectsTitle": {
+        "en": "VIEW ALL\nPROJECTS",
+        "ru": "ВСЕ\nПРОЕКТЫ",
+        "zh": "查看全部\n项目",
+        "tr": "TÜM PROJELERİ\nGÖRÜNTÜLE",
+        "ar": "عرض جميع\nالمشاريع",
+        "es": "VER TODOS LOS\nPROYECTOS"
+      },
+      "epcmHeading": {
+        "en": "FROM CONCEPT\nTO COMMERCIAL\nPRODUCTION",
+        "ru": "ОТ КОНЦЕПЦИИ\nДО КОММЕРЧЕСКОГО\nПРОИЗВОДСТВА",
+        "zh": "从概念\n到商业化\n生产",
+        "tr": "KONSEPTTEN\nTİCARİ\nÜRETİME",
+        "ar": "من المفهوم\nإلى الإنتاج\nالتجاري",
+        "es": "DEL CONCEPTO\nA LA PRODUCCIÓN\nCOMERCIAL"
+      },
+      "epcmIntro": {
+        "en": "Full-cycle EPC / EPCM solutions for industrial plants.",
+        "ru": "EPC / EPCM-решения полного цикла для промышленных предприятий.",
+        "zh": "面向工业工厂的全周期 EPC / EPCM 解决方案。",
+        "tr": "Endüstriyel tesisler için tam döngü EPC / EPCM çözümleri.",
+        "ar": "حلول EPC / EPCM متكاملة الدورة للمصانع الصناعية.",
+        "es": "Soluciones EPC / EPCM de ciclo completo para plantas industriales."
+      },
+      "epcmLink": {
+        "en": "OUR EPC / EPCM APPROACH",
+        "ru": "НАШ ПОДХОД К EPC / EPCM",
+        "zh": "我们的 EPC / EPCM 方法",
+        "tr": "EPC / EPCM YAKLAŞIMIMIZ",
+        "ar": "منهجيتنا في EPC / EPCM",
+        "es": "NUESTRO ENFOQUE EPC / EPCM"
+      },
+      "heroHeadlineLine1": {
+        "en": "ENGINEERING",
+        "ru": "ИНЖИНИРИНГ",
+        "zh": "工程",
+        "tr": "MÜHENDİSLİK",
+        "ar": "الهندسة",
+        "es": "INGENIERÍA"
+      },
+      "heroHeadlineLine2": {
+        "en": "ADVANCED PLANT",
+        "ru": "ПЕРЕДОВЫХ ЗАВОДОВ",
+        "zh": "先进植物原料",
+        "tr": "İLERİ BİTKİSEL İŞLEME",
+        "ar": "لمنشآت معالجة",
+        "es": "DE PLANTAS AVANZADAS"
+      },
+      "heroHeadlineLine3": {
+        "en": "PROCESSING FACILITIES",
+        "ru": "АГРОПЕРЕРАБОТКИ",
+        "zh": "加工设施",
+        "tr": "TESİSLERİ",
+        "ar": "المواد النباتية المتقدمة",
+        "es": "DE PROCESAMIENTO VEGETAL"
+      },
+      "heroImageAlt": {
+        "en": "Soltex Global Turnkey Industrial Processing Plant Facility",
+        "ru": "Промышленный перерабатывающий завод «под ключ» Soltex Global",
+        "zh": "Soltex Global 交钥匙工业加工厂设施",
+        "tr": "Soltex Global anahtar teslim endüstriyel işleme tesisi",
+        "ar": "منشأة Soltex Global للمعالجة الصناعية بنظام تسليم المفتاح",
+        "es": "Instalación industrial de procesamiento llave en mano de Soltex Global"
+      },
+      "heroSecondaryCta": {
+        "en": "EXPLORE TECHNOLOGIES",
+        "ru": "ИЗУЧИТЬ ТЕХНОЛОГИИ",
+        "zh": "了解技术",
+        "tr": "TEKNOLOJİLERİ KEŞFEDİN",
+        "ar": "استكشف التقنيات",
+        "es": "DESCUBRA LAS TECNOLOGÍAS"
+      },
+      "ipHeading": {
+        "en": "TECHNOLOGY &\nINTELLECTUAL PROPERTY",
+        "ru": "ТЕХНОЛОГИИ И\nИНТЕЛЛЕКТУАЛЬНАЯ СОБСТВЕННОСТЬ",
+        "zh": "技术与\n知识产权",
+        "tr": "TEKNOLOJİ VE\nFİKRİ MÜLKİYET",
+        "ar": "التكنولوجيا\nوالملكية الفكرية",
+        "es": "TECNOLOGÍA Y\nPROPIEDAD INTELECTUAL"
+      },
+      "ipIntro": {
+        "en": "Our technologies are protected by patents and patent applications in multiple jurisdictions.",
+        "ru": "Наши технологии защищены патентами и заявками на патенты в нескольких юрисдикциях.",
+        "zh": "我们的技术在多个司法管辖区受到专利和专利申请的保护。",
+        "tr": "Teknolojilerimiz birden fazla yargı bölgesinde patentler ve patent başvurularıyla korunmaktadır.",
+        "ar": "تقنياتنا محمية ببراءات اختراع وطلبات براءات في ولايات قضائية متعددة.",
+        "es": "Nuestras tecnologías están protegidas por patentes y solicitudes de patente en múltiples jurisdicciones."
+      },
+      "ipLink": {
+        "en": "EXPLORE OUR IP PORTFOLIO",
+        "ru": "ПОРТФЕЛЬ ИНТЕЛЛЕКТУАЛЬНОЙ СОБСТВЕННОСТИ",
+        "zh": "了解我们的知识产权组合",
+        "tr": "FİKRİ MÜLKİYET PORTFÖYÜMÜZÜ KEŞFEDİN",
+        "ar": "استكشف محفظة الملكية الفكرية",
+        "es": "DESCUBRA NUESTRA CARTERA DE PI"
+      },
+      "technologiesHeading": {
+        "en": "TECHNOLOGIES FOR HIGH-VALUE INGREDIENTS",
+        "ru": "ТЕХНОЛОГИИ ДЛЯ ЦЕННЫХ ИНГРЕДИЕНТОВ",
+        "zh": "高附加值配料技术",
+        "tr": "YÜKSEK KATMA DEĞERLİ BİLEŞENLER İÇİN TEKNOLOJİLER",
+        "ar": "تقنيات للمكونات عالية القيمة",
+        "es": "TECNOLOGÍAS PARA INGREDIENTES DE ALTO VALOR"
+      },
+      "videosHeading": {
+        "en": "VIDEO MATERIALS",
+        "ru": "ВИДЕОМАТЕРИАЛЫ",
+        "zh": "视频资料",
+        "tr": "VİDEO MATERYALLERİ",
+        "ar": "المواد المرئية",
+        "es": "MATERIALES EN VIDEO"
+      },
+      "heroEyebrow": {
+        "en": "INTERNATIONAL EPC / EPCM ENGINEERING GROUP",
+        "ru": "МЕЖДУНАРОДНАЯ ИНЖИНИРИНГОВАЯ ГРУППА EPC / EPCM",
+        "zh": "国际 EPC / EPCM 工程集团",
+        "tr": "ULUSLARARASI EPC / EPCM MÜHENDİSLİK GRUBU",
+        "ar": "مجموعة هندسية دولية للأعمال EPC / EPCM",
+        "es": "GRUPO INTERNACIONAL DE INGENIERÍA EPC / EPCM"
+      },
+      "heroDescription": {
+        "en": "From feasibility studies and technology selection to engineering, equipment supply, construction, commissioning and operational support — Soltex delivers industrial processing plants for high-value ingredients.",
+        "ru": "От технико-экономического обоснования и выбора технологии до проектирования, поставки оборудования, строительства, пусконаладки и эксплуатационной поддержки — Soltex создаёт промышленные перерабатывающие заводы для производства ценных ингредиентов.",
+        "zh": "从可行性研究、技术选型到工程设计、设备供应、施工、调试及运营支持——Soltex 为高附加值配料建设工业化加工厂。",
+        "tr": "Fizibilite etüdü ve teknoloji seçiminden mühendislik, ekipman tedariki, inşaat, devreye alma ve işletme desteğine kadar — Soltex, yüksek katma değerli bileşenler için endüstriyel işleme tesisleri kurar.",
+        "ar": "من دراسات الجدوى واختيار التكنولوجيا إلى الهندسة وتوريد المعدات والإنشاء والتشغيل التجريبي والدعم التشغيلي — تنفّذ Soltex مصانع معالجة صناعية لإنتاج المكونات عالية القيمة.",
+        "es": "Desde estudios de viabilidad y selección de tecnología hasta ingeniería, suministro de equipos, construcción, puesta en marcha y soporte operativo, Soltex desarrolla plantas industriales de procesamiento para ingredientes de alto valor."
+      },
+      "heroUsp": {
+        "en": "Alcohol-free processing technologies with proven commercial operation",
+        "ru": "Безалкогольные технологии переработки, подтверждённые коммерческой эксплуатацией",
+        "zh": "经商业运营验证的无醇加工技术",
+        "tr": "Ticari işletmede kanıtlanmış alkolsüz işleme teknolojileri",
+        "ar": "تقنيات معالجة خالية من الكحول ومثبتة بالتشغيل التجاري",
+        "es": "Tecnologías de procesamiento sin alcohol con operación comercial probada"
+      }
+    },
+    "lists": {
+      "heroTags": [
+        {
+          "label": {
+            "en": "ENGINEERING",
+            "ru": "ИНЖИНИРИНГ",
+            "zh": "工程",
+            "tr": "MÜHENDİSLİK",
+            "ar": "الهندسة",
+            "es": "INGENIERÍA"
+          }
+        },
+        {
+          "label": {
+            "en": "TECHNOLOGY",
+            "ru": "ТЕХНОЛОГИИ",
+            "zh": "技术",
+            "tr": "TEKNOLOJİ",
+            "ar": "التكنولوجيا",
+            "es": "TECNOLOGÍA"
+          }
+        },
+        {
+          "label": {
+            "en": "INNOVATION",
+            "ru": "ИННОВАЦИИ",
+            "zh": "创新",
+            "tr": "İNOVASYON",
+            "ar": "الابتكار",
+            "es": "INNOVACIÓN"
+          }
+        },
+        {
+          "label": {
+            "en": "RELIABILITY",
+            "ru": "НАДЁЖНОСТЬ",
+            "zh": "可靠",
+            "tr": "GÜVENİLİRLİK",
+            "ar": "الموثوقية",
+            "es": "FIABILIDAD"
+          }
+        }
+      ],
+      "keyDirections": [
+        {
+          "id": "pectin",
+          "number": "01",
+          "title": {
+            "en": "PECTIN",
+            "ru": "ПЕКТИН",
+            "zh": "果胶",
+            "tr": "PEKTİN",
+            "ar": "البكتين",
+            "es": "PECTINA"
+          },
+          "subtitle": {
+            "en": "Apple, Citrus, Sugar Beet and other sources",
+            "ru": "Яблоки, цитрусовые, сахарная свёкла и другие источники",
+            "zh": "苹果、柑橘、甜菜及其他来源",
+            "tr": "Elma, narenciye, şeker pancarı ve diğer kaynaklar",
+            "ar": "التفاح والحمضيات وبنجر السكر ومصادر أخرى",
+            "es": "Manzana, cítricos, remolacha azucarera y otras fuentes"
+          },
+          "description": {
+            "en": "Alcohol-free extraction technologies for processing apple pomace, citrus peel and beet pulp into premium pharmaceutical and food-grade pectin.",
+            "ru": "Безалкогольные технологии экстракции для переработки яблочных выжимок, цитрусовой кожуры и свекловичного жома в пектин фармацевтического и пищевого качества премиум-класса.",
+            "zh": "无醇提取技术，将苹果渣、柑橘皮和甜菜粕加工成高品质的医药级和食品级果胶。",
+            "tr": "Elma posası, narenciye kabuğu ve pancar posasını birinci sınıf farmasötik ve gıda kalitesinde pektine dönüştüren alkolsüz ekstraksiyon teknolojileri.",
+            "ar": "تقنيات استخلاص خالية من الكحول لمعالجة تفل التفاح وقشور الحمضيات ولب البنجر وتحويلها إلى بكتين ممتاز من الدرجة الدوائية والغذائية.",
+            "es": "Tecnologías de extracción sin alcohol para transformar orujo de manzana, cáscara de cítricos y pulpa de remolacha en pectina de grado farmacéutico y alimentario de primera calidad."
+          },
+          "image": {
+            "mediaId": "media-tech-pectin-apples-1790271159655"
+          },
+          "href": "/technologies/pectin",
+          "rawMaterials": [
+            {
+              "en": "Apple Pomace",
+              "ru": "Яблочные выжимки",
+              "zh": "苹果渣",
+              "tr": "Elma posası",
+              "ar": "تفل التفاح",
+              "es": "Orujo de manzana"
+            },
+            {
+              "en": "Citrus Peel",
+              "ru": "Цитрусовая кожура",
+              "zh": "柑橘皮",
+              "tr": "Narenciye kabuğu",
+              "ar": "قشور الحمضيات",
+              "es": "Cáscara de cítricos"
+            },
+            {
+              "en": "Sugar Beet Pulp",
+              "ru": "Свекловичный жом",
+              "zh": "甜菜粕",
+              "tr": "Şeker pancarı posası",
+              "ar": "لب بنجر السكر",
+              "es": "Pulpa de remolacha azucarera"
+            }
+          ],
+          "endProducts": [
+            {
+              "en": "High-Methoxyl Pectin",
+              "ru": "Высокоэтерифицированный пектин",
+              "zh": "高甲氧基果胶",
+              "tr": "Yüksek metoksilli pektin",
+              "ar": "بكتين عالي الميثوكسيل",
+              "es": "Pectina de alto metoxilo"
+            },
+            {
+              "en": "Low-Methoxyl Pectin",
+              "ru": "Низкоэтерифицированный пектин",
+              "zh": "低甲氧基果胶",
+              "tr": "Düşük metoksilli pektin",
+              "ar": "بكتين منخفض الميثوكسيل",
+              "es": "Pectina de bajo metoxilo"
+            },
+            {
+              "en": "Amidated Pectin",
+              "ru": "Амидированный пектин",
+              "zh": "酰胺化果胶",
+              "tr": "Amidlenmiş pektin",
+              "ar": "بكتين أميدي",
+              "es": "Pectina amidada"
+            }
+          ],
+          "technologyFeatures": [
+            {
+              "en": "Acid-free / alcohol-free extraction process",
+              "ru": "Бескислотный / безалкогольный процесс экстракции",
+              "zh": "无酸 / 无醇提取工艺",
+              "tr": "Asitsiz / alkolsüz ekstraksiyon prosesi",
+              "ar": "عملية استخلاص خالية من الأحماض / الكحول",
+              "es": "Proceso de extracción sin ácidos / sin alcohol"
+            },
+            {
+              "en": "Low wastewater footprint",
+              "ru": "Минимальный объём сточных вод",
+              "zh": "废水排放量低",
+              "tr": "Düşük atık su ayak izi",
+              "ar": "بصمة منخفضة لمياه الصرف",
+              "es": "Baja huella de aguas residuales"
+            },
+            {
+              "en": "High gelling degree preservation",
+              "ru": "Сохранение высокой желирующей способности",
+              "zh": "高度保持凝胶强度",
+              "tr": "Yüksek jelleşme derecesinin korunması",
+              "ar": "الحفاظ على درجة تهلّم عالية",
+              "es": "Preservación de un alto grado de gelificación"
+            }
+          ]
+        },
+        {
+          "id": "soy-protein",
+          "number": "02",
+          "title": {
+            "en": "SOY PROTEIN",
+            "ru": "СОЕВЫЙ БЕЛОК",
+            "zh": "大豆蛋白",
+            "tr": "SOYA PROTEİNİ",
+            "ar": "بروتين الصويا",
+            "es": "PROTEÍNA DE SOJA"
+          },
+          "subtitle": {
+            "en": "Soy Protein Isolate, Concentrate, Functional Proteins & Fibers",
+            "ru": "Изолят и концентрат соевого белка, функциональные белки и волокна",
+            "zh": "大豆分离蛋白、浓缩蛋白、功能性蛋白及纤维",
+            "tr": "Soya protein izolatı, konsantresi, fonksiyonel proteinler ve lifler",
+            "ar": "بروتين الصويا المعزول والمركّز والبروتينات والألياف الوظيفية",
+            "es": "Aislado y concentrado de proteína de soja, proteínas y fibras funcionales"
+          },
+          "description": {
+            "en": "Complete soy processing lines for the production of highly purified isolates (≥90%), functional concentrates and dietary soy fibers.",
+            "ru": "Комплексные линии переработки сои для производства высокоочищенных изолятов (≥90%), функциональных концентратов и пищевых соевых волокон.",
+            "zh": "完整的大豆加工生产线，用于生产高纯度分离蛋白（≥90%）、功能性浓缩蛋白和大豆膳食纤维。",
+            "tr": "Yüksek saflıkta izolatlar (≥%90), fonksiyonel konsantreler ve diyet soya lifleri üretimi için eksiksiz soya işleme hatları.",
+            "ar": "خطوط متكاملة لمعالجة الصويا لإنتاج بروتينات معزولة عالية النقاوة (≥90%) ومركّزات وظيفية وألياف صويا غذائية.",
+            "es": "Líneas completas de procesamiento de soja para la producción de aislados de alta pureza (≥90%), concentrados funcionales y fibras dietéticas de soja."
+          },
+          "image": {
+            "mediaId": "media-tech-soy-beans-1790271178494"
+          },
+          "href": "/technologies/soy-protein",
+          "rawMaterials": [
+            {
+              "en": "Defatted White Flake",
+              "ru": "Обезжиренный «белый лепесток»",
+              "zh": "脱脂白片",
+              "tr": "Yağı alınmış beyaz yaprak",
+              "ar": "رقائق الصويا البيضاء منزوعة الدهن",
+              "es": "Escamas blancas desgrasadas"
+            },
+            {
+              "en": "Non-GMO Soybeans",
+              "ru": "Соевые бобы без ГМО",
+              "zh": "非转基因大豆",
+              "tr": "GDO'suz soya fasulyesi",
+              "ar": "فول صويا غير معدّل وراثيًا",
+              "es": "Soja no transgénica"
+            },
+            {
+              "en": "Soy Meal",
+              "ru": "Соевый шрот",
+              "zh": "豆粕",
+              "tr": "Soya küspesi",
+              "ar": "كُسب الصويا",
+              "es": "Harina de soja"
+            }
+          ],
+          "endProducts": [
+            {
+              "en": "Soy Protein Isolate (≥90%)",
+              "ru": "Изолят соевого белка (≥90%)",
+              "zh": "大豆分离蛋白（≥90%）",
+              "tr": "Soya protein izolatı (≥%90)",
+              "ar": "بروتين الصويا المعزول (≥90%)",
+              "es": "Aislado de proteína de soja (≥90%)"
+            },
+            {
+              "en": "Functional Soy Concentrates",
+              "ru": "Функциональные соевые концентраты",
+              "zh": "功能性大豆浓缩蛋白",
+              "tr": "Fonksiyonel soya konsantreleri",
+              "ar": "مركّزات صويا وظيفية",
+              "es": "Concentrados funcionales de soja"
+            },
+            {
+              "en": "Dietary Soy Fiber",
+              "ru": "Пищевые соевые волокна",
+              "zh": "大豆膳食纤维",
+              "tr": "Diyet soya lifi",
+              "ar": "ألياف صويا غذائية",
+              "es": "Fibra dietética de soja"
+            }
+          ],
+          "technologyFeatures": [
+            {
+              "en": "Ultrafiltration and isoelectric precipitation",
+              "ru": "Ультрафильтрация и изоэлектрическое осаждение",
+              "zh": "超滤与等电沉淀",
+              "tr": "Ultrafiltrasyon ve izoelektrik çöktürme",
+              "ar": "الترشيح الفائق والترسيب عند نقطة التعادل الكهربائي",
+              "es": "Ultrafiltración y precipitación isoeléctrica"
+            },
+            {
+              "en": "Neutral taste and high dispersibility",
+              "ru": "Нейтральный вкус и высокая диспергируемость",
+              "zh": "口味中性，分散性高",
+              "tr": "Nötr tat ve yüksek dağılabilirlik",
+              "ar": "مذاق محايد وقابلية تشتت عالية",
+              "es": "Sabor neutro y alta dispersabilidad"
+            },
+            {
+              "en": "Energy-efficient spray drying",
+              "ru": "Энергоэффективная распылительная сушка",
+              "zh": "节能喷雾干燥",
+              "tr": "Enerji verimli püskürtmeli kurutma",
+              "ar": "تجفيف بالرذاذ موفّر للطاقة",
+              "es": "Secado por atomización energéticamente eficiente"
+            }
+          ]
+        },
+        {
+          "id": "inulin",
+          "number": "03",
+          "title": {
+            "en": "INULIN",
+            "ru": "ИНУЛИН",
+            "zh": "菊粉",
+            "tr": "İNÜLİN",
+            "ar": "الإينولين",
+            "es": "INULINA"
+          },
+          "subtitle": {
+            "en": "Jerusalem Artichoke & Chicory",
+            "ru": "Топинамбур и цикорий",
+            "zh": "菊芋与菊苣",
+            "tr": "Yer elması ve hindiba",
+            "ar": "الطرطوفة والهندباء",
+            "es": "Tupinambo y achicoria"
+          },
+          "description": {
+            "en": "Deep processing technologies for Jerusalem artichoke tubers and chicory roots to produce inulin, fructooligosaccharides and natural prebiotic syrups.",
+            "ru": "Технологии глубокой переработки клубней топинамбура и корней цикория для производства инулина, фруктоолигосахаридов и натуральных пребиотических сиропов.",
+            "zh": "菊芋块茎和菊苣根的深加工技术，用于生产菊粉、低聚果糖和天然益生元糖浆。",
+            "tr": "İnülin, fruktooligosakkaritler ve doğal prebiyotik şuruplar üretmek için yer elması yumruları ve hindiba köklerine yönelik ileri işleme teknolojileri.",
+            "ar": "تقنيات المعالجة العميقة لدرنات الطرطوفة وجذور الهندباء لإنتاج الإينولين والفركتوأوليغوسكاريدات وشراب البريبايوتيك الطبيعي.",
+            "es": "Tecnologías de procesamiento profundo de tubérculos de tupinambo y raíces de achicoria para producir inulina, fructooligosacáridos y jarabes prebióticos naturales."
+          },
+          "image": {
+            "mediaId": "media-tech-inulin-roots-1790271193455"
+          },
+          "href": "/technologies/inulin",
+          "rawMaterials": [
+            {
+              "en": "Jerusalem Artichoke Tubers",
+              "ru": "Клубни топинамбура",
+              "zh": "菊芋块茎",
+              "tr": "Yer elması yumruları",
+              "ar": "درنات الطرطوفة",
+              "es": "Tubérculos de tupinambo"
+            },
+            {
+              "en": "Chicory Roots",
+              "ru": "Корни цикория",
+              "zh": "菊苣根",
+              "tr": "Hindiba kökleri",
+              "ar": "جذور الهندباء",
+              "es": "Raíces de achicoria"
+            }
+          ],
+          "endProducts": [
+            {
+              "en": "High-Purity Inulin Powder",
+              "ru": "Порошковый инулин высокой чистоты",
+              "zh": "高纯度菊粉粉末",
+              "tr": "Yüksek saflıkta inülin tozu",
+              "ar": "مسحوق إينولين عالي النقاوة",
+              "es": "Inulina en polvo de alta pureza"
+            },
+            {
+              "en": "Fructooligosaccharides (FOS)",
+              "ru": "Фруктоолигосахариды (ФОС)",
+              "zh": "低聚果糖（FOS）",
+              "tr": "Fruktooligosakkaritler (FOS)",
+              "ar": "الفركتوأوليغوسكاريدات (FOS)",
+              "es": "Fructooligosacáridos (FOS)"
+            },
+            {
+              "en": "Inulin Syrups",
+              "ru": "Инулиновые сиропы",
+              "zh": "菊粉糖浆",
+              "tr": "İnülin şurupları",
+              "ar": "شراب الإينولين",
+              "es": "Jarabes de inulina"
+            }
+          ],
+          "technologyFeatures": [
+            {
+              "en": "Multi-stage diffusion extraction",
+              "ru": "Многоступенчатая диффузионная экстракция",
+              "zh": "多级扩散提取",
+              "tr": "Çok kademeli difüzyon ekstraksiyonu",
+              "ar": "استخلاص انتشاري متعدد المراحل",
+              "es": "Extracción por difusión en múltiples etapas"
+            },
+            {
+              "en": "Chromatographic fractionation",
+              "ru": "Хроматографическое фракционирование",
+              "zh": "色谱分离",
+              "tr": "Kromatografik fraksiyonlama",
+              "ar": "تجزئة كروماتوغرافية",
+              "es": "Fraccionamiento cromatográfico"
+            },
+            {
+              "en": "Gentle low-temperature crystallization",
+              "ru": "Щадящая низкотемпературная кристаллизация",
+              "zh": "温和低温结晶",
+              "tr": "Hassas düşük sıcaklıkta kristalizasyon",
+              "ar": "تبلور لطيف عند درجات حرارة منخفضة",
+              "es": "Cristalización suave a baja temperatura"
+            }
+          ]
+        },
+        {
+          "id": "dietary-fibers",
+          "number": "04",
+          "title": {
+            "en": "DIETARY FIBERS",
+            "ru": "ПИЩЕВЫЕ ВОЛОКНА",
+            "zh": "膳食纤维",
+            "tr": "DİYET LİFLERİ",
+            "ar": "الألياف الغذائية",
+            "es": "FIBRAS DIETÉTICAS"
+          },
+          "subtitle": {
+            "en": "Apple, Citrus, Beet, Soy and more",
+            "ru": "Яблоки, цитрусовые, свёкла, соя и другое сырьё",
+            "zh": "苹果、柑橘、甜菜、大豆等",
+            "tr": "Elma, narenciye, pancar, soya ve daha fazlası",
+            "ar": "التفاح والحمضيات والبنجر والصويا وغيرها",
+            "es": "Manzana, cítricos, remolacha, soja y más"
+          },
+          "description": {
+            "en": "Industrial micronization and extraction systems for producing soluble and insoluble dietary fibers from fruit pomace, grain and vegetable by-products.",
+            "ru": "Промышленные системы микронизации и экстракции для производства растворимых и нерастворимых пищевых волокон из фруктовых выжимок, зерновых и овощных побочных продуктов.",
+            "zh": "工业化微粉化与提取系统，利用果渣、谷物及蔬菜副产品生产可溶性和不溶性膳食纤维。",
+            "tr": "Meyve posası, tahıl ve sebze yan ürünlerinden çözünür ve çözünmez diyet lifi üretimi için endüstriyel mikronizasyon ve ekstraksiyon sistemleri.",
+            "ar": "أنظمة صناعية للطحن الدقيق والاستخلاص لإنتاج الألياف الغذائية القابلة وغير القابلة للذوبان من تفل الفاكهة والحبوب والمنتجات الثانوية للخضروات.",
+            "es": "Sistemas industriales de micronización y extracción para producir fibras dietéticas solubles e insolubles a partir de orujo de frutas, cereales y subproductos vegetales."
+          },
+          "image": {
+            "mediaId": "media-tech-citrus-oranges-1790271213504"
+          },
+          "href": "/technologies/dietary-fibers",
+          "rawMaterials": [
+            {
+              "en": "Apple & Citrus Pomace",
+              "ru": "Яблочные и цитрусовые выжимки",
+              "zh": "苹果渣与柑橘渣",
+              "tr": "Elma ve narenciye posası",
+              "ar": "تفل التفاح والحمضيات",
+              "es": "Orujo de manzana y cítricos"
+            },
+            {
+              "en": "Sugar Beet Marc",
+              "ru": "Свекловичный жом",
+              "zh": "甜菜渣",
+              "tr": "Şeker pancarı küspesi",
+              "ar": "ثفل بنجر السكر",
+              "es": "Bagazo de remolacha azucarera"
+            },
+            {
+              "en": "Soy & Pea Fibers",
+              "ru": "Соевые и гороховые волокна",
+              "zh": "大豆与豌豆纤维",
+              "tr": "Soya ve bezelye lifleri",
+              "ar": "ألياف الصويا والبازلاء",
+              "es": "Fibras de soja y guisante"
+            }
+          ],
+          "endProducts": [
+            {
+              "en": "Insoluble Dietary Fiber",
+              "ru": "Нерастворимые пищевые волокна",
+              "zh": "不溶性膳食纤维",
+              "tr": "Çözünmez diyet lifi",
+              "ar": "ألياف غذائية غير قابلة للذوبان",
+              "es": "Fibra dietética insoluble"
+            },
+            {
+              "en": "Soluble Pectin Fibers",
+              "ru": "Растворимые пектиновые волокна",
+              "zh": "可溶性果胶纤维",
+              "tr": "Çözünür pektin lifleri",
+              "ar": "ألياف بكتينية قابلة للذوبان",
+              "es": "Fibras de pectina solubles"
+            },
+            {
+              "en": "Functional Texturizers",
+              "ru": "Функциональные текстураторы",
+              "zh": "功能性质构改良剂",
+              "tr": "Fonksiyonel tekstür düzenleyiciler",
+              "ar": "محسّنات قوام وظيفية",
+              "es": "Texturizantes funcionales"
+            }
+          ],
+          "technologyFeatures": [
+            {
+              "en": "Mechanical shear and gentle dehydration",
+              "ru": "Механическое сдвиговое воздействие и щадящее обезвоживание",
+              "zh": "机械剪切与温和脱水",
+              "tr": "Mekanik kesme ve hassas su giderme",
+              "ar": "قصّ ميكانيكي وتجفيف لطيف",
+              "es": "Cizallamiento mecánico y deshidratación suave"
+            },
+            {
+              "en": "Enhanced water/oil holding capacity",
+              "ru": "Повышенная водо- и маслоудерживающая способность",
+              "zh": "更高的持水 / 持油能力",
+              "tr": "Artırılmış su/yağ tutma kapasitesi",
+              "ar": "قدرة محسّنة على الاحتفاظ بالماء والزيت",
+              "es": "Mayor capacidad de retención de agua/aceite"
+            },
+            {
+              "en": "Zero-chemical processing stream",
+              "ru": "Процесс без применения химических реагентов",
+              "zh": "零化学品加工流程",
+              "tr": "Kimyasalsız işleme akışı",
+              "ar": "مسار معالجة خالٍ من المواد الكيميائية",
+              "es": "Flujo de procesamiento sin productos químicos"
+            }
+          ]
+        },
+        {
+          "id": "integrated-solutions",
+          "number": "05",
+          "title": {
+            "en": "INTEGRATED SOLUTIONS",
+            "ru": "КОМПЛЕКСНЫЕ РЕШЕНИЯ",
+            "zh": "综合解决方案",
+            "tr": "ENTEGRE ÇÖZÜMLER",
+            "ar": "حلول متكاملة",
+            "es": "SOLUCIONES INTEGRADAS"
+          },
+          "subtitle": {
+            "en": "Zero Waste, By-product Valorization & More",
+            "ru": "Безотходное производство, валоризация побочных продуктов и другое",
+            "zh": "零废弃、副产品高值化利用等",
+            "tr": "Sıfır atık, yan ürün değerlendirme ve daha fazlası",
+            "ar": "صفر نفايات وتثمين المنتجات الثانوية والمزيد",
+            "es": "Residuo cero, valorización de subproductos y más"
+          },
+          "description": {
+            "en": "Closed-loop turnkey processing facilities converting agro-industrial waste and secondary streams into commercial high-value end products.",
+            "ru": "Перерабатывающие комплексы «под ключ» с замкнутым циклом, превращающие агропромышленные отходы и вторичные потоки в коммерческую продукцию с высокой добавленной стоимостью.",
+            "zh": "闭环式交钥匙加工设施，将农工业废弃物和副产物流转化为具有商业价值的高附加值终端产品。",
+            "tr": "Tarım-sanayi atıklarını ve ikincil akışları ticari, yüksek katma değerli nihai ürünlere dönüştüren kapalı döngü anahtar teslim işleme tesisleri.",
+            "ar": "منشآت معالجة بنظام تسليم المفتاح ذات دورة مغلقة تحوّل النفايات الزراعية الصناعية والتدفقات الثانوية إلى منتجات نهائية تجارية عالية القيمة.",
+            "es": "Instalaciones de procesamiento llave en mano de circuito cerrado que convierten residuos agroindustriales y flujos secundarios en productos finales comerciales de alto valor."
+          },
+          "image": {
+            "mediaId": "media-tech-integrated-plant-1790271239031"
+          },
+          "href": "/technologies",
+          "rawMaterials": [
+            {
+              "en": "Press Cake",
+              "ru": "Жмых",
+              "zh": "压榨饼",
+              "tr": "Pres keki",
+              "ar": "كعكة العصر",
+              "es": "Torta de prensado"
+            },
+            {
+              "en": "Distillery Grains",
+              "ru": "Спиртовая барда",
+              "zh": "酒糟",
+              "tr": "Damıtma posası",
+              "ar": "مخلفات التقطير",
+              "es": "Granos de destilería"
+            },
+            {
+              "en": "Hulls & Processing Residues",
+              "ru": "Шелуха и остатки переработки",
+              "zh": "外壳及加工残渣",
+              "tr": "Kabuklar ve işleme kalıntıları",
+              "ar": "القشور ومخلفات المعالجة",
+              "es": "Cascarillas y residuos de procesamiento"
+            }
+          ],
+          "endProducts": [
+            {
+              "en": "Technical Pellets",
+              "ru": "Технические гранулы",
+              "zh": "工业颗粒",
+              "tr": "Teknik peletler",
+              "ar": "كريات تقنية",
+              "es": "Pélets técnicos"
+            },
+            {
+              "en": "Natural Extracts",
+              "ru": "Натуральные экстракты",
+              "zh": "天然提取物",
+              "tr": "Doğal ekstraktlar",
+              "ar": "مستخلصات طبيعية",
+              "es": "Extractos naturales"
+            },
+            {
+              "en": "Bio-Fertilizers & Animal Feed",
+              "ru": "Биоудобрения и корма для животных",
+              "zh": "生物肥料与动物饲料",
+              "tr": "Biyogübreler ve hayvan yemi",
+              "ar": "أسمدة حيوية وأعلاف حيوانية",
+              "es": "Biofertilizantes y alimento para animales"
+            }
+          ],
+          "technologyFeatures": [
+            {
+              "en": "Closed-loop liquid recycling",
+              "ru": "Замкнутый цикл рециркуляции жидкостей",
+              "zh": "闭环液体循环",
+              "tr": "Kapalı döngü sıvı geri dönüşümü",
+              "ar": "إعادة تدوير السوائل بدورة مغلقة",
+              "es": "Reciclaje de líquidos en circuito cerrado"
+            },
+            {
+              "en": "Zero solid waste discharge architecture",
+              "ru": "Архитектура без сброса твёрдых отходов",
+              "zh": "零固体废物排放架构",
+              "tr": "Sıfır katı atık deşarjı mimarisi",
+              "ar": "بنية خالية من تصريف النفايات الصلبة",
+              "es": "Arquitectura sin descarga de residuos sólidos"
+            },
+            {
+              "en": "Integrated heat recovery network",
+              "ru": "Интегрированная система рекуперации тепла",
+              "zh": "一体化热回收网络",
+              "tr": "Entegre ısı geri kazanım ağı",
+              "ar": "شبكة متكاملة لاستعادة الحرارة",
+              "es": "Red integrada de recuperación de calor"
+            }
+          ]
+        },
+        {
+          "id": "functional-ingredients",
+          "number": "06",
+          "title": {
+            "en": "FUNCTIONAL INGREDIENTS",
+            "ru": "ФУНКЦИОНАЛЬНЫЕ ИНГРЕДИЕНТЫ",
+            "zh": "功能性配料",
+            "tr": "FONKSİYONEL BİLEŞENLER",
+            "ar": "المكونات الوظيفية",
+            "es": "INGREDIENTES FUNCIONALES"
+          },
+          "subtitle": {
+            "en": "Custom Development & Blends",
+            "ru": "Индивидуальная разработка и смеси",
+            "zh": "定制开发与复配",
+            "tr": "Özel geliştirme ve karışımlar",
+            "ar": "تطوير مخصّص وخلطات",
+            "es": "Desarrollo a medida y mezclas"
+          },
+          "description": {
+            "en": "Custom-tailored extraction and formulation lines for specialized botanicals, active phytocompounds, customized food blends and nutraceutical ingredients.",
+            "ru": "Индивидуально спроектированные линии экстракции и рецептурирования для специальных растительных компонентов, активных фитосоединений, пищевых смесей по заказу и нутрицевтических ингредиентов.",
+            "zh": "为特色植物原料、活性植物化合物、定制食品复配料和营养保健配料量身打造的提取与配方生产线。",
+            "tr": "Özel bitkisel hammaddeler, aktif fitobileşikler, özelleştirilmiş gıda karışımları ve nutrasötik bileşenler için müşteriye özel tasarlanmış ekstraksiyon ve formülasyon hatları.",
+            "ar": "خطوط استخلاص وتركيب مصمّمة حسب الطلب للمواد النباتية المتخصصة والمركبات النباتية النشطة وخلطات الأغذية المخصّصة ومكونات المغذيات الصحية.",
+            "es": "Líneas de extracción y formulación diseñadas a medida para botánicos especializados, fitocompuestos activos, mezclas alimentarias personalizadas e ingredientes nutracéuticos."
+          },
+          "image": {
+            "mediaId": "media-tech-lab-flasks-1790271257443"
+          },
+          "href": "/technologies",
+          "rawMaterials": [
+            {
+              "en": "Botanical Herbs",
+              "ru": "Лекарственные травы",
+              "zh": "植物草本",
+              "tr": "Tıbbi bitkiler",
+              "ar": "أعشاب نباتية",
+              "es": "Hierbas botánicas"
+            },
+            {
+              "en": "Fruit Extracts",
+              "ru": "Фруктовые экстракты",
+              "zh": "水果提取物",
+              "tr": "Meyve ekstraktları",
+              "ar": "مستخلصات الفاكهة",
+              "es": "Extractos de frutas"
+            },
+            {
+              "en": "Specialty Plant Extracts",
+              "ru": "Специальные растительные экстракты",
+              "zh": "特色植物提取物",
+              "tr": "Özel bitki ekstraktları",
+              "ar": "مستخلصات نباتية متخصصة",
+              "es": "Extractos vegetales especiales"
+            }
+          ],
+          "endProducts": [
+            {
+              "en": "Standardized Bioactive Extracts",
+              "ru": "Стандартизированные биоактивные экстракты",
+              "zh": "标准化生物活性提取物",
+              "tr": "Standardize biyoaktif ekstraktlar",
+              "ar": "مستخلصات نشطة بيولوجيًا معيارية",
+              "es": "Extractos bioactivos estandarizados"
+            },
+            {
+              "en": "Targeted Hydrocolloid Systems",
+              "ru": "Целевые гидроколлоидные системы",
+              "zh": "定向水胶体体系",
+              "tr": "Hedefe yönelik hidrokolloid sistemler",
+              "ar": "أنظمة غروانية مائية موجّهة",
+              "es": "Sistemas hidrocoloides específicos"
+            },
+            {
+              "en": "Custom Ingredient Blends",
+              "ru": "Смеси ингредиентов по заказу",
+              "zh": "定制配料复配",
+              "tr": "Özel bileşen karışımları",
+              "ar": "خلطات مكونات مخصّصة",
+              "es": "Mezclas de ingredientes a medida"
+            }
+          ],
+          "technologyFeatures": [
+            {
+              "en": "Gentle vacuum and supercritical extraction",
+              "ru": "Щадящая вакуумная и сверхкритическая экстракция",
+              "zh": "温和真空提取与超临界提取",
+              "tr": "Hassas vakum ve süperkritik ekstraksiyon",
+              "ar": "استخلاص لطيف بالتفريغ واستخلاص فوق حرج",
+              "es": "Extracción suave al vacío y supercrítica"
+            },
+            {
+              "en": "Microencapsulation and agglomeration",
+              "ru": "Микрокапсулирование и агломерация",
+              "zh": "微胶囊化与造粒",
+              "tr": "Mikroenkapsülasyon ve aglomerasyon",
+              "ar": "التغليف الدقيق والتكتيل",
+              "es": "Microencapsulación y aglomeración"
+            },
+            {
+              "en": "Modular pilot-to-industrial scale lines",
+              "ru": "Модульные линии от пилотного до промышленного масштаба",
+              "zh": "从中试到工业规模的模块化生产线",
+              "tr": "Pilot ölçekten endüstriyel ölçeğe modüler hatlar",
+              "ar": "خطوط معيارية من المستوى التجريبي إلى الصناعي",
+              "es": "Líneas modulares de escala piloto a escala industrial"
+            }
+          ]
+        }
+      ]
+    },
+    "media": {
+      "heroImage": {
+        "mediaId": "media-hero-soltex-panoramic-plant-1790270267701"
+      }
+    },
+    "body": null,
+    "seo": {
+      "metaTitle": {
+        "en": "Soltex Global — Turnkey Engineering for Advanced Plant Processing",
+        "ru": "Soltex Global — инжиниринг «под ключ» для передовой переработки растительного сырья",
+        "zh": "Soltex Global — 先进植物原料加工的交钥匙工程",
+        "tr": "Soltex Global — İleri bitkisel işleme için anahtar teslim mühendislik",
+        "ar": "Soltex Global — هندسة بنظام تسليم المفتاح لمعالجة المواد النباتية المتقدمة",
+        "es": "Soltex Global — Ingeniería llave en mano para el procesamiento vegetal avanzado"
+      },
+      "metaDescription": {
+        "en": "International EPC / EPCM engineering group delivering industrial processing plants for high-value ingredients, pectin, dietary fibers, and functional plant proteins.",
+        "ru": "Международная инжиниринговая группа EPC / EPCM, создающая промышленные перерабатывающие заводы для производства ценных ингредиентов, пектина, пищевых волокон и функциональных растительных белков.",
+        "zh": "国际 EPC / EPCM 工程集团，为高附加值配料、果胶、膳食纤维及功能性植物蛋白建设工业化加工厂。",
+        "tr": "Yüksek katma değerli bileşenler, pektin, diyet lifleri ve fonksiyonel bitkisel proteinler için endüstriyel işleme tesisleri kuran uluslararası EPC / EPCM mühendislik grubu.",
+        "ar": "مجموعة هندسية دولية للأعمال EPC / EPCM تنفّذ مصانع معالجة صناعية للمكونات عالية القيمة والبكتين والألياف الغذائية والبروتينات النباتية الوظيفية.",
+        "es": "Grupo internacional de ingeniería EPC / EPCM que desarrolla plantas industriales de procesamiento para ingredientes de alto valor, pectina, fibras dietéticas y proteínas vegetales funcionales."
+      },
+      "ogImage": null,
+      "noindex": false
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "eb1453b55ae7b563",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "eb1453b55ae7b563",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "eb1453b55ae7b563",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "eb1453b55ae7b563",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "eb1453b55ae7b563",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "page-company",
+    "status": "published",
+    "order": 2,
+    "key": "company",
+    "kind": "page",
+    "header": {
+      "badgeNumber": "01",
+      "badgeLabel": {
+        "en": "CORPORATE PROFILE",
+        "ru": "ПРОФИЛЬ КОМПАНИИ",
+        "zh": "企业简介",
+        "tr": "KURUMSAL PROFİL",
+        "ar": "الملف التعريفي للشركة",
+        "es": "PERFIL CORPORATIVO"
+      },
+      "title": {
+        "en": "Engineering Technological Sovereignty in Agro-Processing",
+        "ru": "Технологический суверенитет в агропереработке",
+        "zh": "农产品加工领域的技术自主工程",
+        "tr": "Tarımsal işlemede teknolojik bağımsızlık mühendisliği",
+        "ar": "هندسة السيادة التكنولوجية في المعالجة الزراعية",
+        "es": "Ingeniería de soberanía tecnológica en el procesamiento agrícola"
+      },
+      "subtitle": {
+        "en": "30+ Years of Patented Innovations & Industrial Turnkey Delivery",
+        "ru": "Более 30 лет запатентованных инноваций и промышленной реализации «под ключ»",
+        "zh": "30 余年专利创新与工业交钥匙交付",
+        "tr": "30 yılı aşkın patentli inovasyon ve endüstriyel anahtar teslim uygulama",
+        "ar": "أكثر من 30 عامًا من الابتكارات الحاصلة على براءات اختراع والتنفيذ الصناعي بنظام تسليم المفتاح",
+        "es": "Más de 30 años de innovaciones patentadas y ejecución industrial llave en mano"
+      },
+      "description": {
+        "en": "Soltex Global is an international engineering and EPC enterprise specializing in deep agro-industrial processing. We develop proprietary patented extraction processes and deliver turnkey manufacturing plants that transform plant raw materials into high-margin functional proteins, pectins, and bioactive ingredients.",
+        "ru": "Soltex Global — международная инжиниринговая и EPC-компания, специализирующаяся на глубокой агропромышленной переработке. Мы разрабатываем собственные запатентованные процессы экстракции и строим производственные заводы «под ключ», превращающие растительное сырьё в высокомаржинальные функциональные белки, пектины и биоактивные ингредиенты.",
+        "zh": "Soltex Global 是一家专注于农工业深加工的国际工程与 EPC 企业。我们开发自有专利提取工艺，并交付交钥匙生产工厂，将植物原料转化为高利润的功能性蛋白、果胶和生物活性配料。",
+        "tr": "Soltex Global, ileri tarım-sanayi işlemede uzmanlaşmış uluslararası bir mühendislik ve EPC kuruluşudur. Tescilli patentli ekstraksiyon prosesleri geliştiriyor ve bitkisel hammaddeleri yüksek marjlı fonksiyonel proteinlere, pektinlere ve biyoaktif bileşenlere dönüştüren anahtar teslim üretim tesisleri kuruyoruz.",
+        "ar": "Soltex Global مؤسسة دولية للهندسة وأعمال EPC متخصصة في المعالجة الزراعية الصناعية العميقة. نطوّر عمليات استخلاص خاصة حاصلة على براءات اختراع، وننفّذ مصانع إنتاج بنظام تسليم المفتاح تحوّل المواد الخام النباتية إلى بروتينات وظيفية وبكتينات ومكونات نشطة بيولوجيًا عالية الهامش.",
+        "es": "Soltex Global es una empresa internacional de ingeniería y EPC especializada en el procesamiento agroindustrial profundo. Desarrollamos procesos de extracción patentados propios y entregamos plantas de fabricación llave en mano que transforman materias primas vegetales en proteínas funcionales, pectinas e ingredientes bioactivos de alto margen."
+      },
+      "meta": [
+        {
+          "label": {
+            "en": "Founded Heritage",
+            "ru": "История компании",
+            "zh": "发展历程",
+            "tr": "Kuruluş mirası",
+            "ar": "إرث التأسيس",
+            "es": "Trayectoria"
+          },
+          "value": {
+            "en": "30+ Years",
+            "ru": "30+ лет",
+            "zh": "30+ 年",
+            "tr": "30+ yıl",
+            "ar": "أكثر من 30 عامًا",
+            "es": "Más de 30 años"
+          }
+        },
+        {
+          "label": {
+            "en": "Core Specialization",
+            "ru": "Основная специализация",
+            "zh": "核心专长",
+            "tr": "Temel uzmanlık",
+            "ar": "التخصص الأساسي",
+            "es": "Especialización principal"
+          },
+          "value": {
+            "en": "Deep Plant Processing",
+            "ru": "Глубокая переработка растительного сырья",
+            "zh": "植物原料深加工",
+            "tr": "Bitkisel hammaddelerin ileri işlenmesi",
+            "ar": "المعالجة العميقة للمواد النباتية",
+            "es": "Procesamiento profundo de materias primas vegetales"
+          }
+        },
+        {
+          "label": {
+            "en": "Global Registry",
+            "ru": "Место регистрации",
+            "zh": "注册地",
+            "tr": "Tescil yeri",
+            "ar": "مكان التسجيل",
+            "es": "Registro"
+          },
+          "value": {
+            "en": "Sharjah, UAE",
+            "ru": "Шарджа, ОАЭ",
+            "zh": "阿联酋沙迦",
+            "tr": "Şarika, BAE",
+            "ar": "الشارقة، الإمارات العربية المتحدة",
+            "es": "Sharjah, EAU"
+          }
+        },
+        {
+          "label": {
+            "en": "Execution Scope",
+            "ru": "Объём реализации",
+            "zh": "执行范围",
+            "tr": "Uygulama kapsamı",
+            "ar": "نطاق التنفيذ",
+            "es": "Alcance de ejecución"
+          },
+          "value": {
+            "en": "Full-Cycle EPCM",
+            "ru": "EPCM полного цикла",
+            "zh": "全周期 EPCM",
+            "tr": "Tam döngü EPCM",
+            "ar": "EPCM متكامل الدورة",
+            "es": "EPCM de ciclo completo"
+          }
+        }
+      ],
+      "actionLabel": {
+        "en": "Request Consultation",
+        "ru": "Запросить консультацию",
+        "zh": "预约咨询",
+        "tr": "Danışmanlık talep edin",
+        "ar": "اطلب استشارة",
+        "es": "Solicitar consulta"
+      }
+    },
+    "copy": {
+      "capabilitiesEyebrow": {
+        "en": "02 · CORE CAPABILITIES",
+        "ru": "02 · КЛЮЧЕВЫЕ КОМПЕТЕНЦИИ",
+        "zh": "02 · 核心能力",
+        "tr": "02 · TEMEL YETKİNLİKLER",
+        "ar": "02 · القدرات الأساسية",
+        "es": "02 · CAPACIDADES CLAVE"
+      },
+      "capabilitiesHeading": {
+        "en": "Full-Cycle Technological Sovereignty",
+        "ru": "Технологический суверенитет полного цикла",
+        "zh": "全周期技术自主",
+        "tr": "Tam döngü teknolojik bağımsızlık",
+        "ar": "السيادة التكنولوجية متكاملة الدورة",
+        "es": "Soberanía tecnológica de ciclo completo"
+      },
+      "capabilitiesIntro": {
+        "en": "We assume total responsibility across the biological, chemical, civil, and mechanical dimensions of plant construction. Our clients receive a fully functioning business with certified operators, local raw material supply chains, and contractual yield guarantees.",
+        "ru": "Мы принимаем на себя полную ответственность за биологическую, химическую, строительную и механическую составляющие строительства завода. Наши клиенты получают полностью работающий бизнес с аттестованными операторами, локальными цепочками поставок сырья и контрактными гарантиями выхода.",
+        "zh": "我们对工厂建设的生物、化学、土建和机械各方面承担全部责任。客户获得的是一个完整运营的业务：拥有经认证的操作人员、本地原料供应链以及合同约定的收率保证。",
+        "tr": "Tesis inşasının biyolojik, kimyasal, inşaat ve mekanik boyutlarının tamamında tüm sorumluluğu üstleniyoruz. Müşterilerimiz; sertifikalı operatörler, yerel hammadde tedarik zincirleri ve sözleşmeye bağlı verim garantileriyle tam işleyen bir işletme teslim alır.",
+        "ar": "نتحمّل المسؤولية الكاملة عبر الأبعاد البيولوجية والكيميائية والمدنية والميكانيكية لإنشاء المصنع. ويحصل عملاؤنا على نشاط تجاري يعمل بكامل طاقته مع مشغّلين معتمدين وسلاسل توريد محلية للمواد الخام وضمانات تعاقدية للمردود.",
+        "es": "Asumimos la responsabilidad total en las dimensiones biológica, química, civil y mecánica de la construcción de la planta. Nuestros clientes reciben un negocio en pleno funcionamiento con operadores certificados, cadenas locales de suministro de materias primas y garantías contractuales de rendimiento."
+      },
+      "ctaBadge": {
+        "en": "CORPORATE COLLABORATION",
+        "ru": "КОРПОРАТИВНОЕ СОТРУДНИЧЕСТВО",
+        "zh": "企业合作",
+        "tr": "KURUMSAL İŞ BİRLİĞİ",
+        "ar": "التعاون المؤسسي",
+        "es": "COLABORACIÓN CORPORATIVA"
+      },
+      "ctaDescription": {
+        "en": "Schedule a technical consultation with Soltex Global chemical engineering directors to review project parameters and intellectual property licensing.",
+        "ru": "Запланируйте техническую консультацию с директорами по химической технологии Soltex Global, чтобы обсудить параметры проекта и лицензирование интеллектуальной собственности.",
+        "zh": "预约与 Soltex Global 化学工程总监进行技术咨询，审议项目参数及知识产权许可。",
+        "tr": "Proje parametrelerini ve fikri mülkiyet lisanslamasını incelemek için Soltex Global kimya mühendisliği direktörleriyle teknik danışmanlık planlayın.",
+        "ar": "حدّد موعدًا لاستشارة فنية مع مديري الهندسة الكيميائية في Soltex Global لمراجعة معايير المشروع وترخيص الملكية الفكرية.",
+        "es": "Programe una consulta técnica con los directores de ingeniería química de Soltex Global para revisar los parámetros del proyecto y el licenciamiento de propiedad intelectual."
+      },
+      "ctaTitle": {
+        "en": "Discuss Plant Development with Soltex Leadership",
+        "ru": "Обсудите развитие завода с руководством Soltex",
+        "zh": "与 Soltex 管理层洽谈工厂建设",
+        "tr": "Tesis geliştirmeyi Soltex yönetimiyle görüşün",
+        "ar": "ناقش تطوير المصنع مع قيادة Soltex",
+        "es": "Hable sobre el desarrollo de su planta con la dirección de Soltex"
+      },
+      "epcmEyebrow": {
+        "en": "FULL-CYCLE EPCM SUPERVISION",
+        "ru": "EPCM-НАДЗОР ПОЛНОГО ЦИКЛА",
+        "zh": "全周期 EPCM 监理",
+        "tr": "TAM DÖNGÜ EPCM DENETİMİ",
+        "ar": "إشراف EPCM متكامل الدورة",
+        "es": "SUPERVISIÓN EPCM DE CICLO COMPLETO"
+      },
+      "epcmImageAlt": {
+        "en": "Soltex Global Turnkey EPCM Construction Site",
+        "ru": "Строительная площадка EPCM-проекта «под ключ» Soltex Global",
+        "zh": "Soltex Global 交钥匙 EPCM 施工现场",
+        "tr": "Soltex Global anahtar teslim EPCM inşaat sahası",
+        "ar": "موقع إنشاء مشروع EPCM بنظام تسليم المفتاح لـ Soltex Global",
+        "es": "Obra EPCM llave en mano de Soltex Global"
+      },
+      "epcmLink": {
+        "en": "Explore EPCM Process Stages",
+        "ru": "Этапы процесса EPCM",
+        "zh": "了解 EPCM 流程阶段",
+        "tr": "EPCM proses aşamalarını keşfedin",
+        "ar": "استكشف مراحل عملية EPCM",
+        "es": "Descubra las etapas del proceso EPCM"
+      },
+      "epcmTitle": {
+        "en": "From Foundation Rigging to Commercial Hot Trials",
+        "ru": "От закладки фундамента до горячих коммерческих испытаний",
+        "zh": "从基础吊装到商业化热试",
+        "tr": "Temel işlerinden ticari sıcak denemelere",
+        "ar": "من رفع الأساسات إلى التشغيل التجاري الساخن",
+        "es": "De la cimentación a las pruebas comerciales en caliente"
+      },
+      "hygienicCompliance": {
+        "en": "COMPLIANCE: ISO 22000 · HACCP · GMP · HALAL",
+        "ru": "СООТВЕТСТВИЕ: ISO 22000 · HACCP · GMP · HALAL",
+        "zh": "合规：ISO 22000 · HACCP · GMP · HALAL",
+        "tr": "UYUMLULUK: ISO 22000 · HACCP · GMP · HALAL",
+        "ar": "الامتثال: ISO 22000 · HACCP · GMP · HALAL",
+        "es": "CUMPLIMIENTO: ISO 22000 · HACCP · GMP · HALAL"
+      },
+      "hygienicEyebrow": {
+        "en": "STAINLESS HYGIENIC ENGINEERING",
+        "ru": "ГИГИЕНИЧЕСКИЙ ИНЖИНИРИНГ ИЗ НЕРЖАВЕЮЩЕЙ СТАЛИ",
+        "zh": "不锈钢卫生级工程",
+        "tr": "PASLANMAZ HİJYENİK MÜHENDİSLİK",
+        "ar": "هندسة صحية من الفولاذ المقاوم للصدأ",
+        "es": "INGENIERÍA HIGIÉNICA EN ACERO INOXIDABLE"
+      },
+      "hygienicImageAlt": {
+        "en": "Process Piping and Automated Control Network",
+        "ru": "Технологические трубопроводы и автоматизированная сеть управления",
+        "zh": "工艺管道与自动化控制网络",
+        "tr": "Proses boru tesisatı ve otomatik kontrol ağı",
+        "ar": "أنابيب العمليات وشبكة التحكم الآلي",
+        "es": "Tuberías de proceso y red de control automatizada"
+      },
+      "hygienicText": {
+        "en": "All process contact surfaces are constructed from food-grade AISI 316L stainless steel, integrated with automated Clean-in-Place (CIP) loops and precision PLC/SCADA controls ensuring consistent pharmaceutical purity.",
+        "ru": "Все поверхности, контактирующие с продуктом, изготовлены из пищевой нержавеющей стали AISI 316L и интегрированы с автоматизированными контурами безразборной мойки (CIP) и прецизионными системами управления PLC/SCADA, обеспечивая стабильную фармацевтическую чистоту.",
+        "zh": "所有工艺接触面均采用食品级 AISI 316L 不锈钢制造，并集成自动化原位清洗（CIP）回路和精密 PLC/SCADA 控制，确保稳定的医药级纯度。",
+        "tr": "Ürünle temas eden tüm proses yüzeyleri gıda sınıfı AISI 316L paslanmaz çelikten imal edilir; tutarlı farmasötik saflık sağlayan otomatik yerinde temizleme (CIP) döngüleri ve hassas PLC/SCADA kontrolleriyle entegredir.",
+        "ar": "تُصنع جميع الأسطح الملامسة للمنتج من الفولاذ المقاوم للصدأ الغذائي AISI 316L، وهي مدمجة مع حلقات التنظيف في الموقع (CIP) المؤتمتة وأنظمة تحكم PLC/SCADA دقيقة تضمن نقاوة دوائية ثابتة.",
+        "es": "Todas las superficies de contacto con el producto se fabrican en acero inoxidable AISI 316L de grado alimentario, integradas con lazos automatizados de limpieza in situ (CIP) y controles PLC/SCADA de precisión que garantizan una pureza farmacéutica constante."
+      },
+      "hygienicTitle": {
+        "en": "Automated Cleanroom Standards & Continuous Flow",
+        "ru": "Стандарты автоматизированных чистых помещений и непрерывный поток",
+        "zh": "自动化洁净室标准与连续流程",
+        "tr": "Otomatik temiz oda standartları ve sürekli akış",
+        "ar": "معايير الغرف النظيفة المؤتمتة والتدفق المستمر",
+        "es": "Estándares automatizados de sala limpia y flujo continuo"
+      },
+      "mandateEyebrow": {
+        "en": "01 · THE SOLTEX GLOBAL MANDATE",
+        "ru": "01 · МИССИЯ SOLTEX GLOBAL",
+        "zh": "01 · SOLTEX GLOBAL 使命",
+        "tr": "01 · SOLTEX GLOBAL MİSYONU",
+        "ar": "01 · رسالة SOLTEX GLOBAL",
+        "es": "01 · LA MISIÓN DE SOLTEX GLOBAL"
+      },
+      "mandateHeading": {
+        "en": "From Laboratory Biochemical Science to Multi-Thousand Ton Commercial Plants",
+        "ru": "От лабораторной биохимии к промышленным заводам мощностью в тысячи тонн",
+        "zh": "从实验室生物化学科学到数千吨级商业化工厂",
+        "tr": "Laboratuvardaki biyokimya biliminden binlerce tonluk ticari tesislere",
+        "ar": "من علوم الكيمياء الحيوية المخبرية إلى مصانع تجارية بآلاف الأطنان",
+        "es": "De la bioquímica de laboratorio a plantas comerciales de miles de toneladas"
+      },
+      "mandateParagraph1": {
+        "en": "Soltex Global operates at the intersection of applied biochemical science and large-scale mechanical engineering. While conventional engineering firms rely on generic third-party licenses, Soltex develops and holds proprietary international patents for deep biomass valorization.",
+        "ru": "Soltex Global работает на стыке прикладной биохимической науки и крупномасштабного машиностроения. В то время как традиционные инжиниринговые компании опираются на типовые сторонние лицензии, Soltex разрабатывает собственные международные патенты на глубокую валоризацию биомассы и владеет ими.",
+        "zh": "Soltex Global 立足于应用生物化学科学与大型机械工程的交汇点。传统工程公司依赖通用的第三方许可，而 Soltex 开发并持有生物质深度高值化利用领域的自有国际专利。",
+        "tr": "Soltex Global, uygulamalı biyokimya bilimi ile büyük ölçekli makine mühendisliğinin kesişiminde faaliyet gösterir. Geleneksel mühendislik firmaları genel üçüncü taraf lisanslarına dayanırken, Soltex biyokütlenin ileri değerlendirilmesine yönelik tescilli uluslararası patentler geliştirir ve bunlara sahiptir.",
+        "ar": "تعمل Soltex Global عند تقاطع علوم الكيمياء الحيوية التطبيقية والهندسة الميكانيكية واسعة النطاق. وفي حين تعتمد شركات الهندسة التقليدية على تراخيص عامة من أطراف ثالثة، تطوّر Soltex وتمتلك براءات اختراع دولية خاصة في مجال التثمين العميق للكتلة الحيوية.",
+        "es": "Soltex Global opera en la intersección entre la ciencia bioquímica aplicada y la ingeniería mecánica a gran escala. Mientras que las empresas de ingeniería convencionales dependen de licencias genéricas de terceros, Soltex desarrolla y posee patentes internacionales propias para la valorización profunda de biomasa."
+      },
+      "mandateParagraph2": {
+        "en": "Our primary focus centers on high-demand, mission-critical food and pharmaceutical ingredients: high-purity soy protein isolates, high-ester and low-ester pectins from fruit pomace, crystalline inulin, and specialized botanical phyto-extracts.",
+        "ru": "В центре нашего внимания — востребованные, критически важные пищевые и фармацевтические ингредиенты: высокочистые изоляты соевого белка, высоко- и низкоэтерифицированные пектины из фруктовых выжимок, кристаллический инулин и специальные растительные фитоэкстракты.",
+        "zh": "我们主要聚焦于需求旺盛、至关重要的食品和医药配料：高纯度大豆分离蛋白、以果渣为原料的高酯和低酯果胶、结晶菊粉以及特色植物提取物。",
+        "tr": "Başlıca odağımız, yüksek talep gören ve kritik öneme sahip gıda ve ilaç bileşenleridir: yüksek saflıkta soya protein izolatları, meyve posasından yüksek ve düşük esterli pektinler, kristal inülin ve özel bitkisel fito-ekstraktlar.",
+        "ar": "يتركز اهتمامنا الأساسي على مكونات غذائية ودوائية عالية الطلب وبالغة الأهمية: معزولات بروتين الصويا عالية النقاوة، والبكتينات عالية ومنخفضة الإستر من تفل الفاكهة، والإينولين البلوري، والمستخلصات النباتية المتخصصة.",
+        "es": "Nuestro enfoque principal se centra en ingredientes alimentarios y farmacéuticos críticos y de alta demanda: aislados de proteína de soja de alta pureza, pectinas de alto y bajo éster a partir de orujo de frutas, inulina cristalina y fitoextractos botánicos especializados."
+      },
+      "mandateProjectsLink": {
+        "en": "View Industrial Projects",
+        "ru": "Промышленные проекты",
+        "zh": "查看工业项目",
+        "tr": "Endüstriyel projeleri görüntüleyin",
+        "ar": "عرض المشاريع الصناعية",
+        "es": "Ver proyectos industriales"
+      },
+      "mandateTechnologiesLink": {
+        "en": "Explore Proprietary Technologies",
+        "ru": "Собственные технологии",
+        "zh": "了解自有技术",
+        "tr": "Tescilli teknolojileri keşfedin",
+        "ar": "استكشف التقنيات الخاصة",
+        "es": "Descubra las tecnologías propias"
+      },
+      "provenanceEyebrow": {
+        "en": "COMMERCIAL PROVENANCE · ASHDOD, ISRAEL",
+        "ru": "КОММЕРЧЕСКОЕ ПОДТВЕРЖДЕНИЕ · АШДОД, ИЗРАИЛЬ",
+        "zh": "商业化实证 · 以色列阿什杜德",
+        "tr": "TİCARİ REFERANS · AŞDOD, İSRAİL",
+        "ar": "إثبات تجاري · أسدود، إسرائيل",
+        "es": "REFERENCIA COMERCIAL · ASDOD, ISRAEL"
+      },
+      "provenanceImageAlt": {
+        "en": "Soltex Global Turnkey Industrial Processing Complex",
+        "ru": "Промышленный перерабатывающий комплекс «под ключ» Soltex Global",
+        "zh": "Soltex Global 交钥匙工业加工综合体",
+        "tr": "Soltex Global anahtar teslim endüstriyel işleme kompleksi",
+        "ar": "مجمّع Soltex Global للمعالجة الصناعية بنظام تسليم المفتاح",
+        "es": "Complejo industrial de procesamiento llave en mano de Soltex Global"
+      },
+      "provenanceNote": {
+        "en": "Continuous Operational Run: 18+ Years",
+        "ru": "Непрерывная эксплуатация: более 18 лет",
+        "zh": "连续运营：18 年以上",
+        "tr": "Kesintisiz işletme süresi: 18+ yıl",
+        "ar": "تشغيل مستمر: أكثر من 18 عامًا",
+        "es": "Operación continua: más de 18 años"
+      },
+      "provenanceTitle": {
+        "en": "Industrial Soy Protein Isolate Complex (17,000 t/year)",
+        "ru": "Промышленный комплекс изолята соевого белка (17 000 т/год)",
+        "zh": "工业化大豆分离蛋白综合体（17,000 吨/年）",
+        "tr": "Endüstriyel soya protein izolatı kompleksi (17.000 t/yıl)",
+        "ar": "مجمّع صناعي لبروتين الصويا المعزول (17,000 طن/سنة)",
+        "es": "Complejo industrial de aislado de proteína de soja (17 000 t/año)"
+      },
+      "purityLabel": {
+        "en": "Purity Target",
+        "ru": "Целевая чистота",
+        "zh": "纯度目标",
+        "tr": "Saflık hedefi",
+        "ar": "النقاوة المستهدفة",
+        "es": "Pureza objetivo"
+      },
+      "purityValue": {
+        "en": "> 90% Isolate",
+        "ru": "> 90% изолят",
+        "zh": "> 90% 分离蛋白",
+        "tr": "> %90 izolat",
+        "ar": "> 90% معزول",
+        "es": "> 90% aislado"
+      },
+      "recoveryLabel": {
+        "en": "Recovery Rate",
+        "ru": "Степень извлечения",
+        "zh": "回收率",
+        "tr": "Geri kazanım oranı",
+        "ar": "معدل الاسترداد",
+        "es": "Tasa de recuperación"
+      },
+      "recoveryValue": {
+        "en": "Up to 92%",
+        "ru": "До 92%",
+        "zh": "最高 92%",
+        "tr": "%92'ye kadar",
+        "ar": "حتى 92%",
+        "es": "Hasta un 92%"
+      },
+      "timelineEyebrow": {
+        "en": "03 · INDUSTRIAL CHRONOLOGY",
+        "ru": "03 · ПРОМЫШЛЕННАЯ ХРОНОЛОГИЯ",
+        "zh": "03 · 工业发展历程",
+        "tr": "03 · ENDÜSTRİYEL KRONOLOJİ",
+        "ar": "03 · التسلسل الزمني الصناعي",
+        "es": "03 · CRONOLOGÍA INDUSTRIAL"
+      },
+      "timelineHeading": {
+        "en": "Three Decades of Engineering Milestones",
+        "ru": "Три десятилетия инженерных достижений",
+        "zh": "三十年工程里程碑",
+        "tr": "Otuz yıllık mühendislik kilometre taşları",
+        "ar": "ثلاثة عقود من الإنجازات الهندسية",
+        "es": "Tres décadas de hitos de ingeniería"
+      },
+      "timelineIntro": {
+        "en": "Verified chronicle of Soltex Global technological breakthroughs, commercial plant deliveries, and patent filings.",
+        "ru": "Подтверждённая хроника технологических прорывов Soltex Global, ввода промышленных заводов и подачи патентных заявок.",
+        "zh": "Soltex Global 技术突破、商业化工厂交付及专利申请的经核实大事记。",
+        "tr": "Soltex Global'in teknolojik atılımlarının, ticari tesis teslimlerinin ve patent başvurularının doğrulanmış kronolojisi.",
+        "ar": "سجل مُتحقَّق منه للإنجازات التكنولوجية لـ Soltex Global وتسليم المصانع التجارية وإيداع طلبات براءات الاختراع.",
+        "es": "Cronología verificada de los avances tecnológicos de Soltex Global, las entregas de plantas comerciales y las solicitudes de patente."
+      },
+      "inquiryTopic": {
+        "en": "Corporate Consultation Request",
+        "ru": "Запрос корпоративной консультации",
+        "zh": "企业咨询请求",
+        "tr": "Kurumsal danışmanlık talebi",
+        "ar": "طلب استشارة للشركات",
+        "es": "Solicitud de consulta corporativa"
+      }
+    },
+    "lists": {
+      "capabilities": [
+        {
+          "title": {
+            "en": "Patented IP",
+            "ru": "Запатентованная ИС",
+            "zh": "专利知识产权",
+            "tr": "Patentli fikri mülkiyet",
+            "ar": "ملكية فكرية حاصلة على براءات",
+            "es": "PI patentada"
+          },
+          "description": {
+            "en": "Proprietary patents in aqueous extraction, cavitation pectin recovery, and closed-loop process cycles.",
+            "ru": "Собственные патенты в области водной экстракции, кавитационного извлечения пектина и технологических процессов замкнутого цикла.",
+            "zh": "涵盖水相提取、空化果胶回收及闭环工艺循环的自有专利。",
+            "tr": "Sulu ekstraksiyon, kavitasyonla pektin geri kazanımı ve kapalı döngü proses çevrimleri alanlarında tescilli patentler.",
+            "ar": "براءات اختراع خاصة في الاستخلاص المائي واستعادة البكتين بالتكهف ودورات العمليات المغلقة.",
+            "es": "Patentes propias en extracción acuosa, recuperación de pectina por cavitación y ciclos de proceso en circuito cerrado."
+          }
+        },
+        {
+          "title": {
+            "en": "Turnkey EPCM",
+            "ru": "EPCM «под ключ»",
+            "zh": "交钥匙 EPCM",
+            "tr": "Anahtar teslim EPCM",
+            "ar": "EPCM بنظام تسليم المفتاح",
+            "es": "EPCM llave en mano"
+          },
+          "description": {
+            "en": "Single-point execution encompassing feedstock assay, 3D BIM design, custom fabrication, civil erection, and commissioning.",
+            "ru": "Реализация из одних рук: анализ сырья, 3D BIM-проектирование, изготовление оборудования, строительство и пусконаладка.",
+            "zh": "一站式执行：原料检测、3D BIM 设计、定制制造、土建安装及调试。",
+            "tr": "Hammadde analizi, 3D BIM tasarımı, özel imalat, inşaat montajı ve devreye almayı kapsayan tek elden uygulama.",
+            "ar": "تنفيذ من جهة واحدة يشمل تحليل المواد الخام والتصميم بتقنية 3D BIM والتصنيع المخصّص والإنشاء المدني والتشغيل التجريبي.",
+            "es": "Ejecución con un único responsable que abarca el análisis de materias primas, el diseño 3D BIM, la fabricación a medida, el montaje civil y la puesta en marcha."
+          }
+        },
+        {
+          "title": {
+            "en": "Yield Guarantees",
+            "ru": "Гарантии выхода",
+            "zh": "收率保证",
+            "tr": "Verim garantileri",
+            "ar": "ضمانات المردود",
+            "es": "Garantías de rendimiento"
+          },
+          "description": {
+            "en": "Performance-backed contracts guaranteeing target yields, active compound purity, and energy efficiency ceilings.",
+            "ru": "Контракты с гарантиями результата: целевой выход, чистота активных компонентов и предельные значения энергопотребления.",
+            "zh": "以绩效为保障的合同，保证目标收率、活性成分纯度及能效上限。",
+            "tr": "Hedef verimleri, aktif bileşen saflığını ve enerji verimliliği tavanlarını garanti eden performansa dayalı sözleşmeler.",
+            "ar": "عقود مدعومة بالأداء تضمن المردود المستهدف ونقاوة المركبات النشطة وحدود كفاءة الطاقة.",
+            "es": "Contratos respaldados por el rendimiento que garantizan los rendimientos objetivo, la pureza de los compuestos activos y los límites de eficiencia energética."
+          }
+        },
+        {
+          "title": {
+            "en": "Global Footprint",
+            "ru": "Глобальное присутствие",
+            "zh": "全球布局",
+            "tr": "Küresel ayak izi",
+            "ar": "الحضور العالمي",
+            "es": "Presencia global"
+          },
+          "description": {
+            "en": "Headquartered in the UAE with reference plants operating across Israel, China, Uzbekistan, and Eurasia.",
+            "ru": "Штаб-квартира в ОАЭ; референтные заводы работают в Израиле, Китае, Узбекистане и Евразии.",
+            "zh": "总部位于阿联酋，参考工厂分布于以色列、中国、乌兹别克斯坦及欧亚地区。",
+            "tr": "Merkezi BAE'de; referans tesisleri İsrail, Çin, Özbekistan ve Avrasya'da faaliyet göstermektedir.",
+            "ar": "مقرها الرئيسي في الإمارات العربية المتحدة، مع مصانع مرجعية قيد التشغيل في إسرائيل والصين وأوزبكستان وأوراسيا.",
+            "es": "Sede en los EAU y plantas de referencia en operación en Israel, China, Uzbekistán y Eurasia."
+          }
+        }
+      ],
+      "timeline": [
+        {
+          "year": {
+            "en": "1999",
+            "ru": "1999",
+            "zh": "1999",
+            "tr": "1999",
+            "ar": "1999",
+            "es": "1999"
+          },
+          "title": {
+            "en": "FOUNDATION AND START",
+            "ru": "ОСНОВАНИЕ И СТАРТ",
+            "zh": "创立与起步",
+            "tr": "KURULUŞ VE BAŞLANGIÇ",
+            "ar": "التأسيس والانطلاق",
+            "es": "FUNDACIÓN E INICIO"
+          },
+          "description": {
+            "en": "Soltex Group began its activities as a technology platform for promoting advanced Israeli engineering and separation technologies on the world market.",
+            "ru": "Soltex Group начала деятельность как технологическая платформа для продвижения передовых израильских инжиниринговых технологий и технологий разделения на мировом рынке.",
+            "zh": "Soltex Group 最初作为技术平台开展业务，致力于在全球市场推广先进的以色列工程与分离技术。",
+            "tr": "Soltex Group, ileri İsrail mühendislik ve ayırma teknolojilerini dünya pazarında tanıtmaya yönelik bir teknoloji platformu olarak faaliyetlerine başladı.",
+            "ar": "بدأت Soltex Group نشاطها كمنصة تكنولوجية للترويج لتقنيات الهندسة والفصل الإسرائيلية المتقدمة في السوق العالمية.",
+            "es": "Soltex Group inició su actividad como plataforma tecnológica para promover en el mercado mundial tecnologías avanzadas israelíes de ingeniería y separación."
+          }
+        },
+        {
+          "year": {
+            "en": "2001 – 2004",
+            "ru": "2001 – 2004",
+            "zh": "2001 – 2004",
+            "tr": "2001 – 2004",
+            "ar": "2001 – 2004",
+            "es": "2001 – 2004"
+          },
+          "title": {
+            "en": "FIRST MASSIVE ASSET",
+            "ru": "ПЕРВЫЙ КРУПНЫЙ АКТИВ",
+            "zh": "首个大型资产",
+            "tr": "İLK BÜYÜK ÖLÇEKLİ VARLIK",
+            "ar": "أول أصل ضخم",
+            "es": "PRIMER GRAN ACTIVO"
+          },
+          "description": {
+            "en": "Design and launch of the Solbar plant (Israel) for the production of soy protein isolate (17,000 t/y). Successfully operating on our patented technologies for over 18 years.",
+            "ru": "Проектирование и запуск завода Solbar (Израиль) по производству изолята соевого белка (17 000 т/год). Успешно работает на наших запатентованных технологиях более 18 лет.",
+            "zh": "设计并投产以色列 Solbar 大豆分离蛋白工厂（17,000 吨/年）。依托我们的专利技术成功运行超过 18 年。",
+            "tr": "Soya protein izolatı üretimi (17.000 t/yıl) için Solbar tesisinin (İsrail) tasarımı ve devreye alınması. 18 yılı aşkın süredir patentli teknolojilerimizle başarıyla çalışmaktadır.",
+            "ar": "تصميم وإطلاق مصنع Solbar (إسرائيل) لإنتاج بروتين الصويا المعزول (17,000 طن/سنة). يعمل بنجاح بتقنياتنا الحاصلة على براءات اختراع منذ أكثر من 18 عامًا.",
+            "es": "Diseño y puesta en marcha de la planta Solbar (Israel) para la producción de aislado de proteína de soja (17 000 t/año). Funciona con éxito con nuestras tecnologías patentadas desde hace más de 18 años."
+          }
+        },
+        {
+          "year": {
+            "en": "2006 – 2008",
+            "ru": "2006 – 2008",
+            "zh": "2006 – 2008",
+            "tr": "2006 – 2008",
+            "ar": "2006 – 2008",
+            "es": "2006 – 2008"
+          },
+          "title": {
+            "en": "EXPANSION INTO ASIA (NINGBO)",
+            "ru": "ВЫХОД В АЗИЮ (НИНБО)",
+            "zh": "拓展亚洲（宁波）",
+            "tr": "ASYA'YA AÇILIM (NINGBO)",
+            "ar": "التوسع في آسيا (نينغبو)",
+            "es": "EXPANSIÓN EN ASIA (NINGBO)"
+          },
+          "description": {
+            "en": "Turnkey engineering and commissioning of the Solbar Ningbo plant in China (10,000 t/y isolate), establishing global quality and purity benchmarks.",
+            "ru": "Инжиниринг «под ключ» и пусконаладка завода Solbar Ningbo в Китае (10 000 т/год изолята), установившего мировые ориентиры качества и чистоты.",
+            "zh": "中国 Solbar Ningbo 工厂（分离蛋白 10,000 吨/年）的交钥匙工程与调试，树立了全球质量与纯度标杆。",
+            "tr": "Çin'deki Solbar Ningbo tesisinin (10.000 t/yıl izolat) anahtar teslim mühendisliği ve devreye alınması; küresel kalite ve saflık ölçütlerinin belirlenmesi.",
+            "ar": "هندسة وتشغيل تجريبي بنظام تسليم المفتاح لمصنع Solbar Ningbo في الصين (10,000 طن/سنة من المعزول)، أرسى معايير عالمية للجودة والنقاوة.",
+            "es": "Ingeniería llave en mano y puesta en marcha de la planta Solbar Ningbo en China (10 000 t/año de aislado), que estableció referentes globales de calidad y pureza."
+          }
+        },
+        {
+          "year": {
+            "en": "2009 – 2011",
+            "ru": "2009 – 2011",
+            "zh": "2009 – 2011",
+            "tr": "2009 – 2011",
+            "ar": "2009 – 2011",
+            "es": "2009 – 2011"
+          },
+          "title": {
+            "en": "NORTH AMERICAN MARKET ENTRY",
+            "ru": "ВЫХОД НА РЫНОК СЕВЕРНОЙ АМЕРИКИ",
+            "zh": "进入北美市场",
+            "tr": "KUZEY AMERİKA PAZARINA GİRİŞ",
+            "ar": "دخول سوق أمريكا الشمالية",
+            "es": "ENTRADA EN EL MERCADO NORTEAMERICANO"
+          },
+          "description": {
+            "en": "Commissioning of Solbar Nebraska in the United States, creating the premier high-capacity soy processing asset in the Midwest region.",
+            "ru": "Ввод в эксплуатацию Solbar Nebraska в США — ведущего высокопроизводительного соевого перерабатывающего актива в регионе Среднего Запада.",
+            "zh": "美国 Solbar Nebraska 工厂投产，打造中西部地区领先的大产能大豆加工资产。",
+            "tr": "ABD'de Solbar Nebraska'nın devreye alınması ve Orta Batı bölgesinin öncü yüksek kapasiteli soya işleme varlığının oluşturulması.",
+            "ar": "تشغيل Solbar Nebraska في الولايات المتحدة، ليصبح الأصل الرائد عالي الطاقة لمعالجة الصويا في منطقة الغرب الأوسط.",
+            "es": "Puesta en marcha de Solbar Nebraska en Estados Unidos, creando el principal activo de procesamiento de soja de alta capacidad de la región del Medio Oeste."
+          }
+        },
+        {
+          "year": {
+            "en": "2010 – 2014",
+            "ru": "2010 – 2014",
+            "zh": "2010 – 2014",
+            "tr": "2010 – 2014",
+            "ar": "2010 – 2014",
+            "es": "2010 – 2014"
+          },
+          "title": {
+            "en": "SCIENTIFIC BREAKTHROUGH IN EUROPE",
+            "ru": "НАУЧНЫЙ ПРОРЫВ В ЕВРОПЕ",
+            "zh": "欧洲科研突破",
+            "tr": "AVRUPA'DA BİLİMSEL ATILIM",
+            "ar": "إنجاز علمي في أوروبا",
+            "es": "AVANCE CIENTÍFICO EN EUROPA"
+          },
+          "description": {
+            "en": "R&D at the Girona University Science Park (Spain). Soltex developed a unique hydrodynamic cavitation technology to obtain high-purity pectin without aggressive acids or alcohols.",
+            "ru": "НИОКР в научном парке Университета Жироны (Испания). Soltex разработала уникальную технологию гидродинамической кавитации для получения высокочистого пектина без агрессивных кислот и спиртов.",
+            "zh": "在赫罗纳大学科技园（西班牙）开展研发。Soltex 开发出独特的水力空化技术，无需强酸或醇类即可获得高纯度果胶。",
+            "tr": "Girona Üniversitesi Bilim Parkı'nda (İspanya) Ar-Ge. Soltex, agresif asitler veya alkoller kullanmadan yüksek saflıkta pektin elde etmek için özgün bir hidrodinamik kavitasyon teknolojisi geliştirdi.",
+            "ar": "البحث والتطوير في منتزه العلوم التابع لجامعة جيرونا (إسبانيا). طوّرت Soltex تقنية فريدة للتكهف الهيدروديناميكي للحصول على بكتين عالي النقاوة دون أحماض قوية أو كحول.",
+            "es": "I+D en el Parque Científico de la Universidad de Girona (España). Soltex desarrolló una tecnología única de cavitación hidrodinámica para obtener pectina de alta pureza sin ácidos agresivos ni alcoholes."
+          }
+        },
+        {
+          "year": {
+            "en": "2018",
+            "ru": "2018",
+            "zh": "2018",
+            "tr": "2018",
+            "ar": "2018",
+            "es": "2018"
+          },
+          "title": {
+            "en": "GLOBAL RECOGNITION & MODERNIZATION",
+            "ru": "МИРОВОЕ ПРИЗНАНИЕ И МОДЕРНИЗАЦИЯ",
+            "zh": "全球认可与现代化改造",
+            "tr": "KÜRESEL TANINIRLIK VE MODERNİZASYON",
+            "ar": "اعتراف عالمي وتحديث",
+            "es": "RECONOCIMIENTO GLOBAL Y MODERNIZACIÓN"
+          },
+          "description": {
+            "en": "Consulting support and engineering design of an industrial plant in Brazil for CARGILL Inc. (USA) and modernization of capacities for Yantai DSM Andre Pectin (China).",
+            "ru": "Консалтинговое сопровождение и инженерное проектирование промышленного завода в Бразилии для CARGILL Inc. (США) и модернизация мощностей Yantai DSM Andre Pectin (Китай).",
+            "zh": "为 CARGILL Inc.（美国）在巴西的工业工厂提供咨询支持和工程设计，并为 Yantai DSM Andre Pectin（中国）进行产能现代化改造。",
+            "tr": "CARGILL Inc. (ABD) için Brezilya'daki bir endüstriyel tesise danışmanlık desteği ve mühendislik tasarımı ile Yantai DSM Andre Pectin (Çin) kapasitelerinin modernizasyonu.",
+            "ar": "دعم استشاري وتصميم هندسي لمصنع صناعي في البرازيل لصالح CARGILL Inc. (الولايات المتحدة) وتحديث طاقات Yantai DSM Andre Pectin (الصين).",
+            "es": "Apoyo de consultoría y diseño de ingeniería de una planta industrial en Brasil para CARGILL Inc. (EE. UU.) y modernización de capacidades para Yantai DSM Andre Pectin (China)."
+          }
+        },
+        {
+          "year": {
+            "en": "2019 – 2021",
+            "ru": "2019 – 2021",
+            "zh": "2019 – 2021",
+            "tr": "2019 – 2021",
+            "ar": "2019 – 2021",
+            "es": "2019 – 2021"
+          },
+          "title": {
+            "en": "SOY DEEP PROCESSING PLANT IN KAZAKHSTAN",
+            "ru": "ЗАВОД ГЛУБОКОЙ ПЕРЕРАБОТКИ СОИ В КАЗАХСТАНЕ",
+            "zh": "哈萨克斯坦大豆深加工工厂",
+            "tr": "KAZAKİSTAN'DA SOYA İLERİ İŞLEME TESİSİ",
+            "ar": "مصنع المعالجة العميقة للصويا في كازاخستان",
+            "es": "PLANTA DE PROCESAMIENTO PROFUNDO DE SOJA EN KAZAJISTÁN"
+          },
+          "description": {
+            "en": "Location: Zhanatlab Village, Almaty Region, Republic of Kazakhstan. Client: Agritech LLC. Design and development of a modern soybean deep processing facility for high-quality isolate.",
+            "ru": "Расположение: село Жанатлап, Алматинская область, Республика Казахстан. Заказчик: Agritech LLC. Проектирование и создание современного предприятия глубокой переработки сои для выпуска высококачественного изолята.",
+            "zh": "地点：哈萨克斯坦共和国阿拉木图州扎纳特拉普村。客户：Agritech LLC。设计并建设一座生产高品质分离蛋白的现代化大豆深加工工厂。",
+            "tr": "Konum: Canatlap Köyü, Almatı Bölgesi, Kazakistan Cumhuriyeti. Müşteri: Agritech LLC. Yüksek kaliteli izolat için modern bir soya ileri işleme tesisinin tasarımı ve geliştirilmesi.",
+            "ar": "الموقع: قرية جاناتلاب، منطقة ألماتي، جمهورية كازاخستان. العميل: Agritech LLC. تصميم وتطوير منشأة حديثة للمعالجة العميقة لفول الصويا لإنتاج معزول عالي الجودة.",
+            "es": "Ubicación: aldea de Zhanatlab, región de Almaty, República de Kazajistán. Cliente: Agritech LLC. Diseño y desarrollo de una moderna instalación de procesamiento profundo de soja para producir aislado de alta calidad."
+          }
+        },
+        {
+          "year": {
+            "en": "2023 – 2025",
+            "ru": "2023 – 2025",
+            "zh": "2023 – 2025",
+            "tr": "2023 – 2025",
+            "ar": "2023 – 2025",
+            "es": "2023 – 2025"
+          },
+          "title": {
+            "en": "FLAGMAN HYBRID COMPLEX IN CIS",
+            "ru": "ФЛАГМАНСКИЙ ГИБРИДНЫЙ КОМПЛЕКС В СНГ",
+            "zh": "独联体旗舰混合型综合体",
+            "tr": "BDT'DE AMİRAL HİBRİT KOMPLEKS",
+            "ar": "المجمّع الهجين الرائد في رابطة الدول المستقلة",
+            "es": "COMPLEJO HÍBRIDO INSIGNIA EN LA CEI"
+          },
+          "description": {
+            "en": "Turnkey construction of a plant for Siberian Wellness (Uzbekistan). The hybrid design allows for pectin, inulin, and dietary fiber production with full SCADA automation.",
+            "ru": "Строительство «под ключ» завода для Siberian Wellness (Узбекистан). Гибридная схема позволяет производить пектин, инулин и пищевые волокна с полной автоматизацией SCADA.",
+            "zh": "为 Siberian Wellness（乌兹别克斯坦）交钥匙建设工厂。混合式设计可实现果胶、菊粉和膳食纤维生产，并配备全 SCADA 自动化。",
+            "tr": "Siberian Wellness için (Özbekistan) bir tesisin anahtar teslim inşası. Hibrit tasarım, tam SCADA otomasyonuyla pektin, inülin ve diyet lifi üretimine olanak tanır.",
+            "ar": "إنشاء مصنع بنظام تسليم المفتاح لصالح Siberian Wellness (أوزبكستان). يتيح التصميم الهجين إنتاج البكتين والإينولين والألياف الغذائية بأتمتة SCADA كاملة.",
+            "es": "Construcción llave en mano de una planta para Siberian Wellness (Uzbekistán). El diseño híbrido permite producir pectina, inulina y fibra dietética con automatización SCADA completa."
+          }
+        }
+      ]
+    },
+    "media": {
+      "provenanceImage": {
+        "mediaId": "media-hero-industrial-plant-1790267866540"
+      },
+      "hygienicImage": {
+        "mediaId": "media-tech-integrated-plant-1790271239031"
+      },
+      "epcmImage": {
+        "mediaId": "media-video-epcm-facility-1790267893198"
+      }
+    },
+    "body": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "b4182bef64213d0a",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "b4182bef64213d0a",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "b4182bef64213d0a",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "b4182bef64213d0a",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "b4182bef64213d0a",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "page-global-presence",
+    "status": "published",
+    "order": 3,
+    "key": "globalPresence",
+    "kind": "page",
+    "header": {
+      "badgeNumber": "02",
+      "badgeLabel": {
+        "en": "GEOGRAPHIC NETWORK",
+        "ru": "ГЕОГРАФИЯ ПРИСУТСТВИЯ",
+        "zh": "地域网络",
+        "tr": "COĞRAFİ AĞ",
+        "ar": "الشبكة الجغرافية",
+        "es": "RED GEOGRÁFICA"
+      },
+      "title": {
+        "en": "Global Industrial Presence & Regional Hubs",
+        "ru": "Глобальное промышленное присутствие и региональные центры",
+        "zh": "全球工业布局与区域中心",
+        "tr": "Küresel endüstriyel varlık ve bölgesel merkezler",
+        "ar": "الحضور الصناعي العالمي والمراكز الإقليمية",
+        "es": "Presencia industrial global y centros regionales"
+      },
+      "subtitle": {
+        "en": "Bridging International Engineering Precision with Local Agro-Industrial Hubs",
+        "ru": "Международная инженерная точность в сочетании с локальными агропромышленными центрами",
+        "zh": "以国际工程精度连接本地农工业中心",
+        "tr": "Uluslararası mühendislik hassasiyetini yerel tarım-sanayi merkezleriyle buluşturuyoruz",
+        "ar": "ربط الدقة الهندسية الدولية بالمراكز الزراعية الصناعية المحلية",
+        "es": "Uniendo la precisión de la ingeniería internacional con los polos agroindustriales locales"
+      },
+      "description": {
+        "en": "Soltex Global coordinates multi-national turnkey projects from our corporate engineering headquarters in the United Arab Emirates, backed by regional offices, certified fabrication partners, and operational facilities across Israel, China, Uzbekistan, and Eurasia.",
+        "ru": "Soltex Global координирует многонациональные проекты «под ключ» из корпоративной инжиниринговой штаб-квартиры в Объединённых Арабских Эмиратах при поддержке региональных офисов, сертифицированных партнёров-изготовителей и действующих предприятий в Израиле, Китае, Узбекистане и Евразии.",
+        "zh": "Soltex Global 从位于阿拉伯联合酋长国的企业工程总部协调跨国交钥匙项目，并依托遍布以色列、中国、乌兹别克斯坦及欧亚地区的区域办事处、认证制造合作伙伴和运营设施。",
+        "tr": "Soltex Global, çok uluslu anahtar teslim projeleri Birleşik Arap Emirlikleri'ndeki kurumsal mühendislik merkezinden koordine eder; İsrail, Çin, Özbekistan ve Avrasya'daki bölgesel ofisler, sertifikalı imalat ortakları ve işletmedeki tesislerle desteklenir.",
+        "ar": "تنسّق Soltex Global المشاريع متعددة الجنسيات بنظام تسليم المفتاح من مقرها الهندسي الرئيسي في الإمارات العربية المتحدة، مدعومةً بمكاتب إقليمية وشركاء تصنيع معتمدين ومنشآت قيد التشغيل في إسرائيل والصين وأوزبكستان وأوراسيا.",
+        "es": "Soltex Global coordina proyectos llave en mano multinacionales desde su sede corporativa de ingeniería en los Emiratos Árabes Unidos, respaldada por oficinas regionales, socios de fabricación certificados e instalaciones en operación en Israel, China, Uzbekistán y Eurasia."
+      },
+      "meta": [
+        {
+          "label": {
+            "en": "HQ Registry",
+            "ru": "Регистрация штаб-квартиры",
+            "zh": "总部注册地",
+            "tr": "Genel merkez tescili",
+            "ar": "تسجيل المقر الرئيسي",
+            "es": "Registro de la sede"
+          },
+          "value": {
+            "en": "Sharjah, UAE",
+            "ru": "Шарджа, ОАЭ",
+            "zh": "阿联酋沙迦",
+            "tr": "Şarika, BAE",
+            "ar": "الشارقة، الإمارات العربية المتحدة",
+            "es": "Sharjah, EAU"
+          }
+        },
+        {
+          "label": {
+            "en": "Primary Regions",
+            "ru": "Основные регионы",
+            "zh": "主要区域",
+            "tr": "Başlıca bölgeler",
+            "ar": "المناطق الرئيسية",
+            "es": "Regiones principales"
+          },
+          "value": {
+            "en": "Middle East, Asia, CIS",
+            "ru": "Ближний Восток, Азия, СНГ",
+            "zh": "中东、亚洲、独联体",
+            "tr": "Orta Doğu, Asya, BDT",
+            "ar": "الشرق الأوسط، آسيا، رابطة الدول المستقلة",
+            "es": "Oriente Medio, Asia, CEI"
+          }
+        },
+        {
+          "label": {
+            "en": "Project Delivery",
+            "ru": "Реализация проектов",
+            "zh": "项目交付",
+            "tr": "Proje teslimi",
+            "ar": "تنفيذ المشاريع",
+            "es": "Ejecución de proyectos"
+          },
+          "value": {
+            "en": "Multi-jurisdictional",
+            "ru": "В нескольких юрисдикциях",
+            "zh": "跨多个司法管辖区",
+            "tr": "Çok yargı bölgeli",
+            "ar": "متعدد الولايات القضائية",
+            "es": "Multijurisdiccional"
+          }
+        },
+        {
+          "label": {
+            "en": "Language Coverage",
+            "ru": "Языки работы",
+            "zh": "工作语言",
+            "tr": "Çalışma dilleri",
+            "ar": "لغات العمل",
+            "es": "Idiomas de trabajo"
+          },
+          "value": {
+            "en": "English, Russian, Chinese, Hebrew",
+            "ru": "Английский, русский, китайский, иврит",
+            "zh": "英语、俄语、中文、希伯来语",
+            "tr": "İngilizce, Rusça, Çince, İbranice",
+            "ar": "الإنجليزية، الروسية، الصينية، العبرية",
+            "es": "Inglés, ruso, chino, hebreo"
+          }
+        }
+      ],
+      "actionLabel": {
+        "en": "Contact Regional Director",
+        "ru": "Связаться с региональным директором",
+        "zh": "联系区域总监",
+        "tr": "Bölge direktörüyle iletişime geçin",
+        "ar": "تواصل مع المدير الإقليمي",
+        "es": "Contactar con el director regional"
+      }
+    },
+    "copy": {
+      "corridorsEyebrow": {
+        "en": "01 · STRATEGIC GEOGRAPHIC CORRIDORS",
+        "ru": "01 · СТРАТЕГИЧЕСКИЕ ГЕОГРАФИЧЕСКИЕ КОРИДОРЫ",
+        "zh": "01 · 战略地域走廊",
+        "tr": "01 · STRATEJİK COĞRAFİ KORİDORLAR",
+        "ar": "01 · الممرات الجغرافية الاستراتيجية",
+        "es": "01 · CORREDORES GEOGRÁFICOS ESTRATÉGICOS"
+      },
+      "corridorsHeading": {
+        "en": "Seamless Cross-Border Project Execution",
+        "ru": "Бесшовная реализация трансграничных проектов",
+        "zh": "无缝的跨境项目执行",
+        "tr": "Kesintisiz sınır ötesi proje uygulaması",
+        "ar": "تنفيذ سلس للمشاريع العابرة للحدود",
+        "es": "Ejecución fluida de proyectos transfronterizos"
+      },
+      "corridorsParagraph1": {
+        "en": "Large-scale industrial plants require rigorous international coordination: high-precision titanium and stainless reactor manufacturing in specialized hubs, global logistics, on-site civil management, and local regulatory adherence.",
+        "ru": "Крупные промышленные заводы требуют строгой международной координации: высокоточное изготовление реакторов из титана и нержавеющей стали в специализированных центрах, глобальная логистика, управление строительством на площадке и соблюдение местных нормативных требований.",
+        "zh": "大型工业工厂需要严格的国际协调：在专业制造中心进行高精度钛材和不锈钢反应器制造、全球物流、现场土建管理以及遵守当地法规。",
+        "tr": "Büyük ölçekli endüstriyel tesisler sıkı uluslararası koordinasyon gerektirir: uzman merkezlerde yüksek hassasiyetli titanyum ve paslanmaz reaktör imalatı, küresel lojistik, sahada inşaat yönetimi ve yerel mevzuata uyum.",
+        "ar": "تتطلب المصانع الصناعية الكبرى تنسيقًا دوليًا دقيقًا: تصنيع مفاعلات عالية الدقة من التيتانيوم والفولاذ المقاوم للصدأ في مراكز متخصصة، وخدمات لوجستية عالمية، وإدارة مدنية في الموقع، والالتزام باللوائح المحلية.",
+        "es": "Las grandes plantas industriales requieren una rigurosa coordinación internacional: fabricación de reactores de titanio e inoxidable de alta precisión en centros especializados, logística global, gestión civil en obra y cumplimiento de la normativa local."
+      },
+      "corridorsParagraph2": {
+        "en": "Our distributed office network ensures that Soltex Global clients receive direct face-to-face engineering guidance and around-the-clock site oversight throughout all construction and commissioning phases.",
+        "ru": "Наша распределённая сеть офисов обеспечивает клиентам Soltex Global прямое очное инженерное сопровождение и круглосуточный надзор на площадке на всех этапах строительства и пусконаладки.",
+        "zh": "我们分布式的办事处网络确保 Soltex Global 客户在所有施工和调试阶段获得面对面的直接工程指导及全天候现场监督。",
+        "tr": "Dağıtık ofis ağımız, Soltex Global müşterilerinin tüm inşaat ve devreye alma aşamalarında yüz yüze doğrudan mühendislik rehberliği ve kesintisiz saha gözetimi almasını sağlar.",
+        "ar": "تضمن شبكة مكاتبنا الموزّعة حصول عملاء Soltex Global على توجيه هندسي مباشر وجهًا لوجه وإشراف على الموقع على مدار الساعة طوال جميع مراحل الإنشاء والتشغيل التجريبي.",
+        "es": "Nuestra red de oficinas distribuida garantiza que los clientes de Soltex Global reciban orientación de ingeniería directa y presencial, así como supervisión en obra las 24 horas, durante todas las fases de construcción y puesta en marcha."
+      },
+      "ctaBadge": {
+        "en": "GLOBAL PROJECT DISCUSSIONS",
+        "ru": "ОБСУЖДЕНИЕ ГЛОБАЛЬНЫХ ПРОЕКТОВ",
+        "zh": "全球项目洽谈",
+        "tr": "KÜRESEL PROJE GÖRÜŞMELERİ",
+        "ar": "مناقشات المشاريع العالمية",
+        "es": "CONVERSACIONES SOBRE PROYECTOS GLOBALES"
+      },
+      "ctaDescription": {
+        "en": "Our global engineering directors travel regularly to review client site topography, utility tie-ins, and feedstock logistics across the Middle East, Central Asia, and Europe.",
+        "ru": "Наши международные инженерные директора регулярно выезжают для оценки топографии площадок клиентов, подключений к инженерным сетям и логистики сырья на Ближнем Востоке, в Центральной Азии и Европе.",
+        "zh": "我们的全球工程总监定期赴中东、中亚和欧洲，考察客户厂址地形、公用工程接口及原料物流。",
+        "tr": "Küresel mühendislik direktörlerimiz; Orta Doğu, Orta Asya ve Avrupa genelinde müşteri sahalarının topografyasını, altyapı bağlantılarını ve hammadde lojistiğini incelemek için düzenli olarak seyahat eder.",
+        "ar": "يسافر مديرونا الهندسيون العالميون بانتظام لمراجعة طبوغرافية مواقع العملاء وتوصيلات المرافق ولوجستيات المواد الخام في الشرق الأوسط وآسيا الوسطى وأوروبا.",
+        "es": "Nuestros directores de ingeniería globales viajan regularmente para evaluar la topografía de los emplazamientos de los clientes, las conexiones a servicios y la logística de materias primas en Oriente Medio, Asia Central y Europa."
+      },
+      "ctaTitle": {
+        "en": "Schedule an On-Site or Direct Video Conference",
+        "ru": "Запланируйте встречу на площадке или видеоконференцию",
+        "zh": "预约现场会面或视频会议",
+        "tr": "Saha ziyareti veya doğrudan video konferans planlayın",
+        "ar": "حدّد موعدًا لزيارة ميدانية أو مؤتمر فيديو مباشر",
+        "es": "Programe una visita a obra o una videoconferencia directa"
+      },
+      "headquartersEyebrow": {
+        "en": "HEADQUARTERS & EPC COORDINATION",
+        "ru": "ШТАБ-КВАРТИРА И КООРДИНАЦИЯ EPC",
+        "zh": "总部与 EPC 协调",
+        "tr": "GENEL MERKEZ VE EPC KOORDİNASYONU",
+        "ar": "المقر الرئيسي وتنسيق أعمال EPC",
+        "es": "SEDE Y COORDINACIÓN EPC"
+      },
+      "headquartersText": {
+        "en": "Our central corporate base governs overall contract administration, international patent management, and strategic procurement for mega-projects.",
+        "ru": "Наш центральный корпоративный офис отвечает за общее администрирование контрактов, международное управление патентами и стратегические закупки для мегапроектов.",
+        "zh": "我们的中央企业基地负责整体合同管理、国际专利管理以及大型项目的战略采购。",
+        "tr": "Merkezi kurumsal üssümüz; genel sözleşme yönetimini, uluslararası patent yönetimini ve mega projeler için stratejik tedariki yönetir.",
+        "ar": "يتولى مقرنا المؤسسي المركزي الإدارة الشاملة للعقود وإدارة براءات الاختراع الدولية والمشتريات الاستراتيجية للمشاريع الكبرى.",
+        "es": "Nuestra base corporativa central dirige la administración general de contratos, la gestión internacional de patentes y el aprovisionamiento estratégico para megaproyectos."
+      },
+      "site1Region": {
+        "en": "MIDDLE EAST",
+        "ru": "БЛИЖНИЙ ВОСТОК",
+        "zh": "中东",
+        "tr": "ORTA DOĞU",
+        "ar": "الشرق الأوسط",
+        "es": "ORIENTE MEDIO"
+      },
+      "site1Text": {
+        "en": "17,000 t/year soy protein isolate manufacturing facility. Continuously operating for 18+ years.",
+        "ru": "Предприятие по производству изолята соевого белка мощностью 17 000 т/год. Непрерывно работает более 18 лет.",
+        "zh": "年产 17,000 吨大豆分离蛋白生产设施。已连续运营 18 年以上。",
+        "tr": "Yıllık 17.000 ton soya protein izolatı üretim tesisi. 18 yılı aşkın süredir kesintisiz faaliyette.",
+        "ar": "منشأة لتصنيع بروتين الصويا المعزول بطاقة 17,000 طن/سنة. تعمل بشكل مستمر منذ أكثر من 18 عامًا.",
+        "es": "Instalación de fabricación de aislado de proteína de soja de 17 000 t/año. En operación continua desde hace más de 18 años."
+      },
+      "site1Title": {
+        "en": "Ashdod, Israel",
+        "ru": "Ашдод, Израиль",
+        "zh": "以色列阿什杜德",
+        "tr": "Aşdod, İsrail",
+        "ar": "أسدود، إسرائيل",
+        "es": "Asdod, Israel"
+      },
+      "site2Region": {
+        "en": "EAST ASIA",
+        "ru": "ВОСТОЧНАЯ АЗИЯ",
+        "zh": "东亚",
+        "tr": "DOĞU ASYA",
+        "ar": "شرق آسيا",
+        "es": "ASIA ORIENTAL"
+      },
+      "site2Text": {
+        "en": "10,000 t/year turnkey deep soy processing complex. High-purity isolate from defatted white flake.",
+        "ru": "Комплекс глубокой переработки сои «под ключ» мощностью 10 000 т/год. Изолят высокой чистоты из обезжиренного «белого лепестка».",
+        "zh": "年产 10,000 吨的交钥匙大豆深加工综合体。以脱脂白片生产高纯度分离蛋白。",
+        "tr": "Yıllık 10.000 ton kapasiteli anahtar teslim soya ileri işleme kompleksi. Yağı alınmış beyaz yapraktan yüksek saflıkta izolat.",
+        "ar": "مجمّع للمعالجة العميقة للصويا بنظام تسليم المفتاح بطاقة 10,000 طن/سنة. معزول عالي النقاوة من الرقائق البيضاء منزوعة الدهن.",
+        "es": "Complejo llave en mano de procesamiento profundo de soja de 10 000 t/año. Aislado de alta pureza a partir de escamas blancas desgrasadas."
+      },
+      "site2Title": {
+        "en": "Ningbo, China",
+        "ru": "Нинбо, Китай",
+        "zh": "中国宁波",
+        "tr": "Ningbo, Çin",
+        "ar": "نينغبو، الصين",
+        "es": "Ningbo, China"
+      },
+      "site3Region": {
+        "en": "CENTRAL ASIA",
+        "ru": "ЦЕНТРАЛЬНАЯ АЗИЯ",
+        "zh": "中亚",
+        "tr": "ORTA ASYA",
+        "ar": "آسيا الوسطى",
+        "es": "ASIA CENTRAL"
+      },
+      "site3Text": {
+        "en": "1,000 t/year apple pectin industrial manufacturing plant. Turnkey EPC execution from raw pomace intake.",
+        "ru": "Промышленный завод по производству яблочного пектина мощностью 1 000 т/год. Реализация EPC «под ключ» — от приёмки сырых выжимок.",
+        "zh": "年产 1,000 吨苹果果胶工业化生产厂。从原料果渣进厂开始的交钥匙 EPC 执行。",
+        "tr": "Yıllık 1.000 ton elma pektini endüstriyel üretim tesisi. Ham posa kabulünden itibaren anahtar teslim EPC uygulaması.",
+        "ar": "مصنع صناعي لإنتاج بكتين التفاح بطاقة 1,000 طن/سنة. تنفيذ EPC بنظام تسليم المفتاح بدءًا من استلام التفل الخام.",
+        "es": "Planta industrial de producción de pectina de manzana de 1 000 t/año. Ejecución EPC llave en mano desde la recepción del orujo."
+      },
+      "site3Title": {
+        "en": "Namangan, Uzbekistan",
+        "ru": "Наманган, Узбекистан",
+        "zh": "乌兹别克斯坦纳曼干",
+        "tr": "Namangan, Özbekistan",
+        "ar": "نمنغان، أوزبكستان",
+        "es": "Namangán, Uzbekistán"
+      },
+      "site4Region": {
+        "en": "EURASIA & CIS",
+        "ru": "ЕВРАЗИЯ И СНГ",
+        "zh": "欧亚及独联体",
+        "tr": "AVRASYA VE BDT",
+        "ar": "أوراسيا ورابطة الدول المستقلة",
+        "es": "EURASIA Y CEI"
+      },
+      "site4Text": {
+        "en": "Biostim, S-Protein, and Jerusalem artichoke inulin fractionation lines across key agricultural regions.",
+        "ru": "Линии Biostim, S-Protein и фракционирования инулина из топинамбура в ключевых сельскохозяйственных регионах.",
+        "zh": "分布于主要农业地区的 Biostim、S-Protein 及菊芋菊粉分级生产线。",
+        "tr": "Başlıca tarım bölgelerinde Biostim, S-Protein ve yer elması inülin fraksiyonlama hatları.",
+        "ar": "خطوط Biostim وS-Protein وتجزئة إينولين الطرطوفة في المناطق الزراعية الرئيسية.",
+        "es": "Líneas de Biostim, S-Protein y fraccionamiento de inulina de tupinambo en regiones agrícolas clave."
+      },
+      "site4Title": {
+        "en": "Multiple Industrial Sites",
+        "ru": "Несколько промышленных площадок",
+        "zh": "多个工业基地",
+        "tr": "Çok sayıda endüstriyel saha",
+        "ar": "مواقع صناعية متعددة",
+        "es": "Múltiples emplazamientos industriales"
+      },
+      "sitesEyebrow": {
+        "en": "02 · INTERNATIONAL REFERENCE SITES",
+        "ru": "02 · МЕЖДУНАРОДНЫЕ РЕФЕРЕНТНЫЕ ОБЪЕКТЫ",
+        "zh": "02 · 国际参考项目",
+        "tr": "02 · ULUSLARARASI REFERANS SAHALAR",
+        "ar": "02 · المواقع المرجعية الدولية",
+        "es": "02 · EMPLAZAMIENTOS INTERNACIONALES DE REFERENCIA"
+      },
+      "sitesHeading": {
+        "en": "Operational Facilities by Region",
+        "ru": "Действующие предприятия по регионам",
+        "zh": "各区域运营设施",
+        "tr": "Bölgelere göre işletmedeki tesisler",
+        "ar": "المنشآت العاملة حسب المنطقة",
+        "es": "Instalaciones en operación por región"
+      },
+      "inquiryTopic": {
+        "en": "Regional Office Inquiry",
+        "ru": "Запрос в региональный офис",
+        "zh": "区域办事处咨询",
+        "tr": "Bölge ofisi talebi",
+        "ar": "استفسار إلى المكتب الإقليمي",
+        "es": "Consulta a la oficina regional"
+      }
+    },
+    "lists": {},
+    "media": {},
+    "body": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "e47e75c1ca1c3ae8",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "e47e75c1ca1c3ae8",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "e47e75c1ca1c3ae8",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "e47e75c1ca1c3ae8",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "e47e75c1ca1c3ae8",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "page-technologies",
+    "status": "published",
+    "order": 4,
+    "key": "technologies",
+    "kind": "page",
+    "header": {
+      "badgeNumber": "03",
+      "badgeLabel": {
+        "en": "PROPRIETARY IP",
+        "ru": "СОБСТВЕННАЯ ИС",
+        "zh": "自有知识产权",
+        "tr": "TESCİLLİ FİKRİ MÜLKİYET",
+        "ar": "ملكية فكرية خاصة",
+        "es": "PI PROPIA"
+      },
+      "title": {
+        "en": "Patented Agro-Processing Technologies",
+        "ru": "Запатентованные технологии агропереработки",
+        "zh": "专利农产品加工技术",
+        "tr": "Patentli tarımsal işleme teknolojileri",
+        "ar": "تقنيات معالجة زراعية حاصلة على براءات اختراع",
+        "es": "Tecnologías patentadas de procesamiento agrícola"
+      },
+      "subtitle": {
+        "en": "Transforming Agricultural Feedstock into High-Margin Functional Ingredients",
+        "ru": "Превращаем сельскохозяйственное сырьё в высокомаржинальные функциональные ингредиенты",
+        "zh": "将农业原料转化为高利润功能性配料",
+        "tr": "Tarımsal hammaddeleri yüksek marjlı fonksiyonel bileşenlere dönüştürüyoruz",
+        "ar": "تحويل المواد الخام الزراعية إلى مكونات وظيفية عالية الهامش",
+        "es": "Transformamos materias primas agrícolas en ingredientes funcionales de alto margen"
+      },
+      "description": {
+        "en": "Soltex Global develops, patents, and licenses comprehensive industrial process technologies. From zero-waste closed-loop pectin extraction to solvent-free soy protein isolates and pure inulin crystal recovery, our flowsheet designs guarantee market-leading purity, high recovery coefficients, and low operating costs.",
+        "ru": "Soltex Global разрабатывает, патентует и лицензирует комплексные промышленные технологические процессы. От безотходной экстракции пектина в замкнутом цикле до изолятов соевого белка без растворителей и получения чистого кристаллического инулина — наши технологические схемы гарантируют лидирующую на рынке чистоту, высокие коэффициенты извлечения и низкие эксплуатационные затраты.",
+        "zh": "Soltex Global 开发、申请专利并许可全面的工业工艺技术。从零废弃闭环果胶提取，到无溶剂大豆分离蛋白及纯菊粉结晶回收，我们的工艺流程设计可保证市场领先的纯度、高回收率和低运营成本。",
+        "tr": "Soltex Global, kapsamlı endüstriyel proses teknolojileri geliştirir, patentler ve lisanslar. Sıfır atıklı kapalı döngü pektin ekstraksiyonundan çözücüsüz soya protein izolatlarına ve saf inülin kristal geri kazanımına kadar, akış şeması tasarımlarımız pazar lideri saflık, yüksek geri kazanım katsayıları ve düşük işletme maliyetleri garanti eder.",
+        "ar": "تطوّر Soltex Global تقنيات عمليات صناعية شاملة وتحصل على براءات اختراعها وترخّصها. من استخلاص البكتين بدورة مغلقة وصفر نفايات، إلى معزولات بروتين الصويا الخالية من المذيبات واستعادة بلورات الإينولين النقية، تضمن تصاميم مخططات العمليات لدينا نقاوة رائدة في السوق ومعاملات استرداد عالية وتكاليف تشغيل منخفضة.",
+        "es": "Soltex Global desarrolla, patenta y licencia tecnologías integrales de procesos industriales. Desde la extracción de pectina en circuito cerrado con residuo cero hasta aislados de proteína de soja sin disolventes y la recuperación de cristales de inulina pura, nuestros diseños de diagramas de flujo garantizan una pureza líder en el mercado, altos coeficientes de recuperación y bajos costos operativos."
+      },
+      "meta": [
+        {
+          "label": {
+            "en": "Core Intellectual Property",
+            "ru": "Ключевая интеллектуальная собственность",
+            "zh": "核心知识产权",
+            "tr": "Temel fikri mülkiyet",
+            "ar": "الملكية الفكرية الأساسية",
+            "es": "Propiedad intelectual principal"
+          },
+          "value": {
+            "en": "International Patents",
+            "ru": "Международные патенты",
+            "zh": "国际专利",
+            "tr": "Uluslararası patentler",
+            "ar": "براءات اختراع دولية",
+            "es": "Patentes internacionales"
+          }
+        },
+        {
+          "label": {
+            "en": "Extraction Efficiency",
+            "ru": "Эффективность экстракции",
+            "zh": "提取效率",
+            "tr": "Ekstraksiyon verimliliği",
+            "ar": "كفاءة الاستخلاص",
+            "es": "Eficiencia de extracción"
+          },
+          "value": {
+            "en": "Up to 92% Recovery",
+            "ru": "Извлечение до 92%",
+            "zh": "回收率最高 92%",
+            "tr": "%92'ye varan geri kazanım",
+            "ar": "استرداد حتى 92%",
+            "es": "Hasta un 92% de recuperación"
+          }
+        },
+        {
+          "label": {
+            "en": "Environmental Standard",
+            "ru": "Экологический стандарт",
+            "zh": "环保标准",
+            "tr": "Çevre standardı",
+            "ar": "المعيار البيئي",
+            "es": "Estándar ambiental"
+          },
+          "value": {
+            "en": "Zero-Waste Circular",
+            "ru": "Безотходная циркулярная модель",
+            "zh": "零废弃循环",
+            "tr": "Sıfır atıklı döngüsel model",
+            "ar": "دائري بصفر نفايات",
+            "es": "Circular con residuo cero"
+          }
+        },
+        {
+          "label": {
+            "en": "Scalability",
+            "ru": "Масштабируемость",
+            "zh": "可扩展性",
+            "tr": "Ölçeklenebilirlik",
+            "ar": "قابلية التوسع",
+            "es": "Escalabilidad"
+          },
+          "value": {
+            "en": "Industrial Multi-Ton",
+            "ru": "Промышленные объёмы в тоннах",
+            "zh": "工业化吨级规模",
+            "tr": "Endüstriyel çok tonlu",
+            "ar": "صناعي متعدد الأطنان",
+            "es": "Industrial de múltiples toneladas"
+          }
+        }
+      ],
+      "actionLabel": {
+        "en": "Request Technology Dossier",
+        "ru": "Запросить досье технологии",
+        "zh": "索取技术资料",
+        "tr": "Teknoloji dosyası talep edin",
+        "ar": "اطلب ملف التقنية",
+        "es": "Solicitar expediente tecnológico"
+      }
+    },
+    "copy": {
+      "ctaBadge": {
+        "en": "TECHNOLOGY LICENSING & TESTING",
+        "ru": "ЛИЦЕНЗИРОВАНИЕ И ИСПЫТАНИЯ ТЕХНОЛОГИЙ",
+        "zh": "技术许可与测试",
+        "tr": "TEKNOLOJİ LİSANSLAMA VE TEST",
+        "ar": "ترخيص التكنولوجيا واختبارها",
+        "es": "LICENCIAS Y ENSAYOS TECNOLÓGICOS"
+      },
+      "ctaDescription": {
+        "en": "Submit laboratory samples of your raw plant biomass for comprehensive chemical profiling, extraction coefficient measurement, and mass-balance flow modeling.",
+        "ru": "Передайте лабораторные образцы вашей растительной биомассы для комплексного химического анализа, измерения коэффициентов экстракции и моделирования материального баланса.",
+        "zh": "提交您的植物生物质原料实验室样品，进行全面的化学分析、提取系数测定及物料平衡流程建模。",
+        "tr": "Kapsamlı kimyasal profil çıkarma, ekstraksiyon katsayısı ölçümü ve kütle dengesi akış modellemesi için bitkisel ham biyokütlenizin laboratuvar numunelerini gönderin.",
+        "ar": "أرسل عيّنات مخبرية من كتلتك الحيوية النباتية الخام لإجراء تحليل كيميائي شامل وقياس معامل الاستخلاص ونمذجة تدفق موازنة الكتلة.",
+        "es": "Envíe muestras de laboratorio de su biomasa vegetal bruta para un perfil químico completo, la medición del coeficiente de extracción y la modelización del flujo de balance de masa."
+      },
+      "ctaTitle": {
+        "en": "Validate Your Feedstock in Our Testing Facilities",
+        "ru": "Проверьте ваше сырьё в наших испытательных лабораториях",
+        "zh": "在我们的测试设施中验证您的原料",
+        "tr": "Hammaddenizi test tesislerimizde doğrulayın",
+        "ar": "تحقّق من موادك الخام في منشآت الاختبار لدينا",
+        "es": "Valide su materia prima en nuestras instalaciones de ensayo"
+      },
+      "patentRegistryLink": {
+        "en": "Review Patent Registry →",
+        "ru": "Реестр патентов →",
+        "zh": "查看专利登记 →",
+        "tr": "Patent sicilini inceleyin →",
+        "ar": "مراجعة سجل البراءات ←",
+        "es": "Consultar el registro de patentes →"
+      },
+      "inquiryTopic": {
+        "en": "Technology Licensing & Process Inquiry",
+        "ru": "Запрос по лицензированию технологий и процессам",
+        "zh": "技术许可及工艺咨询",
+        "tr": "Teknoloji lisanslama ve proses talebi",
+        "ar": "استفسار عن ترخيص التكنولوجيا والعمليات",
+        "es": "Consulta sobre licencias tecnológicas y procesos"
+      }
+    },
+    "lists": {},
+    "media": {},
+    "body": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "948e4e09a952823c",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "948e4e09a952823c",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "948e4e09a952823c",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "948e4e09a952823c",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "948e4e09a952823c",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "page-patents",
+    "status": "published",
+    "order": 5,
+    "key": "patents",
+    "kind": "page",
+    "header": {
+      "badgeNumber": "04",
+      "badgeLabel": {
+        "en": "INTELLECTUAL PROPERTY",
+        "ru": "ИНТЕЛЛЕКТУАЛЬНАЯ СОБСТВЕННОСТЬ",
+        "zh": "知识产权",
+        "tr": "FİKRİ MÜLKİYET",
+        "ar": "الملكية الفكرية",
+        "es": "PROPIEDAD INTELECTUAL"
+      },
+      "title": {
+        "en": "Patents, Scientific IP & Licensing",
+        "ru": "Патенты, научная интеллектуальная собственность и лицензирование",
+        "zh": "专利、科学知识产权与许可",
+        "tr": "Patentler, bilimsel fikri mülkiyet ve lisanslama",
+        "ar": "براءات الاختراع والملكية الفكرية العلمية والترخيص",
+        "es": "Patentes, propiedad intelectual científica y licenciamiento"
+      },
+      "subtitle": {
+        "en": "Proprietary Biochemical Inventions Grounded in Commercial Industrial Plants",
+        "ru": "Собственные биохимические изобретения, подтверждённые на промышленных заводах",
+        "zh": "扎根于商业化工业工厂的自有生化发明",
+        "tr": "Ticari endüstriyel tesislerde temellenen tescilli biyokimyasal buluşlar",
+        "ar": "اختراعات كيميائية حيوية خاصة راسخة في مصانع صناعية تجارية",
+        "es": "Invenciones bioquímicas propias respaldadas por plantas industriales comerciales"
+      },
+      "description": {
+        "en": "Soltex Global safeguards its clients' market exclusivity through registered international patents and trade secrets covering extraction yields, enzymatic fractionation, and closed-loop biomass valorization.",
+        "ru": "Soltex Global защищает рыночную эксклюзивность своих клиентов с помощью зарегистрированных международных патентов и коммерческой тайны, охватывающих выход экстракции, ферментативное фракционирование и валоризацию биомассы в замкнутом цикле.",
+        "zh": "Soltex Global 通过已注册的国际专利和商业秘密保障客户的市场独占性，涵盖提取收率、酶法分级及闭环生物质高值化利用。",
+        "tr": "Soltex Global, ekstraksiyon verimleri, enzimatik fraksiyonlama ve kapalı döngü biyokütle değerlendirmesini kapsayan tescilli uluslararası patentler ve ticari sırlar aracılığıyla müşterilerinin pazar münhasırlığını korur.",
+        "ar": "تحمي Soltex Global حصرية عملائها في السوق عبر براءات اختراع دولية مسجلة وأسرار تجارية تغطي مردود الاستخلاص والتجزئة الإنزيمية وتثمين الكتلة الحيوية بدورة مغلقة.",
+        "es": "Soltex Global protege la exclusividad de mercado de sus clientes mediante patentes internacionales registradas y secretos comerciales que abarcan los rendimientos de extracción, el fraccionamiento enzimático y la valorización de biomasa en circuito cerrado."
+      },
+      "meta": [
+        {
+          "label": {
+            "en": "Portfolio Status",
+            "ru": "Статус портфеля",
+            "zh": "组合状态",
+            "tr": "Portföy durumu",
+            "ar": "حالة المحفظة",
+            "es": "Estado de la cartera"
+          },
+          "value": {
+            "en": "Active Registered IP",
+            "ru": "Действующая зарегистрированная ИС",
+            "zh": "有效注册知识产权",
+            "tr": "Aktif tescilli fikri mülkiyet",
+            "ar": "ملكية فكرية مسجلة وسارية",
+            "es": "PI registrada y vigente"
+          }
+        },
+        {
+          "label": {
+            "en": "Key Jurisdictions",
+            "ru": "Ключевые юрисдикции",
+            "zh": "主要司法管辖区",
+            "tr": "Başlıca yargı bölgeleri",
+            "ar": "الولايات القضائية الرئيسية",
+            "es": "Jurisdicciones clave"
+          },
+          "value": {
+            "en": "EPO, Israel, Bulgaria, CIS",
+            "ru": "ЕПВ, Израиль, Болгария, СНГ",
+            "zh": "欧洲专利局、以色列、保加利亚、独联体",
+            "tr": "EPO, İsrail, Bulgaristan, BDT",
+            "ar": "المكتب الأوروبي للبراءات، إسرائيل، بلغاريا، رابطة الدول المستقلة",
+            "es": "OEP, Israel, Bulgaria, CEI"
+          }
+        },
+        {
+          "label": {
+            "en": "Licensing Model",
+            "ru": "Модель лицензирования",
+            "zh": "许可模式",
+            "tr": "Lisans modeli",
+            "ar": "نموذج الترخيص",
+            "es": "Modelo de licencia"
+          },
+          "value": {
+            "en": "Exclusive with Turnkey EPC",
+            "ru": "Эксклюзивно с EPC «под ключ»",
+            "zh": "与交钥匙 EPC 捆绑独家许可",
+            "tr": "Anahtar teslim EPC ile münhasır",
+            "ar": "حصري مع EPC بنظام تسليم المفتاح",
+            "es": "Exclusiva con EPC llave en mano"
+          }
+        },
+        {
+          "label": {
+            "en": "Industrial Proof",
+            "ru": "Промышленное подтверждение",
+            "zh": "工业实证",
+            "tr": "Endüstriyel kanıt",
+            "ar": "الإثبات الصناعي",
+            "es": "Prueba industrial"
+          },
+          "value": {
+            "en": "Validated in Commercial Plants",
+            "ru": "Подтверждено на промышленных заводах",
+            "zh": "已在商业化工厂验证",
+            "tr": "Ticari tesislerde doğrulanmış",
+            "ar": "مُتحقَّق منه في مصانع تجارية",
+            "es": "Validado en plantas comerciales"
+          }
+        }
+      ],
+      "actionLabel": {
+        "en": "Request Licensing Dossier",
+        "ru": "Запросить досье по лицензированию",
+        "zh": "索取许可资料",
+        "tr": "Lisans dosyası talep edin",
+        "ar": "اطلب ملف الترخيص",
+        "es": "Solicitar expediente de licencia"
+      }
+    },
+    "copy": {
+      "assurance1Text": {
+        "en": "All technology licensing dialogues are governed by standard industrial non-disclosure agreements protecting proprietary know-how and client raw material analyses.",
+        "ru": "Все переговоры о лицензировании технологий ведутся на основе стандартных промышленных соглашений о неразглашении, защищающих собственное ноу-хау и результаты анализа сырья клиентов.",
+        "zh": "所有技术许可洽谈均受标准工业保密协议约束，保护自有专有技术及客户原料分析数据。",
+        "tr": "Tüm teknoloji lisanslama görüşmeleri, tescilli know-how'ı ve müşteri hammadde analizlerini koruyan standart endüstriyel gizlilik sözleşmelerine tabidir.",
+        "ar": "تخضع جميع حوارات ترخيص التكنولوجيا لاتفاقيات صناعية قياسية لعدم الإفصاح تحمي الدراية الفنية الخاصة وتحاليل المواد الخام للعملاء.",
+        "es": "Todas las conversaciones sobre licencias tecnológicas se rigen por acuerdos industriales estándar de confidencialidad que protegen el know-how propio y los análisis de materias primas de los clientes."
+      },
+      "assurance1Title": {
+        "en": "Confidentiality Guarantee",
+        "ru": "Гарантия конфиденциальности",
+        "zh": "保密保证",
+        "tr": "Gizlilik garantisi",
+        "ar": "ضمان السرية",
+        "es": "Garantía de confidencialidad"
+      },
+      "assurance2Text": {
+        "en": "Turnkey EPC clients may secure defined geographic exclusivity for specific patented processing platforms, guaranteeing protection from regional commodity competition.",
+        "ru": "Клиенты EPC «под ключ» могут получить определённую географическую эксклюзивность на конкретные запатентованные технологические платформы, гарантирующую защиту от региональной сырьевой конкуренции.",
+        "zh": "交钥匙 EPC 客户可就特定专利加工平台获得明确的地域独占权，保证免受区域性大宗商品竞争。",
+        "tr": "Anahtar teslim EPC müşterileri, belirli patentli işleme platformları için tanımlı coğrafi münhasırlık elde edebilir; bu da bölgesel emtia rekabetine karşı koruma garanti eder.",
+        "ar": "يمكن لعملاء EPC بنظام تسليم المفتاح الحصول على حصرية جغرافية محددة لمنصات معالجة معينة حاصلة على براءات اختراع، بما يضمن الحماية من المنافسة الإقليمية في السلع الأساسية.",
+        "es": "Los clientes de EPC llave en mano pueden obtener una exclusividad geográfica definida para plataformas de procesamiento patentadas específicas, lo que garantiza la protección frente a la competencia regional de materias primas básicas."
+      },
+      "assurance2Title": {
+        "en": "Exclusive Territory Protection",
+        "ru": "Защита эксклюзивной территории",
+        "zh": "独家区域保护",
+        "tr": "Münhasır bölge koruması",
+        "ar": "حماية الإقليم الحصري",
+        "es": "Protección territorial exclusiva"
+      },
+      "assurance3Text": {
+        "en": "Soltex Global continually refines separation economics, updating licensed operators with periodic biochemical enhancements and energy optimization recipes.",
+        "ru": "Soltex Global постоянно совершенствует экономику процессов разделения, предоставляя лицензиатам периодические биохимические улучшения и решения по оптимизации энергопотребления.",
+        "zh": "Soltex Global 持续优化分离经济性，定期为获许可运营方提供生化改进和能源优化方案。",
+        "tr": "Soltex Global, ayırma ekonomisini sürekli iyileştirir ve lisanslı işletmecileri periyodik biyokimyasal geliştirmeler ve enerji optimizasyonu reçeteleriyle günceller.",
+        "ar": "تعمل Soltex Global باستمرار على تحسين اقتصاديات الفصل، وتزوّد المشغّلين المرخّص لهم بتحسينات كيميائية حيوية دورية ووصفات لتحسين استهلاك الطاقة.",
+        "es": "Soltex Global perfecciona continuamente la economía de la separación y actualiza a los operadores licenciatarios con mejoras bioquímicas periódicas y recetas de optimización energética."
+      },
+      "assurance3Title": {
+        "en": "Continuous Process R&D",
+        "ru": "Непрерывные технологические НИОКР",
+        "zh": "持续工艺研发",
+        "tr": "Sürekli proses Ar-Ge'si",
+        "ar": "بحث وتطوير مستمر للعمليات",
+        "es": "I+D continua de procesos"
+      },
+      "ctaBadge": {
+        "en": "PATENT LICENSING & IP PORTFOLIO",
+        "ru": "ЛИЦЕНЗИРОВАНИЕ ПАТЕНТОВ И ПОРТФЕЛЬ ИС",
+        "zh": "专利许可与知识产权组合",
+        "tr": "PATENT LİSANSLAMA VE FM PORTFÖYÜ",
+        "ar": "ترخيص البراءات ومحفظة الملكية الفكرية",
+        "es": "LICENCIAS DE PATENTES Y CARTERA DE PI"
+      },
+      "ctaDescription": {
+        "en": "Our legal and technological licensing team provides full documentation, patent boundary assessments, and turnkey integration for industrial agro-holdings.",
+        "ru": "Наша юридическая и технологическая команда по лицензированию предоставляет полный комплект документации, оценку границ патентной защиты и интеграцию «под ключ» для промышленных агрохолдингов.",
+        "zh": "我们的法律与技术许可团队为工业农业集团提供完整文件、专利边界评估及交钥匙集成。",
+        "tr": "Hukuk ve teknoloji lisanslama ekibimiz, endüstriyel tarım holdingleri için eksiksiz dokümantasyon, patent kapsamı değerlendirmeleri ve anahtar teslim entegrasyon sağlar.",
+        "ar": "يقدّم فريق الترخيص القانوني والتكنولوجي لدينا وثائق كاملة وتقييمات لحدود الحماية البراءية وتكاملًا بنظام تسليم المفتاح للمجموعات الزراعية الصناعية.",
+        "es": "Nuestro equipo jurídico y tecnológico de licencias proporciona documentación completa, evaluaciones del alcance de las patentes e integración llave en mano para grupos agroindustriales."
+      },
+      "ctaTitle": {
+        "en": "Acquire Exclusive Rights to Patented Extraction Technologies",
+        "ru": "Получите эксклюзивные права на запатентованные технологии экстракции",
+        "zh": "获取专利提取技术的独家权利",
+        "tr": "Patentli ekstraksiyon teknolojilerinde münhasır haklar edinin",
+        "ar": "احصل على حقوق حصرية لتقنيات الاستخلاص الحاصلة على براءات اختراع",
+        "es": "Adquiera derechos exclusivos sobre tecnologías de extracción patentadas"
+      },
+      "registryEyebrow": {
+        "en": "REGISTERED SCIENTIFIC MONOGRAPHS",
+        "ru": "ЗАРЕГИСТРИРОВАННЫЕ НАУЧНЫЕ РАЗРАБОТКИ",
+        "zh": "已注册科研成果",
+        "tr": "TESCİLLİ BİLİMSEL ÇALIŞMALAR",
+        "ar": "الأعمال العلمية المسجلة",
+        "es": "OBRAS CIENTÍFICAS REGISTRADAS"
+      },
+      "registryHeading": {
+        "en": "Commercial Patent Portfolio & Reference Assets",
+        "ru": "Коммерческий патентный портфель и референтные активы",
+        "zh": "商业专利组合与参考资产",
+        "tr": "Ticari patent portföyü ve referans varlıklar",
+        "ar": "محفظة براءات الاختراع التجارية والأصول المرجعية",
+        "es": "Cartera comercial de patentes y activos de referencia"
+      },
+      "statusValue": {
+        "en": "Active & Industrially Scaled",
+        "ru": "Действует и масштабирован в промышленности",
+        "zh": "有效并已实现工业化放大",
+        "tr": "Aktif ve endüstriyel ölçekte uygulanıyor",
+        "ar": "سارية ومطبّقة على نطاق صناعي",
+        "es": "Vigente y escalada a nivel industrial"
+      },
+      "inquiryTopic": {
+        "en": "Patent Licensing & IP Dossier Request",
+        "ru": "Запрос досье по лицензированию патентов и ИС",
+        "zh": "专利许可及知识产权资料申请",
+        "tr": "Patent lisanslama ve FM dosyası talebi",
+        "ar": "طلب ملف ترخيص براءات الاختراع والملكية الفكرية",
+        "es": "Solicitud de expediente de licencias de patentes y PI"
+      }
+    },
+    "lists": {},
+    "media": {},
+    "body": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "2270ad4d06e13ad1",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "2270ad4d06e13ad1",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "2270ad4d06e13ad1",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "2270ad4d06e13ad1",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "2270ad4d06e13ad1",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "page-epcm",
+    "status": "published",
+    "order": 6,
+    "key": "epcm",
+    "kind": "page",
+    "header": {
+      "badgeNumber": "05",
+      "badgeLabel": {
+        "en": "TURNKEY DELIVERY",
+        "ru": "РЕАЛИЗАЦИЯ «ПОД КЛЮЧ»",
+        "zh": "交钥匙交付",
+        "tr": "ANAHTAR TESLİM UYGULAMA",
+        "ar": "التنفيذ بنظام تسليم المفتاح",
+        "es": "EJECUCIÓN LLAVE EN MANO"
+      },
+      "title": {
+        "en": "Full-Cycle EPCM Industrial Services",
+        "ru": "Промышленные EPCM-услуги полного цикла",
+        "zh": "全周期 EPCM 工业服务",
+        "tr": "Tam döngü EPCM endüstriyel hizmetleri",
+        "ar": "خدمات EPCM الصناعية متكاملة الدورة",
+        "es": "Servicios industriales EPCM de ciclo completo"
+      },
+      "subtitle": {
+        "en": "From Laboratory Concept to Continuous Multi-Ton Commercial Production",
+        "ru": "От лабораторной концепции до непрерывного коммерческого производства мощностью в тонны",
+        "zh": "从实验室概念到连续的吨级商业化生产",
+        "tr": "Laboratuvar konseptinden sürekli, çok tonlu ticari üretime",
+        "ar": "من المفهوم المخبري إلى إنتاج تجاري مستمر متعدد الأطنان",
+        "es": "Del concepto de laboratorio a la producción comercial continua de múltiples toneladas"
+      },
+      "description": {
+        "en": "Soltex Global delivers complex deep agro-processing installations under unified Engineering, Procurement, Construction Management (EPCM) and turnkey EPC models. We assume total technical responsibility from biomass testing to operational yield guarantees.",
+        "ru": "Soltex Global реализует сложные установки глубокой агропереработки по единым моделям EPCM (инжиниринг, закупки, управление строительством) и EPC «под ключ». Мы принимаем на себя полную техническую ответственность — от испытаний биомассы до гарантий эксплуатационного выхода.",
+        "zh": "Soltex Global 采用统一的设计、采购、施工管理（EPCM）及交钥匙 EPC 模式，交付复杂的农产品深加工装置。从生物质测试到运营收率保证，我们承担全部技术责任。",
+        "tr": "Soltex Global, karmaşık ileri tarımsal işleme tesislerini birleşik Mühendislik, Tedarik, İnşaat Yönetimi (EPCM) ve anahtar teslim EPC modelleriyle teslim eder. Biyokütle testlerinden işletme verimi garantilerine kadar tüm teknik sorumluluğu üstleniyoruz.",
+        "ar": "تنفّذ Soltex Global منشآت معقدة للمعالجة الزراعية العميقة وفق نماذج موحّدة للهندسة والمشتريات وإدارة الإنشاء (EPCM) ونماذج EPC بنظام تسليم المفتاح. ونتحمّل المسؤولية الفنية الكاملة من اختبار الكتلة الحيوية إلى ضمانات المردود التشغيلي.",
+        "es": "Soltex Global ejecuta instalaciones complejas de procesamiento agrícola profundo bajo modelos unificados de ingeniería, aprovisionamiento y gestión de la construcción (EPCM) y EPC llave en mano. Asumimos la responsabilidad técnica total, desde los ensayos de biomasa hasta las garantías de rendimiento operativo."
+      },
+      "meta": [
+        {
+          "label": {
+            "en": "Contract Models",
+            "ru": "Модели контрактов",
+            "zh": "合同模式",
+            "tr": "Sözleşme modelleri",
+            "ar": "نماذج العقود",
+            "es": "Modelos contractuales"
+          },
+          "value": {
+            "en": "Turnkey EPC / EPCM / PMC",
+            "ru": "EPC «под ключ» / EPCM / PMC",
+            "zh": "交钥匙 EPC / EPCM / PMC",
+            "tr": "Anahtar teslim EPC / EPCM / PMC",
+            "ar": "EPC / EPCM / PMC بنظام تسليم المفتاح",
+            "es": "EPC / EPCM / PMC llave en mano"
+          }
+        },
+        {
+          "label": {
+            "en": "Quality Standards",
+            "ru": "Стандарты качества",
+            "zh": "质量标准",
+            "tr": "Kalite standartları",
+            "ar": "معايير الجودة",
+            "es": "Estándares de calidad"
+          },
+          "value": {
+            "en": "ISO 9001 · HACCP · GMP",
+            "ru": "ISO 9001 · HACCP · GMP",
+            "zh": "ISO 9001 · HACCP · GMP",
+            "tr": "ISO 9001 · HACCP · GMP",
+            "ar": "ISO 9001 · HACCP · GMP",
+            "es": "ISO 9001 · HACCP · GMP"
+          }
+        },
+        {
+          "label": {
+            "en": "Operational Guarantee",
+            "ru": "Эксплуатационная гарантия",
+            "zh": "运营保证",
+            "tr": "İşletme garantisi",
+            "ar": "الضمان التشغيلي",
+            "es": "Garantía operativa"
+          },
+          "value": {
+            "en": "Output Purity & Volume",
+            "ru": "Чистота и объём продукции",
+            "zh": "产品纯度与产量",
+            "tr": "Ürün saflığı ve hacmi",
+            "ar": "نقاوة المنتج وحجمه",
+            "es": "Pureza y volumen de producción"
+          }
+        },
+        {
+          "label": {
+            "en": "Lifecycle Responsibility",
+            "ru": "Ответственность за жизненный цикл",
+            "zh": "全生命周期责任",
+            "tr": "Yaşam döngüsü sorumluluğu",
+            "ar": "المسؤولية عن دورة الحياة",
+            "es": "Responsabilidad sobre el ciclo de vida"
+          },
+          "value": {
+            "en": "End-to-End Delivery",
+            "ru": "Сквозная реализация",
+            "zh": "端到端交付",
+            "tr": "Uçtan uca teslim",
+            "ar": "تنفيذ شامل من البداية إلى النهاية",
+            "es": "Ejecución integral"
+          }
+        }
+      ],
+      "actionLabel": {
+        "en": "Inquire for Plant Delivery",
+        "ru": "Запрос на строительство завода",
+        "zh": "咨询工厂交付",
+        "tr": "Tesis teslimi için bilgi alın",
+        "ar": "استفسر عن تنفيذ مصنع",
+        "es": "Consultar sobre la ejecución de una planta"
+      }
+    },
+    "copy": {
+      "ctaBadge": {
+        "en": "PROJECT EXECUTION MANDATE",
+        "ru": "МАНДАТ НА РЕАЛИЗАЦИЮ ПРОЕКТА",
+        "zh": "项目执行任务",
+        "tr": "PROJE UYGULAMA YETKİSİ",
+        "ar": "تفويض تنفيذ المشروع",
+        "es": "MANDATO DE EJECUCIÓN DEL PROYECTO"
+      },
+      "ctaDescription": {
+        "en": "Connect with our lead process engineers and construction directors to map out timeline, CAPEX estimates, and site readiness for your planned plant.",
+        "ru": "Свяжитесь с нашими ведущими инженерами-технологами и директорами по строительству, чтобы определить сроки, оценку CAPEX и готовность площадки для планируемого завода.",
+        "zh": "联系我们的首席工艺工程师和施工总监，为您规划中的工厂制定时间表、CAPEX 估算及厂址准备方案。",
+        "tr": "Planladığınız tesisin takvimini, CAPEX tahminlerini ve saha hazırlığını belirlemek için baş proses mühendislerimiz ve inşaat direktörlerimizle iletişime geçin.",
+        "ar": "تواصل مع كبار مهندسي العمليات ومديري الإنشاء لدينا لوضع الجدول الزمني وتقديرات CAPEX وجاهزية الموقع للمصنع الذي تخطط له.",
+        "es": "Póngase en contacto con nuestros ingenieros de procesos principales y directores de construcción para definir el cronograma, las estimaciones de CAPEX y la preparación del emplazamiento de su futura planta."
+      },
+      "ctaTitle": {
+        "en": "Schedule an Engineering Scoping Workshop",
+        "ru": "Запланируйте инженерный воркшоп по определению объёма работ",
+        "zh": "预约工程范围界定研讨会",
+        "tr": "Mühendislik kapsam belirleme çalıştayı planlayın",
+        "ar": "حدّد موعدًا لورشة عمل هندسية لتحديد النطاق",
+        "es": "Programe un taller de ingeniería para definir el alcance"
+      },
+      "guaranteeEyebrow": {
+        "en": "GUARANTEED DELIVERABLES",
+        "ru": "ГАРАНТИРОВАННЫЕ РЕЗУЛЬТАТЫ",
+        "zh": "保证交付成果",
+        "tr": "GARANTİLİ ÇIKTILAR",
+        "ar": "مخرجات مضمونة",
+        "es": "ENTREGABLES GARANTIZADOS"
+      },
+      "guaranteeItem1": {
+        "en": "Guaranteed annual metric ton throughput",
+        "ru": "Гарантированная годовая производительность в тоннах",
+        "zh": "保证年产量（吨）",
+        "tr": "Garantili yıllık metrik ton kapasite",
+        "ar": "إنتاجية سنوية مضمونة بالطن المتري",
+        "es": "Producción anual garantizada en toneladas métricas"
+      },
+      "guaranteeItem2": {
+        "en": "Verified chemical purity (e.g. 90%+ soy isolate protein)",
+        "ru": "Подтверждённая химическая чистота (например, 90%+ белка в соевом изоляте)",
+        "zh": "经验证的化学纯度（例如大豆分离蛋白蛋白含量 90% 以上）",
+        "tr": "Doğrulanmış kimyasal saflık (ör. soya izolatında %90+ protein)",
+        "ar": "نقاوة كيميائية مُتحقَّق منها (مثل بروتين معزول الصويا بنسبة 90%+)",
+        "es": "Pureza química verificada (p. ej., más del 90% de proteína en el aislado de soja)"
+      },
+      "guaranteeItem3": {
+        "en": "Fixed utility consumption ceilings per ton of finished product",
+        "ru": "Фиксированные предельные значения потребления энергоресурсов на тонну готовой продукции",
+        "zh": "每吨成品的公用工程消耗上限固定",
+        "tr": "Ton mamul ürün başına sabit yardımcı tesis tüketim tavanları",
+        "ar": "حدود ثابتة لاستهلاك المرافق لكل طن من المنتج النهائي",
+        "es": "Límites fijos de consumo de servicios por tonelada de producto terminado"
+      },
+      "guaranteeItem4": {
+        "en": "Certified local operating staff upon commercial commissioning",
+        "ru": "Аттестованный местный эксплуатационный персонал к моменту ввода в коммерческую эксплуатацию",
+        "zh": "商业化投产时配备经认证的本地运营人员",
+        "tr": "Ticari devreye alma sırasında sertifikalı yerel işletme personeli",
+        "ar": "كوادر تشغيل محلية معتمدة عند بدء التشغيل التجاري",
+        "es": "Personal de operación local certificado en la puesta en marcha comercial"
+      },
+      "guaranteeTitle": {
+        "en": "Our Performance Guarantee",
+        "ru": "Наша гарантия результата",
+        "zh": "我们的性能保证",
+        "tr": "Performans garantimiz",
+        "ar": "ضمان الأداء لدينا",
+        "es": "Nuestra garantía de rendimiento"
+      },
+      "philosophyEyebrow": {
+        "en": "01 · THE EPCM PHILOSOPHY",
+        "ru": "01 · ФИЛОСОФИЯ EPCM",
+        "zh": "01 · EPCM 理念",
+        "tr": "01 · EPCM FELSEFESİ",
+        "ar": "01 · فلسفة EPCM",
+        "es": "01 · LA FILOSOFÍA EPCM"
+      },
+      "philosophyHeading": {
+        "en": "Single-Point Responsibility Eliminates Technology Risk",
+        "ru": "Единая ответственность исключает технологические риски",
+        "zh": "单一责任主体消除技术风险",
+        "tr": "Tek noktadan sorumluluk teknoloji riskini ortadan kaldırır",
+        "ar": "المسؤولية من جهة واحدة تلغي المخاطر التكنولوجية",
+        "es": "Un único responsable elimina el riesgo tecnológico"
+      },
+      "philosophyParagraph1": {
+        "en": "Industrial processing facilities frequently suffer from the disconnect between academic technology licensors, foreign equipment vendors, and local civil contractors. Soltex Global eliminates this friction by operating as a unified EPCM provider.",
+        "ru": "Промышленные перерабатывающие предприятия часто страдают от разрыва между академическими лицензиарами технологий, зарубежными поставщиками оборудования и местными строительными подрядчиками. Soltex Global устраняет эти противоречия, выступая единым EPCM-подрядчиком.",
+        "zh": "工业加工设施常因学术技术许可方、外国设备供应商与本地土建承包商之间脱节而受困。Soltex Global 作为统一的 EPCM 服务商，消除了这种摩擦。",
+        "tr": "Endüstriyel işleme tesisleri çoğu zaman akademik teknoloji lisans verenler, yabancı ekipman tedarikçileri ve yerel inşaat yüklenicileri arasındaki kopukluktan zarar görür. Soltex Global, birleşik bir EPCM sağlayıcısı olarak bu sürtünmeyi ortadan kaldırır.",
+        "ar": "كثيرًا ما تعاني منشآت المعالجة الصناعية من الانفصال بين مرخّصي التكنولوجيا الأكاديميين وموردي المعدات الأجانب والمقاولين المدنيين المحليين. وتُزيل Soltex Global هذا الاحتكاك من خلال عملها كمزوّد موحّد لخدمات EPCM.",
+        "es": "Las instalaciones de procesamiento industrial sufren con frecuencia la desconexión entre licenciantes académicos de tecnología, proveedores extranjeros de equipos y contratistas civiles locales. Soltex Global elimina esta fricción al actuar como proveedor EPCM unificado."
+      },
+      "philosophyParagraph2": {
+        "en": "Our multidisciplinary engineering core oversees every calculation: from initial raw pomace moisture assays to stainless-steel pipe isometric designs, automated SCADA PLC routines, and regulatory compliance.",
+        "ru": "Наша междисциплинарная инженерная команда контролирует каждый расчёт: от первичного анализа влажности сырых выжимок до изометрии трубопроводов из нержавеющей стали, автоматизированных алгоритмов SCADA / PLC и соответствия нормативным требованиям.",
+        "zh": "我们的多学科工程核心团队把控每一项计算：从原料果渣的初始含水率检测，到不锈钢管道轴测设计、自动化 SCADA PLC 程序及法规合规。",
+        "tr": "Multidisipliner mühendislik çekirdeğimiz her hesaplamayı denetler: ham posanın ilk nem analizlerinden paslanmaz çelik boru izometrik tasarımlarına, otomatik SCADA PLC rutinlerine ve mevzuata uyuma kadar.",
+        "ar": "يشرف فريقنا الهندسي متعدد التخصصات على كل عملية حسابية: من التحاليل الأولية لرطوبة التفل الخام إلى التصاميم الأيزومترية لأنابيب الفولاذ المقاوم للصدأ، وبرمجيات SCADA وPLC المؤتمتة، والامتثال التنظيمي.",
+        "es": "Nuestro núcleo de ingeniería multidisciplinar supervisa cada cálculo: desde los ensayos iniciales de humedad del orujo hasta los diseños isométricos de tuberías de acero inoxidable, las rutinas automatizadas SCADA PLC y el cumplimiento normativo."
+      },
+      "workflowEyebrow": {
+        "en": "02 · FULL-CYCLE WORKFLOW",
+        "ru": "02 · РАБОЧИЙ ПРОЦЕСС ПОЛНОГО ЦИКЛА",
+        "zh": "02 · 全周期工作流程",
+        "tr": "02 · TAM DÖNGÜ İŞ AKIŞI",
+        "ar": "02 · سير العمل متكامل الدورة",
+        "es": "02 · FLUJO DE TRABAJO DE CICLO COMPLETO"
+      },
+      "workflowHeading": {
+        "en": "Systematic Industrial Execution Architecture",
+        "ru": "Системная архитектура реализации промышленных проектов",
+        "zh": "系统化工业执行架构",
+        "tr": "Sistematik endüstriyel uygulama mimarisi",
+        "ar": "بنية منهجية للتنفيذ الصناعي",
+        "es": "Arquitectura sistemática de ejecución industrial"
+      },
+      "workflowIntro": {
+        "en": "Eight structured stages that guarantee bankable feasibility, compliant engineering, and sustained commercial yield.",
+        "ru": "Восемь структурированных этапов, гарантирующих ТЭО банковского уровня, инжиниринг в соответствии с нормами и устойчивый коммерческий выход.",
+        "zh": "八个结构化阶段，保证可获银行认可的可行性、合规的工程设计及持续的商业化产出。",
+        "tr": "Bankalarca kabul görecek fizibilite, mevzuata uygun mühendislik ve sürdürülebilir ticari verim garanti eden sekiz yapılandırılmış aşama.",
+        "ar": "ثماني مراحل منظّمة تضمن جدوى مقبولة لدى البنوك وهندسة مطابقة للمعايير ومردودًا تجاريًا مستدامًا.",
+        "es": "Ocho etapas estructuradas que garantizan una viabilidad apta para la banca, una ingeniería conforme a la normativa y un rendimiento comercial sostenido."
+      },
+      "inquiryTopic": {
+        "en": "Turnkey EPCM Project Inquiry",
+        "ru": "Запрос на EPCM-проект «под ключ»",
+        "zh": "交钥匙 EPCM 项目咨询",
+        "tr": "Anahtar teslim EPCM proje talebi",
+        "ar": "استفسار عن مشروع EPCM بنظام تسليم المفتاح",
+        "es": "Consulta sobre proyecto EPCM llave en mano"
+      }
+    },
+    "lists": {},
+    "media": {},
+    "body": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "78fe9b4422dcb8d1",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "78fe9b4422dcb8d1",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "78fe9b4422dcb8d1",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "78fe9b4422dcb8d1",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "78fe9b4422dcb8d1",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "page-products",
+    "status": "published",
+    "order": 7,
+    "key": "products",
+    "kind": "page",
+    "header": {
+      "badgeNumber": "04",
+      "badgeLabel": {
+        "en": "COMMERCIAL OUTPUTS",
+        "ru": "КОММЕРЧЕСКАЯ ПРОДУКЦИЯ",
+        "zh": "商业化产品",
+        "tr": "TİCARİ ÇIKTILAR",
+        "ar": "المخرجات التجارية",
+        "es": "PRODUCCIÓN COMERCIAL"
+      },
+      "title": {
+        "en": "High-Value Plant Ingredients & Biochemical Outputs",
+        "ru": "Ценные растительные ингредиенты и биохимическая продукция",
+        "zh": "高附加值植物配料与生化产品",
+        "tr": "Yüksek katma değerli bitkisel bileşenler ve biyokimyasal ürünler",
+        "ar": "مكونات نباتية عالية القيمة ومنتجات كيميائية حيوية",
+        "es": "Ingredientes vegetales de alto valor y productos bioquímicos"
+      },
+      "subtitle": {
+        "en": "Manufactured Exclusively via Soltex Global Patented Extraction Facilities",
+        "ru": "Производится исключительно на предприятиях Soltex Global по запатентованным технологиям экстракции",
+        "zh": "完全由 Soltex Global 专利提取设施生产",
+        "tr": "Yalnızca Soltex Global patentli ekstraksiyon tesislerinde üretilir",
+        "ar": "تُصنع حصريًا في منشآت الاستخلاص الحاصلة على براءات اختراع التابعة لـ Soltex Global",
+        "es": "Fabricado exclusivamente en las instalaciones de extracción patentadas de Soltex Global"
+      },
+      "description": {
+        "en": "The tangible output of our engineering prowess. Soltex Global facilities produce world-standard functional proteins, pectins, and prebiotics serving global food manufacturers, nutraceutical producers, and pharmaceutical enterprises.",
+        "ru": "Осязаемый результат нашего инженерного мастерства. Предприятия Soltex Global производят функциональные белки, пектины и пребиотики мирового уровня для мировых производителей продуктов питания, нутрицевтиков и фармацевтических компаний.",
+        "zh": "我们工程实力的有形成果。Soltex Global 工厂生产世界级的功能性蛋白、果胶和益生元，服务全球食品制造商、营养保健品生产商及医药企业。",
+        "tr": "Mühendislik yetkinliğimizin somut çıktısı. Soltex Global tesisleri; küresel gıda üreticilerine, nutrasötik üreticilerine ve ilaç şirketlerine hizmet veren dünya standartlarında fonksiyonel proteinler, pektinler ve prebiyotikler üretir.",
+        "ar": "الثمرة الملموسة لتميّزنا الهندسي. تنتج منشآت Soltex Global بروتينات وظيفية وبكتينات وبريبايوتيك بمعايير عالمية تخدم مصنّعي الأغذية ومنتجي المغذيات الصحية وشركات الأدوية حول العالم.",
+        "es": "El resultado tangible de nuestra excelencia en ingeniería. Las instalaciones de Soltex Global producen proteínas funcionales, pectinas y prebióticos de nivel mundial para fabricantes de alimentos, productores de nutracéuticos y empresas farmacéuticas de todo el mundo."
+      },
+      "meta": [
+        {
+          "label": {
+            "en": "Grade Standards",
+            "ru": "Стандарты качества",
+            "zh": "等级标准",
+            "tr": "Kalite sınıfları",
+            "ar": "معايير الدرجة",
+            "es": "Grados"
+          },
+          "value": {
+            "en": "Food, Pharma, Dietary",
+            "ru": "Пищевое, фармацевтическое, диетическое",
+            "zh": "食品级、医药级、膳食级",
+            "tr": "Gıda, ilaç, diyet",
+            "ar": "غذائية، دوائية، حِمية",
+            "es": "Alimentario, farmacéutico, dietético"
+          }
+        },
+        {
+          "label": {
+            "en": "Purity Benchmarks",
+            "ru": "Показатели чистоты",
+            "zh": "纯度基准",
+            "tr": "Saflık ölçütleri",
+            "ar": "معايير النقاوة",
+            "es": "Referencias de pureza"
+          },
+          "value": {
+            "en": "Up to 92% Active Compound",
+            "ru": "До 92% активного вещества",
+            "zh": "活性成分最高 92%",
+            "tr": "%92'ye varan aktif bileşen",
+            "ar": "حتى 92% مادة فعّالة",
+            "es": "Hasta un 92% de compuesto activo"
+          }
+        },
+        {
+          "label": {
+            "en": "Feedstock Base",
+            "ru": "Сырьевая база",
+            "zh": "原料基础",
+            "tr": "Hammadde tabanı",
+            "ar": "قاعدة المواد الخام",
+            "es": "Base de materia prima"
+          },
+          "value": {
+            "en": "Non-GMO Natural Biomass",
+            "ru": "Натуральная биомасса без ГМО",
+            "zh": "非转基因天然生物质",
+            "tr": "GDO'suz doğal biyokütle",
+            "ar": "كتلة حيوية طبيعية غير معدّلة وراثيًا",
+            "es": "Biomasa natural no transgénica"
+          }
+        },
+        {
+          "label": {
+            "en": "Regulatory Compliance",
+            "ru": "Соответствие нормам",
+            "zh": "法规合规",
+            "tr": "Mevzuata uyum",
+            "ar": "الامتثال التنظيمي",
+            "es": "Cumplimiento normativo"
+          },
+          "value": {
+            "en": "ISO 22000 · Halal · Kosher",
+            "ru": "ISO 22000 · Halal · Kosher",
+            "zh": "ISO 22000 · Halal · Kosher",
+            "tr": "ISO 22000 · Halal · Kosher",
+            "ar": "ISO 22000 · Halal · Kosher",
+            "es": "ISO 22000 · Halal · Kosher"
+          }
+        }
+      ],
+      "actionLabel": {
+        "en": "Request Product Specs",
+        "ru": "Запросить спецификации продукции",
+        "zh": "索取产品规格",
+        "tr": "Ürün spesifikasyonu talep edin",
+        "ar": "اطلب مواصفات المنتج",
+        "es": "Solicitar especificaciones del producto"
+      }
+    },
+    "copy": {
+      "ctaBadge": {
+        "en": "INGREDIENT SOURCING & PLANT CAPACITY",
+        "ru": "ЗАКУПКА ИНГРЕДИЕНТОВ И МОЩНОСТИ ЗАВОДОВ",
+        "zh": "配料采购与工厂产能",
+        "tr": "BİLEŞEN TEDARİKİ VE TESİS KAPASİTESİ",
+        "ar": "توريد المكونات وطاقة المصانع",
+        "es": "ABASTECIMIENTO DE INGREDIENTES Y CAPACIDAD DE PLANTA"
+      },
+      "ctaDescription": {
+        "en": "Whether you wish to license our processing facility blueprints to establish domestic production, or secure bulk commodity supply contracts, our chemical sales desk is available.",
+        "ru": "Хотите ли вы лицензировать проекты наших перерабатывающих предприятий, чтобы наладить собственное производство, или заключить контракты на оптовые поставки — наш отдел продаж химической продукции готов помочь.",
+        "zh": "无论您希望许可我们的加工设施设计图以建立本地生产，还是签订大宗商品供应合同，我们的化工销售部门都将竭诚为您服务。",
+        "tr": "Yerel üretim kurmak için işleme tesisi tasarımlarımızı lisanslamak ya da toplu emtia tedarik sözleşmeleri yapmak istiyorsanız, kimyasal satış ekibimiz hizmetinizdedir.",
+        "ar": "سواء كنت ترغب في ترخيص مخططات منشآت المعالجة لدينا لإنشاء إنتاج محلي، أو تأمين عقود توريد السلع بكميات كبيرة، فإن مكتب مبيعات المنتجات الكيميائية لدينا في خدمتك.",
+        "es": "Tanto si desea licenciar los planos de nuestras instalaciones de procesamiento para establecer una producción nacional como asegurar contratos de suministro de materias primas a granel, nuestro departamento de ventas de productos químicos está a su disposición."
+      },
+      "ctaTitle": {
+        "en": "Looking to Produce or Source These High-Value Ingredients?",
+        "ru": "Хотите производить или закупать эти ценные ингредиенты?",
+        "zh": "希望生产或采购这些高附加值配料？",
+        "tr": "Bu yüksek değerli bileşenleri üretmek veya tedarik etmek mi istiyorsunuz?",
+        "ar": "هل تتطلع إلى إنتاج هذه المكونات عالية القيمة أو الحصول عليها؟",
+        "es": "¿Desea producir o adquirir estos ingredientes de alto valor?"
+      },
+      "listNote": {
+        "en": "STANDARDIZED TO GLOBAL FOOD & PHARMA CODES",
+        "ru": "СТАНДАРТИЗИРОВАНО ПО МИРОВЫМ ПИЩЕВЫМ И ФАРМАЦЕВТИЧЕСКИМ КОДЕКСАМ",
+        "zh": "符合全球食品与医药标准",
+        "tr": "KÜRESEL GIDA VE İLAÇ KODLARINA GÖRE STANDARDİZE",
+        "ar": "معياري وفق مدونات الأغذية والأدوية العالمية",
+        "es": "ESTANDARIZADO SEGÚN CÓDIGOS ALIMENTARIOS Y FARMACÉUTICOS GLOBALES"
+      },
+      "inquiryTopic": {
+        "en": "Commercial Ingredient Specifications Request",
+        "ru": "Запрос спецификаций коммерческих ингредиентов",
+        "zh": "商业配料规格申请",
+        "tr": "Ticari bileşen spesifikasyonu talebi",
+        "ar": "طلب مواصفات المكونات التجارية",
+        "es": "Solicitud de especificaciones de ingredientes comerciales"
+      }
+    },
+    "lists": {},
+    "media": {},
+    "body": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "368c35e64a9106b2",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "368c35e64a9106b2",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "368c35e64a9106b2",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "368c35e64a9106b2",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "368c35e64a9106b2",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "page-projects",
+    "status": "published",
+    "order": 8,
+    "key": "projects",
+    "kind": "page",
+    "header": {
+      "badgeNumber": "05",
+      "badgeLabel": {
+        "en": "INDUSTRIAL TRACK RECORD",
+        "ru": "ПРОМЫШЛЕННЫЙ ОПЫТ",
+        "zh": "工业业绩",
+        "tr": "ENDÜSTRİYEL REFERANSLAR",
+        "ar": "السجل الصناعي",
+        "es": "TRAYECTORIA INDUSTRIAL"
+      },
+      "title": {
+        "en": "Industrial Projects & Turnkey Facilities",
+        "ru": "Промышленные проекты и предприятия «под ключ»",
+        "zh": "工业项目与交钥匙设施",
+        "tr": "Endüstriyel projeler ve anahtar teslim tesisler",
+        "ar": "المشاريع الصناعية والمنشآت بنظام تسليم المفتاح",
+        "es": "Proyectos industriales e instalaciones llave en mano"
+      },
+      "subtitle": {
+        "en": "30+ Years of International EPC Project Delivery",
+        "ru": "Более 30 лет реализации международных EPC-проектов",
+        "zh": "30 余年国际 EPC 项目交付经验",
+        "tr": "30 yılı aşkın uluslararası EPC proje teslimi",
+        "ar": "أكثر من 30 عامًا من تنفيذ مشاريع EPC الدولية",
+        "es": "Más de 30 años de ejecución de proyectos EPC internacionales"
+      },
+      "description": {
+        "en": "Factual overview of completed and operational industrial plants delivered across Israel, China, Uzbekistan, and Eurasia. Every project reflects certified engineering, patented extraction protocols, and verified operational capacities.",
+        "ru": "Фактический обзор завершённых и действующих промышленных заводов, реализованных в Израиле, Китае, Узбекистане и Евразии. Каждый проект отражает сертифицированный инжиниринг, запатентованные протоколы экстракции и подтверждённые производственные мощности.",
+        "zh": "对在以色列、中国、乌兹别克斯坦及欧亚地区交付的已完工和在运营工业工厂的事实概述。每个项目均体现经认证的工程设计、专利提取规程和经验证的运营产能。",
+        "tr": "İsrail, Çin, Özbekistan ve Avrasya'da teslim edilen tamamlanmış ve işletmedeki endüstriyel tesislere ilişkin olgusal bir genel bakış. Her proje; sertifikalı mühendisliği, patentli ekstraksiyon protokollerini ve doğrulanmış işletme kapasitelerini yansıtır.",
+        "ar": "عرض واقعي للمصانع الصناعية المكتملة وقيد التشغيل المنفّذة في إسرائيل والصين وأوزبكستان وأوراسيا. يعكس كل مشروع هندسة معتمدة وبروتوكولات استخلاص حاصلة على براءات اختراع وطاقات تشغيلية مُتحقَّق منها.",
+        "es": "Panorama objetivo de plantas industriales terminadas y en operación ejecutadas en Israel, China, Uzbekistán y Eurasia. Cada proyecto refleja una ingeniería certificada, protocolos de extracción patentados y capacidades operativas verificadas."
+      },
+      "meta": [
+        {
+          "label": {
+            "en": "Total Track Record",
+            "ru": "Общий опыт",
+            "zh": "总体业绩",
+            "tr": "Toplam deneyim",
+            "ar": "إجمالي الخبرة",
+            "es": "Trayectoria total"
+          },
+          "value": {
+            "en": "30+ Years",
+            "ru": "30+ лет",
+            "zh": "30+ 年",
+            "tr": "30+ yıl",
+            "ar": "أكثر من 30 عامًا",
+            "es": "Más de 30 años"
+          }
+        },
+        {
+          "label": {
+            "en": "Delivery Model",
+            "ru": "Модель реализации",
+            "zh": "交付模式",
+            "tr": "Teslim modeli",
+            "ar": "نموذج التنفيذ",
+            "es": "Modelo de ejecución"
+          },
+          "value": {
+            "en": "Turnkey EPC / EPCM",
+            "ru": "EPC / EPCM «под ключ»",
+            "zh": "交钥匙 EPC / EPCM",
+            "tr": "Anahtar teslim EPC / EPCM",
+            "ar": "EPC / EPCM بنظام تسليم المفتاح",
+            "es": "EPC / EPCM llave en mano"
+          }
+        },
+        {
+          "label": {
+            "en": "Verified Geography",
+            "ru": "Подтверждённая география",
+            "zh": "经核实的地域",
+            "tr": "Doğrulanmış coğrafya",
+            "ar": "الجغرافيا المُتحقَّق منها",
+            "es": "Geografía verificada"
+          },
+          "value": {
+            "en": "Asia, Middle East, CIS",
+            "ru": "Азия, Ближний Восток, СНГ",
+            "zh": "亚洲、中东、独联体",
+            "tr": "Asya, Orta Doğu, BDT",
+            "ar": "آسيا، الشرق الأوسط، رابطة الدول المستقلة",
+            "es": "Asia, Oriente Medio, CEI"
+          }
+        },
+        {
+          "label": {
+            "en": "Flagship Scale",
+            "ru": "Флагманский масштаб",
+            "zh": "旗舰规模",
+            "tr": "Amiral ölçek",
+            "ar": "النطاق الرائد",
+            "es": "Escala insignia"
+          },
+          "value": {
+            "en": "17,000 t/y Isolate",
+            "ru": "17 000 т/год изолята",
+            "zh": "分离蛋白 17,000 吨/年",
+            "tr": "17.000 t/yıl izolat",
+            "ar": "17,000 طن/سنة من المعزول",
+            "es": "17 000 t/año de aislado"
+          }
+        }
+      ],
+      "actionLabel": {
+        "en": "Submit Plant Inquiry",
+        "ru": "Отправить запрос на завод",
+        "zh": "提交工厂咨询",
+        "tr": "Tesis talebi gönderin",
+        "ar": "أرسل استفسارًا عن مصنع",
+        "es": "Enviar consulta sobre una planta"
+      }
+    },
+    "copy": {
+      "ctaBadge": {
+        "en": "PROJECT FEASIBILITY & CONSULTATION",
+        "ru": "ТЭО И КОНСУЛЬТАЦИИ ПО ПРОЕКТАМ",
+        "zh": "项目可行性与咨询",
+        "tr": "PROJE FİZİBİLİTESİ VE DANIŞMANLIK",
+        "ar": "جدوى المشاريع والاستشارات",
+        "es": "VIABILIDAD Y CONSULTORÍA DE PROYECTOS"
+      },
+      "ctaDescription": {
+        "en": "Share your feedstock parameters, target annual capacity, and preferred site geography with Soltex Global EPC engineers for a comprehensive technology audit.",
+        "ru": "Поделитесь параметрами сырья, целевой годовой мощностью и предпочтительной географией площадки с EPC-инженерами Soltex Global для комплексного технологического аудита.",
+        "zh": "请向 Soltex Global EPC 工程师提供您的原料参数、目标年产能及首选厂址地域，以便进行全面的技术审计。",
+        "tr": "Kapsamlı bir teknoloji denetimi için hammadde parametrelerinizi, hedef yıllık kapasitenizi ve tercih ettiğiniz saha coğrafyasını Soltex Global EPC mühendisleriyle paylaşın.",
+        "ar": "شارك معايير المواد الخام والطاقة السنوية المستهدفة والموقع الجغرافي المفضّل مع مهندسي EPC في Soltex Global لإجراء تدقيق تكنولوجي شامل.",
+        "es": "Comparta los parámetros de su materia prima, la capacidad anual objetivo y la ubicación preferida del emplazamiento con los ingenieros EPC de Soltex Global para una auditoría tecnológica integral."
+      },
+      "ctaTitle": {
+        "en": "Planning a Plant Construction or Modernization?",
+        "ru": "Планируете строительство или модернизацию завода?",
+        "zh": "正在规划工厂建设或现代化改造？",
+        "tr": "Tesis inşası veya modernizasyonu mu planlıyorsunuz?",
+        "ar": "هل تخطط لإنشاء مصنع أو تحديثه؟",
+        "es": "¿Planea construir o modernizar una planta?"
+      },
+      "listNote": {
+        "en": "SORTED BY HISTORICAL CHRONOLOGY & SCALE",
+        "ru": "УПОРЯДОЧЕНО ПО ХРОНОЛОГИИ И МАСШТАБУ",
+        "zh": "按历史时间与规模排序",
+        "tr": "TARİHSEL KRONOLOJİ VE ÖLÇEĞE GÖRE SIRALI",
+        "ar": "مرتبة حسب التسلسل الزمني والحجم",
+        "es": "ORDENADO POR CRONOLOGÍA HISTÓRICA Y ESCALA"
+      },
+      "stat1Label": {
+        "en": "Largest Soy Isolate Line",
+        "ru": "Крупнейшая линия соевого изолята",
+        "zh": "最大的大豆分离蛋白生产线",
+        "tr": "En büyük soya izolatı hattı",
+        "ar": "أكبر خط لمعزول الصويا",
+        "es": "Mayor línea de aislado de soja"
+      },
+      "stat1Note": {
+        "en": "Constructed in Ashdod, Israel",
+        "ru": "Построена в Ашдоде, Израиль",
+        "zh": "建于以色列阿什杜德",
+        "tr": "Aşdod, İsrail'de inşa edildi",
+        "ar": "أُنشئ في أسدود، إسرائيل",
+        "es": "Construida en Asdod, Israel"
+      },
+      "stat1Value": {
+        "en": "17,000 t/y",
+        "ru": "17 000 т/год",
+        "zh": "17,000 吨/年",
+        "tr": "17.000 t/yıl",
+        "ar": "17,000 طن/سنة",
+        "es": "17 000 t/año"
+      },
+      "stat2Label": {
+        "en": "Pectin Capacity Delivered",
+        "ru": "Реализованная мощность по пектину",
+        "zh": "已交付果胶产能",
+        "tr": "Teslim edilen pektin kapasitesi",
+        "ar": "طاقة البكتين المنفّذة",
+        "es": "Capacidad de pectina entregada"
+      },
+      "stat2Note": {
+        "en": "Apple pectin plant in Namangan",
+        "ru": "Завод яблочного пектина в Намангане",
+        "zh": "纳曼干苹果果胶工厂",
+        "tr": "Namangan'da elma pektini tesisi",
+        "ar": "مصنع بكتين التفاح في نمنغان",
+        "es": "Planta de pectina de manzana en Namangán"
+      },
+      "stat2Value": {
+        "en": "1,000 t/y",
+        "ru": "1 000 т/год",
+        "zh": "1,000 吨/年",
+        "tr": "1.000 t/yıl",
+        "ar": "1,000 طن/سنة",
+        "es": "1 000 t/año"
+      },
+      "stat3Label": {
+        "en": "Continuous Plant Operation",
+        "ru": "Непрерывная работа завода",
+        "zh": "工厂连续运营",
+        "tr": "Kesintisiz tesis işletimi",
+        "ar": "تشغيل مستمر للمصنع",
+        "es": "Operación continua de la planta"
+      },
+      "stat3Note": {
+        "en": "Proof of enduring engineering durability",
+        "ru": "Доказательство долговечности инженерных решений",
+        "zh": "工程经久耐用的实证",
+        "tr": "Kalıcı mühendislik dayanıklılığının kanıtı",
+        "ar": "دليل على متانة هندسية دائمة",
+        "es": "Prueba de una ingeniería duradera"
+      },
+      "stat3Value": {
+        "en": "18+ Years",
+        "ru": "18+ лет",
+        "zh": "18 年以上",
+        "tr": "18+ yıl",
+        "ar": "أكثر من 18 عامًا",
+        "es": "Más de 18 años"
+      },
+      "stat4Label": {
+        "en": "From Lab to Commercial Run",
+        "ru": "От лаборатории до коммерческого запуска",
+        "zh": "从实验室到商业运行",
+        "tr": "Laboratuvardan ticari üretime",
+        "ar": "من المختبر إلى التشغيل التجاري",
+        "es": "Del laboratorio a la operación comercial"
+      },
+      "stat4Note": {
+        "en": "Guaranteed product output specifications",
+        "ru": "Гарантированные характеристики выпускаемой продукции",
+        "zh": "保证产品产出规格",
+        "tr": "Garantili ürün çıktı spesifikasyonları",
+        "ar": "مواصفات مضمونة لمخرجات المنتج",
+        "es": "Especificaciones de producción garantizadas"
+      },
+      "stat4Value": {
+        "en": "100% Turnkey",
+        "ru": "100% «под ключ»",
+        "zh": "100% 交钥匙",
+        "tr": "%100 anahtar teslim",
+        "ar": "تسليم مفتاح بنسبة 100%",
+        "es": "100% llave en mano"
+      },
+      "inquiryTopic": {
+        "en": "New Turnkey Project Inquiry",
+        "ru": "Запрос на новый проект «под ключ»",
+        "zh": "新交钥匙项目咨询",
+        "tr": "Yeni anahtar teslim proje talebi",
+        "ar": "استفسار عن مشروع جديد بنظام تسليم المفتاح",
+        "es": "Consulta sobre un nuevo proyecto llave en mano"
+      }
+    },
+    "lists": {},
+    "media": {},
+    "body": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "d79a0332ee4998cf",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "d79a0332ee4998cf",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "d79a0332ee4998cf",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "d79a0332ee4998cf",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "d79a0332ee4998cf",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "page-contact",
+    "status": "published",
+    "order": 9,
+    "key": "contact",
+    "kind": "page",
+    "header": {
+      "badgeNumber": "06",
+      "badgeLabel": {
+        "en": "COMMUNICATIONS DESK",
+        "ru": "СВЯЗЬ С КОМПАНИЕЙ",
+        "zh": "联络中心",
+        "tr": "İLETİŞİM MASASI",
+        "ar": "مكتب الاتصالات",
+        "es": "CENTRO DE COMUNICACIONES"
+      },
+      "title": {
+        "en": "Engineering Inquiries & Global Representation",
+        "ru": "Инжиниринговые запросы и глобальное представительство",
+        "zh": "工程咨询与全球代表处",
+        "tr": "Mühendislik talepleri ve küresel temsil",
+        "ar": "الاستفسارات الهندسية والتمثيل العالمي",
+        "es": "Consultas de ingeniería y representación global"
+      },
+      "subtitle": {
+        "en": "Direct Collaboration with Soltex Global Project Directors",
+        "ru": "Прямое взаимодействие с директорами проектов Soltex Global",
+        "zh": "与 Soltex Global 项目总监直接合作",
+        "tr": "Soltex Global proje direktörleriyle doğrudan iş birliği",
+        "ar": "تعاون مباشر مع مديري المشاريع في Soltex Global",
+        "es": "Colaboración directa con los directores de proyecto de Soltex Global"
+      },
+      "description": {
+        "en": "Connect with our central engineering bureau in the UAE or our regional project offices in Israel, China, Bulgaria, and Eurasia. All technical consultations are conducted under mutual non-disclosure protocols.",
+        "ru": "Свяжитесь с нашим центральным инжиниринговым бюро в ОАЭ или региональными проектными офисами в Израиле, Китае, Болгарии и Евразии. Все технические консультации проводятся в рамках взаимных соглашений о неразглашении.",
+        "zh": "欢迎联系我们位于阿联酋的中央工程局，或位于以色列、中国、保加利亚及欧亚地区的区域项目办事处。所有技术咨询均在双方保密协议框架下进行。",
+        "tr": "BAE'deki merkezi mühendislik büromuzla veya İsrail, Çin, Bulgaristan ve Avrasya'daki bölgesel proje ofislerimizle iletişime geçin. Tüm teknik danışmanlıklar karşılıklı gizlilik protokolleri çerçevesinde yürütülür.",
+        "ar": "تواصلوا مع مكتبنا الهندسي المركزي في الإمارات العربية المتحدة أو مع مكاتب المشاريع الإقليمية في إسرائيل والصين وبلغاريا وأوراسيا. تُجرى جميع الاستشارات الفنية في إطار بروتوكولات متبادلة لعدم الإفصاح.",
+        "es": "Póngase en contacto con nuestra oficina central de ingeniería en los EAU o con nuestras oficinas regionales de proyectos en Israel, China, Bulgaria y Eurasia. Todas las consultas técnicas se realizan bajo protocolos mutuos de confidencialidad."
+      },
+      "meta": [
+        {
+          "label": {
+            "en": "Central Registry",
+            "ru": "Центральная регистрация",
+            "zh": "注册中心",
+            "tr": "Merkezi tescil",
+            "ar": "التسجيل المركزي",
+            "es": "Registro central"
+          },
+          "value": {
+            "en": "Sharjah Media City, UAE",
+            "ru": "Sharjah Media City, ОАЭ",
+            "zh": "阿联酋 Sharjah Media City",
+            "tr": "Sharjah Media City, BAE",
+            "ar": "Sharjah Media City، الإمارات العربية المتحدة",
+            "es": "Sharjah Media City, EAU"
+          }
+        },
+        {
+          "label": {
+            "en": "Response Protocol",
+            "ru": "Срок ответа",
+            "zh": "响应机制",
+            "tr": "Yanıt protokolü",
+            "ar": "بروتوكول الاستجابة",
+            "es": "Protocolo de respuesta"
+          },
+          "value": {
+            "en": "Within 24 Working Hours",
+            "ru": "В течение 24 рабочих часов",
+            "zh": "24 个工作小时内",
+            "tr": "24 çalışma saati içinde",
+            "ar": "خلال 24 ساعة عمل",
+            "es": "En un plazo de 24 horas hábiles"
+          }
+        },
+        {
+          "label": {
+            "en": "Direct Desk",
+            "ru": "Прямая связь",
+            "zh": "直接联系",
+            "tr": "Doğrudan iletişim",
+            "ar": "التواصل المباشر",
+            "es": "Contacto directo"
+          },
+          "value": {
+            "en": "info@soltexglobal.co",
+            "ru": "info@soltexglobal.co",
+            "zh": "info@soltexglobal.co",
+            "tr": "info@soltexglobal.co",
+            "ar": "info@soltexglobal.co",
+            "es": "info@soltexglobal.co"
+          }
+        },
+        {
+          "label": {
+            "en": "Technical NDA",
+            "ru": "Техническое NDA",
+            "zh": "技术保密协议",
+            "tr": "Teknik NDA",
+            "ar": "اتفاقية عدم إفصاح فنية",
+            "es": "NDA técnico"
+          },
+          "value": {
+            "en": "Standard Industrial Terms",
+            "ru": "Стандартные промышленные условия",
+            "zh": "标准工业条款",
+            "tr": "Standart endüstriyel koşullar",
+            "ar": "شروط صناعية قياسية",
+            "es": "Condiciones industriales estándar"
+          }
+        }
+      ],
+      "actionLabel": null
+    },
+    "copy": {
+      "headquartersEyebrow": {
+        "en": "PRIMARY HEADQUARTERS & EPC REGISTRY",
+        "ru": "ГЛАВНАЯ ШТАБ-КВАРТИРА И РЕГИСТРАЦИЯ EPC",
+        "zh": "总部及 EPC 注册",
+        "tr": "ANA GENEL MERKEZ VE EPC TESCİLİ",
+        "ar": "المقر الرئيسي وتسجيل أعمال EPC",
+        "es": "SEDE PRINCIPAL Y REGISTRO EPC"
+      },
+      "ipText": {
+        "en": "Soltex Global operates strictly under signed two-way NDAs prior to disclosing mass balance calculations or custom P&ID drawings.",
+        "ru": "Soltex Global работает строго на основании подписанных двусторонних NDA, прежде чем раскрывать расчёты материального баланса или индивидуальные схемы P&ID.",
+        "zh": "Soltex Global 在披露物料平衡计算或定制 P&ID 图纸之前，严格要求签署双向保密协议（NDA）。",
+        "tr": "Soltex Global, kütle dengesi hesaplamalarını veya özel P&ID çizimlerini paylaşmadan önce yalnızca imzalı iki taraflı NDA'lar çerçevesinde çalışır.",
+        "ar": "تعمل Soltex Global حصريًا بموجب اتفاقيات عدم إفصاح موقّعة من الطرفين قبل الكشف عن حسابات موازنة الكتلة أو مخططات P&ID المخصّصة.",
+        "es": "Soltex Global trabaja estrictamente bajo NDA bilaterales firmados antes de divulgar cálculos de balance de masa o planos P&ID personalizados."
+      },
+      "ipTitle": {
+        "en": "Industrial Intellectual Property Protection",
+        "ru": "Защита промышленной интеллектуальной собственности",
+        "zh": "工业知识产权保护",
+        "tr": "Endüstriyel fikri mülkiyetin korunması",
+        "ar": "حماية الملكية الفكرية الصناعية",
+        "es": "Protección de la propiedad intelectual industrial"
+      },
+      "officesEyebrow": {
+        "en": "REGIONAL LIAISON OFFICES & REPRESENTATIVES",
+        "ru": "РЕГИОНАЛЬНЫЕ ОФИСЫ И ПРЕДСТАВИТЕЛИ",
+        "zh": "区域联络办事处与代表",
+        "tr": "BÖLGESEL İRTİBAT OFİSLERİ VE TEMSİLCİLER",
+        "ar": "مكاتب الاتصال الإقليمية والممثلون",
+        "es": "OFICINAS REGIONALES DE ENLACE Y REPRESENTANTES"
+      }
+    },
+    "lists": {},
+    "media": {},
+    "body": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "3ef5023d56f64c3c",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "3ef5023d56f64c3c",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "3ef5023d56f64c3c",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "3ef5023d56f64c3c",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "3ef5023d56f64c3c",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "page-privacy",
+    "status": "draft",
+    "order": 10,
+    "key": "privacy",
+    "kind": "page",
+    "header": {
+      "badgeNumber": "",
+      "badgeLabel": {
+        "en": "Privacy Policy",
+        "ru": "Политика конфиденциальности",
+        "zh": "隐私政策",
+        "tr": "Gizlilik Politikası",
+        "ar": "سياسة الخصوصية",
+        "es": "Política de privacidad"
+      },
+      "title": {
+        "en": "Privacy Policy",
+        "ru": "Политика конфиденциальности",
+        "zh": "隐私政策",
+        "tr": "Gizlilik Politikası",
+        "ar": "سياسة الخصوصية",
+        "es": "Política de privacidad"
+      },
+      "subtitle": null,
+      "description": null,
+      "meta": [],
+      "actionLabel": null
+    },
+    "copy": {},
+    "lists": {},
+    "media": {},
+    "body": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "missing",
+        "approvedSourceHash": null,
+        "approvedAt": null
+      },
+      "zh": {
+        "status": "missing",
+        "approvedSourceHash": null,
+        "approvedAt": null
+      },
+      "tr": {
+        "status": "missing",
+        "approvedSourceHash": null,
+        "approvedAt": null
+      },
+      "ar": {
+        "status": "missing",
+        "approvedSourceHash": null,
+        "approvedAt": null
+      },
+      "es": {
+        "status": "missing",
+        "approvedSourceHash": null,
+        "approvedAt": null
+      }
+    }
+  },
+  {
+    "id": "page-terms",
+    "status": "draft",
+    "order": 11,
+    "key": "terms",
+    "kind": "page",
+    "header": {
+      "badgeNumber": "",
+      "badgeLabel": {
+        "en": "Terms of Use",
+        "ru": "Условия использования",
+        "zh": "使用条款",
+        "tr": "Kullanım Koşulları",
+        "ar": "شروط الاستخدام",
+        "es": "Condiciones de uso"
+      },
+      "title": {
+        "en": "Terms of Use",
+        "ru": "Условия использования",
+        "zh": "使用条款",
+        "tr": "Kullanım Koşulları",
+        "ar": "شروط الاستخدام",
+        "es": "Condiciones de uso"
+      },
+      "subtitle": null,
+      "description": null,
+      "meta": [],
+      "actionLabel": null
+    },
+    "copy": {},
+    "lists": {},
+    "media": {},
+    "body": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "missing",
+        "approvedSourceHash": null,
+        "approvedAt": null
+      },
+      "zh": {
+        "status": "missing",
+        "approvedSourceHash": null,
+        "approvedAt": null
+      },
+      "tr": {
+        "status": "missing",
+        "approvedSourceHash": null,
+        "approvedAt": null
+      },
+      "ar": {
+        "status": "missing",
+        "approvedSourceHash": null,
+        "approvedAt": null
+      },
+      "es": {
+        "status": "missing",
+        "approvedSourceHash": null,
+        "approvedAt": null
+      }
+    }
+  },
+  {
+    "id": "page-project-detail",
+    "status": "published",
+    "order": 12,
+    "key": "projectDetail",
+    "kind": "template",
+    "header": null,
+    "copy": {
+      "archiveEyebrow": {
+        "en": "ARCHIVAL ENGINEERING RECORD",
+        "ru": "АРХИВНАЯ ИНЖЕНЕРНАЯ ДОКУМЕНТАЦИЯ",
+        "zh": "工程档案记录",
+        "tr": "ARŞİV MÜHENDİSLİK KAYDI",
+        "ar": "سجل هندسي أرشيفي",
+        "es": "REGISTRO DE INGENIERÍA DE ARCHIVO"
+      },
+      "archiveImageAlt": {
+        "en": "Hygienic Separation Equipment Hall",
+        "ru": "Цех гигиенического оборудования для разделения",
+        "zh": "卫生级分离设备车间",
+        "tr": "Hijyenik ayırma ekipmanı salonu",
+        "ar": "صالة معدات الفصل الصحية",
+        "es": "Nave de equipos de separación higiénicos"
+      },
+      "archiveTitle": {
+        "en": "Precision Separation & Multi-Stage Evaporation Infrastructure",
+        "ru": "Инфраструктура прецизионного разделения и многоступенчатого выпаривания",
+        "zh": "精密分离与多效蒸发基础设施",
+        "tr": "Hassas ayırma ve çok kademeli evaporasyon altyapısı",
+        "ar": "بنية تحتية للفصل الدقيق والتبخير متعدد المراحل",
+        "es": "Infraestructura de separación de precisión y evaporación en múltiples etapas"
+      },
+      "badgeLabel": {
+        "en": "{category} · CASE STUDY",
+        "ru": "{category} · КЕЙС",
+        "zh": "{category} · 案例研究",
+        "tr": "{category} · VAKA ÇALIŞMASI",
+        "ar": "{category} · دراسة حالة",
+        "es": "{category} · CASO DE ESTUDIO"
+      },
+      "capacityFallback": {
+        "en": "Custom Industrial",
+        "ru": "Индивидуальный промышленный",
+        "zh": "定制工业",
+        "tr": "Özel endüstriyel",
+        "ar": "صناعي مخصّص",
+        "es": "Industrial a medida"
+      },
+      "certificationText": {
+        "en": "Verified commercial implementation of Soltex process platform",
+        "ru": "Подтверждённое промышленное внедрение технологической платформы Soltex",
+        "zh": "Soltex 工艺平台的经验证商业化实施",
+        "tr": "Soltex proses platformunun doğrulanmış ticari uygulaması",
+        "ar": "تطبيق تجاري مُتحقَّق منه لمنصة عمليات Soltex",
+        "es": "Implantación comercial verificada de la plataforma de procesos de Soltex"
+      },
+      "certificationTitle": {
+        "en": "PATENT & IP CERTIFICATION",
+        "ru": "СЕРТИФИКАЦИЯ ПАТЕНТОВ И ИС",
+        "zh": "专利与知识产权认证",
+        "tr": "PATENT VE FM SERTİFİKASYONU",
+        "ar": "اعتماد البراءات والملكية الفكرية",
+        "es": "CERTIFICACIÓN DE PATENTES Y PI"
+      },
+      "contextEyebrow": {
+        "en": "01 · INDUSTRIAL IMPLEMENTATION CONTEXT",
+        "ru": "01 · КОНТЕКСТ ПРОМЫШЛЕННОЙ РЕАЛИЗАЦИИ",
+        "zh": "01 · 工业实施背景",
+        "tr": "01 · ENDÜSTRİYEL UYGULAMA BAĞLAMI",
+        "ar": "01 · سياق التنفيذ الصناعي",
+        "es": "01 · CONTEXTO DE IMPLANTACIÓN INDUSTRIAL"
+      },
+      "contextHeading": {
+        "en": "Commercial Mandate & Engineering Background",
+        "ru": "Коммерческая задача и инженерные предпосылки",
+        "zh": "商业任务与工程背景",
+        "tr": "Ticari görev ve mühendislik arka planı",
+        "ar": "المهمة التجارية والخلفية الهندسية",
+        "es": "Mandato comercial y antecedentes de ingeniería"
+      },
+      "contextParagraph": {
+        "en": "Constructed in strict accordance with Soltex Global’s proprietary process parameters, combining energy-efficient thermodynamic flow balances, continuous automated separation, and cleanroom stainless-steel pipeline routing.",
+        "ru": "Построен в строгом соответствии с собственными технологическими параметрами Soltex Global с сочетанием энергоэффективных термодинамических балансов потоков, непрерывного автоматизированного разделения и трассировки трубопроводов из нержавеющей стали в условиях чистых помещений.",
+        "zh": "严格按照 Soltex Global 自有工艺参数建造，融合节能型热力学物流平衡、连续自动化分离以及洁净室不锈钢管道布置。",
+        "tr": "Soltex Global'in tescilli proses parametrelerine tam uygun olarak inşa edilmiş olup enerji verimli termodinamik akış dengelerini, sürekli otomatik ayırmayı ve temiz oda paslanmaz çelik boru güzergâhlarını birleştirir.",
+        "ar": "أُنشئ وفقًا صارمًا لمعايير العمليات الخاصة بـ Soltex Global، بالجمع بين موازنات التدفق الديناميكية الحرارية الموفّرة للطاقة، والفصل الآلي المستمر، ومسارات أنابيب الفولاذ المقاوم للصدأ في الغرف النظيفة.",
+        "es": "Construida en estricto cumplimiento de los parámetros de proceso propios de Soltex Global, combinando balances de flujo termodinámicos energéticamente eficientes, separación automatizada continua y trazado de tuberías de acero inoxidable en sala limpia."
+      },
+      "contractScopeValue": {
+        "en": "Turnkey EPC / EPCM",
+        "ru": "EPC / EPCM «под ключ»",
+        "zh": "交钥匙 EPC / EPCM",
+        "tr": "Anahtar teslim EPC / EPCM",
+        "ar": "EPC / EPCM بنظام تسليم المفتاح",
+        "es": "EPC / EPCM llave en mano"
+      },
+      "ctaBadge": {
+        "en": "ENGINEERING FEASIBILITY",
+        "ru": "ИНЖЕНЕРНОЕ ТЭО",
+        "zh": "工程可行性",
+        "tr": "MÜHENDİSLİK FİZİBİLİTESİ",
+        "ar": "الجدوى الهندسية",
+        "es": "VIABILIDAD DE INGENIERÍA"
+      },
+      "ctaDescription": {
+        "en": "Our multi-disciplinary chemical engineering team provides full cycle basic engineering, capital expenditure budgeting, and yield performance guarantees.",
+        "ru": "Наша междисциплинарная команда инженеров-химиков обеспечивает базовое проектирование полного цикла, бюджетирование капитальных затрат и гарантии выхода продукции.",
+        "zh": "我们的多学科化学工程团队提供全周期基础工程设计、资本支出预算及收率性能保证。",
+        "tr": "Multidisipliner kimya mühendisliği ekibimiz; tam döngü temel mühendislik, yatırım harcaması bütçelemesi ve verim performans garantileri sağlar.",
+        "ar": "يقدّم فريق الهندسة الكيميائية متعدد التخصصات لدينا هندسة أساسية متكاملة الدورة، وإعداد ميزانيات النفقات الرأسمالية، وضمانات أداء المردود.",
+        "es": "Nuestro equipo multidisciplinar de ingeniería química ofrece ingeniería básica de ciclo completo, presupuestación de inversiones de capital y garantías de rendimiento."
+      },
+      "ctaTitle": {
+        "en": "Inquire About Engineering a Plant Like {title}",
+        "ru": "Запрос на проектирование завода, подобного {title}",
+        "zh": "咨询建设类似 {title} 的工厂",
+        "tr": "{title} benzeri bir tesisin mühendisliği hakkında bilgi alın",
+        "ar": "استفسر عن هندسة مصنع مثل {title}",
+        "es": "Consulte sobre la ingeniería de una planta como {title}"
+      },
+      "galleryEyebrow": {
+        "en": "05 · FACILITY ARCHIVE IMAGERY",
+        "ru": "05 · АРХИВНЫЕ ФОТОГРАФИИ ОБЪЕКТА",
+        "zh": "05 · 设施档案图片",
+        "tr": "05 · TESİS ARŞİV GÖRSELLERİ",
+        "ar": "05 · صور أرشيف المنشأة",
+        "es": "05 · IMÁGENES DE ARCHIVO DE LA INSTALACIÓN"
+      },
+      "galleryHeading": {
+        "en": "Site Photographic Documentation",
+        "ru": "Фотодокументация площадки",
+        "zh": "现场照片资料",
+        "tr": "Saha fotoğraf dokümantasyonu",
+        "ar": "التوثيق الفوتوغرافي للموقع",
+        "es": "Documentación fotográfica del emplazamiento"
+      },
+      "headerActionLabel": {
+        "en": "Request Similar Facility Audit",
+        "ru": "Запросить аудит аналогичного предприятия",
+        "zh": "申请同类设施审计",
+        "tr": "Benzer tesis denetimi talep edin",
+        "ar": "اطلب تدقيقًا لمنشأة مماثلة",
+        "es": "Solicitar auditoría de una instalación similar"
+      },
+      "headerInquiryTopic": {
+        "en": "Inquiry for project model: {title}",
+        "ru": "Запрос по модели проекта: {title}",
+        "zh": "项目模式咨询：{title}",
+        "tr": "Proje modeli talebi: {title}",
+        "ar": "استفسار عن نموذج المشروع: {title}",
+        "es": "Consulta sobre el modelo de proyecto: {title}"
+      },
+      "resultsEyebrow": {
+        "en": "04 · PERFORMANCE GUARANTEES",
+        "ru": "04 · ГАРАНТИИ РЕЗУЛЬТАТА",
+        "zh": "04 · 性能保证",
+        "tr": "04 · PERFORMANS GARANTİLERİ",
+        "ar": "04 · ضمانات الأداء",
+        "es": "04 · GARANTÍAS DE RENDIMIENTO"
+      },
+      "resultsHeading": {
+        "en": "Commercial Output & Performance Validation",
+        "ru": "Коммерческий выпуск и подтверждение показателей",
+        "zh": "商业产出与性能验证",
+        "tr": "Ticari çıktı ve performans doğrulaması",
+        "ar": "المخرجات التجارية والتحقق من الأداء",
+        "es": "Producción comercial y validación del rendimiento"
+      },
+      "scopeEyebrow": {
+        "en": "03 · TURNKEY EPCM RESPONSIBILITY",
+        "ru": "03 · ОТВЕТСТВЕННОСТЬ EPCM «ПОД КЛЮЧ»",
+        "zh": "03 · 交钥匙 EPCM 责任",
+        "tr": "03 · ANAHTAR TESLİM EPCM SORUMLULUĞU",
+        "ar": "03 · مسؤولية EPCM بنظام تسليم المفتاح",
+        "es": "03 · RESPONSABILIDAD EPCM LLAVE EN MANO"
+      },
+      "scopeHeading": {
+        "en": "Scope of Delivery & Work Completed",
+        "ru": "Объём поставки и выполненные работы",
+        "zh": "交付范围与已完成工作",
+        "tr": "Teslimat kapsamı ve tamamlanan işler",
+        "ar": "نطاق التسليم والأعمال المنجزة",
+        "es": "Alcance del suministro y trabajos realizados"
+      },
+      "technologyEyebrow": {
+        "en": "02 · INTEGRATED PROCESS TECHNOLOGY",
+        "ru": "02 · ИНТЕГРИРОВАННАЯ ТЕХНОЛОГИЯ ПРОЦЕССА",
+        "zh": "02 · 集成工艺技术",
+        "tr": "02 · ENTEGRE PROSES TEKNOLOJİSİ",
+        "ar": "02 · تكنولوجيا العملية المتكاملة",
+        "es": "02 · TECNOLOGÍA DE PROCESO INTEGRADA"
+      },
+      "technologyHeading": {
+        "en": "Applied Process: {technology}",
+        "ru": "Применяемый процесс: {technology}",
+        "zh": "应用工艺：{technology}",
+        "tr": "Uygulanan proses: {technology}",
+        "ar": "العملية المطبّقة: {technology}",
+        "es": "Proceso aplicado: {technology}"
+      },
+      "technologyParagraph": {
+        "en": "This installation operates under proprietary separation thermodynamics that maximize target active yield while preventing product discoloration and protein denaturation.",
+        "ru": "Установка работает на собственной термодинамике разделения, которая максимизирует выход целевого активного вещества, предотвращая потемнение продукта и денатурацию белка.",
+        "zh": "该装置采用自有分离热力学技术运行，在防止产品变色和蛋白变性的同时，最大化目标活性成分收率。",
+        "tr": "Bu tesis, ürün renk bozulmasını ve protein denatürasyonunu önlerken hedef aktif verimi en üst düzeye çıkaran tescilli ayırma termodinamiğiyle çalışır.",
+        "ar": "تعمل هذه المنشأة وفق ديناميكا حرارية خاصة للفصل تُعظّم مردود المادة النشطة المستهدفة مع منع تغيّر لون المنتج وتمسخ البروتين.",
+        "es": "Esta instalación opera con una termodinámica de separación propia que maximiza el rendimiento activo objetivo al tiempo que evita la decoloración del producto y la desnaturalización de las proteínas."
+      }
+    },
+    "lists": {},
+    "media": {
+      "archiveBandImage": {
+        "mediaId": "media-tech-integrated-plant-1790271239031"
+      }
+    },
+    "body": null,
+    "seo": null,
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "b0761dd6ef7c95f6",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "b0761dd6ef7c95f6",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "b0761dd6ef7c95f6",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "b0761dd6ef7c95f6",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "b0761dd6ef7c95f6",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "page-technology-detail",
+    "status": "published",
+    "order": 13,
+    "key": "technologyDetail",
+    "kind": "template",
+    "header": null,
+    "copy": {
+      "advantagesEyebrow": {
+        "en": "02 · COMPARATIVE METRICS & ADVANTAGES",
+        "ru": "02 · СРАВНИТЕЛЬНЫЕ ПОКАЗАТЕЛИ И ПРЕИМУЩЕСТВА",
+        "zh": "02 · 比较指标与优势",
+        "tr": "02 · KARŞILAŞTIRMALI GÖSTERGELER VE AVANTAJLAR",
+        "ar": "02 · المؤشرات المقارنة والمزايا",
+        "es": "02 · MÉTRICAS COMPARATIVAS Y VENTAJAS"
+      },
+      "advantagesHeading": {
+        "en": "Engineering Advantages",
+        "ru": "Инженерные преимущества",
+        "zh": "工程优势",
+        "tr": "Mühendislik avantajları",
+        "ar": "المزايا الهندسية",
+        "es": "Ventajas de ingeniería"
+      },
+      "applicationsEyebrow": {
+        "en": "03 · COMMERCIAL VALUE & TARGET INDUSTRIES",
+        "ru": "03 · КОММЕРЧЕСКАЯ ЦЕННОСТЬ И ЦЕЛЕВЫЕ ОТРАСЛИ",
+        "zh": "03 · 商业价值与目标行业",
+        "tr": "03 · TİCARİ DEĞER VE HEDEF SEKTÖRLER",
+        "ar": "03 · القيمة التجارية والقطاعات المستهدفة",
+        "es": "03 · VALOR COMERCIAL E INDUSTRIAS OBJETIVO"
+      },
+      "applicationsHeading": {
+        "en": "Output Utilization Sectors",
+        "ru": "Отрасли применения продукции",
+        "zh": "产品应用领域",
+        "tr": "Ürün kullanım sektörleri",
+        "ar": "قطاعات استخدام المخرجات",
+        "es": "Sectores de utilización del producto"
+      },
+      "badgeLabel": {
+        "en": "{category} · PROCESS SPECIFICATION",
+        "ru": "{category} · СПЕЦИФИКАЦИЯ ПРОЦЕССА",
+        "zh": "{category} · 工艺规格",
+        "tr": "{category} · PROSES SPESİFİKASYONU",
+        "ar": "{category} · مواصفات العملية",
+        "es": "{category} · ESPECIFICACIÓN DE PROCESO"
+      },
+      "bandCaption": {
+        "en": "AISI 316L Food-Grade Process Metallurgy",
+        "ru": "Технологическое оборудование из пищевой стали AISI 316L",
+        "zh": "AISI 316L 食品级工艺材料",
+        "tr": "AISI 316L gıda sınıfı proses metalurjisi",
+        "ar": "معادن معالجة غذائية من AISI 316L",
+        "es": "Metalurgia de proceso de grado alimentario AISI 316L"
+      },
+      "bandImageAlt": {
+        "en": "Proprietary Separation Reactors and Vacuum Evaporators",
+        "ru": "Собственные реакторы разделения и вакуумные выпарные аппараты",
+        "zh": "自有分离反应器与真空蒸发器",
+        "tr": "Tescilli ayırma reaktörleri ve vakum evaporatörleri",
+        "ar": "مفاعلات فصل خاصة ومبخّرات تفريغ",
+        "es": "Reactores de separación propios y evaporadores al vacío"
+      },
+      "bandTag": {
+        "en": "Patented Separation",
+        "ru": "Запатентованное разделение",
+        "zh": "专利分离技术",
+        "tr": "Patentli ayırma",
+        "ar": "فصل حاصل على براءة اختراع",
+        "es": "Separación patentada"
+      },
+      "ctaBadge": {
+        "en": "FEEDSTOCK ASSAY & FEASIBILITY",
+        "ru": "АНАЛИЗ СЫРЬЯ И ТЭО",
+        "zh": "原料检测与可行性",
+        "tr": "HAMMADDE ANALİZİ VE FİZİBİLİTE",
+        "ar": "تحليل المواد الخام والجدوى",
+        "es": "ANÁLISIS DE MATERIA PRIMA Y VIABILIDAD"
+      },
+      "ctaDescription": {
+        "en": "Soltex Global provides complete technology transfer packages, P&ID process schemes, proprietary reactor fabrication, and performance output guarantees.",
+        "ru": "Soltex Global предоставляет полные пакеты передачи технологии, технологические схемы P&ID, изготовление собственных реакторов и гарантии производственных показателей.",
+        "zh": "Soltex Global 提供完整的技术转让包、P&ID 工艺方案、自有反应器制造及产出性能保证。",
+        "tr": "Soltex Global; eksiksiz teknoloji transferi paketleri, P&ID proses şemaları, tescilli reaktör imalatı ve çıktı performans garantileri sunar.",
+        "ar": "توفّر Soltex Global حزمًا كاملة لنقل التكنولوجيا، ومخططات عمليات P&ID، وتصنيع مفاعلات خاصة، وضمانات أداء المخرجات.",
+        "es": "Soltex Global ofrece paquetes completos de transferencia de tecnología, esquemas de proceso P&ID, fabricación de reactores propios y garantías de rendimiento de producción."
+      },
+      "ctaTitle": {
+        "en": "Inquire About Licensing or Engineering {title}",
+        "ru": "Запрос на лицензирование или инжиниринг: {title}",
+        "zh": "咨询许可或建设：{title}",
+        "tr": "{title} için lisanslama veya mühendislik hakkında bilgi alın",
+        "ar": "استفسر عن ترخيص أو هندسة {title}",
+        "es": "Consulte sobre la licencia o ingeniería de {title}"
+      },
+      "efficiencyValue": {
+        "en": "High Yield Recovery",
+        "ru": "Высокий выход продукции",
+        "zh": "高收率回收",
+        "tr": "Yüksek verimli geri kazanım",
+        "ar": "استرداد عالي المردود",
+        "es": "Recuperación de alto rendimiento"
+      },
+      "facilitiesEyebrow": {
+        "en": "04 · INDUSTRIAL REFERENCE FACILITIES",
+        "ru": "04 · ПРОМЫШЛЕННЫЕ РЕФЕРЕНТНЫЕ ОБЪЕКТЫ",
+        "zh": "04 · 工业参考设施",
+        "tr": "04 · ENDÜSTRİYEL REFERANS TESİSLER",
+        "ar": "04 · المنشآت الصناعية المرجعية",
+        "es": "04 · INSTALACIONES INDUSTRIALES DE REFERENCIA"
+      },
+      "facilitiesHeading": {
+        "en": "Commercial Facilities Operating this Platform",
+        "ru": "Промышленные предприятия, работающие на этой платформе",
+        "zh": "运行该平台的商业化设施",
+        "tr": "Bu platformla çalışan ticari tesisler",
+        "ar": "منشآت تجارية تعمل بهذه المنصة",
+        "es": "Instalaciones comerciales que operan con esta plataforma"
+      },
+      "feedstockFallback": {
+        "en": "Plant Biomass",
+        "ru": "Растительная биомасса",
+        "zh": "植物生物质",
+        "tr": "Bitkisel biyokütle",
+        "ar": "كتلة حيوية نباتية",
+        "es": "Biomasa vegetal"
+      },
+      "headerActionLabel": {
+        "en": "Request Process Flowsheet",
+        "ru": "Запросить технологическую схему",
+        "zh": "索取工艺流程图",
+        "tr": "Proses akış şeması talep edin",
+        "ar": "اطلب مخطط العملية",
+        "es": "Solicitar diagrama de flujo del proceso"
+      },
+      "headerInquiryTopic": {
+        "en": "Process Flowsheet Request: {title}",
+        "ru": "Запрос технологической схемы: {title}",
+        "zh": "工艺流程图申请：{title}",
+        "tr": "Proses akış şeması talebi: {title}",
+        "ar": "طلب مخطط العملية: {title}",
+        "es": "Solicitud de diagrama de flujo del proceso: {title}"
+      },
+      "heroEyebrow": {
+        "en": "BIOPROCESS EXTRACTION CORE",
+        "ru": "ЯДРО БИОТЕХНОЛОГИЧЕСКОЙ ЭКСТРАКЦИИ",
+        "zh": "生物工艺提取核心",
+        "tr": "BİYOPROSES EKSTRAKSİYON ÇEKİRDEĞİ",
+        "ar": "جوهر الاستخلاص الحيوي",
+        "es": "NÚCLEO DE EXTRACCIÓN BIOTECNOLÓGICA"
+      },
+      "patentFallback": {
+        "en": "Proprietary Trade Secret",
+        "ru": "Собственная коммерческая тайна",
+        "zh": "自有商业秘密",
+        "tr": "Tescilli ticari sır",
+        "ar": "سر تجاري خاص",
+        "es": "Secreto comercial propio"
+      },
+      "principlesEyebrow": {
+        "en": "01 · THERMODYNAMIC & CHEMICAL FLOW",
+        "ru": "01 · ТЕРМОДИНАМИЧЕСКИЙ И ХИМИЧЕСКИЙ ПОТОК",
+        "zh": "01 · 热力学与化学流程",
+        "tr": "01 · TERMODİNAMİK VE KİMYASAL AKIŞ",
+        "ar": "01 · التدفق الديناميكي الحراري والكيميائي",
+        "es": "01 · FLUJO TERMODINÁMICO Y QUÍMICO"
+      },
+      "principlesHeading": {
+        "en": "Core Process Flowsheet Principles",
+        "ru": "Основные принципы технологической схемы",
+        "zh": "核心工艺流程原理",
+        "tr": "Temel proses akış şeması ilkeleri",
+        "ar": "المبادئ الأساسية لمخطط العملية",
+        "es": "Principios fundamentales del diagrama de flujo del proceso"
+      },
+      "statusValue": {
+        "en": "Commercially Operational",
+        "ru": "В коммерческой эксплуатации",
+        "zh": "已商业化运营",
+        "tr": "Ticari olarak işletmede",
+        "ar": "قيد التشغيل التجاري",
+        "es": "En operación comercial"
+      }
+    },
+    "lists": {},
+    "media": {
+      "bandImage": {
+        "mediaId": "media-tech-integrated-plant-1790271239031"
+      }
+    },
+    "body": null,
+    "seo": null,
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "408a1731f63a02c3",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "408a1731f63a02c3",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "408a1731f63a02c3",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "408a1731f63a02c3",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "408a1731f63a02c3",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "page-product-detail",
+    "status": "published",
+    "order": 14,
+    "key": "productDetail",
+    "kind": "template",
+    "header": null,
+    "copy": {
+      "applicationsEyebrow": {
+        "en": "02 · SECTOR FORMULATIONS",
+        "ru": "02 · ПРИМЕНЕНИЕ ПО ОТРАСЛЯМ",
+        "zh": "02 · 行业配方",
+        "tr": "02 · SEKTÖREL FORMÜLASYONLAR",
+        "ar": "02 · التركيبات حسب القطاع",
+        "es": "02 · FORMULACIONES POR SECTOR"
+      },
+      "applicationsHeading": {
+        "en": "Target Formulations & Commercial Uses",
+        "ru": "Целевые рецептуры и коммерческое применение",
+        "zh": "目标配方与商业用途",
+        "tr": "Hedef formülasyonlar ve ticari kullanımlar",
+        "ar": "التركيبات المستهدفة والاستخدامات التجارية",
+        "es": "Formulaciones objetivo y usos comerciales"
+      },
+      "badgeLabel": {
+        "en": "{category} · SPECIFICATION",
+        "ru": "{category} · СПЕЦИФИКАЦИЯ",
+        "zh": "{category} · 规格",
+        "tr": "{category} · SPESİFİKASYON",
+        "ar": "{category} · المواصفات",
+        "es": "{category} · ESPECIFICACIÓN"
+      },
+      "characteristicsEyebrow": {
+        "en": "01 · PHYSICAL & CHEMICAL CHARACTERISTICS",
+        "ru": "01 · ФИЗИЧЕСКИЕ И ХИМИЧЕСКИЕ ХАРАКТЕРИСТИКИ",
+        "zh": "01 · 理化特性",
+        "tr": "01 · FİZİKSEL VE KİMYASAL ÖZELLİKLER",
+        "ar": "01 · الخصائص الفيزيائية والكيميائية",
+        "es": "01 · CARACTERÍSTICAS FÍSICAS Y QUÍMICAS"
+      },
+      "characteristicsHeading": {
+        "en": "Verified Chemical & Physical Profile",
+        "ru": "Подтверждённый химический и физический профиль",
+        "zh": "经验证的理化指标",
+        "tr": "Doğrulanmış kimyasal ve fiziksel profil",
+        "ar": "ملف كيميائي وفيزيائي مُتحقَّق منه",
+        "es": "Perfil químico y físico verificado"
+      },
+      "complianceValue": {
+        "en": "ISO 22000 / HACCP / GMP",
+        "ru": "ISO 22000 / HACCP / GMP",
+        "zh": "ISO 22000 / HACCP / GMP",
+        "tr": "ISO 22000 / HACCP / GMP",
+        "ar": "ISO 22000 / HACCP / GMP",
+        "es": "ISO 22000 / HACCP / GMP"
+      },
+      "ctaBadge": {
+        "en": "COMMERCIAL BULK CONTRACTS",
+        "ru": "КОММЕРЧЕСКИЕ ОПТОВЫЕ КОНТРАКТЫ",
+        "zh": "商业批量合同",
+        "tr": "TİCARİ TOPLU SÖZLEŞMELER",
+        "ar": "عقود الكميات التجارية الكبيرة",
+        "es": "CONTRATOS COMERCIALES A GRANEL"
+      },
+      "ctaDescription": {
+        "en": "Whether engineering your own localized plant or purchasing bulk certified volumes, Soltex Global guarantees chemical consistency and supply chain reliability.",
+        "ru": "Будь то проектирование собственного локального завода или закупка сертифицированной продукции оптом — Soltex Global гарантирует стабильность химического состава и надёжность цепочки поставок.",
+        "zh": "无论是建设您自己的本地化工厂，还是采购经认证的批量产品，Soltex Global 均保证化学成分一致性和供应链可靠性。",
+        "tr": "İster kendi yerel tesisinizi kuruyor olun ister sertifikalı ürünleri toplu olarak satın alıyor olun, Soltex Global kimyasal tutarlılığı ve tedarik zinciri güvenilirliğini garanti eder.",
+        "ar": "سواء كنت تهندس مصنعك المحلي الخاص أو تشتري كميات كبيرة معتمدة، تضمن Soltex Global ثبات التركيب الكيميائي وموثوقية سلسلة التوريد.",
+        "es": "Tanto si diseña su propia planta local como si compra volúmenes certificados a granel, Soltex Global garantiza la consistencia química y la fiabilidad de la cadena de suministro."
+      },
+      "ctaTitle": {
+        "en": "Discuss Manufacturing or Supply of {title}",
+        "ru": "Обсудите производство или поставку: {title}",
+        "zh": "洽谈生产或供应：{title}",
+        "tr": "{title} üretimini veya tedarikini görüşün",
+        "ar": "ناقش تصنيع أو توريد {title}",
+        "es": "Hable sobre la fabricación o el suministro de {title}"
+      },
+      "feedstockFallback": {
+        "en": "Natural Agro-Biomass",
+        "ru": "Натуральная агробиомасса",
+        "zh": "天然农业生物质",
+        "tr": "Doğal tarımsal biyokütle",
+        "ar": "كتلة حيوية زراعية طبيعية",
+        "es": "Biomasa agrícola natural"
+      },
+      "headerActionLabel": {
+        "en": "Request Certificate of Analysis (COA)",
+        "ru": "Запросить сертификат анализа (COA)",
+        "zh": "索取分析证书（COA）",
+        "tr": "Analiz sertifikası (COA) talep edin",
+        "ar": "اطلب شهادة التحليل (COA)",
+        "es": "Solicitar certificado de análisis (COA)"
+      },
+      "headerInquiryTopic": {
+        "en": "COA & Spec Sheet Request for {title}",
+        "ru": "Запрос COA и спецификации: {title}",
+        "zh": "COA 及规格书申请：{title}",
+        "tr": "{title} için COA ve spesifikasyon talebi",
+        "ar": "طلب شهادة التحليل وورقة المواصفات: {title}",
+        "es": "Solicitud de COA y ficha técnica de {title}"
+      },
+      "imageTag": {
+        "en": "Industrial Standard",
+        "ru": "Промышленный стандарт",
+        "zh": "工业标准",
+        "tr": "Endüstriyel standart",
+        "ar": "معيار صناعي",
+        "es": "Estándar industrial"
+      },
+      "packagingValue": {
+        "en": "25 kg multi-wall craft bags / Big Bags (1,000 kg)",
+        "ru": "Многослойные крафт-мешки по 25 кг / биг-бэги (1 000 кг)",
+        "zh": "25 kg 多层牛皮纸袋 / 吨袋（1,000 kg）",
+        "tr": "25 kg çok katlı kraft torbalar / big bag'ler (1.000 kg)",
+        "ar": "أكياس ورق كرافت متعددة الطبقات سعة 25 kg / أكياس كبيرة (1,000 kg)",
+        "es": "Sacos multicapa de papel kraft de 25 kg / big bags (1 000 kg)"
+      },
+      "provenanceEyebrow": {
+        "en": "03 · INDUSTRIAL PROVENANCE & PLANT REFERENCE",
+        "ru": "03 · ПРОИСХОЖДЕНИЕ ПРОДУКТА И РЕФЕРЕНТНЫЙ ЗАВОД",
+        "zh": "03 · 工业来源与参考工厂",
+        "tr": "03 · ENDÜSTRİYEL KÖKEN VE TESİS REFERANSI",
+        "ar": "03 · المصدر الصناعي والمصنع المرجعي",
+        "es": "03 · PROCEDENCIA INDUSTRIAL Y PLANTA DE REFERENCIA"
+      },
+      "purityFallback": {
+        "en": "International Benchmark",
+        "ru": "Международный стандарт",
+        "zh": "国际基准",
+        "tr": "Uluslararası ölçüt",
+        "ar": "معيار دولي",
+        "es": "Referencia internacional"
+      },
+      "regulatoryValue": {
+        "en": "FCC, USP, EP, ISO 22000, Halal, Kosher",
+        "ru": "FCC, USP, EP, ISO 22000, Halal, Kosher",
+        "zh": "FCC, USP, EP, ISO 22000, Halal, Kosher",
+        "tr": "FCC, USP, EP, ISO 22000, Halal, Kosher",
+        "ar": "FCC, USP, EP, ISO 22000, Halal, Kosher",
+        "es": "FCC, USP, EP, ISO 22000, Halal, Kosher"
+      },
+      "shelfLifeValue": {
+        "en": "24 Months from production date",
+        "ru": "24 месяца с даты производства",
+        "zh": "自生产日期起 24 个月",
+        "tr": "Üretim tarihinden itibaren 24 ay",
+        "ar": "24 شهرًا من تاريخ الإنتاج",
+        "es": "24 meses desde la fecha de producción"
+      },
+      "subtitle": {
+        "en": "Standardized Industrial Food & Pharma Grade Output",
+        "ru": "Стандартизированная промышленная продукция пищевого и фармацевтического качества",
+        "zh": "标准化工业食品级与医药级产品",
+        "tr": "Standardize endüstriyel gıda ve ilaç sınıfı ürün",
+        "ar": "منتج صناعي معياري من الدرجة الغذائية والدوائية",
+        "es": "Producción industrial estandarizada de grado alimentario y farmacéutico"
+      }
+    },
+    "lists": {},
+    "media": {},
+    "body": null,
+    "seo": null,
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "1d19bab978421ed9",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "1d19bab978421ed9",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "1d19bab978421ed9",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "1d19bab978421ed9",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "1d19bab978421ed9",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  }
+]

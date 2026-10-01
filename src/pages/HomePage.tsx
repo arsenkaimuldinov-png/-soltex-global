@@ -1,20 +1,18 @@
 import React from 'react';
+import type { InquiryTopic } from '../services/leads/topics';
 import { Hero } from '../components/Hero';
 import { MetricRibbon } from '../components/MetricRibbon';
 import { KeyDirections } from '../components/KeyDirections';
 import { EpcmStages } from '../components/EpcmStages';
 import { VideoBlock } from '../components/VideoBlock';
 import { IntellectualProperty } from '../components/IntellectualProperty';
-import { VideoMaterial } from '../types';
 
 interface HomePageProps {
-  onOpenProjectModal: (preselectedTech?: string) => void;
-  onOpenVideo: (video: VideoMaterial) => void;
+  onOpenProjectModal: (topic?: InquiryTopic) => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({
   onOpenProjectModal,
-  onOpenVideo,
 }) => {
   return (
     <main className="flex-1">
@@ -27,7 +25,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       <MetricRibbon />
 
       {/* 03. TECHNOLOGIES FOR HIGH-VALUE INGREDIENTS (6-Card Visual Grid) */}
-      <KeyDirections onSelectTechnology={(tech) => onOpenProjectModal(tech)} />
+      <KeyDirections onSelectTechnology={(ref) => onOpenProjectModal({ ref })} />
 
       {/* 04. FROM CONCEPT TO COMMERCIAL PRODUCTION (approved 8-stage EPCM sequence from EPCM_STAGES) */}
       <EpcmStages onOpenProjectModal={(stage) => onOpenProjectModal(stage)} />

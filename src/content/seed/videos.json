@@ -1,0 +1,144 @@
+[
+  {
+    "id": "video-industrial-technologies",
+    "status": "published",
+    "order": 1,
+    "number": "01",
+    "category": {
+      "en": "INDUSTRIAL TECHNOLOGIES",
+      "ru": "ПРОМЫШЛЕННЫЕ ТЕХНОЛОГИИ",
+      "zh": "工业技术",
+      "tr": "ENDÜSTRİYEL TEKNOLOJİLER",
+      "ar": "التقنيات الصناعية",
+      "es": "TECNOLOGÍAS INDUSTRIALES"
+    },
+    "title": {
+      "en": "Deep Raw Material Processing — Technologies of the Future",
+      "ru": "Глубокая переработка сырья — Технологии будущего",
+      "zh": "原料深加工——未来技术",
+      "tr": "Hammaddelerin İleri İşlenmesi — Geleceğin Teknolojileri",
+      "ar": "المعالجة العميقة للمواد الخام — تقنيات المستقبل",
+      "es": "Procesamiento profundo de materias primas — Tecnologías del futuro"
+    },
+    "headline": {
+      "en": "Deep Raw Material Processing\nTechnologies of the Future",
+      "ru": "Глубокая переработка сырья\nТехнологии будущего",
+      "zh": "原料深加工\n未来技术",
+      "tr": "Hammaddelerin İleri İşlenmesi\nGeleceğin Teknolojileri",
+      "ar": "المعالجة العميقة للمواد الخام\nتقنيات المستقبل",
+      "es": "Procesamiento profundo de materias primas\nTecnologías del futuro"
+    },
+    "description": {
+      "en": "Overview of Soltex production solutions, engineering design stages and implementation of high-technology equipment for agro-industrial facilities.",
+      "ru": "Обзор производственных решений Soltex, этапов инженерного проектирования и внедрения высокотехнологичного оборудования на агропромышленных предприятиях.",
+      "zh": "概述 Soltex 的生产解决方案、工程设计各阶段，以及高技术设备在农工企业中的实施。",
+      "tr": "Soltex üretim çözümlerine, mühendislik tasarım aşamalarına ve tarımsal sanayi tesislerinde yüksek teknolojili ekipmanların uygulanmasına genel bakış.",
+      "ar": "لمحة عامة عن حلول Soltex الإنتاجية، ومراحل التصميم الهندسي، وتطبيق المعدات عالية التقنية في منشآت التصنيع الزراعي.",
+      "es": "Panorama de las soluciones de producción de Soltex, las etapas de diseño de ingeniería y la implementación de equipos de alta tecnología en instalaciones agroindustriales."
+    },
+    "video": {
+      "mediaId": "media-soltex-technologies"
+    },
+    "poster": {
+      "mediaId": "media-video-plant-processing-1790267879744"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "84a952fc51b85b90",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "84a952fc51b85b90",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "84a952fc51b85b90",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "84a952fc51b85b90",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "84a952fc51b85b90",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "video-epcm-standards",
+    "status": "published",
+    "order": 2,
+    "number": "02",
+    "category": {
+      "en": "EPCM & PROJECT DELIVERY",
+      "ru": "EPCM И РЕАЛИЗАЦИЯ ПРОЕКТОВ",
+      "zh": "EPCM 与项目交付",
+      "tr": "EPCM VE PROJE TESLİMİ",
+      "ar": "EPCM وتنفيذ المشاريع",
+      "es": "EPCM Y EJECUCIÓN DE PROYECTOS"
+    },
+    "title": {
+      "en": "Our Production & EPCM Operational Standards",
+      "ru": "Наше производство и EPCM-стандарты работы",
+      "zh": "我们的生产与 EPCM 运营标准",
+      "tr": "Üretimimiz ve EPCM Operasyon Standartlarımız",
+      "ar": "إنتاجنا ومعايير EPCM التشغيلية",
+      "es": "Nuestra producción y estándares operativos EPCM"
+    },
+    "headline": {
+      "en": "Our Production & EPCM\nOperational Standards",
+      "ru": "Наше производство\nи EPCM-стандарты работы",
+      "zh": "我们的生产与\nEPCM 运营标准",
+      "tr": "Üretimimiz ve EPCM\nOperasyon Standartlarımız",
+      "ar": "إنتاجنا\nومعايير EPCM التشغيلية",
+      "es": "Nuestra producción y\nestándares operativos EPCM"
+    },
+    "description": {
+      "en": "A video tour of completed facilities, demonstrating engineering capabilities and quality control at every stage of project implementation.",
+      "ru": "Видеообзор завершённых объектов, демонстрирующий инженерные компетенции и контроль качества на каждом этапе реализации проекта.",
+      "zh": "已完工设施的视频巡览，展示项目实施各阶段的工程能力与质量控制。",
+      "tr": "Tamamlanmış tesislerin video turu: proje uygulamasının her aşamasındaki mühendislik yetkinliklerini ve kalite kontrolünü gösterir.",
+      "ar": "جولة مصوّرة في المنشآت المنجزة، تُبرز القدرات الهندسية ومراقبة الجودة في كل مرحلة من مراحل تنفيذ المشروع.",
+      "es": "Recorrido en video por instalaciones terminadas, que muestra las capacidades de ingeniería y el control de calidad en cada etapa de la ejecución del proyecto."
+    },
+    "video": {
+      "mediaId": "media-soltex-epcm"
+    },
+    "poster": {
+      "mediaId": "media-video-epcm-facility-1790267893198"
+    },
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "a139404d45cd6325",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "a139404d45cd6325",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "a139404d45cd6325",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "a139404d45cd6325",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "a139404d45cd6325",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  }
+]

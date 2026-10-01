@@ -1,0 +1,216 @@
+{
+ "company": {
+  "badgeNumber": "01",
+  "badgeLabel": "CORPORATE PROFILE",
+  "title": "Engineering Technological Sovereignty in Agro-Processing",
+  "subtitle": "30+ Years of Patented Innovations & Industrial Turnkey Delivery",
+  "description": "Soltex Global is an international engineering and EPC enterprise specializing in deep agro-industrial processing. We develop proprietary patented extraction processes and deliver turnkey manufacturing plants that transform plant raw materials into high-margin functional proteins, pectins, and bioactive ingredients.",
+  "meta": [
+   {
+    "label": "Founded Heritage",
+    "value": "30+ Years"
+   },
+   {
+    "label": "Core Specialization",
+    "value": "Deep Plant Processing"
+   },
+   {
+    "label": "Global Registry",
+    "value": "Sharjah, UAE"
+   },
+   {
+    "label": "Execution Scope",
+    "value": "Full-Cycle EPCM"
+   }
+  ],
+  "actionLabel": "Request Consultation",
+  "inquiryTopic": "Corporate Consultation Request"
+ },
+ "globalPresence": {
+  "badgeNumber": "02",
+  "badgeLabel": "GEOGRAPHIC NETWORK",
+  "title": "Global Industrial Presence & Regional Hubs",
+  "subtitle": "Bridging International Engineering Precision with Local Agro-Industrial Hubs",
+  "description": "Soltex Global coordinates multi-national turnkey projects from our corporate engineering headquarters in the United Arab Emirates, backed by regional offices, certified fabrication partners, and operational facilities across Israel, China, Uzbekistan, and Eurasia.",
+  "meta": [
+   {
+    "label": "HQ Registry",
+    "value": "Sharjah, UAE"
+   },
+   {
+    "label": "Primary Regions",
+    "value": "Middle East, Asia, CIS"
+   },
+   {
+    "label": "Project Delivery",
+    "value": "Multi-jurisdictional"
+   },
+   {
+    "label": "Language Coverage",
+    "value": "English, Russian, Chinese, Hebrew"
+   }
+  ],
+  "actionLabel": "Contact Regional Director",
+  "inquiryTopic": "Regional Office Inquiry"
+ },
+ "technologies": {
+  "badgeNumber": "03",
+  "badgeLabel": "PROPRIETARY IP",
+  "title": "Patented Agro-Processing Technologies",
+  "subtitle": "Transforming Agricultural Feedstock into High-Margin Functional Ingredients",
+  "description": "Soltex Global develops, patents, and licenses comprehensive industrial process technologies. From zero-waste closed-loop pectin extraction to solvent-free soy protein isolates and pure inulin crystal recovery, our flowsheet designs guarantee market-leading purity, high recovery coefficients, and low operating costs.",
+  "meta": [
+   {
+    "label": "Core Intellectual Property",
+    "value": "International Patents"
+   },
+   {
+    "label": "Extraction Efficiency",
+    "value": "Up to 92% Recovery"
+   },
+   {
+    "label": "Environmental Standard",
+    "value": "Zero-Waste Circular"
+   },
+   {
+    "label": "Scalability",
+    "value": "Industrial Multi-Ton"
+   }
+  ],
+  "actionLabel": "Request Technology Dossier",
+  "inquiryTopic": "Technology Licensing & Process Inquiry"
+ },
+ "patents": {
+  "badgeNumber": "04",
+  "badgeLabel": "INTELLECTUAL PROPERTY",
+  "title": "Patents, Scientific IP & Licensing",
+  "subtitle": "Proprietary Biochemical Inventions Grounded in Commercial Industrial Plants",
+  "description": "Soltex Global safeguards its clients' market exclusivity through registered international patents and trade secrets covering extraction yields, enzymatic fractionation, and closed-loop biomass valorization.",
+  "meta": [
+   {
+    "label": "Portfolio Status",
+    "value": "Active Registered IP"
+   },
+   {
+    "label": "Key Jurisdictions",
+    "value": "EPO, Israel, Bulgaria, CIS"
+   },
+   {
+    "label": "Licensing Model",
+    "value": "Exclusive with Turnkey EPC"
+   },
+   {
+    "label": "Industrial Proof",
+    "value": "Validated in Commercial Plants"
+   }
+  ],
+  "actionLabel": "Request Licensing Dossier",
+  "inquiryTopic": "Patent Licensing & IP Dossier Request"
+ },
+ "epcm": {
+  "badgeNumber": "05",
+  "badgeLabel": "TURNKEY DELIVERY",
+  "title": "Full-Cycle EPCM Industrial Services",
+  "subtitle": "From Laboratory Concept to Continuous Multi-Ton Commercial Production",
+  "description": "Soltex Global delivers complex deep agro-processing installations under unified Engineering, Procurement, Construction Management (EPCM) and turnkey EPC models. We assume total technical responsibility from biomass testing to operational yield guarantees.",
+  "meta": [
+   {
+    "label": "Contract Models",
+    "value": "Turnkey EPC / EPCM / PMC"
+   },
+   {
+    "label": "Quality Standards",
+    "value": "ISO 9001 · HACCP · GMP"
+   },
+   {
+    "label": "Operational Guarantee",
+    "value": "Output Purity & Volume"
+   },
+   {
+    "label": "Lifecycle Responsibility",
+    "value": "End-to-End Delivery"
+   }
+  ],
+  "actionLabel": "Inquire for Plant Delivery",
+  "inquiryTopic": "Turnkey EPCM Project Inquiry"
+ },
+ "products": {
+  "badgeNumber": "04",
+  "badgeLabel": "COMMERCIAL OUTPUTS",
+  "title": "High-Value Plant Ingredients & Biochemical Outputs",
+  "subtitle": "Manufactured Exclusively via Soltex Global Patented Extraction Facilities",
+  "description": "The tangible output of our engineering prowess. Soltex Global facilities produce world-standard functional proteins, pectins, and prebiotics serving global food manufacturers, nutraceutical producers, and pharmaceutical enterprises.",
+  "meta": [
+   {
+    "label": "Grade Standards",
+    "value": "Food, Pharma, Dietary"
+   },
+   {
+    "label": "Purity Benchmarks",
+    "value": "Up to 92% Active Compound"
+   },
+   {
+    "label": "Feedstock Base",
+    "value": "Non-GMO Natural Biomass"
+   },
+   {
+    "label": "Regulatory Compliance",
+    "value": "ISO 22000 · Halal · Kosher"
+   }
+  ],
+  "actionLabel": "Request Product Specs",
+  "inquiryTopic": "Commercial Ingredient Specifications Request"
+ },
+ "projects": {
+  "badgeNumber": "05",
+  "badgeLabel": "INDUSTRIAL TRACK RECORD",
+  "title": "Industrial Projects & Turnkey Facilities",
+  "subtitle": "30+ Years of International EPC Project Delivery",
+  "description": "Factual overview of completed and operational industrial plants delivered across Israel, China, Uzbekistan, and Eurasia. Every project reflects certified engineering, patented extraction protocols, and verified operational capacities.",
+  "meta": [
+   {
+    "label": "Total Track Record",
+    "value": "30+ Years"
+   },
+   {
+    "label": "Delivery Model",
+    "value": "Turnkey EPC / EPCM"
+   },
+   {
+    "label": "Verified Geography",
+    "value": "Asia, Middle East, CIS"
+   },
+   {
+    "label": "Flagship Scale",
+    "value": "17,000 t/y Isolate"
+   }
+  ],
+  "actionLabel": "Submit Plant Inquiry",
+  "inquiryTopic": "New Turnkey Project Inquiry"
+ },
+ "contact": {
+  "badgeNumber": "06",
+  "badgeLabel": "COMMUNICATIONS DESK",
+  "title": "Engineering Inquiries & Global Representation",
+  "subtitle": "Direct Collaboration with Soltex Global Project Directors",
+  "description": "Connect with our central engineering bureau in the UAE or our regional project offices in Israel, China, Bulgaria, and Eurasia. All technical consultations are conducted under mutual non-disclosure protocols.",
+  "meta": [
+   {
+    "label": "Central Registry",
+    "value": "Sharjah Media City, UAE"
+   },
+   {
+    "label": "Response Protocol",
+    "value": "Within 24 Working Hours"
+   },
+   {
+    "label": "Direct Desk",
+    "value": "info@soltexglobal.co"
+   },
+   {
+    "label": "Technical NDA",
+    "value": "Standard Industrial Terms"
+   }
+  ]
+ }
+}

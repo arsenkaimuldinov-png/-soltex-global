@@ -1,0 +1,1931 @@
+[
+  {
+    "id": "project-solbar-israel",
+    "status": "published",
+    "order": 1,
+    "slug": "solbar-israel",
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "category": {
+      "en": "DEEP SOY PROCESSING",
+      "ru": "ГЛУБОКАЯ ПЕРЕРАБОТКА СОИ",
+      "zh": "大豆深加工",
+      "tr": "SOYA İLERİ İŞLEME",
+      "ar": "المعالجة العميقة للصويا",
+      "es": "PROCESAMIENTO PROFUNDO DE SOJA"
+    },
+    "categoryNumber": "01",
+    "title": {
+      "en": "SOLBAR ISRAEL",
+      "ru": "SOLBAR ISRAEL",
+      "zh": "SOLBAR ISRAEL",
+      "tr": "SOLBAR ISRAEL",
+      "ar": "SOLBAR ISRAEL",
+      "es": "SOLBAR ISRAEL"
+    },
+    "country": {
+      "en": "Israel",
+      "ru": "Израиль",
+      "zh": "以色列",
+      "tr": "İsrail",
+      "ar": "إسرائيل",
+      "es": "Israel"
+    },
+    "years": {
+      "en": "2002–2004",
+      "ru": "2002–2004",
+      "zh": "2002–2004",
+      "tr": "2002–2004",
+      "ar": "2002–2004",
+      "es": "2002–2004"
+    },
+    "capacity": {
+      "en": "17,000 t/year",
+      "ru": "17 000 т/год",
+      "zh": "17,000 吨/年",
+      "tr": "17.000 t/yıl",
+      "ar": "17,000 طن/سنة",
+      "es": "17 000 t/año"
+    },
+    "type": {
+      "en": "Soy Protein Isolate Industrial Plant",
+      "ru": "Промышленный завод изолята соевого белка",
+      "zh": "大豆分离蛋白工业化工厂",
+      "tr": "Soya protein izolatı endüstriyel tesisi",
+      "ar": "مصنع صناعي لبروتين الصويا المعزول",
+      "es": "Planta industrial de aislado de proteína de soja"
+    },
+    "overview": {
+      "en": "Construction of an industrial manufacturing complex with a capacity of 17,000 t/y of soy protein isolate. Patent obtained for a unique aqueous extraction technology.",
+      "ru": "Строительство промышленного производственного комплекса мощностью 17 000 т/год изолята соевого белка. Получен патент на уникальную технологию водной экстракции.",
+      "zh": "建设年产 17,000 吨大豆分离蛋白的工业化生产综合体。独特的水相提取技术已获得专利。",
+      "tr": "Yıllık 17.000 ton soya protein izolatı kapasiteli endüstriyel üretim kompleksinin inşası. Özgün sulu ekstraksiyon teknolojisi için patent alındı.",
+      "ar": "إنشاء مجمّع تصنيع صناعي بطاقة 17,000 طن/سنة من بروتين الصويا المعزول. تم الحصول على براءة اختراع لتقنية استخلاص مائي فريدة.",
+      "es": "Construcción de un complejo industrial de fabricación con una capacidad de 17 000 t/año de aislado de proteína de soja. Se obtuvo una patente para una tecnología única de extracción acuosa."
+    },
+    "scope": [
+      {
+        "en": "Comprehensive basic and detailed process engineering",
+        "ru": "Комплексное базовое и детальное технологическое проектирование",
+        "zh": "全面的基础与详细工艺工程设计",
+        "tr": "Kapsamlı temel ve detay proses mühendisliği",
+        "ar": "هندسة عمليات أساسية وتفصيلية شاملة",
+        "es": "Ingeniería de procesos básica y de detalle integral"
+      },
+      {
+        "en": "Proprietary aqueous protein isolation equipment supply",
+        "ru": "Поставка собственного оборудования для водного выделения белка",
+        "zh": "供应自有水相蛋白分离设备",
+        "tr": "Tescilli sulu protein izolasyon ekipmanı tedariki",
+        "ar": "توريد معدات خاصة لعزل البروتين بالماء",
+        "es": "Suministro de equipos propios para el aislamiento acuoso de proteínas"
+      },
+      {
+        "en": "Construction supervision, civil assembly and cleanroom pipework",
+        "ru": "Надзор за строительством, строительно-монтажные работы и трубопроводы чистых помещений",
+        "zh": "施工监理、土建安装及洁净室管道工程",
+        "tr": "İnşaat denetimi, inşaat montajı ve temiz oda boru tesisatı",
+        "ar": "الإشراف على الإنشاء والتركيب المدني وتمديدات أنابيب الغرف النظيفة",
+        "es": "Supervisión de la construcción, montaje civil y tuberías de salas limpias"
+      },
+      {
+        "en": "Integration of automated PLC/SCADA control architectures",
+        "ru": "Интеграция автоматизированных систем управления PLC/SCADA",
+        "zh": "集成 PLC/SCADA 自动化控制架构",
+        "tr": "Otomatik PLC/SCADA kontrol mimarilerinin entegrasyonu",
+        "ar": "دمج أنظمة التحكم الآلي PLC/SCADA",
+        "es": "Integración de arquitecturas de control automatizado PLC/SCADA"
+      },
+      {
+        "en": "Staff certification and sustained operation for 18+ years",
+        "ru": "Аттестация персонала и стабильная эксплуатация на протяжении более 18 лет",
+        "zh": "人员认证，并持续稳定运行 18 年以上",
+        "tr": "Personel sertifikasyonu ve 18 yılı aşkın kesintisiz işletme",
+        "ar": "اعتماد الكوادر وتشغيل مستدام لأكثر من 18 عامًا",
+        "es": "Certificación del personal y operación sostenida durante más de 18 años"
+      }
+    ],
+    "technology": {
+      "en": "Aqueous Extraction & Isoelectric Precipitation (Patented)",
+      "ru": "Водная экстракция и изоэлектрическое осаждение (запатентовано)",
+      "zh": "水相提取与等电沉淀（专利技术）",
+      "tr": "Sulu ekstraksiyon ve izoelektrik çöktürme (patentli)",
+      "ar": "الاستخلاص المائي والترسيب عند نقطة التعادل الكهربائي (حاصل على براءة اختراع)",
+      "es": "Extracción acuosa y precipitación isoeléctrica (patentada)"
+    },
+    "results": [
+      {
+        "en": "17,000 metric tons annual production capacity",
+        "ru": "Годовая производственная мощность 17 000 тонн",
+        "zh": "年产能 17,000 吨",
+        "tr": "Yıllık 17.000 metrik ton üretim kapasitesi",
+        "ar": "طاقة إنتاجية سنوية قدرها 17,000 طن متري",
+        "es": "Capacidad de producción anual de 17 000 toneladas métricas"
+      },
+      {
+        "en": "World-class protein purity exceeding 90% isolate standard",
+        "ru": "Чистота белка мирового уровня — свыше 90% по стандарту изолята",
+        "zh": "世界一流的蛋白纯度，超过 90% 分离蛋白标准",
+        "tr": "%90 izolat standardını aşan dünya standartlarında protein saflığı",
+        "ar": "نقاوة بروتين عالمية المستوى تتجاوز معيار المعزول البالغ 90%",
+        "es": "Pureza proteica de primer nivel mundial, superior al estándar de aislado del 90%"
+      },
+      {
+        "en": "Continuous uninterrupted commercial operation for over 18 years",
+        "ru": "Непрерывная коммерческая эксплуатация без остановок более 18 лет",
+        "zh": "连续不间断商业运营超过 18 年",
+        "tr": "18 yılı aşkın kesintisiz ticari işletme",
+        "ar": "تشغيل تجاري مستمر دون انقطاع لأكثر من 18 عامًا",
+        "es": "Operación comercial continua e ininterrumpida durante más de 18 años"
+      }
+    ],
+    "image": {
+      "mediaId": "media-projects-solbar-israel"
+    },
+    "imagePosition": null,
+    "gallery": [
+      {
+        "mediaId": "media-projects-solbar-israel"
+      }
+    ],
+    "relatedTechnologyId": "technology-soy-protein",
+    "specs": [
+      {
+        "label": {
+          "en": "Location",
+          "ru": "Местоположение",
+          "zh": "地点",
+          "tr": "Konum",
+          "ar": "الموقع",
+          "es": "Ubicación"
+        },
+        "value": {
+          "en": "Ashdod / Southern District, Israel",
+          "ru": "Ашдод / Южный округ, Израиль",
+          "zh": "以色列阿什杜德 / 南部区",
+          "tr": "Aşdod / Güney Bölgesi, İsrail",
+          "ar": "أسدود / المنطقة الجنوبية، إسرائيل",
+          "es": "Asdod / Distrito Sur, Israel"
+        }
+      },
+      {
+        "label": {
+          "en": "Project Period",
+          "ru": "Период реализации",
+          "zh": "项目周期",
+          "tr": "Proje dönemi",
+          "ar": "فترة المشروع",
+          "es": "Periodo del proyecto"
+        },
+        "value": {
+          "en": "2002–2004",
+          "ru": "2002–2004",
+          "zh": "2002–2004",
+          "tr": "2002–2004",
+          "ar": "2002–2004",
+          "es": "2002–2004"
+        }
+      },
+      {
+        "label": {
+          "en": "Installed Capacity",
+          "ru": "Установленная мощность",
+          "zh": "装机产能",
+          "tr": "Kurulu kapasite",
+          "ar": "الطاقة المركّبة",
+          "es": "Capacidad instalada"
+        },
+        "value": {
+          "en": "17,000 t/y Isolate",
+          "ru": "17 000 т/год изолята",
+          "zh": "分离蛋白 17,000 吨/年",
+          "tr": "17.000 t/yıl izolat",
+          "ar": "17,000 طن/سنة من المعزول",
+          "es": "17 000 t/año de aislado"
+        }
+      },
+      {
+        "label": {
+          "en": "Delivery Model",
+          "ru": "Модель реализации",
+          "zh": "交付模式",
+          "tr": "Teslim modeli",
+          "ar": "نموذج التنفيذ",
+          "es": "Modelo de ejecución"
+        },
+        "value": {
+          "en": "Full-Cycle EPC Engineering",
+          "ru": "Полный цикл EPC-инжиниринга",
+          "zh": "全周期 EPC 工程",
+          "tr": "Tam döngü EPC mühendisliği",
+          "ar": "هندسة EPC متكاملة الدورة",
+          "es": "Ingeniería EPC de ciclo completo"
+        }
+      }
+    ],
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "e6962b70404eb9f8",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "e6962b70404eb9f8",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "e6962b70404eb9f8",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "e6962b70404eb9f8",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "e6962b70404eb9f8",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "project-solbar-ningbo",
+    "status": "published",
+    "order": 2,
+    "slug": "solbar-ningbo",
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "category": {
+      "en": "DEEP SOY PROCESSING",
+      "ru": "ГЛУБОКАЯ ПЕРЕРАБОТКА СОИ",
+      "zh": "大豆深加工",
+      "tr": "SOYA İLERİ İŞLEME",
+      "ar": "المعالجة العميقة للصويا",
+      "es": "PROCESAMIENTO PROFUNDO DE SOJA"
+    },
+    "categoryNumber": "01",
+    "title": {
+      "en": "SOLBAR NINGBO",
+      "ru": "SOLBAR NINGBO",
+      "zh": "SOLBAR NINGBO",
+      "tr": "SOLBAR NINGBO",
+      "ar": "SOLBAR NINGBO",
+      "es": "SOLBAR NINGBO"
+    },
+    "country": {
+      "en": "China",
+      "ru": "Китай",
+      "zh": "中国",
+      "tr": "Çin",
+      "ar": "الصين",
+      "es": "China"
+    },
+    "years": {
+      "en": "2006–2008",
+      "ru": "2006–2008",
+      "zh": "2006–2008",
+      "tr": "2006–2008",
+      "ar": "2006–2008",
+      "es": "2006–2008"
+    },
+    "capacity": {
+      "en": "10,000 t/year",
+      "ru": "10 000 т/год",
+      "zh": "10,000 吨/年",
+      "tr": "10.000 t/yıl",
+      "ar": "10,000 طن/سنة",
+      "es": "10 000 t/año"
+    },
+    "type": {
+      "en": "Turnkey Soy Processing Complex",
+      "ru": "Соевый перерабатывающий комплекс «под ключ»",
+      "zh": "交钥匙大豆加工综合体",
+      "tr": "Anahtar teslim soya işleme kompleksi",
+      "ar": "مجمّع معالجة صويا بنظام تسليم المفتاح",
+      "es": "Complejo de procesamiento de soja llave en mano"
+    },
+    "overview": {
+      "en": "Turnkey project with a capacity of 10,000 t/y of isolate from \"white flake\". Established the global industrial standard of product purity and efficiency in Asia.",
+      "ru": "Проект «под ключ» мощностью 10 000 т/год изолята из «белого лепестка». Установил мировой промышленный стандарт чистоты продукции и эффективности в Азии.",
+      "zh": "以“白片”为原料、年产 10,000 吨分离蛋白的交钥匙项目。在亚洲确立了产品纯度与效率的全球工业标准。",
+      "tr": "\"Beyaz yaprak\"tan yıllık 10.000 ton izolat kapasiteli anahtar teslim proje. Asya'da ürün saflığı ve verimlilik açısından küresel endüstriyel standardı belirledi.",
+      "ar": "مشروع بنظام تسليم المفتاح بطاقة 10,000 طن/سنة من المعزول المنتج من «الرقائق البيضاء». أرسى المعيار الصناعي العالمي لنقاوة المنتج والكفاءة في آسيا.",
+      "es": "Proyecto llave en mano con una capacidad de 10 000 t/año de aislado a partir de «escamas blancas». Estableció el estándar industrial global de pureza del producto y eficiencia en Asia."
+    },
+    "scope": [
+      {
+        "en": "Site master planning and industrial civil design",
+        "ru": "Генеральное планирование площадки и промышленное строительное проектирование",
+        "zh": "厂区总体规划与工业土建设计",
+        "tr": "Saha master planlaması ve endüstriyel inşaat tasarımı",
+        "ar": "التخطيط العام للموقع والتصميم المدني الصناعي",
+        "es": "Planificación maestra del emplazamiento y diseño civil industrial"
+      },
+      {
+        "en": "Turnkey equipment supply and international logistics management",
+        "ru": "Поставка оборудования «под ключ» и управление международной логистикой",
+        "zh": "交钥匙设备供应及国际物流管理",
+        "tr": "Anahtar teslim ekipman tedariki ve uluslararası lojistik yönetimi",
+        "ar": "توريد المعدات بنظام تسليم المفتاح وإدارة الخدمات اللوجستية الدولية",
+        "es": "Suministro de equipos llave en mano y gestión de la logística internacional"
+      },
+      {
+        "en": "Assembly of multi-stage extraction, separation and spray drying lines",
+        "ru": "Монтаж линий многоступенчатой экстракции, сепарации и распылительной сушки",
+        "zh": "多级提取、分离及喷雾干燥生产线安装",
+        "tr": "Çok kademeli ekstraksiyon, ayırma ve püskürtmeli kurutma hatlarının montajı",
+        "ar": "تركيب خطوط الاستخلاص والفصل متعددة المراحل والتجفيف بالرذاذ",
+        "es": "Montaje de líneas de extracción en múltiples etapas, separación y secado por atomización"
+      },
+      {
+        "en": "Commissioning, cold and live product testing runs",
+        "ru": "Пусконаладка, холодная обкатка и испытания на продукте",
+        "zh": "调试、冷试车及实际产品试运行",
+        "tr": "Devreye alma, soğuk testler ve gerçek ürünle test çalışmaları",
+        "ar": "التشغيل التجريبي واختبارات التشغيل البارد والاختبار على المنتج الفعلي",
+        "es": "Puesta en marcha, pruebas en frío y pruebas con producto real"
+      },
+      {
+        "en": "Operational launch and operator certification",
+        "ru": "Запуск производства и аттестация операторов",
+        "zh": "投产运行与操作人员认证",
+        "tr": "İşletmeye alma ve operatör sertifikasyonu",
+        "ar": "بدء التشغيل واعتماد المشغّلين",
+        "es": "Arranque operativo y certificación de operadores"
+      }
+    ],
+    "technology": {
+      "en": "Deep Soy Processing from White Flake Feedstock",
+      "ru": "Глубокая переработка сои из сырья «белый лепесток»",
+      "zh": "以白片为原料的大豆深加工",
+      "tr": "Beyaz yaprak hammaddesinden soya ileri işleme",
+      "ar": "المعالجة العميقة للصويا من مادة الرقائق البيضاء الخام",
+      "es": "Procesamiento profundo de soja a partir de escamas blancas"
+    },
+    "results": [
+      {
+        "en": "10,000 t/y soy isolate capacity reached ahead of schedule",
+        "ru": "Мощность 10 000 т/год изолята сои достигнута с опережением графика",
+        "zh": "提前达到年产 10,000 吨大豆分离蛋白产能",
+        "tr": "Yıllık 10.000 ton soya izolatı kapasitesine planlanandan önce ulaşıldı",
+        "ar": "بلوغ طاقة 10,000 طن/سنة من معزول الصويا قبل الموعد المحدد",
+        "es": "Capacidad de 10 000 t/año de aislado de soja alcanzada antes de lo previsto"
+      },
+      {
+        "en": "Ultra-low chemical footprint with closed-loop water recovery",
+        "ru": "Сверхнизкое химическое воздействие и замкнутый цикл оборотной воды",
+        "zh": "极低化学品足迹，闭环水回收",
+        "tr": "Kapalı döngü su geri kazanımı ile son derece düşük kimyasal ayak izi",
+        "ar": "بصمة كيميائية منخفضة للغاية مع استعادة المياه بدورة مغلقة",
+        "es": "Huella química ultrabaja con recuperación de agua en circuito cerrado"
+      },
+      {
+        "en": "Certified under global ISO 9001 and HACCP quality protocols",
+        "ru": "Сертифицировано по международным протоколам качества ISO 9001 и HACCP",
+        "zh": "通过全球 ISO 9001 和 HACCP 质量体系认证",
+        "tr": "Küresel ISO 9001 ve HACCP kalite protokollerine göre sertifikalı",
+        "ar": "معتمد وفق بروتوكولات الجودة العالمية ISO 9001 وHACCP",
+        "es": "Certificado según los protocolos de calidad globales ISO 9001 y HACCP"
+      }
+    ],
+    "image": {
+      "mediaId": "media-projects-solbar-ningbo"
+    },
+    "imagePosition": "center top",
+    "gallery": [
+      {
+        "mediaId": "media-projects-solbar-ningbo"
+      }
+    ],
+    "relatedTechnologyId": "technology-soy-protein",
+    "specs": [
+      {
+        "label": {
+          "en": "Location",
+          "ru": "Местоположение",
+          "zh": "地点",
+          "tr": "Konum",
+          "ar": "الموقع",
+          "es": "Ubicación"
+        },
+        "value": {
+          "en": "Ningbo, Zhejiang Province, China",
+          "ru": "Нинбо, провинция Чжэцзян, Китай",
+          "zh": "中国浙江省宁波市",
+          "tr": "Ningbo, Zhejiang Eyaleti, Çin",
+          "ar": "نينغبو، مقاطعة تشجيانغ، الصين",
+          "es": "Ningbo, provincia de Zhejiang, China"
+        }
+      },
+      {
+        "label": {
+          "en": "Project Period",
+          "ru": "Период реализации",
+          "zh": "项目周期",
+          "tr": "Proje dönemi",
+          "ar": "فترة المشروع",
+          "es": "Periodo del proyecto"
+        },
+        "value": {
+          "en": "2006–2008",
+          "ru": "2006–2008",
+          "zh": "2006–2008",
+          "tr": "2006–2008",
+          "ar": "2006–2008",
+          "es": "2006–2008"
+        }
+      },
+      {
+        "label": {
+          "en": "Feedstock Base",
+          "ru": "Сырьевая база",
+          "zh": "原料基础",
+          "tr": "Hammadde tabanı",
+          "ar": "قاعدة المواد الخام",
+          "es": "Base de materia prima"
+        },
+        "value": {
+          "en": "Non-GMO Defatted White Flake",
+          "ru": "Обезжиренный «белый лепесток» без ГМО",
+          "zh": "非转基因脱脂白片",
+          "tr": "GDO'suz yağı alınmış beyaz yaprak",
+          "ar": "رقائق بيضاء منزوعة الدهن وغير معدّلة وراثيًا",
+          "es": "Escamas blancas desgrasadas no transgénicas"
+        }
+      },
+      {
+        "label": {
+          "en": "Output Capacity",
+          "ru": "Производственная мощность",
+          "zh": "产出能力",
+          "tr": "Üretim kapasitesi",
+          "ar": "الطاقة الإنتاجية",
+          "es": "Capacidad de producción"
+        },
+        "value": {
+          "en": "10,000 t/y High-Purity Isolate",
+          "ru": "10 000 т/год изолята высокой чистоты",
+          "zh": "高纯度分离蛋白 10,000 吨/年",
+          "tr": "10.000 t/yıl yüksek saflıkta izolat",
+          "ar": "10,000 طن/سنة من المعزول عالي النقاوة",
+          "es": "10 000 t/año de aislado de alta pureza"
+        }
+      }
+    ],
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "289b553257c00fa5",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "289b553257c00fa5",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "289b553257c00fa5",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "289b553257c00fa5",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "289b553257c00fa5",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "project-solbar-nebraska",
+    "status": "published",
+    "order": 3,
+    "slug": "solbar-nebraska",
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "category": {
+      "en": "DEEP SOY PROCESSING",
+      "ru": "ГЛУБОКАЯ ПЕРЕРАБОТКА СОИ",
+      "zh": "大豆深加工",
+      "tr": "SOYA İLERİ İŞLEME",
+      "ar": "المعالجة العميقة للصويا",
+      "es": "PROCESAMIENTO PROFUNDO DE SOJA"
+    },
+    "categoryNumber": "01",
+    "title": {
+      "en": "SOLBAR NEBRASKA",
+      "ru": "SOLBAR NEBRASKA",
+      "zh": "SOLBAR NEBRASKA",
+      "tr": "SOLBAR NEBRASKA",
+      "ar": "SOLBAR NEBRASKA",
+      "es": "SOLBAR NEBRASKA"
+    },
+    "country": {
+      "en": "USA",
+      "ru": "США",
+      "zh": "美国",
+      "tr": "ABD",
+      "ar": "الولايات المتحدة",
+      "es": "EE. UU."
+    },
+    "years": {
+      "en": "2009–2011",
+      "ru": "2009–2011",
+      "zh": "2009–2011",
+      "tr": "2009–2011",
+      "ar": "2009–2011",
+      "es": "2009–2011"
+    },
+    "capacity": null,
+    "type": {
+      "en": "Flagship US Regional Processing Facility",
+      "ru": "Флагманский региональный перерабатывающий завод в США",
+      "zh": "美国区域旗舰加工厂",
+      "tr": "ABD'de amiral bölgesel işleme tesisi",
+      "ar": "منشأة المعالجة الإقليمية الرائدة في الولايات المتحدة",
+      "es": "Planta regional insignia de procesamiento en EE. UU."
+    },
+    "overview": {
+      "en": "Launch of the largest plant in the region. Technological superiority allowed the company to reach a new round of capitalization and capture premier North American market share.",
+      "ru": "Запуск крупнейшего завода в регионе. Технологическое превосходство позволило компании выйти на новый раунд капитализации и занять ведущую долю североамериканского рынка.",
+      "zh": "区域内最大工厂投产。技术优势使公司进入新一轮资本化，并赢得北美市场的领先份额。",
+      "tr": "Bölgenin en büyük tesisinin devreye alınması. Teknolojik üstünlük, şirketin yeni bir sermayelendirme turuna ulaşmasını ve Kuzey Amerika pazarında öncü pay elde etmesini sağladı.",
+      "ar": "إطلاق أكبر مصنع في المنطقة. مكّن التفوق التكنولوجي الشركة من بلوغ جولة رسملة جديدة والاستحواذ على حصة رائدة في سوق أمريكا الشمالية.",
+      "es": "Puesta en marcha de la mayor planta de la región. La superioridad tecnológica permitió a la empresa alcanzar una nueva ronda de capitalización y conquistar una cuota líder del mercado norteamericano."
+    },
+    "scope": [
+      {
+        "en": "Engineering documentation aligned with US building codes and FDA standards",
+        "ru": "Проектная документация в соответствии со строительными нормами США и стандартами FDA",
+        "zh": "符合美国建筑规范及 FDA 标准的工程文件",
+        "tr": "ABD yapı yönetmelikleri ve FDA standartlarına uygun mühendislik dokümantasyonu",
+        "ar": "وثائق هندسية متوافقة مع قوانين البناء الأمريكية ومعايير FDA",
+        "es": "Documentación de ingeniería conforme a los códigos de construcción de EE. UU. y las normas de la FDA"
+      },
+      {
+        "en": "High-throughput continuous enzymatic hydrolysis and membrane filtration",
+        "ru": "Высокопроизводительный непрерывный ферментативный гидролиз и мембранная фильтрация",
+        "zh": "高通量连续酶解与膜过滤",
+        "tr": "Yüksek kapasiteli sürekli enzimatik hidroliz ve membran filtrasyon",
+        "ar": "تحلل مائي إنزيمي مستمر عالي الإنتاجية وترشيح غشائي",
+        "es": "Hidrólisis enzimática continua de alto rendimiento y filtración por membrana"
+      },
+      {
+        "en": "Advanced instrumentation, automation and remote diagnostic systems",
+        "ru": "Современные системы КИП, автоматизации и удалённой диагностики",
+        "zh": "先进的仪表、自动化及远程诊断系统",
+        "tr": "İleri enstrümantasyon, otomasyon ve uzaktan teşhis sistemleri",
+        "ar": "أنظمة متقدمة للأجهزة والأتمتة والتشخيص عن بُعد",
+        "es": "Sistemas avanzados de instrumentación, automatización y diagnóstico remoto"
+      },
+      {
+        "en": "Supervision of mechanical and electrical installation contractors",
+        "ru": "Надзор за подрядчиками по механическому и электромонтажу",
+        "zh": "监督机械和电气安装承包商",
+        "tr": "Mekanik ve elektrik montaj yüklenicilerinin denetimi",
+        "ar": "الإشراف على مقاولي التركيبات الميكانيكية والكهربائية",
+        "es": "Supervisión de contratistas de montaje mecánico y eléctrico"
+      },
+      {
+        "en": "Validation protocols and commercial ramp-up support",
+        "ru": "Протоколы валидации и поддержка выхода на коммерческую мощность",
+        "zh": "验证方案及商业化产能爬坡支持",
+        "tr": "Validasyon protokolleri ve ticari kapasite artırımı desteği",
+        "ar": "بروتوكولات التحقق ودعم الرفع التدريجي للإنتاج التجاري",
+        "es": "Protocolos de validación y soporte al aumento progresivo de la producción comercial"
+      }
+    ],
+    "technology": {
+      "en": "Advanced Enzymatic & Hydro-Mechanical Soy Isolation",
+      "ru": "Передовое ферментативное и гидромеханическое выделение соевого белка",
+      "zh": "先进的酶法与水力机械大豆蛋白分离",
+      "tr": "İleri enzimatik ve hidromekanik soya izolasyonu",
+      "ar": "عزل متقدم لبروتين الصويا بالطرق الإنزيمية والهيدروميكانيكية",
+      "es": "Aislamiento avanzado de soja por vía enzimática e hidromecánica"
+    },
+    "results": [
+      {
+        "en": "Regional processing benchmark in the Midwest agricultural corridor",
+        "ru": "Региональный эталон переработки в сельскохозяйственном коридоре Среднего Запада",
+        "zh": "美国中西部农业走廊的区域加工标杆",
+        "tr": "Orta Batı tarım koridorunda bölgesel işleme referansı",
+        "ar": "معيار مرجعي إقليمي للمعالجة في الممر الزراعي للغرب الأوسط",
+        "es": "Referente regional de procesamiento en el corredor agrícola del Medio Oeste"
+      },
+      {
+        "en": "Strategic market expansion leading to enterprise capital appreciation",
+        "ru": "Стратегическое расширение рынка, приведшее к росту капитализации предприятия",
+        "zh": "战略性市场扩张带动企业资本增值",
+        "tr": "İşletme sermaye değerinin artmasına yol açan stratejik pazar genişlemesi",
+        "ar": "توسع استراتيجي في السوق أدى إلى زيادة القيمة الرأسمالية للمؤسسة",
+        "es": "Expansión estratégica de mercado que impulsó la revalorización del capital de la empresa"
+      },
+      {
+        "en": "Compliance with strict US FDA, GMP and sanitary guidelines",
+        "ru": "Соответствие строгим требованиям FDA, GMP и санитарным нормам США",
+        "zh": "符合美国 FDA、GMP 及卫生规范的严格要求",
+        "tr": "ABD FDA, GMP ve sıhhi kılavuzların katı gerekliliklerine uyum",
+        "ar": "الامتثال للمتطلبات الصارمة لـ FDA وGMP والإرشادات الصحية الأمريكية",
+        "es": "Cumplimiento de las estrictas directrices de la FDA, GMP y sanitarias de EE. UU."
+      }
+    ],
+    "image": {
+      "mediaId": "media-projects-solbar-nebraska"
+    },
+    "imagePosition": null,
+    "gallery": [
+      {
+        "mediaId": "media-projects-solbar-nebraska"
+      }
+    ],
+    "relatedTechnologyId": "technology-soy-protein",
+    "specs": [
+      {
+        "label": {
+          "en": "Location",
+          "ru": "Местоположение",
+          "zh": "地点",
+          "tr": "Konum",
+          "ar": "الموقع",
+          "es": "Ubicación"
+        },
+        "value": {
+          "en": "Nebraska, United States",
+          "ru": "Небраска, США",
+          "zh": "美国内布拉斯加州",
+          "tr": "Nebraska, ABD",
+          "ar": "نبراسكا، الولايات المتحدة",
+          "es": "Nebraska, Estados Unidos"
+        }
+      },
+      {
+        "label": {
+          "en": "Project Period",
+          "ru": "Период реализации",
+          "zh": "项目周期",
+          "tr": "Proje dönemi",
+          "ar": "فترة المشروع",
+          "es": "Periodo del proyecto"
+        },
+        "value": {
+          "en": "2009–2011",
+          "ru": "2009–2011",
+          "zh": "2009–2011",
+          "tr": "2009–2011",
+          "ar": "2009–2011",
+          "es": "2009–2011"
+        }
+      },
+      {
+        "label": {
+          "en": "Technology Profile",
+          "ru": "Технологический профиль",
+          "zh": "技术概况",
+          "tr": "Teknoloji profili",
+          "ar": "الملف التكنولوجي",
+          "es": "Perfil tecnológico"
+        },
+        "value": {
+          "en": "Aqueous Extraction & Hydrolysis",
+          "ru": "Водная экстракция и гидролиз",
+          "zh": "水相提取与水解",
+          "tr": "Sulu ekstraksiyon ve hidroliz",
+          "ar": "الاستخلاص المائي والتحلل المائي",
+          "es": "Extracción acuosa e hidrólisis"
+        }
+      },
+      {
+        "label": {
+          "en": "Regulatory Code",
+          "ru": "Нормативная база",
+          "zh": "法规标准",
+          "tr": "Mevzuat",
+          "ar": "الإطار التنظيمي",
+          "es": "Marco normativo"
+        },
+        "value": {
+          "en": "FDA, GMP, 3-A Sanitary",
+          "ru": "FDA, GMP, 3-A Sanitary",
+          "zh": "FDA, GMP, 3-A Sanitary",
+          "tr": "FDA, GMP, 3-A Sanitary",
+          "ar": "FDA, GMP, 3-A Sanitary",
+          "es": "FDA, GMP, 3-A Sanitary"
+        }
+      }
+    ],
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "0385d1034cfe2de3",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "0385d1034cfe2de3",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "0385d1034cfe2de3",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "0385d1034cfe2de3",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "0385d1034cfe2de3",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "project-siberian-wellness",
+    "status": "published",
+    "order": 4,
+    "slug": "siberian-wellness",
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "category": {
+      "en": "PECTIN AND FUNCTIONAL COMPONENTS",
+      "ru": "ПЕКТИН И ФУНКЦИОНАЛЬНЫЕ КОМПОНЕНТЫ",
+      "zh": "果胶与功能性组分",
+      "tr": "PEKTİN VE FONKSİYONEL BİLEŞENLER",
+      "ar": "البكتين والمكونات الوظيفية",
+      "es": "PECTINA Y COMPONENTES FUNCIONALES"
+    },
+    "categoryNumber": "02",
+    "title": {
+      "en": "SIBERIAN WELLNESS PLANT",
+      "ru": "ЗАВОД SIBERIAN WELLNESS",
+      "zh": "SIBERIAN WELLNESS 工厂",
+      "tr": "SIBERIAN WELLNESS TESİSİ",
+      "ar": "مصنع SIBERIAN WELLNESS",
+      "es": "PLANTA SIBERIAN WELLNESS"
+    },
+    "country": {
+      "en": "Uzbekistan",
+      "ru": "Узбекистан",
+      "zh": "乌兹别克斯坦",
+      "tr": "Özbekistan",
+      "ar": "أوزبكستان",
+      "es": "Uzbekistán"
+    },
+    "years": {
+      "en": "2023–2025",
+      "ru": "2023–2025",
+      "zh": "2023–2025",
+      "tr": "2023–2025",
+      "ar": "2023–2025",
+      "es": "2023–2025"
+    },
+    "capacity": {
+      "en": "500 t/y Pectin · 800 t/y Dietary Fibers",
+      "ru": "500 т/год пектина · 800 т/год пищевых волокон",
+      "zh": "果胶 500 吨/年 · 膳食纤维 800 吨/年",
+      "tr": "500 t/yıl pektin · 800 t/yıl diyet lifi",
+      "ar": "500 طن/سنة بكتين · 800 طن/سنة ألياف غذائية",
+      "es": "500 t/año de pectina · 800 t/año de fibras dietéticas"
+    },
+    "type": {
+      "en": "Hybrid Bio-Refining & Extraction Complex",
+      "ru": "Гибридный комплекс биорефайнинга и экстракции",
+      "zh": "混合型生物炼制与提取综合体",
+      "tr": "Hibrit biyorafineri ve ekstraksiyon kompleksi",
+      "ar": "مجمّع هجين للتكرير الحيوي والاستخلاص",
+      "es": "Complejo híbrido de biorrefinería y extracción"
+    },
+    "overview": {
+      "en": "Turnkey construction of a state-of-the-art plant for Siberian Wellness (Namangan, Uzbekistan). The hybrid design enables pectin, inulin, and dietary fiber production with full automation.",
+      "ru": "Строительство «под ключ» современного завода для Siberian Wellness (Наманган, Узбекистан). Гибридная схема обеспечивает производство пектина, инулина и пищевых волокон с полной автоматизацией.",
+      "zh": "为 Siberian Wellness（乌兹别克斯坦纳曼干）交钥匙建设一座现代化工厂。混合式设计可实现果胶、菊粉和膳食纤维的全自动化生产。",
+      "tr": "Siberian Wellness için (Namangan, Özbekistan) son teknoloji bir tesisin anahtar teslim inşası. Hibrit tasarım, tam otomasyonla pektin, inülin ve diyet lifi üretimini mümkün kılar.",
+      "ar": "إنشاء مصنع حديث بنظام تسليم المفتاح لصالح Siberian Wellness (نمنغان، أوزبكستان). يتيح التصميم الهجين إنتاج البكتين والإينولين والألياف الغذائية بأتمتة كاملة.",
+      "es": "Construcción llave en mano de una planta de última generación para Siberian Wellness (Namangán, Uzbekistán). El diseño híbrido permite producir pectina, inulina y fibra dietética con automatización completa."
+    },
+    "scope": [
+      {
+        "en": "Complete EPCM engineering cycle from concept to live production",
+        "ru": "Полный цикл EPCM-инжиниринга — от концепции до работы на продукте",
+        "zh": "从概念到实际投产的完整 EPCM 工程周期",
+        "tr": "Konseptten canlı üretime tam EPCM mühendislik döngüsü",
+        "ar": "دورة هندسية EPCM كاملة من المفهوم إلى الإنتاج الفعلي",
+        "es": "Ciclo completo de ingeniería EPCM, del concepto a la producción real"
+      },
+      {
+        "en": "Implementation of patented cavitation extraction technology (Application No. 113754)",
+        "ru": "Внедрение запатентованной технологии кавитационной экстракции (заявка № 113754)",
+        "zh": "应用专利空化提取技术（申请号 113754）",
+        "tr": "Patentli kavitasyon ekstraksiyon teknolojisinin uygulanması (Başvuru No. 113754)",
+        "ar": "تطبيق تقنية الاستخلاص بالتكهف الحاصلة على براءة (الطلب رقم 113754)",
+        "es": "Implementación de la tecnología patentada de extracción por cavitación (solicitud n.º 113754)"
+      },
+      {
+        "en": "Multi-tier open steel frame extraction tower fabrication and erection",
+        "ru": "Изготовление и монтаж многоярусной открытой стальной экстракционной башни",
+        "zh": "多层开放式钢结构提取塔的制造与安装",
+        "tr": "Çok katlı açık çelik konstrüksiyon ekstraksiyon kulesinin imalatı ve montajı",
+        "ar": "تصنيع وتركيب برج استخلاص متعدد الطوابق بهيكل فولاذي مفتوح",
+        "es": "Fabricación y montaje de una torre de extracción de estructura de acero abierta de varios niveles"
+      },
+      {
+        "en": "Alcohol-free, organic-acid extraction and vacuum concentration equipment",
+        "ru": "Оборудование безалкогольной экстракции органической кислотой и вакуумного концентрирования",
+        "zh": "无醇有机酸提取及真空浓缩设备",
+        "tr": "Alkolsüz, organik asitli ekstraksiyon ve vakum konsantrasyon ekipmanı",
+        "ar": "معدات استخلاص بالأحماض العضوية خالية من الكحول وتركيز بالتفريغ",
+        "es": "Equipos de extracción sin alcohol con ácidos orgánicos y de concentración al vacío"
+      },
+      {
+        "en": "Turnkey SCADA digital twin control room integration",
+        "ru": "Интеграция диспетчерской SCADA с цифровым двойником «под ключ»",
+        "zh": "交钥匙 SCADA 数字孪生控制室集成",
+        "tr": "Anahtar teslim SCADA dijital ikiz kontrol odası entegrasyonu",
+        "ar": "دمج غرفة تحكم SCADA بتوأم رقمي بنظام تسليم المفتاح",
+        "es": "Integración llave en mano de sala de control SCADA con gemelo digital"
+      }
+    ],
+    "technology": {
+      "en": "Eco-Friendly 'Green' Pectin & Dietary Fiber Production (Patent 113754)",
+      "ru": "Экологичное «зелёное» производство пектина и пищевых волокон (патент 113754)",
+      "zh": "环保“绿色”果胶与膳食纤维生产（专利 113754）",
+      "tr": "Çevre dostu 'yeşil' pektin ve diyet lifi üretimi (Patent 113754)",
+      "ar": "إنتاج «أخضر» صديق للبيئة للبكتين والألياف الغذائية (براءة 113754)",
+      "es": "Producción ecológica «verde» de pectina y fibra dietética (patente 113754)"
+    },
+    "results": [
+      {
+        "en": "500 metric tons annual high-purity pectin production",
+        "ru": "500 тонн высокочистого пектина в год",
+        "zh": "年产 500 吨高纯度果胶",
+        "tr": "Yıllık 500 metrik ton yüksek saflıkta pektin üretimi",
+        "ar": "إنتاج سنوي قدره 500 طن متري من البكتين عالي النقاوة",
+        "es": "Producción anual de 500 toneladas métricas de pectina de alta pureza"
+      },
+      {
+        "en": "800 metric tons annual purified dietary fibers",
+        "ru": "800 тонн очищенных пищевых волокон в год",
+        "zh": "年产 800 吨纯化膳食纤维",
+        "tr": "Yıllık 800 metrik ton saflaştırılmış diyet lifi",
+        "ar": "800 طن متري سنويًا من الألياف الغذائية المنقّاة",
+        "es": "800 toneladas métricas anuales de fibras dietéticas purificadas"
+      },
+      {
+        "en": "100% alcohol-free process ensuring exceptional food safety",
+        "ru": "100% безалкогольный процесс, обеспечивающий исключительную пищевую безопасность",
+        "zh": "100% 无醇工艺，确保卓越的食品安全",
+        "tr": "Üstün gıda güvenliği sağlayan %100 alkolsüz proses",
+        "ar": "عملية خالية من الكحول بنسبة 100% تضمن سلامة غذائية استثنائية",
+        "es": "Proceso 100% libre de alcohol que garantiza una seguridad alimentaria excepcional"
+      }
+    ],
+    "image": {
+      "mediaId": "media-projects-siberian-wellness"
+    },
+    "imagePosition": null,
+    "gallery": [
+      {
+        "mediaId": "media-projects-siberian-wellness"
+      }
+    ],
+    "relatedTechnologyId": "technology-pectin",
+    "specs": [
+      {
+        "label": {
+          "en": "Location",
+          "ru": "Местоположение",
+          "zh": "地点",
+          "tr": "Konum",
+          "ar": "الموقع",
+          "es": "Ubicación"
+        },
+        "value": {
+          "en": "Namangan, Uzbekistan",
+          "ru": "Наманган, Узбекистан",
+          "zh": "乌兹别克斯坦纳曼干",
+          "tr": "Namangan, Özbekistan",
+          "ar": "نمنغان، أوزبكستان",
+          "es": "Namangán, Uzbekistán"
+        }
+      },
+      {
+        "label": {
+          "en": "Execution Timeline",
+          "ru": "Сроки реализации",
+          "zh": "实施周期",
+          "tr": "Uygulama takvimi",
+          "ar": "الجدول الزمني للتنفيذ",
+          "es": "Plazo de ejecución"
+        },
+        "value": {
+          "en": "2023–2025",
+          "ru": "2023–2025",
+          "zh": "2023–2025",
+          "tr": "2023–2025",
+          "ar": "2023–2025",
+          "es": "2023–2025"
+        }
+      },
+      {
+        "label": {
+          "en": "Raw Feedstocks",
+          "ru": "Виды сырья",
+          "zh": "原料",
+          "tr": "Hammaddeler",
+          "ar": "المواد الخام",
+          "es": "Materias primas"
+        },
+        "value": {
+          "en": "Apple Pomace, Jerusalem Artichoke",
+          "ru": "Яблочные выжимки, топинамбур",
+          "zh": "苹果渣、菊芋",
+          "tr": "Elma posası, yer elması",
+          "ar": "تفل التفاح، الطرطوفة",
+          "es": "Orujo de manzana, tupinambo"
+        }
+      },
+      {
+        "label": {
+          "en": "Contract Format",
+          "ru": "Формат контракта",
+          "zh": "合同形式",
+          "tr": "Sözleşme formatı",
+          "ar": "صيغة العقد",
+          "es": "Formato del contrato"
+        },
+        "value": {
+          "en": "Full-Cycle Turnkey EPCM",
+          "ru": "Полный цикл EPCM «под ключ»",
+          "zh": "全周期交钥匙 EPCM",
+          "tr": "Tam döngü anahtar teslim EPCM",
+          "ar": "EPCM متكامل الدورة بنظام تسليم المفتاح",
+          "es": "EPCM llave en mano de ciclo completo"
+        }
+      }
+    ],
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "087d3d5113e578fa",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "087d3d5113e578fa",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "087d3d5113e578fa",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "087d3d5113e578fa",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "087d3d5113e578fa",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "project-agritech-kazakhstan",
+    "status": "published",
+    "order": 5,
+    "slug": "agritech-kazakhstan",
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "category": {
+      "en": "DEEP SOY PROCESSING",
+      "ru": "ГЛУБОКАЯ ПЕРЕРАБОТКА СОИ",
+      "zh": "大豆深加工",
+      "tr": "SOYA İLERİ İŞLEME",
+      "ar": "المعالجة العميقة للصويا",
+      "es": "PROCESAMIENTO PROFUNDO DE SOJA"
+    },
+    "categoryNumber": "01",
+    "title": {
+      "en": "AGRITECH LLC SOY PLANT",
+      "ru": "СОЕВЫЙ ЗАВОД AGRITECH LLC",
+      "zh": "AGRITECH LLC 大豆工厂",
+      "tr": "AGRITECH LLC SOYA TESİSİ",
+      "ar": "مصنع صويا AGRITECH LLC",
+      "es": "PLANTA DE SOJA AGRITECH LLC"
+    },
+    "country": {
+      "en": "Kazakhstan",
+      "ru": "Казахстан",
+      "zh": "哈萨克斯坦",
+      "tr": "Kazakistan",
+      "ar": "كازاخستان",
+      "es": "Kazajistán"
+    },
+    "years": {
+      "en": "2019–2021",
+      "ru": "2019–2021",
+      "zh": "2019–2021",
+      "tr": "2019–2021",
+      "ar": "2019–2021",
+      "es": "2019–2021"
+    },
+    "capacity": null,
+    "type": {
+      "en": "Soy Protein Isolate Production Facility",
+      "ru": "Завод по производству изолята соевого белка",
+      "zh": "大豆分离蛋白生产设施",
+      "tr": "Soya protein izolatı üretim tesisi",
+      "ar": "منشأة إنتاج بروتين الصويا المعزول",
+      "es": "Instalación de producción de aislado de proteína de soja"
+    },
+    "overview": {
+      "en": "Located in Zhanatlab Village, Almaty Region, Republic of Kazakhstan. Client: Agritech LLC. The project involved the design and development of a modern soybean deep processing facility for high-quality isolate for the food industry.",
+      "ru": "Расположение: село Жанатлап, Алматинская область, Республика Казахстан. Заказчик: Agritech LLC. Проект включал проектирование и создание современного предприятия глубокой переработки сои для выпуска высококачественного изолята для пищевой промышленности.",
+      "zh": "位于哈萨克斯坦共和国阿拉木图州扎纳特拉普村。客户：Agritech LLC。项目包括设计和建设一座现代化大豆深加工工厂，为食品工业生产高品质分离蛋白。",
+      "tr": "Konum: Canatlap Köyü, Almatı Bölgesi, Kazakistan Cumhuriyeti. Müşteri: Agritech LLC. Proje, gıda endüstrisi için yüksek kaliteli izolat üreten modern bir soya ileri işleme tesisinin tasarımını ve geliştirilmesini kapsadı.",
+      "ar": "يقع في قرية جاناتلاب، منطقة ألماتي، جمهورية كازاخستان. العميل: Agritech LLC. شمل المشروع تصميم وتطوير منشأة حديثة للمعالجة العميقة لفول الصويا لإنتاج معزول عالي الجودة لصناعة الأغذية.",
+      "es": "Ubicada en la aldea de Zhanatlab, región de Almaty, República de Kazajistán. Cliente: Agritech LLC. El proyecto abarcó el diseño y desarrollo de una moderna instalación de procesamiento profundo de soja para producir aislado de alta calidad para la industria alimentaria."
+    },
+    "scope": [
+      {
+        "en": "Comprehensive plant architectural and engineering design",
+        "ru": "Комплексное архитектурное и инженерное проектирование завода",
+        "zh": "全面的工厂建筑与工程设计",
+        "tr": "Kapsamlı tesis mimari ve mühendislik tasarımı",
+        "ar": "تصميم معماري وهندسي شامل للمصنع",
+        "es": "Diseño arquitectónico y de ingeniería integral de la planta"
+      },
+      {
+        "en": "Implementation of Patent RU 2709384 C1 enzymatic hydrolysis line",
+        "ru": "Внедрение линии ферментативного гидролиза по патенту RU 2709384 C1",
+        "zh": "应用专利 RU 2709384 C1 酶解生产线",
+        "tr": "Patent RU 2709384 C1 enzimatik hidroliz hattının uygulanması",
+        "ar": "تطبيق خط التحلل المائي الإنزيمي وفق براءة الاختراع RU 2709384 C1",
+        "es": "Implementación de la línea de hidrólisis enzimática de la patente RU 2709384 C1"
+      },
+      {
+        "en": "Instant steam thermal shock (135–140°C) and vacuum deodorization system",
+        "ru": "Система мгновенного парового термоудара (135–140°C) и вакуумной дезодорации",
+        "zh": "瞬时蒸汽热冲击（135–140°C）及真空脱臭系统",
+        "tr": "Anlık buhar termal şok (135–140°C) ve vakum deodorizasyon sistemi",
+        "ar": "نظام صدمة حرارية فورية بالبخار (135–140°C) وإزالة الروائح بالتفريغ",
+        "es": "Sistema de choque térmico instantáneo con vapor (135–140°C) y desodorización al vacío"
+      },
+      {
+        "en": "Bromelain micro-dose precision injection system",
+        "ru": "Система точного микродозирования бромелаина",
+        "zh": "菠萝蛋白酶微剂量精准注入系统",
+        "tr": "Bromelain mikro doz hassas enjeksiyon sistemi",
+        "ar": "نظام حقن دقيق بجرعات ميكروية من البروميلين",
+        "es": "Sistema de inyección de precisión de microdosis de bromelina"
+      },
+      {
+        "en": "Installation of cleanroom spray drying and packaging line",
+        "ru": "Монтаж линии распылительной сушки и фасовки в условиях чистых помещений",
+        "zh": "安装洁净室喷雾干燥及包装生产线",
+        "tr": "Temiz oda püskürtmeli kurutma ve paketleme hattının kurulumu",
+        "ar": "تركيب خط تجفيف بالرذاذ وتعبئة في غرف نظيفة",
+        "es": "Instalación de la línea de secado por atomización y envasado en sala limpia"
+      }
+    ],
+    "technology": {
+      "en": "Innovative Enzymatic Hydrolysis Soy Isolate (Patent RU 2709384 C1)",
+      "ru": "Инновационный изолят сои ферментативного гидролиза (патент RU 2709384 C1)",
+      "zh": "创新酶解大豆分离蛋白（专利 RU 2709384 C1）",
+      "tr": "Yenilikçi enzimatik hidroliz soya izolatı (Patent RU 2709384 C1)",
+      "ar": "معزول صويا مبتكر بالتحلل المائي الإنزيمي (براءة RU 2709384 C1)",
+      "es": "Aislado de soja innovador por hidrólisis enzimática (patente RU 2709384 C1)"
+    },
+    "results": [
+      {
+        "en": "Protein solubility enhanced by 6.8 times via controlled peptide cleavage",
+        "ru": "Растворимость белка повышена в 6,8 раза за счёт контролируемого расщепления пептидов",
+        "zh": "通过可控肽链切割，蛋白溶解度提高 6.8 倍",
+        "tr": "Kontrollü peptit parçalanmasıyla protein çözünürlüğü 6,8 kat artırıldı",
+        "ar": "زيادة ذوبانية البروتين بمقدار 6.8 مرة عبر التقطيع المتحكم به للببتيدات",
+        "es": "Solubilidad proteica aumentada 6,8 veces mediante escisión controlada de péptidos"
+      },
+      {
+        "en": "Elimination of specific beany soy odor through flash vacuum cooling",
+        "ru": "Устранение характерного бобового запаха сои благодаря мгновенному вакуумному охлаждению",
+        "zh": "通过闪蒸真空冷却消除大豆特有的豆腥味",
+        "tr": "Anlık vakum soğutma ile soyaya özgü fasulye kokusunun giderilmesi",
+        "ar": "إزالة رائحة الفول المميزة للصويا عبر التبريد الفوري بالتفريغ",
+        "es": "Eliminación del olor característico a soja mediante enfriamiento instantáneo al vacío"
+      },
+      {
+        "en": "Light-colored, low-viscosity isolate meeting international standards",
+        "ru": "Светлый изолят низкой вязкости, соответствующий международным стандартам",
+        "zh": "浅色、低黏度分离蛋白，符合国际标准",
+        "tr": "Uluslararası standartları karşılayan açık renkli, düşük viskoziteli izolat",
+        "ar": "معزول فاتح اللون منخفض اللزوجة يستوفي المعايير الدولية",
+        "es": "Aislado de color claro y baja viscosidad que cumple las normas internacionales"
+      }
+    ],
+    "image": {
+      "mediaId": "media-projects-agritech-kazakhstan"
+    },
+    "imagePosition": null,
+    "gallery": [
+      {
+        "mediaId": "media-projects-agritech-kazakhstan"
+      }
+    ],
+    "relatedTechnologyId": "technology-soy-protein",
+    "specs": [
+      {
+        "label": {
+          "en": "Location",
+          "ru": "Местоположение",
+          "zh": "地点",
+          "tr": "Konum",
+          "ar": "الموقع",
+          "es": "Ubicación"
+        },
+        "value": {
+          "en": "Zhanatlab, Almaty Region, Kazakhstan",
+          "ru": "Жанатлап, Алматинская область, Казахстан",
+          "zh": "哈萨克斯坦阿拉木图州扎纳特拉普",
+          "tr": "Canatlap, Almatı Bölgesi, Kazakistan",
+          "ar": "جاناتلاب، منطقة ألماتي، كازاخستان",
+          "es": "Zhanatlab, región de Almaty, Kazajistán"
+        }
+      },
+      {
+        "label": {
+          "en": "Client",
+          "ru": "Заказчик",
+          "zh": "客户",
+          "tr": "Müşteri",
+          "ar": "العميل",
+          "es": "Cliente"
+        },
+        "value": {
+          "en": "Agritech LLC",
+          "ru": "Agritech LLC",
+          "zh": "Agritech LLC",
+          "tr": "Agritech LLC",
+          "ar": "Agritech LLC",
+          "es": "Agritech LLC"
+        }
+      },
+      {
+        "label": {
+          "en": "Project Period",
+          "ru": "Период реализации",
+          "zh": "项目周期",
+          "tr": "Proje dönemi",
+          "ar": "فترة المشروع",
+          "es": "Periodo del proyecto"
+        },
+        "value": {
+          "en": "2019–2021",
+          "ru": "2019–2021",
+          "zh": "2019–2021",
+          "tr": "2019–2021",
+          "ar": "2019–2021",
+          "es": "2019–2021"
+        }
+      },
+      {
+        "label": {
+          "en": "Patent Applied",
+          "ru": "Применённый патент",
+          "zh": "所用专利",
+          "tr": "Uygulanan patent",
+          "ar": "براءة الاختراع المطبّقة",
+          "es": "Patente aplicada"
+        },
+        "value": {
+          "en": "Patent RU 2709384 C1",
+          "ru": "Патент RU 2709384 C1",
+          "zh": "专利 RU 2709384 C1",
+          "tr": "Patent RU 2709384 C1",
+          "ar": "براءة الاختراع RU 2709384 C1",
+          "es": "Patente RU 2709384 C1"
+        }
+      }
+    ],
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "7ef8c35f98666e6e",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "7ef8c35f98666e6e",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "7ef8c35f98666e6e",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "7ef8c35f98666e6e",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "7ef8c35f98666e6e",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "project-aznar-pomegranate",
+    "status": "published",
+    "order": 6,
+    "slug": "aznar-pomegranate",
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "category": {
+      "en": "PECTIN AND FUNCTIONAL COMPONENTS",
+      "ru": "ПЕКТИН И ФУНКЦИОНАЛЬНЫЕ КОМПОНЕНТЫ",
+      "zh": "果胶与功能性组分",
+      "tr": "PEKTİN VE FONKSİYONEL BİLEŞENLER",
+      "ar": "البكتين والمكونات الوظيفية",
+      "es": "PECTINA Y COMPONENTES FUNCIONALES"
+    },
+    "categoryNumber": "02",
+    "title": {
+      "en": "AZNAR POMEGRANATE COMPLEX",
+      "ru": "ГРАНАТОВЫЙ КОМПЛЕКС AZNAR",
+      "zh": "AZNAR 石榴综合体",
+      "tr": "AZNAR NAR KOMPLEKSİ",
+      "ar": "مجمّع AZNAR للرمان",
+      "es": "COMPLEJO DE GRANADA AZNAR"
+    },
+    "country": {
+      "en": "Azerbaijan",
+      "ru": "Азербайджан",
+      "zh": "阿塞拜疆",
+      "tr": "Azerbaycan",
+      "ar": "أذربيجان",
+      "es": "Azerbaiyán"
+    },
+    "years": {
+      "en": "2015–2017",
+      "ru": "2015–2017",
+      "zh": "2015–2017",
+      "tr": "2015–2017",
+      "ar": "2015–2017",
+      "es": "2015–2017"
+    },
+    "capacity": null,
+    "type": {
+      "en": "Pomegranate Agro-Waste Valorization Complex",
+      "ru": "Комплекс валоризации отходов переработки граната",
+      "zh": "石榴农业废弃物高值化利用综合体",
+      "tr": "Nar tarımsal atıkları değerlendirme kompleksi",
+      "ar": "مجمّع تثمين المخلفات الزراعية للرمان",
+      "es": "Complejo de valorización de residuos agrícolas de granada"
+    },
+    "overview": {
+      "en": "Industrial facility for deep processing of pomegranate processing residues. Extraction of high-value pectin, pharmaceutical tannins, and purified dietary fibers from pomegranate peel.",
+      "ru": "Промышленное предприятие по глубокой переработке остатков переработки граната. Извлечение ценного пектина, фармацевтических дубильных веществ (танинов) и очищенных пищевых волокон из гранатовой кожуры.",
+      "zh": "石榴加工残渣深加工工业设施。从石榴皮中提取高附加值果胶、医药级单宁和纯化膳食纤维。",
+      "tr": "Nar işleme kalıntılarının ileri işlenmesi için endüstriyel tesis. Nar kabuğundan yüksek değerli pektin, farmasötik tanenler ve saflaştırılmış diyet lifi ekstraksiyonu.",
+      "ar": "منشأة صناعية للمعالجة العميقة لمخلفات معالجة الرمان. استخلاص البكتين عالي القيمة والعفص الدوائي والألياف الغذائية المنقّاة من قشور الرمان.",
+      "es": "Instalación industrial para el procesamiento profundo de residuos del procesamiento de granada. Extracción de pectina de alto valor, taninos farmacéuticos y fibras dietéticas purificadas a partir de la cáscara de granada."
+    },
+    "scope": [
+      {
+        "en": "Technological audit and by-product valorization engineering",
+        "ru": "Технологический аудит и инжиниринг валоризации побочных продуктов",
+        "zh": "技术审计及副产品高值化利用工程",
+        "tr": "Teknolojik denetim ve yan ürün değerlendirme mühendisliği",
+        "ar": "تدقيق تكنولوجي وهندسة تثمين المنتجات الثانوية",
+        "es": "Auditoría tecnológica e ingeniería de valorización de subproductos"
+      },
+      {
+        "en": "Pilot-scale extraction trials and solvent-free recovery process",
+        "ru": "Пилотные испытания экстракции и процесс извлечения без растворителей",
+        "zh": "中试规模提取试验及无溶剂回收工艺",
+        "tr": "Pilot ölçekli ekstraksiyon denemeleri ve çözücüsüz geri kazanım prosesi",
+        "ar": "تجارب استخلاص على نطاق تجريبي وعملية استعادة بدون مذيبات",
+        "es": "Ensayos de extracción a escala piloto y proceso de recuperación sin disolventes"
+      },
+      {
+        "en": "Commercial line design for peeling, separation and drying",
+        "ru": "Проектирование промышленной линии очистки, сепарации и сушки",
+        "zh": "去皮、分离及干燥商业化生产线设计",
+        "tr": "Soyma, ayırma ve kurutma için ticari hat tasarımı",
+        "ar": "تصميم خط تجاري للتقشير والفصل والتجفيف",
+        "es": "Diseño de la línea comercial de pelado, separación y secado"
+      },
+      {
+        "en": "Tannin purification and high-viscosity hydrocolloid lines",
+        "ru": "Линии очистки танинов и высоковязких гидроколлоидов",
+        "zh": "单宁纯化及高黏度水胶体生产线",
+        "tr": "Tanen saflaştırma ve yüksek viskoziteli hidrokolloid hatları",
+        "ar": "خطوط تنقية العفص والغرويات المائية عالية اللزوجة",
+        "es": "Líneas de purificación de taninos e hidrocoloides de alta viscosidad"
+      }
+    ],
+    "technology": {
+      "en": "Bioactive Pomegranate Peel Valorization & Extraction",
+      "ru": "Валоризация и экстракция биоактивных компонентов гранатовой кожуры",
+      "zh": "石榴皮生物活性成分高值化利用与提取",
+      "tr": "Biyoaktif nar kabuğu değerlendirme ve ekstraksiyonu",
+      "ar": "تثمين قشور الرمان النشطة بيولوجيًا واستخلاصها",
+      "es": "Valorización y extracción bioactiva de la cáscara de granada"
+    },
+    "results": [
+      {
+        "en": "Zero-waste conversion of seasonal pomegranate juicing side-streams",
+        "ru": "Безотходная переработка сезонных побочных потоков производства гранатового сока",
+        "zh": "季节性石榴榨汁副产物流的零废弃转化",
+        "tr": "Mevsimsel nar suyu üretimi yan akışlarının sıfır atıkla dönüştürülmesi",
+        "ar": "تحويل خالٍ من النفايات للتدفقات الجانبية الموسمية لعصر الرمان",
+        "es": "Conversión con residuo cero de los flujos secundarios estacionales de la extracción de jugo de granada"
+      },
+      {
+        "en": "Commercial production of high-grade natural tannins and pectin",
+        "ru": "Промышленное производство высококачественных натуральных танинов и пектина",
+        "zh": "高品质天然单宁和果胶的商业化生产",
+        "tr": "Yüksek kaliteli doğal tanen ve pektinin ticari üretimi",
+        "ar": "إنتاج تجاري للعفص الطبيعي والبكتين عالي الجودة",
+        "es": "Producción comercial de taninos naturales y pectina de alta calidad"
+      },
+      {
+        "en": "Significant economic ROI for client processing assets",
+        "ru": "Значительный экономический эффект (ROI) для перерабатывающих активов заказчика",
+        "zh": "为客户加工资产带来显著的投资回报（ROI）",
+        "tr": "Müşterinin işleme varlıkları için önemli ekonomik yatırım getirisi (ROI)",
+        "ar": "عائد اقتصادي كبير على الاستثمار (ROI) لأصول المعالجة لدى العميل",
+        "es": "Retorno económico (ROI) significativo para los activos de procesamiento del cliente"
+      }
+    ],
+    "image": {
+      "mediaId": "media-projects-aznar-pomegranate"
+    },
+    "imagePosition": null,
+    "gallery": [
+      {
+        "mediaId": "media-projects-aznar-pomegranate"
+      }
+    ],
+    "relatedTechnologyId": "technology-pomegranate",
+    "specs": [
+      {
+        "label": {
+          "en": "Location",
+          "ru": "Местоположение",
+          "zh": "地点",
+          "tr": "Konum",
+          "ar": "الموقع",
+          "es": "Ubicación"
+        },
+        "value": {
+          "en": "Goychay, Azerbaijan",
+          "ru": "Гёйчай, Азербайджан",
+          "zh": "阿塞拜疆戈伊恰伊",
+          "tr": "Göyçay, Azerbaycan",
+          "ar": "غويتشاي، أذربيجان",
+          "es": "Goychay, Azerbaiyán"
+        }
+      },
+      {
+        "label": {
+          "en": "Feedstock Source",
+          "ru": "Источник сырья",
+          "zh": "原料来源",
+          "tr": "Hammadde kaynağı",
+          "ar": "مصدر المواد الخام",
+          "es": "Origen de la materia prima"
+        },
+        "value": {
+          "en": "Pomegranate Press Peel",
+          "ru": "Прессованная гранатовая кожура",
+          "zh": "压榨石榴皮",
+          "tr": "Preslenmiş nar kabuğu",
+          "ar": "قشور الرمان المعصورة",
+          "es": "Cáscara de granada prensada"
+        }
+      },
+      {
+        "label": {
+          "en": "Primary Products",
+          "ru": "Основная продукция",
+          "zh": "主要产品",
+          "tr": "Başlıca ürünler",
+          "ar": "المنتجات الرئيسية",
+          "es": "Productos principales"
+        },
+        "value": {
+          "en": "Pectin, Tannin, Fibers",
+          "ru": "Пектин, танин, волокна",
+          "zh": "果胶、单宁、纤维",
+          "tr": "Pektin, tanen, lifler",
+          "ar": "البكتين، العفص، الألياف",
+          "es": "Pectina, tanino, fibras"
+        }
+      },
+      {
+        "label": {
+          "en": "Environmental Impact",
+          "ru": "Экологический эффект",
+          "zh": "环境效益",
+          "tr": "Çevresel etki",
+          "ar": "الأثر البيئي",
+          "es": "Impacto ambiental"
+        },
+        "value": {
+          "en": "Zero Landfill Agro-Waste",
+          "ru": "Нулевое захоронение агроотходов",
+          "zh": "农业废弃物零填埋",
+          "tr": "Tarımsal atıkta sıfır depolama",
+          "ar": "صفر طمر للنفايات الزراعية",
+          "es": "Cero residuos agrícolas a vertedero"
+        }
+      }
+    ],
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "778ec7ac90768cc6",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "778ec7ac90768cc6",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "778ec7ac90768cc6",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "778ec7ac90768cc6",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "778ec7ac90768cc6",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "project-cargill-brazil",
+    "status": "published",
+    "order": 7,
+    "slug": "cargill-brazil",
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "category": {
+      "en": "DEEP SOY PROCESSING",
+      "ru": "ГЛУБОКАЯ ПЕРЕРАБОТКА СОИ",
+      "zh": "大豆深加工",
+      "tr": "SOYA İLERİ İŞLEME",
+      "ar": "المعالجة العميقة للصويا",
+      "es": "PROCESAMIENTO PROFUNDO DE SOJA"
+    },
+    "categoryNumber": "01",
+    "title": {
+      "en": "CARGILL BRAZIL CONSULTING",
+      "ru": "КОНСАЛТИНГ CARGILL BRAZIL",
+      "zh": "CARGILL BRAZIL 咨询项目",
+      "tr": "CARGILL BRAZIL DANIŞMANLIĞI",
+      "ar": "استشارات CARGILL BRAZIL",
+      "es": "CONSULTORÍA CARGILL BRAZIL"
+    },
+    "country": {
+      "en": "Brazil",
+      "ru": "Бразилия",
+      "zh": "巴西",
+      "tr": "Brezilya",
+      "ar": "البرازيل",
+      "es": "Brasil"
+    },
+    "years": {
+      "en": "2018",
+      "ru": "2018",
+      "zh": "2018",
+      "tr": "2018",
+      "ar": "2018",
+      "es": "2018"
+    },
+    "capacity": null,
+    "type": {
+      "en": "Engineering & Process Modernization",
+      "ru": "Инжиниринг и модернизация процессов",
+      "zh": "工程与工艺现代化改造",
+      "tr": "Mühendislik ve proses modernizasyonu",
+      "ar": "الهندسة وتحديث العمليات",
+      "es": "Ingeniería y modernización de procesos"
+    },
+    "overview": {
+      "en": "Consulting support and engineering design of an industrial plant in Brazil for CARGILL Inc. (USA), optimizing process efficiencies and yield parameters.",
+      "ru": "Консалтинговое сопровождение и инженерное проектирование промышленного завода в Бразилии для CARGILL Inc. (США) с оптимизацией эффективности процессов и параметров выхода.",
+      "zh": "为 CARGILL Inc.（美国）在巴西的一座工业工厂提供咨询支持和工程设计，优化工艺效率和收率参数。",
+      "tr": "CARGILL Inc. (ABD) için Brezilya'daki bir endüstriyel tesise yönelik danışmanlık desteği ve mühendislik tasarımı; proses verimliliği ve verim parametrelerinin optimizasyonu.",
+      "ar": "دعم استشاري وتصميم هندسي لمصنع صناعي في البرازيل لصالح CARGILL Inc. (الولايات المتحدة)، مع تحسين كفاءة العمليات ومعايير المردود.",
+      "es": "Apoyo de consultoría y diseño de ingeniería de una planta industrial en Brasil para CARGILL Inc. (EE. UU.), optimizando la eficiencia de los procesos y los parámetros de rendimiento."
+    },
+    "scope": [
+      {
+        "en": "Comprehensive technological audit of existing extraction lines",
+        "ru": "Комплексный технологический аудит действующих линий экстракции",
+        "zh": "对现有提取生产线进行全面技术审计",
+        "tr": "Mevcut ekstraksiyon hatlarının kapsamlı teknolojik denetimi",
+        "ar": "تدقيق تكنولوجي شامل لخطوط الاستخلاص القائمة",
+        "es": "Auditoría tecnológica integral de las líneas de extracción existentes"
+      },
+      {
+        "en": "Process debottlenecking and mass balance recalculation",
+        "ru": "Устранение узких мест процесса и пересчёт материального баланса",
+        "zh": "工艺瓶颈消除及物料平衡重新计算",
+        "tr": "Proses darboğazlarının giderilmesi ve kütle dengesinin yeniden hesaplanması",
+        "ar": "إزالة اختناقات العملية وإعادة حساب موازنة الكتلة",
+        "es": "Eliminación de cuellos de botella del proceso y recálculo del balance de masa"
+      },
+      {
+        "en": "Energy integration and steam consumption reduction studies",
+        "ru": "Исследования по энергоинтеграции и снижению потребления пара",
+        "zh": "能源集成及降低蒸汽消耗研究",
+        "tr": "Enerji entegrasyonu ve buhar tüketimini azaltma çalışmaları",
+        "ar": "دراسات تكامل الطاقة وخفض استهلاك البخار",
+        "es": "Estudios de integración energética y reducción del consumo de vapor"
+      },
+      {
+        "en": "Recommendations on membrane separation efficiency",
+        "ru": "Рекомендации по эффективности мембранного разделения",
+        "zh": "膜分离效率改进建议",
+        "tr": "Membran ayırma verimliliğine ilişkin öneriler",
+        "ar": "توصيات بشأن كفاءة الفصل الغشائي",
+        "es": "Recomendaciones sobre la eficiencia de la separación por membrana"
+      }
+    ],
+    "technology": {
+      "en": "Advanced Industrial Soy Processing & Mass Balance Optimization",
+      "ru": "Передовая промышленная переработка сои и оптимизация материального баланса",
+      "zh": "先进工业化大豆加工与物料平衡优化",
+      "tr": "İleri endüstriyel soya işleme ve kütle dengesi optimizasyonu",
+      "ar": "معالجة صناعية متقدمة للصويا وتحسين موازنة الكتلة",
+      "es": "Procesamiento industrial avanzado de soja y optimización del balance de masa"
+    },
+    "results": [
+      {
+        "en": "Operational debottlenecking for global agricultural multinational",
+        "ru": "Устранение узких мест производства для глобальной агропромышленной корпорации",
+        "zh": "为全球农业跨国企业消除运营瓶颈",
+        "tr": "Küresel tarım devi için operasyonel darboğaz giderme",
+        "ar": "إزالة الاختناقات التشغيلية لشركة زراعية متعددة الجنسيات",
+        "es": "Eliminación de cuellos de botella operativos para una multinacional agrícola global"
+      },
+      {
+        "en": "Validated technological expertise across international standards",
+        "ru": "Технологическая экспертиза, подтверждённая по международным стандартам",
+        "zh": "经国际标准验证的技术专长",
+        "tr": "Uluslararası standartlarda doğrulanmış teknolojik uzmanlık",
+        "ar": "خبرة تكنولوجية مثبتة وفق المعايير الدولية",
+        "es": "Experiencia tecnológica validada según estándares internacionales"
+      }
+    ],
+    "image": {
+      "mediaId": "media-tech-integrated-plant-1790271239031"
+    },
+    "imagePosition": null,
+    "gallery": [
+      {
+        "mediaId": "media-tech-integrated-plant-1790271239031"
+      }
+    ],
+    "relatedTechnologyId": "technology-soy-protein",
+    "specs": [
+      {
+        "label": {
+          "en": "Client",
+          "ru": "Заказчик",
+          "zh": "客户",
+          "tr": "Müşteri",
+          "ar": "العميل",
+          "es": "Cliente"
+        },
+        "value": {
+          "en": "CARGILL Inc. (USA / Brazil)",
+          "ru": "CARGILL Inc. (США / Бразилия)",
+          "zh": "CARGILL Inc.（美国 / 巴西）",
+          "tr": "CARGILL Inc. (ABD / Brezilya)",
+          "ar": "CARGILL Inc. (الولايات المتحدة / البرازيل)",
+          "es": "CARGILL Inc. (EE. UU. / Brasil)"
+        }
+      },
+      {
+        "label": {
+          "en": "Year",
+          "ru": "Год",
+          "zh": "年份",
+          "tr": "Yıl",
+          "ar": "السنة",
+          "es": "Año"
+        },
+        "value": {
+          "en": "2018",
+          "ru": "2018",
+          "zh": "2018",
+          "tr": "2018",
+          "ar": "2018",
+          "es": "2018"
+        }
+      },
+      {
+        "label": {
+          "en": "Scope",
+          "ru": "Объём работ",
+          "zh": "范围",
+          "tr": "Kapsam",
+          "ar": "النطاق",
+          "es": "Alcance"
+        },
+        "value": {
+          "en": "Process Consulting & Optimization",
+          "ru": "Консалтинг и оптимизация процессов",
+          "zh": "工艺咨询与优化",
+          "tr": "Proses danışmanlığı ve optimizasyon",
+          "ar": "استشارات العمليات والتحسين",
+          "es": "Consultoría y optimización de procesos"
+        }
+      }
+    ],
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "efb5fae98e2d4f42",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "efb5fae98e2d4f42",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "efb5fae98e2d4f42",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "efb5fae98e2d4f42",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "efb5fae98e2d4f42",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  },
+  {
+    "id": "project-yantai-dsm-andre-pectin",
+    "status": "published",
+    "order": 8,
+    "slug": "yantai-dsm-andre-pectin",
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "ogImage": null,
+      "noindex": false
+    },
+    "category": {
+      "en": "PECTIN AND FUNCTIONAL COMPONENTS",
+      "ru": "ПЕКТИН И ФУНКЦИОНАЛЬНЫЕ КОМПОНЕНТЫ",
+      "zh": "果胶与功能性组分",
+      "tr": "PEKTİN VE FONKSİYONEL BİLEŞENLER",
+      "ar": "البكتين والمكونات الوظيفية",
+      "es": "PECTINA Y COMPONENTES FUNCIONALES"
+    },
+    "categoryNumber": "02",
+    "title": {
+      "en": "YANTAI DSM ANDRE PECTIN",
+      "ru": "YANTAI DSM ANDRE PECTIN",
+      "zh": "YANTAI DSM ANDRE PECTIN",
+      "tr": "YANTAI DSM ANDRE PECTIN",
+      "ar": "YANTAI DSM ANDRE PECTIN",
+      "es": "YANTAI DSM ANDRE PECTIN"
+    },
+    "country": {
+      "en": "China",
+      "ru": "Китай",
+      "zh": "中国",
+      "tr": "Çin",
+      "ar": "الصين",
+      "es": "China"
+    },
+    "years": {
+      "en": "2018",
+      "ru": "2018",
+      "zh": "2018",
+      "tr": "2018",
+      "ar": "2018",
+      "es": "2018"
+    },
+    "capacity": null,
+    "type": {
+      "en": "Industrial Capacity Modernization",
+      "ru": "Модернизация производственных мощностей",
+      "zh": "工业产能现代化改造",
+      "tr": "Endüstriyel kapasite modernizasyonu",
+      "ar": "تحديث الطاقات الصناعية",
+      "es": "Modernización de la capacidad industrial"
+    },
+    "overview": {
+      "en": "Engineering consulting and modernization of production capacities for Yantai DSM Andre Pectin, one of the world largest manufacturers of hydrocolloids.",
+      "ru": "Инжиниринговый консалтинг и модернизация производственных мощностей для Yantai DSM Andre Pectin — одного из крупнейших в мире производителей гидроколлоидов.",
+      "zh": "为全球最大的水胶体生产商之一 Yantai DSM Andre Pectin 提供工程咨询及产能现代化改造。",
+      "tr": "Dünyanın en büyük hidrokolloid üreticilerinden Yantai DSM Andre Pectin için mühendislik danışmanlığı ve üretim kapasitelerinin modernizasyonu.",
+      "ar": "استشارات هندسية وتحديث الطاقات الإنتاجية لصالح Yantai DSM Andre Pectin، إحدى أكبر الشركات المصنّعة للغرويات المائية في العالم.",
+      "es": "Consultoría de ingeniería y modernización de las capacidades de producción de Yantai DSM Andre Pectin, uno de los mayores fabricantes de hidrocoloides del mundo."
+    },
+    "scope": [
+      {
+        "en": "Cavitation extraction and filtration optimization review",
+        "ru": "Анализ оптимизации кавитационной экстракции и фильтрации",
+        "zh": "空化提取与过滤优化评审",
+        "tr": "Kavitasyon ekstraksiyonu ve filtrasyon optimizasyonu incelemesi",
+        "ar": "مراجعة تحسين الاستخلاص بالتكهف والترشيح",
+        "es": "Revisión de la optimización de la extracción por cavitación y la filtración"
+      },
+      {
+        "en": "Chemical reagent reduction and purity enhancement schemes",
+        "ru": "Схемы сокращения химических реагентов и повышения чистоты",
+        "zh": "减少化学试剂用量及提高纯度方案",
+        "tr": "Kimyasal reaktif azaltma ve saflık artırma planları",
+        "ar": "خطط لخفض الكواشف الكيميائية وتحسين النقاوة",
+        "es": "Planes de reducción de reactivos químicos y mejora de la pureza"
+      },
+      {
+        "en": "Advanced instrumentation and process parameter automation",
+        "ru": "Современные КИП и автоматизация технологических параметров",
+        "zh": "先进仪表及工艺参数自动化",
+        "tr": "İleri enstrümantasyon ve proses parametresi otomasyonu",
+        "ar": "أجهزة قياس متقدمة وأتمتة معايير العملية",
+        "es": "Instrumentación avanzada y automatización de los parámetros del proceso"
+      }
+    ],
+    "technology": {
+      "en": "Large-Scale Pectin Purification & Yield Maximization",
+      "ru": "Очистка пектина в крупном масштабе и максимизация выхода",
+      "zh": "大规模果胶纯化与收率最大化",
+      "tr": "Büyük ölçekli pektin saflaştırma ve verim maksimizasyonu",
+      "ar": "تنقية البكتين على نطاق واسع وتعظيم المردود",
+      "es": "Purificación de pectina a gran escala y maximización del rendimiento"
+    },
+    "results": [
+      {
+        "en": "Enhanced recovery rates for citrus and apple pomace processing",
+        "ru": "Повышение степени извлечения при переработке цитрусовых и яблочных выжимок",
+        "zh": "提高柑橘渣和苹果渣加工的回收率",
+        "tr": "Narenciye ve elma posası işlemede artırılmış geri kazanım oranları",
+        "ar": "معدلات استرداد محسّنة في معالجة تفل الحمضيات والتفاح",
+        "es": "Mayores tasas de recuperación en el procesamiento de orujo de cítricos y manzana"
+      },
+      {
+        "en": "Consolidation of technological leadership in Asian hydrocolloid market",
+        "ru": "Укрепление технологического лидерства на азиатском рынке гидроколлоидов",
+        "zh": "巩固在亚洲水胶体市场的技术领先地位",
+        "tr": "Asya hidrokolloid pazarında teknolojik liderliğin pekiştirilmesi",
+        "ar": "ترسيخ الريادة التكنولوجية في سوق الغرويات المائية الآسيوية",
+        "es": "Consolidación del liderazgo tecnológico en el mercado asiático de hidrocoloides"
+      }
+    ],
+    "image": {
+      "mediaId": "media-tech-pectin-apples-1790271159655"
+    },
+    "imagePosition": null,
+    "gallery": [
+      {
+        "mediaId": "media-tech-pectin-apples-1790271159655"
+      }
+    ],
+    "relatedTechnologyId": "technology-pectin",
+    "specs": [
+      {
+        "label": {
+          "en": "Client",
+          "ru": "Заказчик",
+          "zh": "客户",
+          "tr": "Müşteri",
+          "ar": "العميل",
+          "es": "Cliente"
+        },
+        "value": {
+          "en": "DSM Andre Pectin",
+          "ru": "DSM Andre Pectin",
+          "zh": "DSM Andre Pectin",
+          "tr": "DSM Andre Pectin",
+          "ar": "DSM Andre Pectin",
+          "es": "DSM Andre Pectin"
+        }
+      },
+      {
+        "label": {
+          "en": "Location",
+          "ru": "Местоположение",
+          "zh": "地点",
+          "tr": "Konum",
+          "ar": "الموقع",
+          "es": "Ubicación"
+        },
+        "value": {
+          "en": "Yantai, Shandong, China",
+          "ru": "Яньтай, провинция Шаньдун, Китай",
+          "zh": "中国山东省烟台市",
+          "tr": "Yantai, Shandong, Çin",
+          "ar": "يانتاي، شاندونغ، الصين",
+          "es": "Yantai, Shandong, China"
+        }
+      },
+      {
+        "label": {
+          "en": "Year",
+          "ru": "Год",
+          "zh": "年份",
+          "tr": "Yıl",
+          "ar": "السنة",
+          "es": "Año"
+        },
+        "value": {
+          "en": "2018",
+          "ru": "2018",
+          "zh": "2018",
+          "tr": "2018",
+          "ar": "2018",
+          "es": "2018"
+        }
+      }
+    ],
+    "translationStatus": {
+      "ru": {
+        "status": "approved",
+        "approvedSourceHash": "adc0209b060e3a64",
+        "approvedAt": "2026-10-01"
+      },
+      "zh": {
+        "status": "approved",
+        "approvedSourceHash": "adc0209b060e3a64",
+        "approvedAt": "2026-10-01"
+      },
+      "tr": {
+        "status": "approved",
+        "approvedSourceHash": "adc0209b060e3a64",
+        "approvedAt": "2026-10-01"
+      },
+      "ar": {
+        "status": "approved",
+        "approvedSourceHash": "adc0209b060e3a64",
+        "approvedAt": "2026-10-01"
+      },
+      "es": {
+        "status": "approved",
+        "approvedSourceHash": "adc0209b060e3a64",
+        "approvedAt": "2026-10-01"
+      }
+    }
+  }
+]

@@ -11,8 +11,24 @@ export function supportsViewTransitions(): boolean {
   return typeof document !== 'undefined' && typeof (document as Document & { startViewTransition?: unknown }).startViewTransition === 'function';
 }
 
+type MotionBoot = { fallbackFired?: boolean; timer?: number };
+const boot = (): MotionBoot | undefined =>
+  typeof window !== 'undefined' ? (window as Window & { __soltexMotion?: MotionBoot }).__soltexMotion : undefined;
+
+/**
+ * Called once the app is attached to the prerendered HTML: cancels the boot script's safety
+ * timer (index.html), which would otherwise reveal all content without animation.
+ */
+export function markHydrated(): void {
+  const b = boot();
+  if (b?.timer) window.clearTimeout(b.timer);
+}
+
 export function applyMotionClasses(): void {
   const root = document.documentElement;
+  // If the safety timer already fired (very slow script loading), content has been shown
+  // without animation; never hide it again.
+  if (boot()?.fallbackFired) return;
   const sync = () => {
     const reduced = prefersReducedMotion();
     root.classList.toggle('motion-ready', !reduced);

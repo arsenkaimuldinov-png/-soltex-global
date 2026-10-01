@@ -1,0 +1,385 @@
+{
+  "id": "settings",
+  "siteName": "Soltex Global",
+  "primaryEmail": "info@soltexglobal.co",
+  "footerTagline": {
+    "en": "Engineering & technology partner for advanced plant processing facilities worldwide.",
+    "ru": "Инжиниринговый и технологический партнёр в создании передовых перерабатывающих предприятий по всему миру.",
+    "zh": "面向全球先进植物原料加工设施的工程与技术合作伙伴。",
+    "tr": "Dünya genelinde ileri bitkisel işleme tesisleri için mühendislik ve teknoloji ortağı.",
+    "ar": "شريك هندسي وتكنولوجي لمنشآت معالجة المواد النباتية المتقدمة حول العالم.",
+    "es": "Socio de ingeniería y tecnología para instalaciones avanzadas de procesamiento vegetal en todo el mundo."
+  },
+  "footerLocation": {
+    "en": "Sharjah Media City (Shams), UAE",
+    "ru": "Sharjah Media City (Shams), ОАЭ",
+    "zh": "阿联酋 Sharjah Media City (Shams)",
+    "tr": "Sharjah Media City (Shams), BAE",
+    "ar": "Sharjah Media City (Shams)، الإمارات العربية المتحدة",
+    "es": "Sharjah Media City (Shams), EAU"
+  },
+  "copyright": {
+    "en": "© 2024 Soltex Global. All rights reserved.",
+    "ru": "© 2024 Soltex Global. Все права защищены.",
+    "zh": "© 2024 Soltex Global。保留所有权利。",
+    "tr": "© 2024 Soltex Global. Tüm hakları saklıdır.",
+    "ar": "© 2024 Soltex Global. جميع الحقوق محفوظة.",
+    "es": "© 2024 Soltex Global. Todos los derechos reservados."
+  },
+  "logo": {
+    "mediaId": "media-soltex-global-logo-transparent"
+  },
+  "logoReversed": {
+    "mediaId": "media-soltex-global-logo-reversed"
+  },
+  "footerBackground": {
+    "mediaId": "media-footer-lush-botanical-1790272735218"
+  },
+  "footerBackgroundAlt": {
+    "en": "Lush green botanical leaves texture",
+    "ru": "Текстура из пышных зелёных листьев",
+    "zh": "繁茂的绿色植物叶片纹理",
+    "tr": "Gür yeşil bitki yaprakları dokusu",
+    "ar": "خلفية أوراق نباتية خضراء كثيفة",
+    "es": "Textura de hojas botánicas verdes y frondosas"
+  },
+  "headquarters": {
+    "name": {
+      "en": "Soltex Global FZC",
+      "ru": "Soltex Global FZC",
+      "zh": "Soltex Global FZC",
+      "tr": "Soltex Global FZC",
+      "ar": "Soltex Global FZC",
+      "es": "Soltex Global FZC"
+    },
+    "addressLine1": {
+      "en": "Sharjah Media City (Shams)",
+      "ru": "Sharjah Media City (Shams)",
+      "zh": "Sharjah Media City (Shams)",
+      "tr": "Sharjah Media City (Shams)",
+      "ar": "Sharjah Media City (Shams)",
+      "es": "Sharjah Media City (Shams)"
+    },
+    "addressLine2": {
+      "en": "Al Messaned, Sharjah, United Arab Emirates",
+      "ru": "Аль-Мессанед, Шарджа, Объединённые Арабские Эмираты",
+      "zh": "阿拉伯联合酋长国沙迦 Al Messaned",
+      "tr": "Al Messaned, Şarika, Birleşik Arap Emirlikleri",
+      "ar": "المسنّد، الشارقة، الإمارات العربية المتحدة",
+      "es": "Al Messaned, Sharjah, Emiratos Árabes Unidos"
+    },
+    "shortAddress": {
+      "en": "Sharjah Media City (Shams), UAE",
+      "ru": "Sharjah Media City (Shams), ОАЭ",
+      "zh": "阿联酋 Sharjah Media City (Shams)",
+      "tr": "Sharjah Media City (Shams), BAE",
+      "ar": "Sharjah Media City (Shams)، الإمارات العربية المتحدة",
+      "es": "Sharjah Media City (Shams), EAU"
+    },
+    "jurisdiction": {
+      "en": "United Arab Emirates",
+      "ru": "Объединённые Арабские Эмираты",
+      "zh": "阿拉伯联合酋长国",
+      "tr": "Birleşik Arap Emirlikleri",
+      "ar": "الإمارات العربية المتحدة",
+      "es": "Emiratos Árabes Unidos"
+    },
+    "hours": {
+      "en": "Sunday — Thursday: 08:30 — 17:30 GST (UTC+4)",
+      "ru": "Воскресенье — четверг: 08:30 — 17:30 GST (UTC+4)",
+      "zh": "周日至周四：08:30 — 17:30 GST（UTC+4）",
+      "tr": "Pazar — Perşembe: 08:30 — 17:30 GST (UTC+4)",
+      "ar": "الأحد — الخميس: 08:30 — 17:30 بتوقيت الخليج (UTC+4)",
+      "es": "Domingo — jueves: 08:30 — 17:30 GST (UTC+4)"
+    },
+    "email": "info@soltexglobal.co"
+  },
+  "metrics": [
+    {
+      "id": "metric-experience",
+      "value": "25+",
+      "label": {
+        "en": "YEARS OF\nINDUSTRIAL\nEXPERIENCE",
+        "ru": "ЛЕТ\nПРОМЫШЛЕННОГО\nОПЫТА",
+        "zh": "年\n工业\n经验",
+        "tr": "YILLIK\nENDÜSTRİYEL\nDENEYİM",
+        "ar": "عامًا من\nالخبرة\nالصناعية",
+        "es": "AÑOS DE\nEXPERIENCIA\nINDUSTRIAL"
+      },
+      "highlight": null
+    },
+    {
+      "id": "metric-countries",
+      "value": "10+",
+      "label": {
+        "en": "COUNTRIES\nPROJECT\nEXPERIENCE",
+        "ru": "СТРАН\nРЕАЛИЗАЦИИ\nПРОЕКТОВ",
+        "zh": "个国家\n项目\n经验",
+        "tr": "ÜLKEDE\nPROJE\nDENEYİMİ",
+        "ar": "دولة\nمن الخبرة\nفي المشاريع",
+        "es": "PAÍSES CON\nEXPERIENCIA\nEN PROYECTOS"
+      },
+      "highlight": null
+    },
+    {
+      "id": "metric-technology",
+      "value": "20+",
+      "label": {
+        "en": "YEARS OF\nTECHNOLOGY\nIN OPERATION",
+        "ru": "ЛЕТ\nЭКСПЛУАТАЦИИ\nТЕХНОЛОГИЙ",
+        "zh": "年\n技术\n运营历程",
+        "tr": "YILDIR\nİŞLETMEDE OLAN\nTEKNOLOJİ",
+        "ar": "عامًا من\nتشغيل\nالتقنيات",
+        "es": "AÑOS DE\nTECNOLOGÍA\nEN OPERACIÓN"
+      },
+      "highlight": null
+    },
+    {
+      "id": "metric-projects",
+      "value": "300+",
+      "label": {
+        "en": "MILLION USD\nPROJECTS\nDELIVERED",
+        "ru": "МЛН USD\nРЕАЛИЗОВАННЫХ\nПРОЕКТОВ",
+        "zh": "百万美元\n已交付\n项目",
+        "tr": "MİLYON USD\nTESLİM EDİLEN\nPROJE",
+        "ar": "مليون دولار\nقيمة المشاريع\nالمنفّذة",
+        "es": "MILLONES USD\nEN PROYECTOS\nENTREGADOS"
+      },
+      "highlight": null
+    },
+    {
+      "id": "metric-epcm",
+      "value": null,
+      "label": {
+        "en": "FULL-CYCLE\n{highlight}\nSOLUTIONS",
+        "ru": "РЕШЕНИЯ\n{highlight}\nПОЛНОГО ЦИКЛА",
+        "zh": "全周期\n{highlight}\n解决方案",
+        "tr": "TAM DÖNGÜ\n{highlight}\nÇÖZÜMLERİ",
+        "ar": "حلول\n{highlight}\nمتكاملة الدورة",
+        "es": "SOLUCIONES\n{highlight}\nDE CICLO COMPLETO"
+      },
+      "highlight": {
+        "en": "EPC / EPCM",
+        "ru": "EPC / EPCM",
+        "zh": "EPC / EPCM",
+        "tr": "EPC / EPCM",
+        "ar": "EPC / EPCM",
+        "es": "EPC / EPCM"
+      }
+    }
+  ],
+  "offices": [
+    {
+      "id": "office-01",
+      "order": 1,
+      "region": {
+        "en": "EUROPEAN OFFICE",
+        "ru": "ЕВРОПЕЙСКИЙ ОФИС",
+        "zh": "欧洲办事处",
+        "tr": "AVRUPA OFİSİ",
+        "ar": "المكتب الأوروبي",
+        "es": "OFICINA EUROPEA"
+      },
+      "title": {
+        "en": "SOLTEX GROUP LTD",
+        "ru": "SOLTEX GROUP LTD",
+        "zh": "SOLTEX GROUP LTD",
+        "tr": "SOLTEX GROUP LTD",
+        "ar": "SOLTEX GROUP LTD",
+        "es": "SOLTEX GROUP LTD"
+      },
+      "country": {
+        "en": "Bulgaria",
+        "ru": "Болгария",
+        "zh": "保加利亚",
+        "tr": "Bulgaristan",
+        "ar": "بلغاريا",
+        "es": "Bulgaria"
+      },
+      "address": null,
+      "representative": {
+        "en": "Oleg Radinovcky",
+        "ru": "Oleg Radinovcky",
+        "zh": "Oleg Radinovcky",
+        "tr": "Oleg Radinovcky",
+        "ar": "Oleg Radinovcky",
+        "es": "Oleg Radinovcky"
+      },
+      "phone": "+359 87 826 77 82",
+      "email": "Oleg.radinovcky@gmail.com",
+      "whatsapp": "+359 87 826 77 82"
+    },
+    {
+      "id": "office-02",
+      "order": 2,
+      "region": {
+        "en": "ISRAEL OFFICE",
+        "ru": "ОФИС В ИЗРАИЛЕ",
+        "zh": "以色列办事处",
+        "tr": "İSRAİL OFİSİ",
+        "ar": "مكتب إسرائيل",
+        "es": "OFICINA DE ISRAEL"
+      },
+      "title": {
+        "en": "SOLTEX GROUP LTD",
+        "ru": "SOLTEX GROUP LTD",
+        "zh": "SOLTEX GROUP LTD",
+        "tr": "SOLTEX GROUP LTD",
+        "ar": "SOLTEX GROUP LTD",
+        "es": "SOLTEX GROUP LTD"
+      },
+      "country": {
+        "en": "Israel",
+        "ru": "Израиль",
+        "zh": "以色列",
+        "tr": "İsrail",
+        "ar": "إسرائيل",
+        "es": "Israel"
+      },
+      "address": {
+        "en": "P.O.B. 3142 Tel-Aviv, 61031 ISRAEL",
+        "ru": "P.O.B. 3142 Tel-Aviv, 61031 ISRAEL",
+        "zh": "P.O.B. 3142 Tel-Aviv, 61031 ISRAEL",
+        "tr": "P.O.B. 3142 Tel-Aviv, 61031 ISRAEL",
+        "ar": "P.O.B. 3142 Tel-Aviv, 61031 ISRAEL",
+        "es": "P.O.B. 3142 Tel-Aviv, 61031 ISRAEL"
+      },
+      "representative": {
+        "en": "Yariv Goldman",
+        "ru": "Yariv Goldman",
+        "zh": "Yariv Goldman",
+        "tr": "Yariv Goldman",
+        "ar": "Yariv Goldman",
+        "es": "Yariv Goldman"
+      },
+      "phone": "+972 50-223-0395",
+      "email": "Yariv.goldman@gmail.com",
+      "whatsapp": "+972 50-223-0395"
+    },
+    {
+      "id": "office-03",
+      "order": 3,
+      "region": {
+        "en": "ASIAN OFFICE",
+        "ru": "АЗИАТСКИЙ ОФИС",
+        "zh": "亚洲办事处",
+        "tr": "ASYA OFİSİ",
+        "ar": "المكتب الآسيوي",
+        "es": "OFICINA DE ASIA"
+      },
+      "title": {
+        "en": "SOLTEX GROUP LTD",
+        "ru": "SOLTEX GROUP LTD",
+        "zh": "SOLTEX GROUP LTD",
+        "tr": "SOLTEX GROUP LTD",
+        "ar": "SOLTEX GROUP LTD",
+        "es": "SOLTEX GROUP LTD"
+      },
+      "country": {
+        "en": "Kazakhstan, Almaty",
+        "ru": "Казахстан, Алматы",
+        "zh": "哈萨克斯坦，阿拉木图",
+        "tr": "Kazakistan, Almatı",
+        "ar": "كازاخستان، ألماتي",
+        "es": "Kazajistán, Almaty"
+      },
+      "address": null,
+      "representative": {
+        "en": "Alexandr Trikutko",
+        "ru": "Alexandr Trikutko",
+        "zh": "Alexandr Trikutko",
+        "tr": "Alexandr Trikutko",
+        "ar": "Alexandr Trikutko",
+        "es": "Alexandr Trikutko"
+      },
+      "phone": "+7 707 188 18 88",
+      "email": "Trikutko@gmail.com",
+      "whatsapp": "+7 707 188 18 88"
+    },
+    {
+      "id": "office-04",
+      "order": 4,
+      "region": {
+        "en": "CHINA OFFICE",
+        "ru": "ОФИС В КИТАЕ",
+        "zh": "中国办事处",
+        "tr": "ÇİN OFİSİ",
+        "ar": "مكتب الصين",
+        "es": "OFICINA DE CHINA"
+      },
+      "title": {
+        "en": "SOLTEX GROUP LTD",
+        "ru": "SOLTEX GROUP LTD",
+        "zh": "SOLTEX GROUP LTD",
+        "tr": "SOLTEX GROUP LTD",
+        "ar": "SOLTEX GROUP LTD",
+        "es": "SOLTEX GROUP LTD"
+      },
+      "country": {
+        "en": "China",
+        "ru": "Китай",
+        "zh": "中国",
+        "tr": "Çin",
+        "ar": "الصين",
+        "es": "China"
+      },
+      "address": {
+        "en": "No. 151 Zhongcui Street, Dalian, China P.C. 116015",
+        "ru": "No. 151 Zhongcui Street, Dalian, China P.C. 116015",
+        "zh": "No. 151 Zhongcui Street, Dalian, China P.C. 116015",
+        "tr": "No. 151 Zhongcui Street, Dalian, China P.C. 116015",
+        "ar": "No. 151 Zhongcui Street, Dalian, China P.C. 116015",
+        "es": "No. 151 Zhongcui Street, Dalian, China P.C. 116015"
+      },
+      "representative": null,
+      "phone": null,
+      "email": "info@soltexglobal.co",
+      "whatsapp": null
+    }
+  ],
+  "defaultSeo": {
+    "siteTitle": {
+      "en": "Soltex Global — Turnkey Engineering for Advanced Plant Processing",
+      "ru": "Soltex Global — инжиниринг «под ключ» для передовой переработки растительного сырья",
+      "zh": "Soltex Global — 先进植物原料加工的交钥匙工程",
+      "tr": "Soltex Global — İleri bitkisel işleme için anahtar teslim mühendislik",
+      "ar": "Soltex Global — هندسة بنظام تسليم المفتاح لمعالجة المواد النباتية المتقدمة",
+      "es": "Soltex Global — Ingeniería llave en mano para el procesamiento vegetal avanzado"
+    },
+    "siteDescription": {
+      "en": "International EPC / EPCM engineering group delivering industrial processing plants for high-value ingredients, pectin, dietary fibers, and functional plant proteins.",
+      "ru": "Международная инжиниринговая группа EPC / EPCM, создающая промышленные перерабатывающие заводы для производства ценных ингредиентов, пектина, пищевых волокон и функциональных растительных белков.",
+      "zh": "国际 EPC / EPCM 工程集团，为高附加值配料、果胶、膳食纤维及功能性植物蛋白建设工业化加工厂。",
+      "tr": "Yüksek katma değerli bileşenler, pektin, diyet lifleri ve fonksiyonel bitkisel proteinler için endüstriyel işleme tesisleri kuran uluslararası EPC / EPCM mühendislik grubu.",
+      "ar": "مجموعة هندسية دولية للأعمال EPC / EPCM تنفّذ مصانع معالجة صناعية للمكونات عالية القيمة والبكتين والألياف الغذائية والبروتينات النباتية الوظيفية.",
+      "es": "Grupo internacional de ingeniería EPC / EPCM que desarrolla plantas industriales de procesamiento para ingredientes de alto valor, pectina, fibras dietéticas y proteínas vegetales funcionales."
+    }
+  },
+  "translationStatus": {
+    "ru": {
+      "status": "approved",
+      "approvedSourceHash": "999bc6a92704eb47",
+      "approvedAt": "2026-10-01"
+    },
+    "zh": {
+      "status": "approved",
+      "approvedSourceHash": "999bc6a92704eb47",
+      "approvedAt": "2026-10-01"
+    },
+    "tr": {
+      "status": "approved",
+      "approvedSourceHash": "999bc6a92704eb47",
+      "approvedAt": "2026-10-01"
+    },
+    "ar": {
+      "status": "approved",
+      "approvedSourceHash": "999bc6a92704eb47",
+      "approvedAt": "2026-10-01"
+    },
+    "es": {
+      "status": "approved",
+      "approvedSourceHash": "999bc6a92704eb47",
+      "approvedAt": "2026-10-01"
+    }
+  }
+}
