@@ -1,6 +1,6 @@
 # QA harness (regression testing)
 
-These scripts are development tools for the Phase 1 acceptance tests. They are not part of the build. They need Playwright, which is deliberately **not** a project dependency. Install it ad hoc with `npx -y playwright@1 install chromium`, or set `CHROMIUM_PATH`.
+These scripts are development tools for the Phase 1 acceptance tests and the regression gate of every later phase. Since Phase A they live in `apps/web/scripts/qa`; run the commands below from `apps/web`, or run everything at once from the repository root with `npm run qa -- --base <baseline-dist>` (or `--base-ref <git-ref>`), see `scripts/qa-regression.mjs`. They are not part of the build. They need Playwright, which is deliberately **not** a project dependency. Install it ad hoc with `npx -y playwright@1 install chromium`, or set `CHROMIUM_PATH`.
 
 ## Steps
 
@@ -52,4 +52,10 @@ These scripts are development tools for the Phase 1 acceptance tests. They are n
 
    ```
    node scripts/qa/inquiry-language.mjs http://localhost:4174 .
+   ```
+
+8. Run the navigation regression against each build and diff the outputs (host-independent JSON). It covers the language switch, client navigation, the stored-language redirect, the video lightbox, the mobile menu (EN + AR) and the video URLs:
+
+   ```
+   node scripts/qa/navigation.mjs <url> out.json
    ```

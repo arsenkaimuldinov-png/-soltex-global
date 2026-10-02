@@ -1,0 +1,22 @@
+{
+  "name": "@soltex/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Soltex Global API + worker (Fastify modular monolith). Phase A: bootstrap with a health endpoint only.",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "node --import tsx --test src/app.test.ts src/config.test.ts"
+  },
+  "dependencies": {
+    "@soltex/core": "*",
+    "fastify": "^5.12.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "tsx": "^4.21.0",
+    "typescript": "^7.0.2"
+  }
+}

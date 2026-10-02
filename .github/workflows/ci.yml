@@ -1,0 +1,81 @@
+# Phase A CI: install, type check, dependency direction, tests, builds, public-site regression.
+# Needs no database, Redis, SMTP, external services or production secrets.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Typecheck · deps · test · build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Typecheck (web incl. content validation, admin, api, core)
+        run: npm run typecheck
+      - name: Dependency direction (core ← apps; no app → app)
+        run: npm run check:deps
+      - name: Unit tests (api)
+        run: npm test
+      - name: Build public site (content → vite → prerender → validate-site)
+        run: npm run build:web
+      - name: Expect 174 pages + 6 localized 404 pages
+        run: |
+          n=$(find apps/web/dist -name '*.html' | wc -l)
+          echo "HTML files: $n"
+          test "$n" -eq 180
+      # validate-site already checks portability and secrets. This is an extra guard on the
+      # documents themselves (the JS bundle legitimately contains React Router's internal
+      # `new URL("http://localhost")` URL-parsing base, so it is not grepped).
+      - name: No localhost in generated HTML / sitemap / robots
+        run: |
+          ! grep -rIl --include='*.html' --include='*.xml' --include='*.txt' -E 'localhost|127\.0\.0\.1' apps/web/dist
+      - name: Build admin shell
+        run: npm run build:admin
+
+  regression:
+    name: Public-site regression vs base
+    needs: build
+    # Compares against the PR base, or the previous commit on main.
+    if: github.event_name == 'pull_request' || (github.event.before != '' && github.event.before != '0000000000000000000000000000000000000000')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Playwright (QA tool only, not a project dependency)
+        run: |
+          npm i --no-save --no-audit --no-fund playwright@1.56.0
+          npx playwright install --with-deps chromium
+      - run: npm run build:web
+      - name: Regression (byte diff, page data, no-JS, script-fail, 404, interactions, navigation, inquiry topics)
+        run: node scripts/qa-regression.mjs --base-ref "${{ github.event.pull_request.base.sha || github.event.before }}"
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-regression
+          path: |
+            .qa/*.json
+            .qa/*.txt
+          retention-days: 14

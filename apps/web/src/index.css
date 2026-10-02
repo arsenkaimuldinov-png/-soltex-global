@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* Phase A: docs/admin-architecture-implementation.md, A-4 */
+@source inline("outline text-wrap");
 @import "./styles/motion.css";
 
 /* Supporting warm palette from the client's brand reference. The existing Soltex greens

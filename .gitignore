@@ -6,7 +6,11 @@ coverage/
 *.log
 .env*
 !.env.example
+*.tsbuildinfo
 
 # Generated per-language snapshots (npm run content). The SOURCE content seed
-# (src/content/seed/*.json) is source-controlled and must never be ignored.
-src/content/snapshot/*.json
+# (apps/web/src/content/seed/*.json) is source-controlled and must never be ignored.
+apps/web/src/content/snapshot/*.json
+
+# QA regression output (scripts/qa-regression.mjs)
+.qa/

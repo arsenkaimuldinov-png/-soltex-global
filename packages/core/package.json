@@ -1,0 +1,20 @@
+{
+  "name": "@soltex/core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Shared domain layer of Soltex Global (domain types, validation, SEO rules, content schemas). No UI, no framework, no browser APIs.",
+  "sideEffects": false,
+  "exports": {
+    "./domain": "./src/domain/index.ts",
+    "./validation": "./src/validation/index.ts",
+    "./seo": "./src/seo/index.ts",
+    "./content": "./src/content/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2"
+  }
+}

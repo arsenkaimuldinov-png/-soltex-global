@@ -1,16 +1,18 @@
 # ---------------------------------------------------------------------------
 # TEMPORARY DEMO / CLIENT-PREVIEW HOSTING ONLY.
 # The production site will be served by Host.KZ (see docs/deployment.md). Nothing in the
-# application depends on Netlify; this file only tells Netlify how to build and serve dist/.
+# application depends on Netlify; this file only tells Netlify how to build and serve the site output.
 # ---------------------------------------------------------------------------
 [build]
-  command = "npm run build"
-  publish = "dist"
+  # Monorepo: the public site is the npm workspace apps/web. The command runs from the
+  # repository root (npm workspaces install), the output is apps/web/dist.
+  command = "npm run build:web"
+  publish = "apps/web/dist"
 
-# Every public page is a prerendered file (dist/company.html, dist/ru/company.html, …), which
+# Every public page is a prerendered file (apps/web/dist/company.html, apps/web/dist/ru/company.html, …), which
 # Netlify serves for "/company", "/ru/company". There is deliberately NO "/* → /index.html 200"
 # SPA fallback: unknown URLs get a real HTTP 404 with the page of their language.
-# (Netlify serves dist/404.html for unmatched English URLs automatically.)
+# (Netlify serves apps/web/dist/404.html for unmatched English URLs automatically.)
 [[redirects]]
   from = "/ru/*"
   to = "/ru/404.html"
