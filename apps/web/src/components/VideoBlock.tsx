@@ -39,11 +39,11 @@ export const VideoBlock: React.FC = () => {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
-        <div className="text-center mb-10 sm:mb-12">
+        <div className="mb-10 sm:mb-12">
           <h2 className="text-xl sm:text-2xl lg:text-[26px] font-extrabold text-[#111814] tracking-wider uppercase font-tech">
             {c('videosHeading')}
           </h2>
-          <div data-reveal="line" data-origin="center" className="w-12 h-[2px] bg-[#B89758] mx-auto mt-2.5" aria-hidden="true" />
+          <div data-reveal="line" className="w-12 h-[2px] bg-[#B89758] mt-2.5" aria-hidden="true" />
         </div>
 
         {/* 5 + 5 + 2 cols from xl; below xl two video cards + a full-width All Projects card (the narrow column is too tight at 1024); stacked on mobile */}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { topicRef, type TopicRef } from '../services/leads/topics';
-import { ArrowRight, Leaf, Wheat, Flower2, Sprout, Factory, FlaskConical, X, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, X, CheckCircle2 } from 'lucide-react';
 import { usePage } from '../content/useContent';
 import type { MediaAsset } from '../content/types';
 import { useI18n } from '../i18n/I18nProvider';
@@ -37,35 +37,15 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
   const techModalPresence = usePresence(selectedTechModal, 220);
   const techModal = techModalPresence.item;
 
-  // Dedicated icons matching the 6 card directions from reference
-  const getDirectionIcon = (id: string) => {
-    switch (id) {
-      case 'pectin':
-        return <Leaf className="w-5 h-5 text-[#0E482C]" />;
-      case 'soy-protein':
-        return <Wheat className="w-5 h-5 text-[#B89758]" />;
-      case 'inulin':
-        return <Flower2 className="w-5 h-5 text-[#B89758]" />;
-      case 'dietary-fibers':
-        return <Sprout className="w-5 h-5 text-[#0E482C]" />;
-      case 'integrated-solutions':
-        return <Factory className="w-5 h-5 text-[#0E482C]" />;
-      case 'functional-ingredients':
-        return <FlaskConical className="w-5 h-5 text-[#B89758]" />;
-      default:
-        return <Sprout className="w-5 h-5 text-[#0E482C]" />;
-    }
-  };
-
   return (
     <section id="technologies" className="py-14 sm:py-18 lg:py-20 bg-[#FBFBF8] border-b border-[#16211B]/10">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header: Centered with subtle gold accent line matching Screenshot 2 */}
-        <div className="text-center mb-10 sm:mb-12">
+        {/* Section Header: start-aligned on the grid (Design Direction V1.0 §2: no centred band headings) */}
+        <div className="mb-10 sm:mb-12">
           <h2 className="text-xl sm:text-2xl lg:text-[26px] font-extrabold text-[#111814] tracking-wider uppercase font-tech">
             {c('technologiesHeading')}
           </h2>
-          <div data-reveal="line" data-origin="center" className="w-12 h-[2px] bg-[#B89758] mx-auto mt-2.5" aria-hidden="true" />
+          <div data-reveal="line" className="w-12 h-[2px] bg-[#B89758] mt-2.5" aria-hidden="true" />
         </div>
 
         {/* 6-Column Card Grid (Desktop: 6 across, Tablet: 3, Mobile: 1 or 2) */}
@@ -75,7 +55,7 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
               key={tech.id}
               data-reveal="up"
               style={{ '--rv-i': idx } as React.CSSProperties}
-              className="s-card group relative flex flex-col bg-[#F5F3EC] border border-[#16211B]/10 overflow-hidden hover:border-[#0E482C]/40 hover:shadow-md transition-all duration-300 cursor-pointer"
+              className="s-card group relative flex flex-col bg-[#F5F3EC] border border-[#16211B]/10 overflow-hidden hover:border-[#0E482C]/40 transition-colors duration-300 cursor-pointer"
             >
               {/* Card Photo (Flush top with 4:3 aspect ratio) */}
               <div data-reveal="image" style={{ '--rv-i': idx } as React.CSSProperties} className="relative aspect-[4/3] w-full overflow-hidden bg-[#EAE7DE]">
@@ -90,10 +70,10 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
               {/* Card Content */}
               <div className="p-4 sm:p-4.5 flex flex-col flex-1 justify-between">
                 <div>
-                  {/* Technology Icon */}
-                  <div className="mb-2.5 opacity-90 group-hover:opacity-100 transition-opacity">
-                    {getDirectionIcon(tech.id)}
-                  </div>
+                  {/* Index number (no botanical pictograms: the leaf lives only in the logo, V1.0 §3) */}
+                  <span className="block font-tech text-[10.5px] font-bold text-[#997A3E] tracking-wider tabular-nums mb-2" aria-hidden="true">
+                    {tech.number}
+                  </span>
 
                   {/* Technology Title */}
                   <h3 className="font-tech text-xs sm:text-[13px] font-extrabold text-[#111814] tracking-wider uppercase mb-1.5 leading-snug group-hover:text-[#0E482C] transition-colors">

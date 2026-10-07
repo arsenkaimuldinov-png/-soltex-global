@@ -9,9 +9,8 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
   const { t } = useI18n();
-  const { c, list, media } = usePage('home');
+  const { c, media } = usePage('home');
   const heroImage = media('heroImage');
-  const heroTags = list<{ label: string }>('heroTags');
   return (
     <section data-motion="manual" className="relative pt-24 sm:pt-28 lg:pt-32 pb-12 sm:pb-16 lg:pb-20 bg-[#FBFBF8] overflow-hidden border-b border-[#16211B]/10 min-h-[580px] lg:min-h-[660px] flex items-center">
       {/* Desktop Panoramic Image Container: Positioned on the right ~54% */}
@@ -43,29 +42,17 @@ export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
               </span>
             </div>
 
-            {/* Main Headline: Large Bold Uppercase */}
+            {/* Main Headline: one colour (Design Direction V1.0 §2: no two-tone headlines) */}
             <h1 className="text-3xl sm:text-5xl lg:text-[46px] xl:text-[52px] font-extrabold tracking-tight leading-[1.06] mb-5">
               <span className="s-seq-mask block text-[#0E482C]" style={{ '--seq': '330ms' } as React.CSSProperties}>{c('heroHeadlineLine1')}</span>
-              <span className="s-seq-mask block text-[#111814]" style={{ '--seq': '430ms' } as React.CSSProperties}>{c('heroHeadlineLine2')}</span>
-              <span className="s-seq-mask block text-[#111814]" style={{ '--seq': '530ms' } as React.CSSProperties}>{c('heroHeadlineLine3')}</span>
+              <span className="s-seq-mask block text-[#0E482C]" style={{ '--seq': '430ms' } as React.CSSProperties}>{c('heroHeadlineLine2')}</span>
+              <span className="s-seq-mask block text-[#0E482C]" style={{ '--seq': '530ms' } as React.CSSProperties}>{c('heroHeadlineLine3')}</span>
             </h1>
 
             {/* Description Paragraph */}
-            <p className="s-seq-rise text-sm sm:text-base text-[#46574D] leading-relaxed mb-6 max-w-[600px] font-normal" style={{ '--seq': '680ms' } as React.CSSProperties}>
+            <p className="s-seq-rise text-sm sm:text-base text-[#46574D] leading-relaxed mb-8 max-w-[600px] font-normal" style={{ '--seq': '680ms' } as React.CSSProperties}>
               {c('heroDescription')}
             </p>
-
-            {/* Capability Metadata Line with Vertical Pipes */}
-            <div className="s-seq-fade flex flex-wrap items-center text-[10.5px] sm:text-[11px] font-tech text-[#5A6D62] tracking-widest uppercase mb-8 select-none" style={{ '--seq': '800ms' } as React.CSSProperties}>
-              {/* Each tag stays on one line together with its separator, so a wrapped line never starts with a pipe */}
-              {heroTags.map((tag, i) => (
-                <span key={i} className="whitespace-nowrap">
-                  {i === 0 && <span className="text-[#A4B3A9] me-2.5">|</span>}
-                  <span className="hover:text-[#0E482C] transition-colors">{tag.label}</span>
-                  <span className="text-[#A4B3A9] mx-2.5">|</span>
-                </span>
-              ))}
-            </div>
 
             {/* Rectangular Action Buttons: Left Dark Green, Right Clean White */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 mb-6">
