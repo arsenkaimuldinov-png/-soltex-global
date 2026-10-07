@@ -4,8 +4,8 @@
  * Content flows in two stages:
  *
  *   1. BUILD TIME — a `ContentSource` returns the complete multilingual `ContentStore`.
- *      Today: `seedContentSource` (JSON files in src/content/seed/).
- *      Later: a custom-admin source (HTTP API of the future backend) returning the same shape.
+ *      `seedContentSource` (JSON files in src/content/seed/) or `fileContentSource` (one
+ *      ContentStore JSON file, e.g. the export of the admin database — Phase B).
  *      scripts/content/build-snapshots.ts validates the store and writes one resolved
  *      `ContentSnapshot` per language to src/content/snapshot/<locale>.json.
  *
@@ -13,8 +13,8 @@
  *      The production site never calls a CMS/API at run time, so it stays fully static and
  *      independent of the backend's availability.
  *
- * Selecting a source: CONTENT_SOURCE environment variable at build time ("seed" is the only
- * implementation in Phase 1).
+ * Selecting a source: CONTENT_SOURCE environment variable at build time: "seed" (default) or
+ * "file" (with CONTENT_STORE_FILE).
  */
 import type { ContentStore } from './types';
 

@@ -4,26 +4,20 @@
  * English is the source language. Every genuinely translatable content field is stored as a
  * `Localized` object with one string per public language. Structural values (IDs, slugs,
  * numbers, country codes, technical codes, URLs) are never localized.
+ *
+ * Since Phase B the content-language codes, `Localized` and `isLocalized` live in
+ * @soltex/core (shared with the API); this module re-exports them for the site.
  */
 import { DEFAULT_LOCALE, LOCALE_CODES, Locale } from '../i18n/config';
+import { CONTENT_LOCALES, TRANSLATED_LOCALES, type Locale as CoreLocale, type TranslatedLocale } from '@soltex/core/domain';
 
-export type { Locale };
-export { DEFAULT_LOCALE, LOCALE_CODES };
+export type { Locale, TranslatedLocale };
+export { DEFAULT_LOCALE, LOCALE_CODES, TRANSLATED_LOCALES };
+export { isLocalized, type Localized } from '@soltex/core/content';
 
-/** One value per public language. `en` is the source of truth. */
-export type Localized<T = string> = { [L in Locale]: T };
-
-/** Languages that are translated from English (everything except the default). */
-export type TranslatedLocale = Exclude<Locale, 'en'>;
-
-export const TRANSLATED_LOCALES = LOCALE_CODES.filter((l): l is TranslatedLocale => l !== DEFAULT_LOCALE);
-
-/** True when `value` is a `Localized` object: exactly the six locale keys, each a string. */
-export function isLocalized(value: unknown): value is Localized {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
-  const keys = Object.keys(value);
-  return (
-    keys.length === LOCALE_CODES.length &&
-    LOCALE_CODES.every((l) => typeof (value as Record<string, unknown>)[l] === 'string')
-  );
+// The site's languages (i18n/config) and the content languages (core) must be the same set.
+type Same<A, B> = [A] extends [B] ? ([B] extends [A] ? true : false) : false;
+const sameLocales: Same<Locale, CoreLocale> = true;
+if (!sameLocales || LOCALE_CODES.join() !== CONTENT_LOCALES.join()) {
+  throw new Error('i18n/config LOCALES and @soltex/core CONTENT_LOCALES differ');
 }

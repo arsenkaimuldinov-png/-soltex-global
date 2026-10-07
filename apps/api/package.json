@@ -8,14 +8,24 @@
     "dev": "tsx watch src/server.ts",
     "start": "tsx src/server.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test": "node --import tsx --test src/app.test.ts src/config.test.ts"
+    "test": "node --import tsx --test src/app.test.ts src/config.test.ts",
+    "db:migrate": "tsx src/cli/db-migrate.ts",
+    "db:import": "tsx src/cli/db-import.ts",
+    "db:export": "tsx src/cli/db-export.ts",
+    "db:generate": "drizzle-kit generate",
+    "test:db": "node --import tsx --test --test-concurrency=1 src/db/db.test.ts"
   },
   "dependencies": {
     "@soltex/core": "*",
-    "fastify": "^5.12.5"
+    "drizzle-orm": "^0.45.3",
+    "fastify": "^5.12.5",
+    "pg": "^8.23.1",
+    "uuid": "^14.0.2"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
+    "@types/pg": "^8.23.1",
+    "drizzle-kit": "^0.31.11",
     "tsx": "^4.21.0",
     "typescript": "^7.0.2"
   }

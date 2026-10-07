@@ -25,7 +25,11 @@
     "typecheck": "npm run lint -w @soltex/web && npm run typecheck -w @soltex/admin -w @soltex/api -w @soltex/core",
     "check:deps": "node scripts/check-deps.mjs",
     "lint": "npm run typecheck && npm run check:deps",
-    "test": "npm run test -w @soltex/api",
+    "test": "npm run test -w @soltex/core -w @soltex/api",
+    "test:db": "npm run test:db -w @soltex/api",
+    "db:migrate": "npm run db:migrate -w @soltex/api",
+    "db:import": "npm run db:import -w @soltex/api",
+    "db:export": "npm run db:export -w @soltex/api --",
     "qa": "node scripts/qa-regression.mjs",
     "clean": "npm run clean -w @soltex/web && rm -rf apps/admin/dist .qa"
   }

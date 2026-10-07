@@ -2,7 +2,15 @@
 
 Shared domain layer of the Soltex Global platform. Source of truth for the architecture: [`docs/admin-architecture-approved.md`](../../docs/admin-architecture-approved.md) (§18).
 
-**Status (Phase A):** skeleton only. The four layers exist and export nothing yet. No frontend code was moved here.
+**Status (Phase B):**
+- `domain`: content languages (`CONTENT_LOCALES`, `SOURCE_LOCALE`).
+- `content`:
+  - the stored content types (moved from `apps/web`);
+  - `Localized` helpers (`isLocalized`, `projectLocale`, `mergeLocales`, `splitText`/`joinText`);
+  - Zod schemas of the database JSONB columns.
+- `validation`, `seo`: still empty.
+
+Tests: `npm test -w @soltex/core`.
 
 ## Layers
 
@@ -33,7 +41,7 @@ apps/web     apps/admin     apps/api
 - React, React DOM, Vite, Tailwind or any UI code.
 - DOM or browser APIs: `window`, `document`, `localStorage`, …. `tsconfig.json` has `lib: ["ES2022"]` and `types: []`, so these do not compile.
 - Node-only APIs (`fs`, `path`, `process`). Core must run in the browser (admin), in Node (API, build) and in tests.
-- Runtime dependencies other than Zod (added when the first schema arrives).
+- Runtime dependencies other than Zod.
 
 ## Checks
 

@@ -1,5 +1,6 @@
-# Phase A CI: install, type check, dependency direction, tests, builds, public-site regression.
-# Needs no database, Redis, SMTP, external services or production secrets.
+# CI: install, type check, dependency direction, tests, builds, database round trip,
+# public-site regression. Needs no Redis, SMTP, external services or production secrets;
+# the database job uses a throwaway PostgreSQL 17 service with CI-only passwords.
 name: CI
 
 on:
@@ -30,8 +31,14 @@ jobs:
         run: npm run typecheck
       - name: Dependency direction (core ← apps; no app → app)
         run: npm run check:deps
-      - name: Unit tests (api)
+      - name: Unit tests (core, api)
         run: npm test
+      - name: Committed migrations match the Drizzle schema (no drift)
+        working-directory: apps/api
+        run: |
+          npx drizzle-kit check
+          npx drizzle-kit generate
+          test -z "$(git status --porcelain -- drizzle)"
       - name: Build public site (content → vite → prerender → validate-site)
         run: npm run build:web
       - name: Expect 174 pages + 6 localized 404 pages
@@ -47,6 +54,54 @@ jobs:
           ! grep -rIl --include='*.html' --include='*.xml' --include='*.txt' -E 'localhost|127\.0\.0\.1' apps/web/dist
       - name: Build admin shell
         run: npm run build:admin
+
+  database:
+    name: PostgreSQL 17 · migrations · round trip · build from DB
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: ci_superuser
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 20
+    env:
+      # CI-only throwaway credentials (service container, destroyed after the job).
+      MIGRATION_DATABASE_URL: postgres://soltex_migrate:ci_migrate@127.0.0.1:5432/soltex_ci
+      DATABASE_URL: postgres://soltex_app:ci_app@127.0.0.1:5432/soltex_ci
+      BACKUP_DATABASE_URL: postgres://soltex_backup:ci_backup@127.0.0.1:5432/soltex_ci
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Provision roles and database (apps/api/db/provision.sql)
+        env:
+          PGPASSWORD: ci_superuser
+        run: >-
+          psql -h 127.0.0.1 -U postgres -v ON_ERROR_STOP=1 -v dbname=soltex_ci
+          -v migrate_password=ci_migrate -v app_password=ci_app -v backup_password=ci_backup
+          -f apps/api/db/provision.sql
+      - name: Migrations (role soltex_migrate)
+        run: npm run db:migrate
+      - name: Database tests (round trip, idempotency, rollback, roles, constraints)
+        run: npm run test:db
+      - name: Import seed and export the database
+        run: |
+          npm run db:import
+          npm run db:export -- --out "$RUNNER_TEMP/export" --file "$RUNNER_TEMP/store.json"
+          diff -r apps/web/src/content/seed "$RUNNER_TEMP/export"
+      - name: Site built from the database is byte-identical to the site built from the seed
+        run: |
+          npm run build:web
+          mv apps/web/dist "$RUNNER_TEMP/dist-seed"
+          CONTENT_SOURCE=file CONTENT_STORE_FILE="$RUNNER_TEMP/store.json" npm run build:web
+          diff -r "$RUNNER_TEMP/dist-seed" apps/web/dist
 
   regression:
     name: Public-site regression vs base

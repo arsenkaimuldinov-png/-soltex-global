@@ -1,8 +1,8 @@
 /**
- * @soltex/core/content: content store format, page-slot registry, JSONB schemas, normalize.
- *
- * Phase A: empty on purpose. The content layer still lives in apps/web/src/content and moves here
- * in Phase B, behind the Phase 1 regression gate (see docs/admin-architecture-approved.md §17.4, §18).
+ * @soltex/core/content: content store format, JSONB schemas, Localized helpers.
+ * (normalize and the page-slot registry follow when the site build moves onto the core.)
  * Layer rule: may import only from ../domain and ../validation.
  */
-export {};
+export * from './store.ts';
+export * from './localized.ts';
+export * from './jsonb.ts';

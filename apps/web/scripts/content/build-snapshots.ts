@@ -17,11 +17,12 @@ import { resolveSnapshot } from '../../src/content/normalize';
 import type { ContentSource } from '../../src/content/source';
 import type { ContentStore } from '../../src/content/types';
 import { seedContentSource } from '../../src/content/sources/seed';
+import { fileContentSource } from '../../src/content/sources/file';
 import { sourceHash } from './lib/source-hash';
 
 const ROOT = path.resolve(import.meta.dirname, '../..');
 
-const SOURCES: Record<string, ContentSource> = { seed: seedContentSource };
+const SOURCES: Record<string, ContentSource> = { seed: seedContentSource, file: fileContentSource };
 
 const errors: string[] = [];
 const warnings: string[] = [];

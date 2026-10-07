@@ -145,9 +145,68 @@ core layers:  domain ◄── validation ◄── seo
 |---|---|---|---|
 | A-1 | Node.js stays **22** (`.nvmrc`); the approved runtime is Node 24 LTS | Changing the runtime is outside a structure-only phase, and `.nvmrc` also drives the Netlify demo build. Everything is compatible with Node 24 | Phase C (before the first API code), verified by the regression |
 | A-2 | Tests use the built-in **`node:test`** instead of Vitest (review §B) | No new dependency for 7 scaffold tests | Phase B/C, when real test suites start (Vitest can run them unchanged) |
-| A-3 | `packages/core` has no Zod yet | No schema exists yet; core's only allowed runtime dependency is added with the first schema | Phase B |
+| A-3 | `packages/core` has no Zod yet | No schema exists yet; core's only allowed runtime dependency is added with the first schema | **Resolved in Phase B** |
 | A-4 | `apps/web/src/index.css` has one added line, `@source inline("outline text-wrap")` (the only edit to a site source file) | Moving the Tailwind scan root to `apps/web` dropped two unused classes; the line keeps the output byte-identical (see above) | Later cleanup task (optional) |
 
-### Next: Phase B (database + import)
+---
 
-PostgreSQL 17 + DB roles (§17.1), Drizzle schema and reviewed migrations, JSONB schemas in `packages/core`, seed → DB import, export, round-trip test (export ≡ seed; build from DB IDENTICAL). See approved architecture §23.
+## Phase B: Database and import (2026-10-07)
+
+**Base commit:** `22b4ede`. Details: [`admin-database.md`](admin-database.md).
+
+### What was done
+
+1. **`packages/core`:**
+   - `domain/locales.ts` (content languages);
+   - `content/store.ts`: the stored content types, moved unchanged from `apps/web/src/content/types.ts`, which now re-exports them;
+   - `content/localized.ts`: `isLocalized`, `projectLocale`, `mergeLocales`, `splitText`/`joinText`;
+   - `content/jsonb.ts`: Zod schemas of every JSONB column;
+   - Zod 4 is core's only runtime dependency;
+   - 6 unit tests.
+2. **Schema** (`apps/api/src/db/schema.ts`, Drizzle) and committed migrations:
+   - `drizzle/0000_content_schema.sql`: 29 tables;
+   - `drizzle/0001_locales_reference_data.sql`.
+3. **Roles:** `apps/api/db/provision.sql` creates `soltex_migrate` (owner), `soltex_app` (DML only) and `soltex_backup` (read-only).
+4. **Import / export:**
+   - `apps/api/src/content/import.ts`: idempotent, one transaction, never deletes;
+   - `apps/api/src/content/export.ts`: one consistent snapshot, seed format, seed key order;
+   - CLI: `db:migrate`, `db:import`, `db:export`, `db:generate`.
+5. **Site:** new content source `file` (`apps/web/src/content/sources/file.ts`). Usage: `CONTENT_SOURCE=file CONTENT_STORE_FILE=… npm run build:web` builds the site from a database export. The default source is still `seed`.
+6. **Tests and CI:**
+   - `apps/api/src/db/db.test.ts` (8 tests, `npm run test:db`);
+   - new CI job `database`: PostgreSQL 17 service → provision → migrate → DB tests → import/export → `diff` with the seed → site build from the database `diff` with the seed build;
+   - drift check: the committed migrations must match the schema.
+
+### Verification
+
+| Check | Result |
+|---|---|
+| `seed → DB → export` vs the 10 seed files | **byte-identical** |
+| Site built from the DB export vs site built from the seed | **byte-identical** (229 files, 180 HTML) |
+| Site built from the seed vs Phase A (`22b4ede`) | **byte-identical** (the type move changes no output) |
+| Second import | no row count and no exported byte changes |
+| Failing import | full rollback |
+| `soltex_app` | cannot `CREATE`, `ALTER`, `DROP`, `TRUNCATE`, create a schema, or write `locales`; can read and write content |
+| `soltex_backup` | read-only |
+| Redirect checks | external URL, `//host`, `/\host`, `javascript:`, CRLF, self-redirect: all rejected by the database |
+| FK `RESTRICT` / slug uniqueness | enforced |
+| `npm run typecheck`, `check:deps`, `test` | pass |
+| `drizzle-kit check` / no drift | pass |
+
+Local tests ran on PostgreSQL 17.10. CI uses the official `postgres:17` image.
+
+### Deviations (Phase B)
+
+| # | Deviation | Reason |
+|---|---|---|
+| B-1 | `page_list_items.structure` is `json` (not `jsonb`) | Key order of arbitrary list items is content; `jsonb` reorders keys (`admin-database.md` DB-5). Validated by Zod like every JSONB column |
+| B-2 | `schema_version` is per table, not inside each JSON value | Plain lists (`string[]`) cannot carry a version field without changing their shape; one version per table covers all its JSON columns |
+| B-3 | `normalize` and the page-slot registry still live in `apps/web` | Moving them is not needed for the database. It follows when the admin needs them (Phase E/H), behind the regression gate |
+
+### Not done in Phase B (by design)
+
+Users, sessions, auth, audit log (Phase C); revisions, releases, publishing (G); preview (H); redirect lookup (I); media uploads (J); leads (K). No admin screens yet.
+
+### Next: Phase C (API core, authentication, RBAC, audit)
+
+Fastify API with Zod/OpenAPI, RFC 9457 errors and request IDs, server-side sessions, Argon2id, WebAuthn + TOTP + recovery codes, step-up, the permission chain, the append-only audit log and rate limits. See approved architecture §7, §8, §19, §23.
