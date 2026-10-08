@@ -299,6 +299,84 @@ Users, sessions, auth, audit log (Phase C); revisions, releases, publishing (G);
 
 Admin UI (login screens included), content CRUD API, editor, publishing, preview, media, leads, e-mail delivery, Redis, GraphQL, pg-boss.
 
-### Next: Phase D (admin shell UI)
+---
 
-Login, MFA and passkey screens, session handling and the navigation shell on top of the Phase C API.
+## Phase D: Admin shell (2026-10-08)
+
+**Base commit:** `1147fa7`. Details: [`admin-ui.md`](admin-ui.md).
+
+### What was done
+
+1. **`apps/admin`, the Russian admin SPA:**
+   - stack per review §B: React Router 7, TanStack Query and Table, react-hook-form + Zod, Radix UI, Tailwind 4, `@simplewebauthn/browser`, `uqr` for the local TOTP QR code;
+   - the Phase A placeholder is replaced.
+2. **Sign-in:**
+   - password;
+   - second factor: passkey, authenticator code, or recovery code;
+   - mandatory enrollment by role: passkey for Owner and Admin, passkey or app for others;
+   - recovery codes shown once;
+   - forgot-password and reset pages; the token is in the URL fragment;
+   - return to the page asked for, with no open redirect;
+   - clear end-of-session messages; sign-in state shared across tabs.
+3. **Shell:**
+   - sidebar and ⌘K from one navigation model filtered by the session's permissions; ⌘K has no publishing commands;
+   - user menu, breadcrumbs, mobile drawer;
+   - toasts with the request id for unexpected errors;
+   - step-up dialog with an automatic retry;
+   - unsaved-changes guard;
+   - «Дополнительно» for Owner and Admin only.
+4. **Screens:**
+   - Обзор;
+   - Профиль и безопасность: profile, passkeys, authenticator app, recovery codes, password, sessions;
+   - Пользователи: list, create, edit role and status, end sessions, reset MFA; rules from core `canManageUser`;
+   - Журнал действий: Russian wording, server-side filters, cursor paging, details;
+   - Система: API status;
+   - «Недостаточно прав» and «Страница не найдена».
+5. **Contract:** `src/lib/api/schema.gen.ts` is generated from `apps/api/openapi.json` (`npm run api:types`). CI fails on drift. The admin imports no API code.
+6. **Security:**
+   - cookies only; CSRF header on every change; no token or code in browser storage;
+   - strict CSP for the admin host (`ADMIN_CSP`, admin-ui.md §8), also served by `vite preview`;
+   - CI greps the admin bundle for secrets and server addresses.
+7. **Tests:**
+   - admin unit tests (11, `node:test`);
+   - E2E (23): `scripts/admin-e2e.mjs` + `apps/admin/e2e/`, the built admin under its CSP, against the real API and PostgreSQL, in Chromium with a virtual WebAuthn authenticator;
+   - test-only seeding helper `apps/api/test/e2e-seed.ts`;
+   - new CI job `admin-e2e`.
+8. **Unchanged:** `apps/web`, `packages/core`, the API code (`apps/api/src`), migrations and `openapi.json`.
+
+### Verification (2026-10-08)
+
+| Check | Result |
+|---|---|
+| `npm run lint` (typecheck web, admin incl. tests, api, core + check:deps) | pass |
+| `npm test` | 43 / 43 pass (core 12, api 20, admin 11) |
+| `npm run test:db` | 64 / 64 pass |
+| `npm run test:e2e:admin` on a freshly provisioned database | 23 / 23 pass; no page errors, no CSP violations |
+| `openapi.json`, admin API types | up to date |
+| Admin bundle | builds; no secrets or server addresses |
+| Public site build vs Phase C (`1147fa7`) | **byte-identical** (229 files, 180 HTML) |
+| `qa-regression --base-ref 1147fa7` | **IDENTICAL to the baseline**: dist bytes, page data of 348 page loads, no-JS / motion / script-fail / 404, interactions, navigation, inquiry topics |
+| DB regression: `seed → DB → export`; site from the DB export | **byte-identical** to the seed; **identical** build |
+
+### Deviations (Phase D)
+
+| # | Deviation | Reason |
+|---|---|---|
+| D-1 | Tests use `node:test` for unit tests and Playwright as a QA tool (installed `--no-save`, like the site regression), not Vitest / a Playwright dependency | Same as A-2 / C-9: no new test runner. CI installs Playwright in the E2E job |
+| D-2 | **Обзор** shows only sign-in security and the available sections | The metrics of review §X need leads, SEO, translations, builds and backups (Phases E–N). No placeholder numbers |
+| D-3 | **Система** shows only API liveness and response time | Builds, releases, disk, backups and the queue (approved §19) do not exist yet (Phases G, L, N) |
+| D-4 | ⌘K searches sections, harmless actions and people on the client | Content search (PostgreSQL FTS, review §B) needs content endpoints (Phase E). ⌘K never offers publishing or rollback |
+| D-5 | CSP `style-src 'unsafe-inline'` | Radix sets inline `style` attributes for positioning. Scripts stay `'self'` only |
+| D-6 | The reset link format is fixed now: `https://admin…/reset-password#token=…` | Phase K e-mails must use it. The fragment keeps the token out of logs and Referer |
+| D-7 | New users get an initial password from an Owner or Admin (C-7) | No e-mail until Phase K. The dialog generates a strong password and asks to pass it on through a protected channel |
+| D-8 | The main admin chunk is about 145 kB gzip; screens behind the shell load on demand | No admin performance budget is defined. Desktop-first internal tool |
+| D-9 | Node.js stays 22 (A-1 / C-1) | No runtime migration in this phase |
+| D-10 | `apps/admin/tsconfig.json` gains `allowImportingTsExtensions` | `@soltex/core` sources import with `.ts` extensions; the admin reads them through Vite. No emit, no effect on the build output |
+
+### Not done in Phase D (by design)
+
+Content, media, translations, leads, SEO, settings, publishing, releases and preview screens; dashboard metrics; ASVS checklist (Phase M); nginx configuration (Phase N).
+
+### Next: Phase E (content management)
+
+Editors for pages and collections, relations, usages, archive (approved §23).

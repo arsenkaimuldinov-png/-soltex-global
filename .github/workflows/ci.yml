@@ -1,5 +1,5 @@
 # CI: install, type check, dependency direction, tests, builds, database round trip,
-# public-site regression. Needs no Redis, SMTP, external services or production secrets;
+# admin end-to-end, public-site regression. Needs no Redis, SMTP, external services or production secrets;
 # the database job uses a throwaway PostgreSQL 17 service with CI-only passwords.
 name: CI
 
@@ -35,6 +35,8 @@ jobs:
         run: npm test
       - name: Committed OpenAPI document matches the routes (no drift)
         run: npm run openapi:check -w @soltex/api
+      - name: Admin API types match the OpenAPI document (no drift)
+        run: npm run api:types:check -w @soltex/admin
       - name: Committed migrations match the Drizzle schema (no drift)
         working-directory: apps/api
         run: |
@@ -54,8 +56,11 @@ jobs:
       - name: No localhost in generated HTML / sitemap / robots
         run: |
           ! grep -rIl --include='*.html' --include='*.xml' --include='*.txt' -E 'localhost|127\.0\.0\.1' apps/web/dist
-      - name: Build admin shell
+      - name: Build admin
         run: npm run build:admin
+      - name: No secrets or server addresses in the admin bundle
+        run: |
+          ! grep -rIlE 'postgres(ql)?://|DATA_ENCRYPTION|HASH_SECRET|BEGIN [A-Z ]*PRIVATE KEY|soltex_(app|migrate|backup)' apps/admin/dist
 
   database:
     name: PostgreSQL 17 · migrations · round trip · build from DB
@@ -104,6 +109,50 @@ jobs:
           mv apps/web/dist "$RUNNER_TEMP/dist-seed"
           CONTENT_SOURCE=file CONTENT_STORE_FILE="$RUNNER_TEMP/store.json" npm run build:web
           diff -r "$RUNNER_TEMP/dist-seed" apps/web/dist
+
+  admin-e2e:
+    name: Admin end to end (API + PostgreSQL 17 + Chromium, virtual passkey)
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: ci_superuser
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 20
+    env:
+      # CI-only throwaway credentials (service container, destroyed after the job).
+      MIGRATION_DATABASE_URL: postgres://soltex_migrate:ci_migrate@127.0.0.1:5432/soltex_e2e
+      DATABASE_URL: postgres://soltex_app:ci_app@127.0.0.1:5432/soltex_e2e
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Provision roles and database
+        env:
+          PGPASSWORD: ci_superuser
+        run: >-
+          psql -h 127.0.0.1 -U postgres -v ON_ERROR_STOP=1 -v dbname=soltex_e2e
+          -v migrate_password=ci_migrate -v app_password=ci_app -v backup_password=ci_backup
+          -f apps/api/db/provision.sql
+      - name: Playwright (QA tool only, not a project dependency)
+        run: |
+          npm i --no-save --no-audit --no-fund playwright@1.56.0
+          npx playwright install --with-deps chromium
+      - name: Admin E2E (sign-in, passkey, TOTP, recovery codes, step-up, RBAC, users, audit, system)
+        run: npm run test:e2e:admin -- --shots
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: admin-e2e
+          path: .qa/admin-e2e
+          retention-days: 14
 
   regression:
     name: Public-site regression vs base
