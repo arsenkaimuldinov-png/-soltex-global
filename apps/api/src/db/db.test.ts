@@ -20,6 +20,15 @@ import { ImportError, importStore } from '../content/import.ts';
 import { SEED_FILES, readSeedDir, serialize } from '../content/seed-files.ts';
 
 const SEED_DIR = path.resolve(import.meta.dirname, '../../../web/src/content/seed');
+
+/** Every content table of Phase B (reset before the round-trip tests). */
+const CONTENT_TABLES = [
+  'media', 'media_translations', 'technologies', 'technology_translations', 'technology_projects',
+  'projects', 'project_translations', 'project_gallery', 'products', 'product_translations',
+  'epcm_stages', 'epcm_stage_translations', 'patents', 'patent_translations', 'videos', 'video_translations',
+  'pages', 'page_translations', 'page_media', 'page_list_items', 'page_list_item_translations',
+  'settings', 'settings_translations', 'metrics', 'metric_translations', 'offices', 'office_translations', 'redirects',
+];
 const enabled = !!process.env.DATABASE_URL && !!process.env.MIGRATION_DATABASE_URL;
 
 /** Reject if `query` succeeds; return the PostgreSQL error code otherwise. */
@@ -40,11 +49,9 @@ describe('content database', { skip: !enabled && 'DATABASE_URL / MIGRATION_DATAB
     owner = connect(process.env.MIGRATION_DATABASE_URL!, 2);
     app = connect(process.env.DATABASE_URL!, 4);
     await migrate(owner.db, { migrationsFolder: path.resolve(import.meta.dirname, '../../drizzle') });
-    // Reset content (owner may truncate; the app role may not).
-    const tables = await owner.pool.query<{ tablename: string }>(
-      `SELECT tablename FROM pg_tables WHERE schemaname = 'public' AND tablename <> 'locales'`
-    );
-    await owner.pool.query(`TRUNCATE ${tables.rows.map((t) => `"${t.tablename}"`).join(', ')} CASCADE`);
+    // Reset content (owner may truncate; the app role may not). Users, sessions and the
+    // append-only audit log (Phase C) are not content and are never truncated.
+    await owner.pool.query(`TRUNCATE ${CONTENT_TABLES.map((t) => `"${t}"`).join(', ')}`);
   });
 
   after(async () => {
@@ -56,9 +63,8 @@ describe('content database', { skip: !enabled && 'DATABASE_URL / MIGRATION_DATAB
   const exportText = (store: ContentStore) =>
     Object.fromEntries(Object.entries(SEED_FILES).map(([k, f]) => [f, serialize(store[k as keyof ContentStore])]));
   const rowCounts = async () => {
-    const r = await owner.pool.query<{ t: string }>(`SELECT tablename AS t FROM pg_tables WHERE schemaname = 'public' ORDER BY tablename`);
     const out: Record<string, number> = {};
-    for (const { t } of r.rows) out[t] = Number((await owner.pool.query(`SELECT count(*)::int AS n FROM "${t}"`)).rows[0].n);
+    for (const t of CONTENT_TABLES) out[t] = Number((await owner.pool.query(`SELECT count(*)::int AS n FROM "${t}"`)).rows[0].n);
     return out;
   };
 
@@ -105,9 +111,32 @@ describe('content database', { skip: !enabled && 'DATABASE_URL / MIGRATION_DATAB
       assert.equal(await denied(c, "INSERT INTO locales (code, position) VALUES ('xx', 99)"), '42501');
       assert.equal(await denied(c, "UPDATE locales SET position = position"), '42501');
       assert.equal(await denied(c, 'CREATE SCHEMA evil'), '42501');
+      // Audit log (Phase C): append-only for the application role.
+      assert.equal(await denied(c, "UPDATE audit_events SET action = 'x'"), '42501');
+      assert.equal(await denied(c, 'DELETE FROM audit_events'), '42501');
+      assert.equal(await denied(c, 'TRUNCATE audit_events'), '42501');
       // …but it can read and write content (inside a transaction that is rolled back).
       await c.query('BEGIN');
       await c.query("UPDATE project_translations SET title = title || '' WHERE locale = 'en'");
+      await c.query('ROLLBACK');
+    } finally {
+      c.release();
+    }
+  });
+
+  test('migration role owns the schema; the audit log refuses UPDATE/DELETE/TRUNCATE even for it', async () => {
+    const r = await owner.pool.query<{ n: number }>(`SELECT count(*)::int AS n FROM pg_tables WHERE schemaname = 'public' AND tableowner <> 'soltex_migrate'`);
+    assert.equal(r.rows[0]!.n, 0);
+    const c = await owner.pool.connect();
+    try {
+      await c.query('BEGIN');
+      await c.query(`INSERT INTO audit_events (action, result) VALUES ('test.trigger', 'success')`);
+      await c.query('SAVEPOINT s');
+      assert.equal(await denied(c, `UPDATE audit_events SET action = 'x' WHERE action = 'test.trigger'`), '42501');
+      await c.query('ROLLBACK TO SAVEPOINT s');
+      assert.equal(await denied(c, `DELETE FROM audit_events WHERE action = 'test.trigger'`), '42501');
+      await c.query('ROLLBACK TO SAVEPOINT s');
+      assert.equal(await denied(c, 'TRUNCATE audit_events'), '42501');
       await c.query('ROLLBACK');
     } finally {
       c.release();
@@ -121,6 +150,8 @@ describe('content database', { skip: !enabled && 'DATABASE_URL / MIGRATION_DATAB
       assert.ok(r.rows[0].n > 0);
       assert.equal(await denied(b, "UPDATE projects SET status = 'draft'"), '42501');
       assert.equal(await denied(b, 'CREATE TABLE evil (id int)'), '42501');
+      assert.equal(await denied(b, "INSERT INTO audit_events (action, result) VALUES ('x', 'success')"), '42501');
+      assert.equal((await b.query('SELECT count(*)::int AS n FROM users')).rows[0].n >= 0, true);
     } finally {
       await b.end();
     }

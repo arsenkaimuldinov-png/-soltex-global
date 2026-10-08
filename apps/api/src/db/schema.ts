@@ -17,8 +17,12 @@
  */
 import { sql } from 'drizzle-orm';
 import {
+  type AnyPgColumn,
+  bigint,
   boolean,
   check,
+  customType,
+  index,
   date,
   integer,
   json,
@@ -54,9 +58,9 @@ const stableKey = () => text('key').notNull().unique();
 const audit = () => ({
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-  // Foreign keys to users are added in Phase C, when the users table exists.
-  createdBy: uuid('created_by'),
-  updatedBy: uuid('updated_by'),
+  // Users are never deleted (only disabled), so these references are RESTRICT (Phase C).
+  createdBy: uuid('created_by').references((): AnyPgColumn => users.id, { onDelete: 'restrict' }),
+  updatedBy: uuid('updated_by').references((): AnyPgColumn => users.id, { onDelete: 'restrict' }),
 });
 
 /** Columns of every publishable content entity. */
@@ -587,5 +591,197 @@ export const redirects = pgTable(
     check('redirects_to_internal', sql`${t.toPath} ~ '^/([^/\\\\[:cntrl:]][^\\\\[:cntrl:]]*)?$'`),
     check('redirects_not_self', sql`${t.fromPath} <> ${t.toPath}`),
   ]
+);
+
+// ===========================================================================
+// Phase C: users, sessions, authentication factors, audit log
+// (approved architecture §7, §8, §17.2; docs/admin-auth.md)
+// ===========================================================================
+
+export const userRole = pgEnum('user_role', ['owner', 'admin', 'content_manager', 'editor', 'seo_specialist', 'marketer']);
+export const userStatus = pgEnum('user_status', ['active', 'disabled']);
+export const auditResult = pgEnum('audit_result', ['success', 'failure', 'denied']);
+export const webauthnChallengePurpose = pgEnum('webauthn_challenge_purpose', ['registration', 'authentication']);
+
+const bytea = customType<{ data: Uint8Array; driverData: Buffer }>({
+  dataType: () => 'bytea',
+  toDriver: (v) => Buffer.from(v),
+  fromDriver: (v) => new Uint8Array(v),
+});
+
+export const users = pgTable(
+  'users',
+  {
+    id: pk(),
+    /** Normalised (trimmed, lower-cased) e-mail; unique. */
+    email: text('email').notNull(),
+    name: text('name').notNull(),
+    role: userRole('role').notNull(),
+    status: userStatus('status').notNull().default('active'),
+    /** Argon2id PHC string. Never logged, never returned by the API. */
+    passwordHash: text('password_hash').notNull(),
+    passwordChangedAt: timestamp('password_changed_at', { withTimezone: true }).notNull().defaultNow(),
+    failedLogins: integer('failed_logins').notNull().default(0),
+    lastFailedLoginAt: timestamp('last_failed_login_at', { withTimezone: true }),
+    lockedUntil: timestamp('locked_until', { withTimezone: true }),
+    lastLoginAt: timestamp('last_login_at', { withTimezone: true }),
+    version: integer('version').notNull().default(1),
+    ...audit(),
+  },
+  (t) => [unique('users_email').on(t.email), check('users_email_normalised', sql`${t.email} = lower(btrim(${t.email}))`)]
+);
+
+export const sessions = pgTable(
+  'sessions',
+  {
+    /** Public identifier (listing / revoking a session); never the secret. */
+    id: pk(),
+    /** SHA-256 of the 256-bit random session token (the cookie value). */
+    tokenHash: text('token_hash').notNull().unique(),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    /** Authentication assurance: 1 = password only, 2 = password + second factor. */
+    aal: smallint('aal').notNull().default(1),
+    /** Last successful second-factor verification (step-up window). */
+    mfaVerifiedAt: timestamp('mfa_verified_at', { withTimezone: true }),
+    /** Failed second-factor attempts in this session (the session is revoked after 5). */
+    mfaFailures: integer('mfa_failures').notNull().default(0),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    lastSeenAt: timestamp('last_seen_at', { withTimezone: true }).notNull().defaultNow(),
+    /** Absolute expiry; the idle timeout is enforced against last_seen_at. */
+    expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+    ipHash: text('ip_hash'),
+    userAgent: text('user_agent'),
+    revokedAt: timestamp('revoked_at', { withTimezone: true }),
+    revokedReason: text('revoked_reason'),
+  },
+  (t) => [index('sessions_user').on(t.userId), check('sessions_aal', sql`${t.aal} IN (1, 2)`)]
+);
+
+/** Browsers that completed a full login before; per-account lockout does not apply to them (§19). */
+export const knownDevices = pgTable(
+  'known_devices',
+  {
+    tokenHash: text('token_hash').primaryKey(),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    lastSeenAt: timestamp('last_seen_at', { withTimezone: true }).notNull().defaultNow(),
+    expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+  },
+  (t) => [index('known_devices_user').on(t.userId)]
+);
+
+/** Passkeys / security keys. Only public data: the private key never leaves the authenticator. */
+export const webauthnCredentials = pgTable(
+  'webauthn_credentials',
+  {
+    id: pk(),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    /** Credential ID (base64url), globally unique. */
+    credentialId: text('credential_id').notNull().unique(),
+    /** COSE public key. */
+    publicKey: bytea('public_key').notNull(),
+    signCount: bigint('sign_count', { mode: 'number' }).notNull().default(0),
+    transports: text('transports').array().notNull().default(sql`ARRAY[]::text[]`),
+    deviceType: text('device_type').notNull(),
+    backedUp: boolean('backed_up').notNull(),
+    name: text('name').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    lastUsedAt: timestamp('last_used_at', { withTimezone: true }),
+  },
+  (t) => [index('webauthn_credentials_user').on(t.userId)]
+);
+
+/** One-time WebAuthn challenges: short-lived, bound to a session and a purpose, consumed on use. */
+export const webauthnChallenges = pgTable(
+  'webauthn_challenges',
+  {
+    id: pk(),
+    challenge: text('challenge').notNull().unique(),
+    purpose: webauthnChallengePurpose('purpose').notNull(),
+    sessionId: uuid('session_id')
+      .notNull()
+      .references(() => sessions.id, { onDelete: 'cascade' }),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+    usedAt: timestamp('used_at', { withTimezone: true }),
+  },
+  (t) => [index('webauthn_challenges_session').on(t.sessionId)]
+);
+
+/** TOTP (RFC 6238) fallback factor. The secret is encrypted (AES-256-GCM, key id in the value). */
+export const totpCredentials = pgTable('totp_credentials', {
+  userId: uuid('user_id')
+    .primaryKey()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  secretEncrypted: text('secret_encrypted').notNull(),
+  /** null while enrollment is pending confirmation. */
+  confirmedAt: timestamp('confirmed_at', { withTimezone: true }),
+  /** Last accepted time step: a code can never be accepted twice. */
+  lastTimeStep: bigint('last_time_step', { mode: 'number' }),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+});
+
+/** One-time recovery codes, stored as SHA-256 only (128-bit random codes). */
+export const recoveryCodes = pgTable(
+  'recovery_codes',
+  {
+    id: pk(),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    codeHash: text('code_hash').notNull().unique(),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    usedAt: timestamp('used_at', { withTimezone: true }),
+  },
+  (t) => [index('recovery_codes_user').on(t.userId)]
+);
+
+/** Password reset tokens: single use, 30 minutes, stored as SHA-256 only. */
+export const passwordResets = pgTable(
+  'password_resets',
+  {
+    tokenHash: text('token_hash').primaryKey(),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+    usedAt: timestamp('used_at', { withTimezone: true }),
+  },
+  (t) => [index('password_resets_user').on(t.userId)]
+);
+
+/**
+ * Append-only audit log (§17.2). The application role has INSERT and SELECT only, and a
+ * trigger refuses UPDATE, DELETE and TRUNCATE even for the table owner
+ * (drizzle/0003_audit_append_only.sql). Never contains passwords, tokens, codes or secrets.
+ */
+export const auditEvents = pgTable(
+  'audit_events',
+  {
+    id: bigint('id', { mode: 'number' }).primaryKey().generatedAlwaysAsIdentity(),
+    at: timestamp('at', { withTimezone: true }).notNull().defaultNow(),
+    actorId: uuid('actor_id').references(() => users.id, { onDelete: 'restrict' }),
+    action: text('action').notNull(),
+    resourceType: text('resource_type'),
+    resourceId: text('resource_id'),
+    result: auditResult('result').notNull(),
+    requestId: text('request_id'),
+    ipHash: text('ip_hash'),
+    userAgent: text('user_agent'),
+    /** AuditSummaryV1: action-specific details without personal data or secrets. */
+    summary: jsonb('summary').notNull().default(sql`'{}'::jsonb`),
+    schemaVersion: smallint('schema_version').notNull().default(1),
+  },
+  (t) => [index('audit_events_at').on(t.at), index('audit_events_actor').on(t.actorId), index('audit_events_request').on(t.requestId)]
 );
 

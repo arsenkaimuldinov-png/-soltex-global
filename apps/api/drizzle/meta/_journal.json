@@ -15,6 +15,20 @@
       "when": 1791377253558,
       "tag": "0001_locales_reference_data",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791451007373,
+      "tag": "0002_auth_users_sessions_audit",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1791451017128,
+      "tag": "0003_audit_append_only",
+      "breakpoints": true
     }
   ]
 }

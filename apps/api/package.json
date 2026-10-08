@@ -3,24 +3,36 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "Soltex Global API + worker (Fastify modular monolith). Phase A: bootstrap with a health endpoint only.",
+  "description": "Soltex Global API + worker (Fastify modular monolith). Phase C: authentication, MFA, RBAC and audit.",
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "start": "tsx src/server.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test": "node --import tsx --test src/app.test.ts src/config.test.ts",
+    "test": "node --import tsx --test src/app.test.ts src/config.test.ts src/openapi.test.ts src/auth/auth.unit.test.ts",
     "db:migrate": "tsx src/cli/db-migrate.ts",
     "db:import": "tsx src/cli/db-import.ts",
     "db:export": "tsx src/cli/db-export.ts",
     "db:generate": "drizzle-kit generate",
-    "test:db": "node --import tsx --test --test-concurrency=1 src/db/db.test.ts"
+    "test:db": "node --import tsx --test --test-concurrency=1 src/db/db.test.ts test/auth.db.test.ts test/mfa.db.test.ts test/passkeys.db.test.ts test/rbac.db.test.ts test/audit-security.db.test.ts test/bootstrap.db.test.ts",
+    "openapi": "tsx src/cli/openapi.ts",
+    "openapi:check": "tsx src/cli/openapi.ts --check",
+    "auth:bootstrap-owner": "tsx src/cli/auth-bootstrap-owner.ts"
   },
   "dependencies": {
+    "@fastify/cookie": "^11.1.2",
+    "@fastify/helmet": "^13.1.1",
+    "@fastify/rate-limit": "^11.2.0",
+    "@fastify/swagger": "^9.9.1",
+    "@node-rs/argon2": "^2.2.2",
+    "@simplewebauthn/server": "^14.0.3",
     "@soltex/core": "*",
     "drizzle-orm": "^0.45.3",
     "fastify": "^5.12.5",
+    "fastify-type-provider-zod": "^7.0.0",
+    "otplib": "^13.5.0",
     "pg": "^8.23.1",
-    "uuid": "^14.0.2"
+    "uuid": "^14.0.2",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",

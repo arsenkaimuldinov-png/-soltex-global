@@ -33,6 +33,8 @@ jobs:
         run: npm run check:deps
       - name: Unit tests (core, api)
         run: npm test
+      - name: Committed OpenAPI document matches the routes (no drift)
+        run: npm run openapi:check -w @soltex/api
       - name: Committed migrations match the Drizzle schema (no drift)
         working-directory: apps/api
         run: |
@@ -89,7 +91,7 @@ jobs:
           -f apps/api/db/provision.sql
       - name: Migrations (role soltex_migrate)
         run: npm run db:migrate
-      - name: Database tests (round trip, idempotency, rollback, roles, constraints)
+      - name: Database tests (round trip, roles, constraints; auth, MFA, passkeys, RBAC, audit, bootstrap)
         run: npm run test:db
       - name: Import seed and export the database
         run: |

@@ -30,6 +30,8 @@
     "db:migrate": "npm run db:migrate -w @soltex/api",
     "db:import": "npm run db:import -w @soltex/api",
     "db:export": "npm run db:export -w @soltex/api --",
+    "auth:bootstrap-owner": "npm run auth:bootstrap-owner -w @soltex/api --",
+    "openapi": "npm run openapi -w @soltex/api",
     "qa": "node scripts/qa-regression.mjs",
     "clean": "npm run clean -w @soltex/web && rm -rf apps/admin/dist .qa"
   }

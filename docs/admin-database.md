@@ -1,7 +1,7 @@
 # Content database (PostgreSQL 17)
 
 **Source of truth for the architecture:** [`admin-architecture-approved.md`](admin-architecture-approved.md) §17 and review §C.
-**Implemented in:** Phase B.
+**Implemented in:** Phase B (content), Phase C (users, sessions, second factors, audit log; see [`admin-auth.md`](admin-auth.md)).
 **Code:**
 - `apps/api/src/db/schema.ts` (Drizzle);
 - `apps/api/drizzle/` (committed SQL migrations);
@@ -44,11 +44,25 @@
 | `metrics`, `offices` | value / phone, e-mail, WhatsApp, order | label, highlight / region, title, country, address, representative |
 | `redirects` | from, to, status code, all languages, source, hits | — |
 
+**Phase C tables** (`drizzle/0002_auth_users_sessions_audit.sql`, `0003_audit_append_only.sql`):
+
+| Table | Contents |
+|---|---|
+| `users` | e-mail (unique, stored normalized: a CHECK enforces lower case and trimmed), name, `role` (enum of the 6 roles), `status` (`active`/`disabled`), Argon2id `password_hash`, failure counter, lock-out, `version`, audit columns |
+| `sessions` | sha256 of the token (never the token), user, `aal` 1/2, `mfa_verified_at`, `mfa_failures`, created / last seen / expires, IP hash, User-Agent, `revoked_at` + reason |
+| `known_devices` | sha256 of the device cookie, user, expiry (lock-out bypass for browsers that signed in before) |
+| `webauthn_credentials` | credential ID (unique), public key (`bytea`), sign counter, transports, device type, backup flags, name, last used |
+| `webauthn_challenges` | challenge (unique), purpose, session, user, expiry, `used_at` (single use) |
+| `totp_credentials` | one per user: AES-256-GCM encrypted secret, confirmation time, last used time step (replay guard) |
+| `recovery_codes` | sha256 of each code, `used_at` |
+| `password_resets` | sha256 of the token, expiry, `used_at` |
+| `audit_events` | append-only log (bigint identity): time, actor, action, resource, result, request ID, IP hash, User-Agent, `summary` jsonb, `schema_version` |
+
 All translatable entities carry:
 - `status` (`draft`/`published`/`archived`), `position`, `source_locale`;
 - `version` (optimistic locking, used from Phase E);
 - `published_at`, `archived_at`;
-- `created/updated_at/_by` (the `_by` FKs to users arrive in Phase C).
+- `created/updated_at/_by`; since Phase C, `created_by` / `updated_by` are FKs to `users` (`ON DELETE RESTRICT`). The import leaves them `NULL`.
 
 Each translation row carries `tr_status`, `approved_source_hash` and `approved_at`. They are `NULL` for the source language.
 
@@ -70,7 +84,12 @@ Each translation row carries `tr_status`, `approved_source_hash` and `approved_a
 
 - Provisioning (once per environment, as superuser): `apps/api/db/provision.sql`. Passwords are passed as psql variables, never committed.
 - Default privileges make every future table created by `soltex_migrate` available to `soltex_app` through DML only.
-- The `audit_events` table (Phase C) will additionally be `INSERT, SELECT` only for `soltex_app`.
+- **`audit_events` is append-only:**
+  - `soltex_app` has only `INSERT, SELECT` (migration 0003 revokes `UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER`);
+  - a `BEFORE UPDATE OR DELETE` row trigger and a `BEFORE TRUNCATE` statement trigger raise `insufficient_privilege` for **every** role, including the owner `soltex_migrate`;
+  - `soltex_backup` can read but not write it;
+  - `apps/api/src/db/db.test.ts` proves all of this.
+- Correcting an audit entry is impossible by design. Retention (approved §19) will be a separately reviewed migration that drops whole partitions or rows older than the retention period. It is not part of Phase C.
 
 ---
 
@@ -87,6 +106,9 @@ Each translation row carries `tr_status`, `approved_source_hash` and `approved_a
 | DB-7 | **Media and redirects are exported sorted by key / source path** | They have no editorial order; the seed lists media by ID |
 | DB-8 | **Import never deletes**: entities missing from the store are reported, not removed | Importing an old seed must never wipe content edited in the admin |
 | DB-9 | **Translation status vocabulary kept from Phase 1** (`missing`, `in_progress`, `approved`) | Exact round trip; the admin maps them to Russian labels (Phase F) |
+| DB-10 | **Secrets are stored only as hashes or ciphertext:** session, device, reset tokens and recovery codes as sha256; TOTP secrets as AES-256-GCM bound to the user; IP addresses and unknown e-mails as keyed HMAC | A database dump does not allow signing in or tracking addresses (Phase C) |
+| DB-11 | **The audit log is protected by triggers, not only grants** | Grants protect against the application; the trigger also protects against mistakes by the schema owner. Phase B migrations were not changed; the protection is a new migration (0003) |
+| DB-12 | **Users are never hard-deleted**; they are disabled | Audit rows and `created_by` / `updated_by` reference them (`RESTRICT`) |
 
 ---
 
@@ -109,7 +131,7 @@ CONTENT_SOURCE=file CONTENT_STORE_FILE=<store.json> npm run build:web
 3. A second import changes no row count and no exported byte.
 4. A failing import rolls back completely.
 5. Invalid list content is rejected by the Zod schemas.
-6. The roles and constraints of §2–§3 hold: `apps/api/src/db/db.test.ts`, 8 tests.
+6. The roles and constraints of §2–§3 hold: `apps/api/src/db/db.test.ts`, 9 tests (since Phase C, including the audit grants and trigger).
 
 CI repeats all of this against a PostgreSQL 17 service container, plus a check that the committed migrations match the schema.
 
@@ -132,7 +154,7 @@ psql -h 127.0.0.1 -U postgres -v ON_ERROR_STOP=1 -v dbname=soltex \
      -f apps/api/db/provision.sql
 ```
 
-Put the three URLs in your local environment (see `.env.example`), then run `npm run db:migrate && npm run db:import`. `npm run test:db` resets the content tables of the database it points to, so use a separate local database for it.
+Put the three URLs in your local environment (see `.env.example`), then run `npm run db:migrate && npm run db:import`. `npm run test:db` resets the content tables of the database it points to and creates test users, so use a separate local database for it.
 
 ---
 
@@ -140,7 +162,7 @@ Put the three URLs in your local environment (see `.env.example`), then run `npm
 
 | Phase | Adds |
 |---|---|
-| C | `users`, `sessions`, MFA credentials, recovery codes, `audit_events` (append-only), FKs for `created_by/updated_by` |
+| C | **done:** `users`, `sessions`, `known_devices`, WebAuthn credentials and challenges, TOTP, recovery codes, password resets, `audit_events` (append-only), FKs for `created_by/updated_by` |
 | E | optimistic locking (`version` + `If-Match`) in the API |
 | G | `revisions`, `content_snapshots`, `releases`, `release_events`; export of `published` revisions only |
 | I | redirect lookup, `seo_issues` |
