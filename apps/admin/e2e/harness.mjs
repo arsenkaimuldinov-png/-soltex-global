@@ -12,9 +12,10 @@ export const USERS = JSON.parse(process.env.E2E_USERS ?? '[]');
 const SHOTS = process.env.E2E_SHOTS ?? '';
 const ROOT = path.resolve(import.meta.dirname, '../../..');
 
-export const user = (role) => {
-  const u = USERS.find((x) => x.role === role);
-  if (!u) throw new Error(`no e2e user for ${role}`);
+/** The n-th seeded user of a role (several suites use their own users, so sessions never interfere). */
+export const user = (role, n = 0) => {
+  const u = USERS.filter((x) => x.role === role)[n];
+  if (!u) throw new Error(`no e2e user #${n} for ${role}`);
   return u;
 };
 

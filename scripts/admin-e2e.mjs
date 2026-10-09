@@ -5,7 +5,7 @@
  *
  *   DATABASE_URL=… MIGRATION_DATABASE_URL=… node scripts/admin-e2e.mjs [--no-build] [--shots]
  *
- * Steps: migrate → build the admin → create test users with unique e-mails (apps/api/test/e2e-seed.ts)
+ * Steps: migrate → import the seed content → build the admin → create test users with unique e-mails (apps/api/test/e2e-seed.ts)
  * → start the API (random keys, loopback port) and vite preview → run apps/admin/e2e/*.e2e.mjs
  * with node:test → stop everything. Nothing is deleted from the database, so use a test database.
  *
@@ -59,9 +59,12 @@ async function waitFor(url, label) {
 }
 
 run('npm', ['run', 'db:migrate']);
+// Content for the editors (idempotent; never deletes what earlier runs created).
+run('npm', ['run', 'db:import']);
 if (!args.includes('--no-build')) run('npm', ['run', 'build:admin']);
 
-const roles = ['owner', 'admin', 'content_manager', 'editor', 'marketer'];
+// admin.e2e.mjs uses the first user of each role; content.e2e.mjs its own (second editor, …).
+const roles = ['owner', 'admin', 'content_manager', 'editor', 'marketer', 'editor', 'editor', 'seo_specialist', 'admin'];
 const users = JSON.parse(run(process.execPath, ['--import', 'tsx', 'apps/api/test/e2e-seed.ts', 'users', roles.join(',')], { capture: true }));
 
 const key = () => crypto.randomBytes(32).toString('base64');

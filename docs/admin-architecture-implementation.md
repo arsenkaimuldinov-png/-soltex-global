@@ -377,6 +377,63 @@ Admin UI (login screens included), content CRUD API, editor, publishing, preview
 
 Content, media, translations, leads, SEO, settings, publishing, releases and preview screens; dashboard metrics; ASVS checklist (Phase M); nginx configuration (Phase N).
 
-### Next: Phase E (content management)
+---
 
-Editors for pages and collections, relations, usages, archive (approved §23).
+## Phase E: Content management (2026-10-08)
+
+**Base commit:** `8527b2c`. Details: [`admin-content.md`](admin-content.md).
+
+### What was done
+
+1. **Content API** (`/api/v1/content/…`, tag `content`):
+   - list / read / create (draft) / update / archive / restore for projects, technologies, products, EPC / EPCM stages, patents and videos;
+   - list / read / update for the 14 fixed pages and detail-page templates;
+   - read-only media list for pickers;
+   - no hard delete. Every mutation: session + second factor, CSRF header, permission, Zod validation (`.strict()`), audit event, RFC 9457 problem with `request_id`, `X-Request-ID`.
+2. **Existing tables only.** No migration: `version`, `archived_at`, `updated_by`, `source_locale` already existed (Phase B).
+3. **Optimistic locking:** `ETag: "<version>"`, `If-Match` required (428), `UPDATE … WHERE version = n`, 409 `edit_conflict` with the exact Russian message.
+4. **Field-level authorization in the API:** only changed fields are checked against core `SEO_FIELDS`; the route guard accepts "any of" (`content.edit` | `seo.edit`); refusals are audited after the rolled-back transaction.
+5. **Translations safe by construction:** the source language (EN) is edited; approved and in-progress translations keep their text and follow list moves (`from` origins); `missing` locales mirror the source, so the Phase B export keeps all six locale rows in the same shape. Translation statuses are never changed.
+6. **Slugs:** core `slugProblem` / `slugify` (route model: one language-neutral slug, `[a-z0-9-]`, ≤ 80, reserved `technology/patents`); unique per type (409 `slug_taken`); locked once a record is not a draft.
+7. **Statuses:** create → draft; draft ⇄ archived; published records are edited but not archived; archived records are read-only.
+8. **Pages:** core `PAGE_REGISTRY` (generated from the seed, tested against it) defines each page's slots, list item texts, images and SEO; placeholders such as `{count}` must stay intact; lists have a fixed structure.
+9. **Admin «Контент»:** Страницы, Проекты, Технологии, Продукты, EPC / EPCM, Патенты, Видео. Lists with server-side search, status filter, sort and pages kept in the URL. Typed editors with labels, help, limits and counters, inline errors, dirty state, ⌘S, the unsaved-changes dialog (now a Phase D `ConfirmDialog`, no `window.confirm`), conflict banner, archive / restore confirmation, translations summary, SEO counters and warnings, media picker, read-only views per permission. No rich text editor (the content has no rich text), no raw JSON.
+10. **Contract:** OpenAPI regenerated (API 0.5.0); `api-types` now also emits header parameters and record schemas.
+11. **Tests:** core +5, admin unit +8, API DB +15, admin E2E +12 (`apps/admin/e2e/content.e2e.mjs`).
+12. **Unchanged:** `apps/web`, the seed, migrations 0000–0003, public routes, SEO and prerender.
+
+### Verification (2026-10-08)
+
+| Check | Result |
+|---|---|
+| `git diff --check` | clean |
+| `npm run lint` | pass |
+| `npm test` | 56 / 56 pass (core 17, api 20, admin 19) |
+| `npm run test:db` | 79 tests: 78 pass, 1 skipped (backup role, no `BACKUP_DATABASE_URL` locally) |
+| `npm run test:e2e:admin` | 35 / 35 pass (shell 23, content 12); no page errors, no CSP violations |
+| `openapi.json`, admin API types, Drizzle schema | up to date; no drift, no new migration |
+| Admin bundle | builds; no secrets or server addresses |
+| Public site build vs Phase D (`8527b2c`) | **byte-identical** (229 files, 180 HTML) |
+| `qa-regression --base-ref 8527b2c` | **IDENTICAL to the baseline** |
+| DB regression: `seed → DB → export` (after `test:db`); site from the DB export | **byte-identical** to the seed; **identical** build |
+
+### Deviations (Phase E)
+
+| # | Deviation | Reason |
+|---|---|---|
+| E-1 | Published records cannot be archived; no publish / unpublish | Publishing, unpublish and revisions are Phase G. Archiving live content without unpublish would desynchronise the site |
+| E-2 | The slug of a non-draft record is locked | Changing a live URL needs the redirect flow (Phase I) |
+| E-3 | Records without a translation (`missing`) mirror the source on every save | The Phase B export requires all six locale rows with the same shape; mirroring keeps the export valid until the translation workflow (Phase F) |
+| E-4 | Page lists edit item texts only; no add / remove / reorder | Page list items are tied to the design (fixed layouts); new item templates would change the public site |
+| E-5 | Media picker without uploads; previews only when `VITE_MEDIA_BASE_URL` is set | Uploads, variants and the media library are Phase J |
+| E-6 | List search is a source-language `ILIKE` on title, slug and key; ⌘K does not search content | PostgreSQL FTS is designed with content search later (review §B) |
+| E-7 | The admin main chunk grew to about 162 kB gzip (editors are lazy) | Same as D-8: no admin budget; Vite's chunk warning is accepted |
+| E-8 | `apps/admin/src/lib/unsaved.ts` became `unsaved.tsx` | The guard now renders the Phase D confirmation dialog instead of `window.confirm` |
+
+### Not done in Phase E (by design)
+
+Publishing, revisions and scheduling (G); preview (H); SEO checker, redirects, slug changes of live records (I); translation workflow and outdated detection (F); uploads and the media library (J); leads and e-mail (K); settings, offices, metrics and footer editing; hard delete with usages; ASVS checklist (M); deployment (N).
+
+### Next: Phase F (translations) / Phase G (publishing)
+
+Translation editing and statuses, then the publishing system: publish / unpublish, revisions, releases.

@@ -2,14 +2,14 @@
  * Navigation model (review §X sidebar). One list drives the sidebar, the ⌘K palette and the route
  * guards, so a screen is never visible in one place and hidden in another.
  *
- * Only screens that exist are listed. The sections of later phases (Контент, Медиатека, Переводы,
- * Заявки, SEO, Настройки) are added here together with their screens; there are no placeholders.
+ * Only screens that exist are listed. The sections of later phases (Медиатека, Переводы, Заявки,
+ * SEO, Настройки) are added here together with their screens; there are no placeholders.
  * Visibility is a presentation of the user's permissions (from GET /auth/session); the API
  * enforces every permission on its own.
  */
 import type { Permission } from '@soltex/core/domain';
 import type { LucideIcon } from 'lucide-react';
-import { Activity, LayoutDashboard, ScrollText, ShieldCheck, Users } from 'lucide-react';
+import { Activity, Award, FileText, FlaskConical, FolderKanban, LayoutDashboard, Package, ScrollText, ShieldCheck, Users, Video, Workflow } from 'lucide-react';
 
 export interface NavItem {
   id: string;
@@ -32,6 +32,19 @@ export const NAV: NavSection[] = [
   {
     id: 'main',
     items: [{ id: 'overview', label: 'Обзор', to: '/', icon: LayoutDashboard, keywords: ['главная', 'дашборд'] }],
+  },
+  {
+    id: 'content',
+    label: 'Контент',
+    items: [
+      { id: 'pages', label: 'Страницы', to: '/content/pages', icon: FileText, permission: 'content.read', keywords: ['главная', 'о компании', 'контакты', 'тексты'] },
+      { id: 'projects', label: 'Проекты', to: '/content/projects', icon: FolderKanban, permission: 'content.read', keywords: ['заводы', 'кейсы'] },
+      { id: 'technologies', label: 'Технологии', to: '/content/technologies', icon: FlaskConical, permission: 'content.read', keywords: ['процессы'] },
+      { id: 'products', label: 'Продукты', to: '/content/products', icon: Package, permission: 'content.read', keywords: ['ингредиенты'] },
+      { id: 'epcm-stages', label: 'EPC / EPCM', to: '/content/epcm-stages', icon: Workflow, permission: 'content.read', keywords: ['этапы', 'epc', 'epcm'] },
+      { id: 'patents', label: 'Патенты', to: '/content/patents', icon: Award, permission: 'content.read', keywords: ['ис', 'интеллектуальная собственность'] },
+      { id: 'videos', label: 'Видео', to: '/content/videos', icon: Video, permission: 'content.read', keywords: ['ролики'] },
+    ],
   },
   {
     id: 'administration',

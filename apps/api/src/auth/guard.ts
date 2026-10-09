@@ -10,6 +10,8 @@
  *              be unmet (MFA enrollment endpoints). `stepUpIfEnrolled` adds step-up for users who
  *              already have a factor (adding a factor is then a sensitive change)
  *  full        second factor verified AND the role's requirement met; plus optional `permission`
+ *              (one permission, or a list meaning "any of them": e.g. a content update is open to
+ *              content.edit OR seo.edit, and the service then authorises every field)
  *              and `stepUp` (second factor verified within the last 10 minutes)
  * There is no role-based shortcut: permissions come only from @soltex/core/domain.
  */
@@ -27,7 +29,7 @@ export type Access =
   | { level: 'public' }
   | { level: 'pending' }
   | { level: 'enrollment'; stepUpIfEnrolled?: boolean }
-  | { level: 'full'; permission?: Permission; stepUp?: boolean };
+  | { level: 'full'; permission?: Permission | readonly Permission[]; stepUp?: boolean };
 
 export interface AuthContext {
   session: SessionRow;
@@ -84,14 +86,15 @@ export function registerAccessControl(app: FastifyInstance, deps: Deps) {
     }
 
     if (!factors.requirementMet) throw new Problem('mfa_enrollment_required');
-    if (access.permission && !hasPermission(user.role, access.permission)) {
+    const required = access.permission === undefined ? [] : ([] as Permission[]).concat(access.permission);
+    if (required.length && !required.some((p) => hasPermission(user.role, p))) {
       await recordAudit(deps, clientInfo(deps, request), {
         action: 'access.denied',
         result: 'denied',
         actorId: user.id,
         resourceType: 'endpoint',
         resourceId: `${request.method} ${request.routeOptions.url}`,
-        summary: { permission: access.permission },
+        summary: { permission: required.join(' | ') },
       });
       throw new Problem('forbidden');
     }

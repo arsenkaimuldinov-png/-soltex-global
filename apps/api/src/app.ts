@@ -22,8 +22,9 @@ import { passkeyRoutes } from './routes/passkeys.ts';
 import { GLOBAL_LIMIT, sessionOrIpKey } from './routes/rate-limits.ts';
 import { systemRoutes } from './routes/system.ts';
 import { userRoutes } from './routes/users.ts';
+import { contentRoutes } from './routes/content.ts';
 
-export const API_VERSION = '0.3.0';
+export const API_VERSION = '0.5.0';
 export const BODY_LIMIT_BYTES = 64 * 1024;
 
 export interface BuildOptions {
@@ -88,7 +89,7 @@ export async function buildApp(opts: BuildOptions): Promise<FastifyInstance> {
         title: 'Soltex Global Admin API',
         version: API_VERSION,
         description:
-          'Phase C: authentication, second factors, users and audit. Errors are RFC 9457 Problem Details ' +
+          'Authentication, second factors, users, audit (Phase C) and content management (Phase E). Errors are RFC 9457 Problem Details ' +
           '(application/problem+json) with `request_id`; every response carries `X-Request-ID`. ' +
           `State-changing requests need the header \`${CSRF_HEADER}: ${CSRF_VALUE}\`.`,
       },
@@ -106,6 +107,7 @@ export async function buildApp(opts: BuildOptions): Promise<FastifyInstance> {
         { name: 'mfa', description: 'TOTP and recovery codes' },
         { name: 'passkeys', description: 'WebAuthn passkeys' },
         { name: 'users', description: 'User management' },
+        { name: 'content', description: 'Content management (pages, projects, technologies, products, EPC/EPCM, patents, videos)' },
       ],
     },
     transform: (input) => {
@@ -123,6 +125,7 @@ export async function buildApp(opts: BuildOptions): Promise<FastifyInstance> {
     await mfaRoutes(scope, deps);
     await passkeyRoutes(scope, deps);
     await userRoutes(scope, deps);
+    await contentRoutes(scope, deps);
   });
 
   return app;

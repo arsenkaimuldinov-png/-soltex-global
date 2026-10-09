@@ -163,7 +163,7 @@ Put the three URLs in your local environment (see `.env.example`), then run `npm
 | Phase | Adds |
 |---|---|
 | C | **done:** `users`, `sessions`, `known_devices`, WebAuthn credentials and challenges, TOTP, recovery codes, password resets, `audit_events` (append-only), FKs for `created_by/updated_by` |
-| E | optimistic locking (`version` + `If-Match`) in the API |
+| E | **done, no migration:** optimistic locking (`version` + `If-Match`) and the locale-safe write rules in the API ([`admin-content.md`](admin-content.md) §4) |
 | G | `revisions`, `content_snapshots`, `releases`, `release_events`; export of `published` revisions only |
 | I | redirect lookup, `seo_issues` |
 | J | media storage paths, variants, sha256, uploads |

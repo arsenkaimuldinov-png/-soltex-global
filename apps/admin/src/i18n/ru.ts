@@ -39,6 +39,10 @@ export const AUDIT_ACTION_LABELS: Record<string, string> = {
   'user.sessions_revoke': 'Пользователь выведен из всех сеансов',
   'user.bootstrap_owner': 'Создан первый владелец',
   'access.denied': 'Попытка доступа без прав',
+  'content.create': 'Создан материал',
+  'content.update': 'Изменён материал',
+  'content.archive': 'Материал перенесён в архив',
+  'content.restore': 'Материал возвращён из архива',
 };
 export const auditActionLabel = (action: string) => AUDIT_ACTION_LABELS[action] ?? 'Действие в системе';
 
@@ -59,6 +63,21 @@ export const AUDIT_DETAIL_LABELS: Record<string, string> = {
   recovery: 'резервный код',
   recovery_code: 'резервный код',
   cli: 'командная строка сервера',
+  draft: 'черновик',
+  archived: 'в архиве',
+  published: 'опубликовано',
+};
+
+/** Audit resource types of content (docs/admin-content.md §7). */
+export const RESOURCE_LABELS: Record<string, string> = {
+  page: 'страница',
+  project: 'проект',
+  technology: 'технология',
+  product: 'продукт',
+  epcm_stage: 'этап EPC / EPCM',
+  patent: 'патент',
+  video: 'видео',
+  user: 'пользователь',
 };
 
 /** Password policy problems returned by the API (field errors of `password_rejected`). */

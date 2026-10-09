@@ -84,7 +84,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
     <select
       ref={ref}
       aria-invalid={invalid || undefined}
-      className={cx(control, 'h-9 pr-8', invalid ? 'border-danger' : 'border-line-strong', className)}
+      className={cx(control, 'h-9 max-w-full min-w-0 pr-8', invalid ? 'border-danger' : 'border-line-strong', className)}
       {...rest}
     >
       {children}

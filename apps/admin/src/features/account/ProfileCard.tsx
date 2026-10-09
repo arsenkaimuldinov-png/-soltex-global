@@ -18,7 +18,7 @@ export function ProfileCard() {
   const qc = useQueryClient();
   const toast = useToast();
   const form = useForm<z.infer<typeof schema>>({ resolver: zodResolver(schema), values: { name: view.user.name } });
-  useUnsavedChangesGuard(form.formState.isDirty);
+  const unsavedGuard = useUnsavedChangesGuard(form.formState.isDirty);
 
   const onSubmit = form.handleSubmit(async (values) => {
     try {
@@ -47,6 +47,7 @@ export function ProfileCard() {
           Сохранить
         </Button>
       </form>
+      {unsavedGuard}
     </Card>
   );
 }

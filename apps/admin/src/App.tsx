@@ -73,6 +73,34 @@ export const routes = [
         ),
         children: [
           { index: true, element: <OverviewPage /> },
+          {
+            path: 'content/pages',
+            lazy: async () => {
+              const { PagesListPage } = await import('./features/content/PagesListPage');
+              return { element: <RequirePermission permission="content.read"><PagesListPage /></RequirePermission> };
+            },
+          },
+          {
+            path: 'content/pages/:id',
+            lazy: async () => {
+              const { PageEditorPage } = await import('./features/content/PageEditor');
+              return { element: <RequirePermission permission="content.read"><PageEditorPage /></RequirePermission> };
+            },
+          },
+          {
+            path: 'content/:collection',
+            lazy: async () => {
+              const { ContentListPageRoute } = await import('./features/content/ContentListPage');
+              return { element: <RequirePermission permission="content.read"><ContentListPageRoute /></RequirePermission> };
+            },
+          },
+          {
+            path: 'content/:collection/:id',
+            lazy: async () => {
+              const { CollectionEditorPage } = await import('./features/content/CollectionEditor');
+              return { element: <RequirePermission permission="content.read"><CollectionEditorPage /></RequirePermission> };
+            },
+          },
           { path: 'account', lazy: async () => ({ Component: (await import('./features/account/AccountPage')).AccountPage }) },
           {
             path: 'admin/users',

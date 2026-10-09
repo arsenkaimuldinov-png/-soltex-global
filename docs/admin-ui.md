@@ -57,6 +57,8 @@ Phase D delivers the admin shell and every screen that the Phase C API already s
 | `/admin/users` | `users.manage` | Пользователи |
 | `/admin/audit` | `audit.read` | Журнал действий |
 | `/admin/system` | `system.read` | Система |
+| `/content/pages`, `/content/pages/:id` | `content.read` | Страницы: list and page editor (Phase E, [`admin-content.md`](admin-content.md)) |
+| `/content/:collection`, `/content/:collection/:id` | `content.read` | Проекты, Технологии, Продукты, EPC / EPCM, Патенты, Видео: lists and typed editors. An unknown collection shows «Страница не найдена» |
 | anything else | signed in | «Страница не найдена» |
 
 **Rules:**

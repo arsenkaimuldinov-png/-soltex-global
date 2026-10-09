@@ -60,7 +60,9 @@ The content API (Phase E) will enforce these rules. The test suite already cover
 | `public` | nothing: `GET /health`, `POST /auth/login`, `POST /auth/password-reset/request`, `POST /auth/password-reset/confirm` |
 | `pending` | a live session, even before the second factor (session info, logout, MFA verification) |
 | `enrollment` | the second factor, if one is enrolled; the role requirement may still be unmet (enrolling a factor). Adding a further factor needs step-up |
-| `full` | the second factor and the role requirement met; optionally a `permission` and `stepUp` |
+| `full` | the second factor and the role requirement met; optionally a `permission` (one, or a list meaning "any of", Phase E) and `stepUp` |
+
+Content mutations (Phase E) add field-level checks after the route permission: only changed fields are checked against `SEO_FIELDS`; a refusal is audited as `access.denied`. Content audit actions: `content.create`, `content.update` (summary: changed field names, never values), `content.archive`, `content.restore`. See [`admin-content.md`](admin-content.md).
 
 ---
 

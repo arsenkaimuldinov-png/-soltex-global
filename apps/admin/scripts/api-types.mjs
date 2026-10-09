@@ -40,7 +40,10 @@ function ts(schema, where) {
     case 'array':
       return `Array<${ts(schema.items, where)}>`;
     case 'object': {
-      if (!schema.properties) return 'Record<string, unknown>';
+      if (!schema.properties) {
+        const extra = schema.additionalProperties;
+        return extra && typeof extra === 'object' && Object.keys(extra).length ? `Record<string, ${ts(extra, `${where}.*`)}>` : 'Record<string, unknown>';
+      }
       const req = new Set(schema.required ?? []);
       const lines = Object.entries(schema.properties).map(([k, v]) => {
         const doc = v.description ? `/** ${v.description.replace(/\*\//g, '* /')} */\n` : '';
@@ -59,9 +62,8 @@ const out = [
   '',
 ];
 
-// Component schemas (output variants only; "…Input" duplicates are the request-side twins).
+// Component schemas ("…Input" are the request-side twins of schemas used in both directions).
 for (const [name, schema] of Object.entries(doc.components?.schemas ?? {})) {
-  if (name.endsWith('Input')) continue;
   out.push(`export type ${name} = ${ts(schema, name)};`, '');
 }
 
@@ -73,15 +75,17 @@ for (const [p, methods] of Object.entries(doc.paths)) {
     const body = op.requestBody?.content?.['application/json']?.schema;
     const okEntry = Object.entries(op.responses).find(([c]) => Number(c) >= 200 && Number(c) < 300);
     const ok = okEntry?.[1]?.content?.['application/json']?.schema;
-    const params = (op.parameters ?? []).filter((x) => x.in === 'query' || x.in === 'path');
+    const params = op.parameters ?? [];
     const query = params.filter((x) => x.in === 'query');
     const pathP = params.filter((x) => x.in === 'path');
+    const headerP = params.filter((x) => x.in === 'header');
     const obj = (list) => `{ ${list.map((x) => `${prop(x.name)}${x.required ? '' : '?'}: ${ts(x.schema, `${key}.${x.name}`)};`).join(' ')} }`;
     ops.push(
       `  ${JSON.stringify(key)}: {\n` +
         `    body: ${body ? ind(ts(body, `${key}.body`), 2) : 'never'};\n` +
         `    query: ${query.length ? obj(query) : 'never'};\n` +
         `    params: ${pathP.length ? obj(pathP) : 'never'};\n` +
+        `    headers: ${headerP.length ? obj(headerP) : 'never'};\n` +
         `    response: ${ok === undefined || ok?.type === 'null' ? 'void' : ind(ts(ok, `${key}.response`), 2)};\n` +
         `    status: ${okEntry ? Number(okEntry[0]) : 200};\n` +
         `  };`

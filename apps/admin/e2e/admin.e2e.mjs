@@ -78,10 +78,10 @@ describe('admin (Phase D)', () => {
     await shot(page, '03-overview-owner');
   });
 
-  test('Owner: sidebar shows exactly the administration screens; no later-phase sections', async () => {
+  test('Owner: sidebar shows exactly the content and administration screens; no later-phase sections', async () => {
     const { page } = profiles.owner;
     const links = await sidebar(page).getByRole('link').allTextContents();
-    assert.deepEqual(links.map((s) => s.trim()), ['Обзор', 'Пользователи', 'Журнал действий', 'Система']);
+    assert.deepEqual(links.map((s) => s.trim()), ['Обзор', 'Страницы', 'Проекты', 'Технологии', 'Продукты', 'EPC / EPCM', 'Патенты', 'Видео', 'Пользователи', 'Журнал действий', 'Система']);
   });
 
   test('session cookie is HttpOnly, SameSite=Strict, host-only; no token in storage', async () => {
@@ -224,14 +224,14 @@ describe('admin (Phase D)', () => {
     await page.keyboard.press('Escape');
   });
 
-  test('Editor: no second factor required; no administration screens; direct address → «Недостаточно прав»', async () => {
+  test('Editor: no second factor required; content but no administration screens; direct address → «Недостаточно прав»', async () => {
     profiles.editor = await profile();
     const { page } = profiles.editor;
     await signInWithPassword(page, EDITOR);
     await page.waitForURL(`${ORIGIN}/`);
     await page.getByText('Второй фактор не настроен').waitFor();
     const links = await sidebar(page).getByRole('link').allTextContents();
-    assert.deepEqual(links.map((s) => s.trim()), ['Обзор']);
+    assert.deepEqual(links.map((s) => s.trim()), ['Обзор', 'Страницы', 'Проекты', 'Технологии', 'Продукты', 'EPC / EPCM', 'Патенты', 'Видео']);
     await page.goto(`${ORIGIN}/admin/users`);
     await page.getByRole('heading', { name: 'Недостаточно прав' }).waitFor();
     await page.goto(`${ORIGIN}/admin/audit`);
@@ -286,7 +286,7 @@ describe('admin (Phase D)', () => {
     await page.waitForURL(`${ORIGIN}/`);
     await page.getByRole('heading', { name: 'Обзор' }).waitFor();
     const links = await sidebar(page).getByRole('link').allTextContents();
-    assert.deepEqual(links.map((s) => s.trim()), ['Обзор']);
+    assert.deepEqual(links.map((s) => s.trim()), ['Обзор', 'Страницы', 'Проекты', 'Технологии', 'Продукты', 'EPC / EPCM', 'Патенты', 'Видео']);
 
     await page.getByRole('button', { name: 'Меню пользователя' }).click();
     await page.getByRole('menuitem', { name: 'Выйти' }).click();
@@ -328,7 +328,7 @@ describe('admin (Phase D)', () => {
     await page.waitForURL(`${ORIGIN}/`);
     await page.getByRole('heading', { name: 'Обзор' }).waitFor();
     const links = await sidebar(page).getByRole('link').allTextContents();
-    assert.deepEqual(links.map((s) => s.trim()), ['Обзор', 'Система']);
+    assert.deepEqual(links.map((s) => s.trim()), ['Обзор', 'Страницы', 'Проекты', 'Технологии', 'Продукты', 'EPC / EPCM', 'Патенты', 'Видео', 'Система']);
     await page.goto(`${ORIGIN}/admin/system`);
     await page.getByText('Работает').waitFor();
     await shot(page, '10-system');
@@ -399,14 +399,12 @@ describe('admin (Phase D)', () => {
     const { page } = profiles.owner;
     await page.goto(`${ORIGIN}/account`);
     await page.getByLabel('Имя', { exact: true }).fill(`${OWNER.name} (изменено)`);
-    let asked = '';
-    page.once('dialog', (d) => {
-      asked = d.message();
-      void d.dismiss();
-    });
     await sidebar(page).getByRole('link', { name: 'Пользователи' }).click();
-    await page.waitForTimeout(300);
-    assert.match(asked, /несохранённые изменения/);
+    // The admin's own dialog (not the browser's confirm()).
+    const dialog = page.getByRole('alertdialog', { name: 'Уйти без сохранения?' });
+    await dialog.waitFor();
+    await dialog.getByRole('button', { name: 'Отмена' }).click();
+    await dialog.waitFor({ state: 'detached' });
     assert.equal(new URL(page.url()).pathname, '/account');
     await page.getByLabel('Имя', { exact: true }).fill(OWNER.name);
   });

@@ -3,7 +3,8 @@
  * (schema.gen.ts). Rules:
  *  - cookies only (`credentials: 'same-origin'`); no token is ever read or stored by the SPA;
  *  - every state-changing request carries the CSRF header the API requires (admin-auth.md §6);
- *  - errors are RFC 9457 problems → `ApiError` with the request id for the error toast.
+ *  - errors are RFC 9457 problems → `ApiError` with the request id for the error toast;
+ *  - optimistic locking: content changes pass `headers: { 'if-match': '"<version>"' }`.
  */
 import type { OperationKey, Operations, Problem } from './schema.gen';
 
@@ -37,7 +38,8 @@ export const isApiError = (e: unknown, code?: string): e is ApiError => e instan
 type Op<K extends OperationKey> = Operations[K];
 type Args<K extends OperationKey> = ([Op<K>['body']] extends [never] ? { body?: undefined } : { body: Op<K>['body'] }) &
   ([Op<K>['query']] extends [never] ? { query?: undefined } : { query?: Op<K>['query'] }) &
-  ([Op<K>['params']] extends [never] ? { params?: undefined } : { params: Op<K>['params'] });
+  ([Op<K>['params']] extends [never] ? { params?: undefined } : { params: Op<K>['params'] }) &
+  ([Op<K>['headers']] extends [never] ? { headers?: undefined } : { headers?: Op<K>['headers'] });
 
 /** Listeners for session-level failures (handled once, centrally, by the session layer). */
 type Listener = (e: ApiError, key: OperationKey) => void;
@@ -69,8 +71,9 @@ export function buildUrl(key: OperationKey, params?: Record<string, string>, que
 
 export async function api<K extends OperationKey>(key: K, ...[args]: {} extends Args<K> ? [Args<K>?] : [Args<K>]): Promise<Op<K>['response']> {
   const method = key.slice(0, key.indexOf(' '));
-  const a = (args ?? {}) as { body?: unknown; query?: Record<string, unknown>; params?: Record<string, string> };
+  const a = (args ?? {}) as { body?: unknown; query?: Record<string, unknown>; params?: Record<string, string>; headers?: Record<string, string | undefined> };
   const headers: Record<string, string> = { Accept: 'application/json' };
+  for (const [k, v] of Object.entries(a.headers ?? {})) if (v !== undefined) headers[k] = v;
   if (method !== 'GET') headers[CSRF_HEADER] = CSRF_VALUE;
   if (a.body !== undefined) headers['Content-Type'] = 'application/json';
 
