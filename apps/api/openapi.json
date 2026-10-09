@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Soltex Global Admin API",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "description": "Authentication, second factors, users, audit (Phase C) and content management (Phase E). Errors are RFC 9457 Problem Details (application/problem+json) with `request_id`; every response carries `X-Request-ID`. State-changing requests need the header `x-requested-with: soltex-admin`."
   },
   "components": {
@@ -291,6 +291,585 @@
           "createdAt"
         ]
       },
+      "TranslationValueInput": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "label",
+                "value"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "title",
+                "description"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "patentNumber": {
+                "type": "string"
+              },
+              "location": {
+                "type": "string"
+              },
+              "keyPoints": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "patentNumber",
+              "location",
+              "keyPoints"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "propertyNames": {
+                "type": "string"
+              },
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "description": "text · list · pairs · titleDesc · patentInfo · records (see the field kind)"
+      },
+      "TranslationFieldInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "copy.<slot>, header.<field>, lists.<key>, body, seoMetaTitle, or a collection field name"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "text",
+              "list",
+              "pairs",
+              "titleDesc",
+              "patentInfo",
+              "records"
+            ]
+          },
+          "group": {
+            "type": "string",
+            "enum": [
+              "content",
+              "seo"
+            ],
+            "description": "seo fields need seo.edit, content fields content.edit"
+          },
+          "multiline": {
+            "type": "boolean"
+          },
+          "max": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "itemFields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "placeholders": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "{name} placeholders the translation must keep"
+          },
+          "source": {
+            "$ref": "#/components/schemas/TranslationValueInput"
+          },
+          "target": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TranslationValueInput"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "kind",
+          "group",
+          "multiline",
+          "max",
+          "placeholders",
+          "source",
+          "target"
+        ]
+      },
+      "TranslationLocaleSummaryInput": {
+        "type": "object",
+        "properties": {
+          "locale": {
+            "type": "string",
+            "enum": [
+              "ru",
+              "zh",
+              "tr",
+              "ar",
+              "es"
+            ]
+          },
+          "total": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "missing": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "inProgress": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "outdated": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "approved": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "completion": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991,
+            "description": "approved for the current source / total, %, rounded down"
+          }
+        },
+        "required": [
+          "locale",
+          "total",
+          "missing",
+          "inProgress",
+          "outdated",
+          "approved",
+          "completion"
+        ]
+      },
+      "TranslationOverviewInput": {
+        "type": "object",
+        "properties": {
+          "sourceLocale": {
+            "type": "string"
+          },
+          "total": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991,
+            "description": "Translatable items: non-archived records of the seven types"
+          },
+          "locales": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TranslationLocaleSummaryInput"
+            }
+          },
+          "types": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "pages",
+                    "projects",
+                    "technologies",
+                    "products",
+                    "epcm-stages",
+                    "patents",
+                    "videos"
+                  ]
+                },
+                "total": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                "locales": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TranslationLocaleSummaryInput"
+                  }
+                }
+              },
+              "required": [
+                "type",
+                "total",
+                "locales"
+              ]
+            }
+          }
+        },
+        "required": [
+          "sourceLocale",
+          "total",
+          "locales",
+          "types"
+        ]
+      },
+      "TranslationListItemInput": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "pages",
+              "projects",
+              "technologies",
+              "products",
+              "epcm-stages",
+              "patents",
+              "videos"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "key": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "entityStatus": {
+            "type": "string"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "ru",
+              "zh",
+              "tr",
+              "ar",
+              "es"
+            ]
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "missing",
+              "in_progress",
+              "outdated",
+              "approved"
+            ]
+          },
+          "sourceRevision": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "approvedSourceRevision": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sourceChangedSinceEdit": {
+            "type": "boolean"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "updatedBy": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "type",
+          "id",
+          "key",
+          "title",
+          "entityStatus",
+          "locale",
+          "state",
+          "sourceRevision",
+          "approvedSourceRevision",
+          "sourceChangedSinceEdit",
+          "updatedAt",
+          "updatedBy"
+        ]
+      },
+      "TranslationInput": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "pages",
+              "projects",
+              "technologies",
+              "products",
+              "epcm-stages",
+              "patents",
+              "videos"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "key": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "entityStatus": {
+            "type": "string"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "ru",
+              "zh",
+              "tr",
+              "ar",
+              "es"
+            ]
+          },
+          "sourceLocale": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "missing",
+              "in_progress",
+              "outdated",
+              "approved"
+            ]
+          },
+          "storedState": {
+            "type": "string",
+            "enum": [
+              "missing",
+              "in_progress",
+              "approved"
+            ]
+          },
+          "sourceRevision": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "approvedSourceRevision": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "editedSourceRevision": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sourceChangedSinceEdit": {
+            "type": "boolean"
+          },
+          "approvedAt": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "approvedBy": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "updatedBy": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "etag": {
+            "type": "string",
+            "description": "Send as If-Match to save, approve or reopen"
+          },
+          "editable": {
+            "type": "boolean"
+          },
+          "sameAsSource": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TranslationFieldInput"
+            }
+          }
+        },
+        "required": [
+          "type",
+          "id",
+          "key",
+          "title",
+          "entityStatus",
+          "locale",
+          "sourceLocale",
+          "state",
+          "storedState",
+          "sourceRevision",
+          "approvedSourceRevision",
+          "editedSourceRevision",
+          "sourceChangedSinceEdit",
+          "approvedAt",
+          "approvedBy",
+          "updatedAt",
+          "updatedBy",
+          "etag",
+          "editable",
+          "sameAsSource",
+          "fields"
+        ]
+      },
       "ContentListItemInput": {
         "type": "object",
         "properties": {
@@ -362,40 +941,50 @@
                 "enum": [
                   "missing",
                   "in_progress",
+                  "outdated",
                   "approved"
-                ]
+                ],
+                "description": "Effective translation state; outdated = approved for an older source text"
               },
               "zh": {
                 "type": "string",
                 "enum": [
                   "missing",
                   "in_progress",
+                  "outdated",
                   "approved"
-                ]
+                ],
+                "description": "Effective translation state; outdated = approved for an older source text"
               },
               "tr": {
                 "type": "string",
                 "enum": [
                   "missing",
                   "in_progress",
+                  "outdated",
                   "approved"
-                ]
+                ],
+                "description": "Effective translation state; outdated = approved for an older source text"
               },
               "ar": {
                 "type": "string",
                 "enum": [
                   "missing",
                   "in_progress",
+                  "outdated",
                   "approved"
-                ]
+                ],
+                "description": "Effective translation state; outdated = approved for an older source text"
               },
               "es": {
                 "type": "string",
                 "enum": [
                   "missing",
                   "in_progress",
+                  "outdated",
                   "approved"
-                ]
+                ],
+                "description": "Effective translation state; outdated = approved for an older source text"
               }
             },
             "required": [
@@ -1145,8 +1734,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -1168,8 +1759,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -1191,8 +1784,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -1214,8 +1809,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -1237,8 +1834,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -2158,8 +2757,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -2181,8 +2782,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -2204,8 +2807,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -2227,8 +2832,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -2250,8 +2857,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -2862,8 +3471,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -2885,8 +3496,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -2908,8 +3521,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -2931,8 +3546,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -2954,8 +3571,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -3273,8 +3892,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -3296,8 +3917,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -3319,8 +3942,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -3342,8 +3967,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -3365,8 +3992,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -4180,8 +4809,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -4203,8 +4834,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -4226,8 +4859,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -4249,8 +4884,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -4272,8 +4909,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -4537,8 +5176,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -4560,8 +5201,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -4583,8 +5226,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -4606,8 +5251,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -4629,8 +5276,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -4751,40 +5400,50 @@
                 "enum": [
                   "missing",
                   "in_progress",
+                  "outdated",
                   "approved"
-                ]
+                ],
+                "description": "Effective translation state; outdated = approved for an older source text"
               },
               "zh": {
                 "type": "string",
                 "enum": [
                   "missing",
                   "in_progress",
+                  "outdated",
                   "approved"
-                ]
+                ],
+                "description": "Effective translation state; outdated = approved for an older source text"
               },
               "tr": {
                 "type": "string",
                 "enum": [
                   "missing",
                   "in_progress",
+                  "outdated",
                   "approved"
-                ]
+                ],
+                "description": "Effective translation state; outdated = approved for an older source text"
               },
               "ar": {
                 "type": "string",
                 "enum": [
                   "missing",
                   "in_progress",
+                  "outdated",
                   "approved"
-                ]
+                ],
+                "description": "Effective translation state; outdated = approved for an older source text"
               },
               "es": {
                 "type": "string",
                 "enum": [
                   "missing",
                   "in_progress",
+                  "outdated",
                   "approved"
-                ]
+                ],
+                "description": "Effective translation state; outdated = approved for an older source text"
               }
             },
             "required": [
@@ -5049,8 +5708,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -5072,8 +5733,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -5095,8 +5758,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -5118,8 +5783,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -5141,8 +5808,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -5477,6 +6146,25 @@
           "alt"
         ]
       },
+      "TranslationUpdateInput": {
+        "type": "object",
+        "properties": {
+          "fields": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "$ref": "#/components/schemas/TranslationValueInput"
+            },
+            "description": "Field name → translated value (changed fields)"
+          }
+        },
+        "required": [
+          "fields"
+        ],
+        "additionalProperties": false
+      },
       "Problem": {
         "type": "object",
         "properties": {
@@ -5755,6 +6443,594 @@
         ],
         "additionalProperties": false
       },
+      "TranslationValue": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "label",
+                "value"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "title",
+                "description"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "patentNumber": {
+                "type": "string"
+              },
+              "location": {
+                "type": "string"
+              },
+              "keyPoints": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "patentNumber",
+              "location",
+              "keyPoints"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "propertyNames": {
+                "type": "string"
+              },
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "description": "text · list · pairs · titleDesc · patentInfo · records (see the field kind)"
+      },
+      "TranslationField": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "copy.<slot>, header.<field>, lists.<key>, body, seoMetaTitle, or a collection field name"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "text",
+              "list",
+              "pairs",
+              "titleDesc",
+              "patentInfo",
+              "records"
+            ]
+          },
+          "group": {
+            "type": "string",
+            "enum": [
+              "content",
+              "seo"
+            ],
+            "description": "seo fields need seo.edit, content fields content.edit"
+          },
+          "multiline": {
+            "type": "boolean"
+          },
+          "max": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "itemFields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "placeholders": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "{name} placeholders the translation must keep"
+          },
+          "source": {
+            "$ref": "#/components/schemas/TranslationValue"
+          },
+          "target": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TranslationValue"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "kind",
+          "group",
+          "multiline",
+          "max",
+          "placeholders",
+          "source",
+          "target"
+        ],
+        "additionalProperties": false
+      },
+      "TranslationLocaleSummary": {
+        "type": "object",
+        "properties": {
+          "locale": {
+            "type": "string",
+            "enum": [
+              "ru",
+              "zh",
+              "tr",
+              "ar",
+              "es"
+            ]
+          },
+          "total": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "missing": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "inProgress": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "outdated": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "approved": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "completion": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991,
+            "description": "approved for the current source / total, %, rounded down"
+          }
+        },
+        "required": [
+          "locale",
+          "total",
+          "missing",
+          "inProgress",
+          "outdated",
+          "approved",
+          "completion"
+        ],
+        "additionalProperties": false
+      },
+      "TranslationOverview": {
+        "type": "object",
+        "properties": {
+          "sourceLocale": {
+            "type": "string"
+          },
+          "total": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991,
+            "description": "Translatable items: non-archived records of the seven types"
+          },
+          "locales": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TranslationLocaleSummary"
+            }
+          },
+          "types": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "pages",
+                    "projects",
+                    "technologies",
+                    "products",
+                    "epcm-stages",
+                    "patents",
+                    "videos"
+                  ]
+                },
+                "total": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                "locales": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TranslationLocaleSummary"
+                  }
+                }
+              },
+              "required": [
+                "type",
+                "total",
+                "locales"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "sourceLocale",
+          "total",
+          "locales",
+          "types"
+        ],
+        "additionalProperties": false
+      },
+      "TranslationListItem": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "pages",
+              "projects",
+              "technologies",
+              "products",
+              "epcm-stages",
+              "patents",
+              "videos"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "key": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "entityStatus": {
+            "type": "string"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "ru",
+              "zh",
+              "tr",
+              "ar",
+              "es"
+            ]
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "missing",
+              "in_progress",
+              "outdated",
+              "approved"
+            ]
+          },
+          "sourceRevision": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "approvedSourceRevision": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sourceChangedSinceEdit": {
+            "type": "boolean"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "updatedBy": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "type",
+          "id",
+          "key",
+          "title",
+          "entityStatus",
+          "locale",
+          "state",
+          "sourceRevision",
+          "approvedSourceRevision",
+          "sourceChangedSinceEdit",
+          "updatedAt",
+          "updatedBy"
+        ],
+        "additionalProperties": false
+      },
+      "Translation": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "pages",
+              "projects",
+              "technologies",
+              "products",
+              "epcm-stages",
+              "patents",
+              "videos"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "key": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "entityStatus": {
+            "type": "string"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "ru",
+              "zh",
+              "tr",
+              "ar",
+              "es"
+            ]
+          },
+          "sourceLocale": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "missing",
+              "in_progress",
+              "outdated",
+              "approved"
+            ]
+          },
+          "storedState": {
+            "type": "string",
+            "enum": [
+              "missing",
+              "in_progress",
+              "approved"
+            ]
+          },
+          "sourceRevision": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "approvedSourceRevision": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "editedSourceRevision": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sourceChangedSinceEdit": {
+            "type": "boolean"
+          },
+          "approvedAt": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "approvedBy": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "updatedBy": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "etag": {
+            "type": "string",
+            "description": "Send as If-Match to save, approve or reopen"
+          },
+          "editable": {
+            "type": "boolean"
+          },
+          "sameAsSource": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TranslationField"
+            }
+          }
+        },
+        "required": [
+          "type",
+          "id",
+          "key",
+          "title",
+          "entityStatus",
+          "locale",
+          "sourceLocale",
+          "state",
+          "storedState",
+          "sourceRevision",
+          "approvedSourceRevision",
+          "editedSourceRevision",
+          "sourceChangedSinceEdit",
+          "approvedAt",
+          "approvedBy",
+          "updatedAt",
+          "updatedBy",
+          "etag",
+          "editable",
+          "sameAsSource",
+          "fields"
+        ],
+        "additionalProperties": false
+      },
       "ContentListItem": {
         "type": "object",
         "properties": {
@@ -5827,40 +7103,50 @@
                 "enum": [
                   "missing",
                   "in_progress",
+                  "outdated",
                   "approved"
-                ]
+                ],
+                "description": "Effective translation state; outdated = approved for an older source text"
               },
               "zh": {
                 "type": "string",
                 "enum": [
                   "missing",
                   "in_progress",
+                  "outdated",
                   "approved"
-                ]
+                ],
+                "description": "Effective translation state; outdated = approved for an older source text"
               },
               "tr": {
                 "type": "string",
                 "enum": [
                   "missing",
                   "in_progress",
+                  "outdated",
                   "approved"
-                ]
+                ],
+                "description": "Effective translation state; outdated = approved for an older source text"
               },
               "ar": {
                 "type": "string",
                 "enum": [
                   "missing",
                   "in_progress",
+                  "outdated",
                   "approved"
-                ]
+                ],
+                "description": "Effective translation state; outdated = approved for an older source text"
               },
               "es": {
                 "type": "string",
                 "enum": [
                   "missing",
                   "in_progress",
+                  "outdated",
                   "approved"
-                ]
+                ],
+                "description": "Effective translation state; outdated = approved for an older source text"
               }
             },
             "required": [
@@ -6615,8 +7901,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -6639,8 +7927,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -6663,8 +7953,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -6687,8 +7979,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -6711,8 +8005,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -7639,8 +8935,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -7663,8 +8961,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -7687,8 +8987,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -7711,8 +9013,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -7735,8 +9039,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -8352,8 +9658,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -8376,8 +9684,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -8400,8 +9710,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -8424,8 +9736,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -8448,8 +9762,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -8772,8 +10088,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -8796,8 +10114,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -8820,8 +10140,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -8844,8 +10166,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -8868,8 +10192,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -9689,8 +11015,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -9713,8 +11041,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -9737,8 +11067,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -9761,8 +11093,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -9785,8 +11119,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -10055,8 +11391,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -10079,8 +11417,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -10103,8 +11443,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -10127,8 +11469,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -10151,8 +11495,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -10277,40 +11623,50 @@
                 "enum": [
                   "missing",
                   "in_progress",
+                  "outdated",
                   "approved"
-                ]
+                ],
+                "description": "Effective translation state; outdated = approved for an older source text"
               },
               "zh": {
                 "type": "string",
                 "enum": [
                   "missing",
                   "in_progress",
+                  "outdated",
                   "approved"
-                ]
+                ],
+                "description": "Effective translation state; outdated = approved for an older source text"
               },
               "tr": {
                 "type": "string",
                 "enum": [
                   "missing",
                   "in_progress",
+                  "outdated",
                   "approved"
-                ]
+                ],
+                "description": "Effective translation state; outdated = approved for an older source text"
               },
               "ar": {
                 "type": "string",
                 "enum": [
                   "missing",
                   "in_progress",
+                  "outdated",
                   "approved"
-                ]
+                ],
+                "description": "Effective translation state; outdated = approved for an older source text"
               },
               "es": {
                 "type": "string",
                 "enum": [
                   "missing",
                   "in_progress",
+                  "outdated",
                   "approved"
-                ]
+                ],
+                "description": "Effective translation state; outdated = approved for an older source text"
               }
             },
             "required": [
@@ -10581,8 +11937,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -10605,8 +11963,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -10629,8 +11989,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -10653,8 +12015,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -10677,8 +12041,10 @@
                     "enum": [
                       "missing",
                       "in_progress",
+                      "outdated",
                       "approved"
-                    ]
+                    ],
+                    "description": "Effective translation state; outdated = approved for an older source text"
                   },
                   "approvedAt": {
                     "type": [
@@ -11014,6 +12380,25 @@
           "width",
           "height",
           "alt"
+        ],
+        "additionalProperties": false
+      },
+      "TranslationUpdate": {
+        "type": "object",
+        "properties": {
+          "fields": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "$ref": "#/components/schemas/TranslationValue"
+            },
+            "description": "Field name → translated value (changed fields)"
+          }
+        },
+        "required": [
+          "fields"
         ],
         "additionalProperties": false
       }
@@ -17785,6 +19170,3656 @@
           }
         }
       }
+    },
+    "/api/v1/translations/overview": {
+      "get": {
+        "summary": "Translation completeness per language and type",
+        "tags": [
+          "translations"
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.read"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TranslationOverview"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/translations": {
+      "get": {
+        "summary": "List translations (one row per record and language)",
+        "tags": [
+          "translations"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "query",
+            "name": "locale",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "pages",
+                "projects",
+                "technologies",
+                "products",
+                "epcm-stages",
+                "patents",
+                "videos"
+              ]
+            },
+            "in": "query",
+            "name": "type",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "missing",
+                "in_progress",
+                "outdated",
+                "approved",
+                "attention"
+              ]
+            },
+            "in": "query",
+            "name": "state",
+            "required": false,
+            "description": "attention = everything not approved for the current source"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "query",
+            "name": "entity",
+            "required": false,
+            "description": "Only the translations of one record"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "in": "query",
+            "name": "q",
+            "required": false,
+            "description": "Search in the source-language title and the key"
+          },
+          {
+            "schema": {
+              "default": "type",
+              "type": "string",
+              "enum": [
+                "type",
+                "title",
+                "updated",
+                "state"
+              ]
+            },
+            "in": "query",
+            "name": "sort",
+            "required": false
+          },
+          {
+            "schema": {
+              "default": 25,
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            },
+            "in": "query",
+            "name": "limit",
+            "required": false
+          },
+          {
+            "schema": {
+              "default": 0,
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "in": "query",
+            "name": "offset",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.read"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TranslationListItem"
+                      }
+                    },
+                    "total": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "total"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/pages/{id}/translations/{locale}": {
+      "get": {
+        "summary": "Read a translation of pages",
+        "tags": [
+          "translations"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.read"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Save a translation of pages",
+        "tags": [
+          "translations"
+        ],
+        "description": "Changes the target language only; the structure (fields, list items) stays that of the source. The state becomes in_progress. SEO texts need seo.edit, other texts content.edit. If-Match required; 409 edit_conflict when the source text or this translation changed in between.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TranslationUpdate"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "if-match",
+            "required": false,
+            "description": "Required. The ETag of GET, e.g. \"3.7\" (source revision . row version)"
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": [
+            "content.edit",
+            "seo.edit"
+          ]
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/pages/{id}/translations/{locale}/approve": {
+      "post": {
+        "summary": "Approve a translation of pages",
+        "tags": [
+          "translations"
+        ],
+        "description": "in_progress or outdated → approved. Records the source revision that was reviewed. Not for missing translations.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "if-match",
+            "required": false,
+            "description": "Required. The ETag of GET, e.g. \"3.7\" (source revision . row version)"
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.publish"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/pages/{id}/translations/{locale}/reopen": {
+      "post": {
+        "summary": "Return an approved translation of pages to work",
+        "tags": [
+          "translations"
+        ],
+        "description": "approved or outdated → in_progress.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "if-match",
+            "required": false,
+            "description": "Required. The ETag of GET, e.g. \"3.7\" (source revision . row version)"
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.publish"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/projects/{id}/translations/{locale}": {
+      "get": {
+        "summary": "Read a translation of projects",
+        "tags": [
+          "translations"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.read"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Save a translation of projects",
+        "tags": [
+          "translations"
+        ],
+        "description": "Changes the target language only; the structure (fields, list items) stays that of the source. The state becomes in_progress. SEO texts need seo.edit, other texts content.edit. If-Match required; 409 edit_conflict when the source text or this translation changed in between.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TranslationUpdate"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "if-match",
+            "required": false,
+            "description": "Required. The ETag of GET, e.g. \"3.7\" (source revision . row version)"
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": [
+            "content.edit",
+            "seo.edit"
+          ]
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/projects/{id}/translations/{locale}/approve": {
+      "post": {
+        "summary": "Approve a translation of projects",
+        "tags": [
+          "translations"
+        ],
+        "description": "in_progress or outdated → approved. Records the source revision that was reviewed. Not for missing translations.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "if-match",
+            "required": false,
+            "description": "Required. The ETag of GET, e.g. \"3.7\" (source revision . row version)"
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.publish"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/projects/{id}/translations/{locale}/reopen": {
+      "post": {
+        "summary": "Return an approved translation of projects to work",
+        "tags": [
+          "translations"
+        ],
+        "description": "approved or outdated → in_progress.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "if-match",
+            "required": false,
+            "description": "Required. The ETag of GET, e.g. \"3.7\" (source revision . row version)"
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.publish"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/technologies/{id}/translations/{locale}": {
+      "get": {
+        "summary": "Read a translation of technologies",
+        "tags": [
+          "translations"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.read"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Save a translation of technologies",
+        "tags": [
+          "translations"
+        ],
+        "description": "Changes the target language only; the structure (fields, list items) stays that of the source. The state becomes in_progress. SEO texts need seo.edit, other texts content.edit. If-Match required; 409 edit_conflict when the source text or this translation changed in between.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TranslationUpdate"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "if-match",
+            "required": false,
+            "description": "Required. The ETag of GET, e.g. \"3.7\" (source revision . row version)"
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": [
+            "content.edit",
+            "seo.edit"
+          ]
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/technologies/{id}/translations/{locale}/approve": {
+      "post": {
+        "summary": "Approve a translation of technologies",
+        "tags": [
+          "translations"
+        ],
+        "description": "in_progress or outdated → approved. Records the source revision that was reviewed. Not for missing translations.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "if-match",
+            "required": false,
+            "description": "Required. The ETag of GET, e.g. \"3.7\" (source revision . row version)"
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.publish"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/technologies/{id}/translations/{locale}/reopen": {
+      "post": {
+        "summary": "Return an approved translation of technologies to work",
+        "tags": [
+          "translations"
+        ],
+        "description": "approved or outdated → in_progress.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "if-match",
+            "required": false,
+            "description": "Required. The ETag of GET, e.g. \"3.7\" (source revision . row version)"
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.publish"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/products/{id}/translations/{locale}": {
+      "get": {
+        "summary": "Read a translation of products",
+        "tags": [
+          "translations"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.read"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Save a translation of products",
+        "tags": [
+          "translations"
+        ],
+        "description": "Changes the target language only; the structure (fields, list items) stays that of the source. The state becomes in_progress. SEO texts need seo.edit, other texts content.edit. If-Match required; 409 edit_conflict when the source text or this translation changed in between.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TranslationUpdate"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "if-match",
+            "required": false,
+            "description": "Required. The ETag of GET, e.g. \"3.7\" (source revision . row version)"
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": [
+            "content.edit",
+            "seo.edit"
+          ]
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/products/{id}/translations/{locale}/approve": {
+      "post": {
+        "summary": "Approve a translation of products",
+        "tags": [
+          "translations"
+        ],
+        "description": "in_progress or outdated → approved. Records the source revision that was reviewed. Not for missing translations.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "if-match",
+            "required": false,
+            "description": "Required. The ETag of GET, e.g. \"3.7\" (source revision . row version)"
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.publish"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/products/{id}/translations/{locale}/reopen": {
+      "post": {
+        "summary": "Return an approved translation of products to work",
+        "tags": [
+          "translations"
+        ],
+        "description": "approved or outdated → in_progress.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "if-match",
+            "required": false,
+            "description": "Required. The ETag of GET, e.g. \"3.7\" (source revision . row version)"
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.publish"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/epcm-stages/{id}/translations/{locale}": {
+      "get": {
+        "summary": "Read a translation of epcm-stages",
+        "tags": [
+          "translations"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.read"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Save a translation of epcm-stages",
+        "tags": [
+          "translations"
+        ],
+        "description": "Changes the target language only; the structure (fields, list items) stays that of the source. The state becomes in_progress. SEO texts need seo.edit, other texts content.edit. If-Match required; 409 edit_conflict when the source text or this translation changed in between.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TranslationUpdate"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "if-match",
+            "required": false,
+            "description": "Required. The ETag of GET, e.g. \"3.7\" (source revision . row version)"
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": [
+            "content.edit",
+            "seo.edit"
+          ]
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/epcm-stages/{id}/translations/{locale}/approve": {
+      "post": {
+        "summary": "Approve a translation of epcm-stages",
+        "tags": [
+          "translations"
+        ],
+        "description": "in_progress or outdated → approved. Records the source revision that was reviewed. Not for missing translations.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "if-match",
+            "required": false,
+            "description": "Required. The ETag of GET, e.g. \"3.7\" (source revision . row version)"
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.publish"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/epcm-stages/{id}/translations/{locale}/reopen": {
+      "post": {
+        "summary": "Return an approved translation of epcm-stages to work",
+        "tags": [
+          "translations"
+        ],
+        "description": "approved or outdated → in_progress.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "if-match",
+            "required": false,
+            "description": "Required. The ETag of GET, e.g. \"3.7\" (source revision . row version)"
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.publish"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/patents/{id}/translations/{locale}": {
+      "get": {
+        "summary": "Read a translation of patents",
+        "tags": [
+          "translations"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.read"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Save a translation of patents",
+        "tags": [
+          "translations"
+        ],
+        "description": "Changes the target language only; the structure (fields, list items) stays that of the source. The state becomes in_progress. SEO texts need seo.edit, other texts content.edit. If-Match required; 409 edit_conflict when the source text or this translation changed in between.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TranslationUpdate"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "if-match",
+            "required": false,
+            "description": "Required. The ETag of GET, e.g. \"3.7\" (source revision . row version)"
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": [
+            "content.edit",
+            "seo.edit"
+          ]
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/patents/{id}/translations/{locale}/approve": {
+      "post": {
+        "summary": "Approve a translation of patents",
+        "tags": [
+          "translations"
+        ],
+        "description": "in_progress or outdated → approved. Records the source revision that was reviewed. Not for missing translations.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "if-match",
+            "required": false,
+            "description": "Required. The ETag of GET, e.g. \"3.7\" (source revision . row version)"
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.publish"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/patents/{id}/translations/{locale}/reopen": {
+      "post": {
+        "summary": "Return an approved translation of patents to work",
+        "tags": [
+          "translations"
+        ],
+        "description": "approved or outdated → in_progress.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "if-match",
+            "required": false,
+            "description": "Required. The ETag of GET, e.g. \"3.7\" (source revision . row version)"
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.publish"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/videos/{id}/translations/{locale}": {
+      "get": {
+        "summary": "Read a translation of videos",
+        "tags": [
+          "translations"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.read"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Save a translation of videos",
+        "tags": [
+          "translations"
+        ],
+        "description": "Changes the target language only; the structure (fields, list items) stays that of the source. The state becomes in_progress. SEO texts need seo.edit, other texts content.edit. If-Match required; 409 edit_conflict when the source text or this translation changed in between.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TranslationUpdateInput"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "if-match",
+            "required": false,
+            "description": "Required. The ETag of GET, e.g. \"3.7\" (source revision . row version)"
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": [
+            "content.edit",
+            "seo.edit"
+          ]
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/videos/{id}/translations/{locale}/approve": {
+      "post": {
+        "summary": "Approve a translation of videos",
+        "tags": [
+          "translations"
+        ],
+        "description": "in_progress or outdated → approved. Records the source revision that was reviewed. Not for missing translations.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "if-match",
+            "required": false,
+            "description": "Required. The ETag of GET, e.g. \"3.7\" (source revision . row version)"
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.publish"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/videos/{id}/translations/{locale}/reopen": {
+      "post": {
+        "summary": "Return an approved translation of videos to work",
+        "tags": [
+          "translations"
+        ],
+        "description": "approved or outdated → in_progress.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "path",
+            "name": "locale",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "if-match",
+            "required": false,
+            "description": "Required. The ETag of GET, e.g. \"3.7\" (source revision . row version)"
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "content.publish"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "servers": [
@@ -17822,6 +22857,10 @@
     {
       "name": "content",
       "description": "Content management (pages, projects, technologies, products, EPC/EPCM, patents, videos)"
+    },
+    {
+      "name": "translations",
+      "description": "Translation management: states, completeness, translation editor, review"
     }
   ]
 }

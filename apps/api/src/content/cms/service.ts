@@ -15,10 +15,22 @@
  *    and only follow structural changes (fields.ts); never-translated languages (status 'missing')
  *    are untranslated copies of the source and follow it completely.
  *  - Every write is audited in the same transaction.
+ *  - Phase F: a change of a translated field raises the entity's source_revision (approved
+ *    translations become outdated); every write to a language row raises that row's version (the
+ *    concurrency token of the translation editor).
  */
 import crypto from 'node:crypto';
 import { and, asc, count, desc, eq, ilike, inArray, ne, or, sql, type SQL } from 'drizzle-orm';
-import { CONTENT_LOCALES, SOURCE_LOCALE, TRANSLATED_LOCALES, deniedContentFields, type TranslatedLocale } from '@soltex/core/domain';
+import {
+  CONTENT_LOCALES,
+  SOURCE_LOCALE,
+  TRANSLATED_LOCALES,
+  deniedContentFields,
+  effectiveTranslationState,
+  type EffectiveTranslationState,
+  type StoredTranslationState,
+  type TranslatedLocale,
+} from '@soltex/core/domain';
 import { slugify, slugProblem } from '@soltex/core/seo';
 import type { Queryable } from '../../db/client.ts';
 import * as s from '../../db/schema.ts';
@@ -34,7 +46,8 @@ import { changes, ListOriginError, sourceValue, translationValue, validateOrigin
 type AnyTable = any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
 export type ContentStatus = 'draft' | 'published' | 'archived';
-export type TrState = 'missing' | 'in_progress' | 'approved';
+/** Effective translation state (Phase F: `outdated` = approved for an older source revision). */
+export type TrState = EffectiveTranslationState;
 
 export interface UserRef {
   id: string;
@@ -127,9 +140,15 @@ async function userRefs(db: Queryable, ids: (string | null)[]): Promise<Map<stri
   return new Map(rows.map((r) => [r.id, r]));
 }
 
-function trStates(rows: Array<{ locale: string; trStatus: TrState | null }>): Record<TranslatedLocale, TrState> {
+type TrRowState = { locale: string; trStatus: StoredTranslationState | null; approvedSourceRevision: number | null };
+
+/** Effective state of one language row (same rule as the translation API and @soltex/core/domain). */
+export const trStateOf = (row: TrRowState | undefined, sourceRevision: number): TrState =>
+  effectiveTranslationState(row?.trStatus ?? null, row?.approvedSourceRevision ?? null, sourceRevision);
+
+function trStates(rows: TrRowState[], sourceRevision: number): Record<TranslatedLocale, TrState> {
   const out = {} as Record<TranslatedLocale, TrState>;
-  for (const l of TRANSLATED_LOCALES) out[l] = rows.find((r) => r.locale === l)?.trStatus ?? 'missing';
+  for (const l of TRANSLATED_LOCALES) out[l] = trStateOf(rows.find((r) => r.locale === l), sourceRevision);
   return out;
 }
 
@@ -159,7 +178,9 @@ export async function listRecords(deps: Deps, def: CollectionDef, query: ListQue
     .offset(query.offset);
   const [{ n }] = (await db.select({ n: count() }).from(t).innerJoin(tr, join).where(cond)) as [{ n: number }];
   const ids = rows.map((r: { e: { id: string } }) => r.e.id);
-  const states = ids.length ? await db.select({ owner: tr[def.trOwner], locale: tr.locale, trStatus: tr.trStatus }).from(tr).where(inArray(tr[def.trOwner], ids)) : [];
+  const states = ids.length
+    ? await db.select({ owner: tr[def.trOwner], locale: tr.locale, trStatus: tr.trStatus, approvedSourceRevision: tr.approvedSourceRevision }).from(tr).where(inArray(tr[def.trOwner], ids))
+    : [];
   const users = await userRefs(db, rows.map((r: { e: { updatedBy: string | null } }) => r.e.updatedBy));
   return {
     total: Number(n),
@@ -173,7 +194,7 @@ export async function listRecords(deps: Deps, def: CollectionDef, query: ListQue
       sourceLocale: r.e.sourceLocale,
       updatedAt: r.e.updatedAt.toISOString(),
       updatedBy: r.e.updatedBy ? users.get(r.e.updatedBy) ?? null : null,
-      translations: trStates(states.filter((x: { owner: string }) => x.owner === r.e.id)),
+      translations: trStates(states.filter((x: { owner: string }) => x.owner === r.e.id), r.e.sourceRevision),
     })),
   };
 }
@@ -218,7 +239,7 @@ async function view(db: Queryable, def: CollectionDef, l: Loaded): Promise<Recor
   for (const f of def.tr) fields[f.name] = src[f.column] ?? null;
   const users = await userRefs(db, [e.updatedBy]);
   const translations = {} as RecordView['translations'];
-  for (const loc of TRANSLATED_LOCALES) translations[loc] = { status: l.tr[loc]!.trStatus ?? 'missing', approvedAt: l.tr[loc]!.approvedAt ?? null };
+  for (const loc of TRANSLATED_LOCALES) translations[loc] = { status: trStateOf(l.tr[loc] as TrRowState, e.sourceRevision), approvedAt: l.tr[loc]!.approvedAt ?? null };
   return {
     id: e.id,
     key: e.key,
@@ -478,6 +499,8 @@ export async function updateRecord(
       const tr = def.trTable as AnyTable;
       const now = deps.now();
       const set: Record<string, unknown> = { version: sql`${t.version} + 1`, updatedAt: now, updatedBy: actor.id };
+      // Phase F: only a change of translated source text makes approved translations outdated.
+      if (def.tr.some((f) => f.name in patch)) set.sourceRevision = sql`${t.sourceRevision} + 1`;
       if ('position' in patch) set.position = patch.position;
       for (const f of def.en) if (f.column && f.name in patch) set[f.column] = patch[f.name];
       const updated = await tx
@@ -501,7 +524,7 @@ export async function updateRecord(
         if (Object.keys(row).length)
           await tx
             .update(tr)
-            .set({ ...row, updatedAt: now, updatedBy: actor.id })
+            .set({ ...row, version: sql`${tr.version} + 1`, updatedAt: now, updatedBy: actor.id })
             .where(and(eq(tr[def.trOwner], id), eq(tr.locale, locale)));
       }
       await writeChildren(tx, def, id, patch);

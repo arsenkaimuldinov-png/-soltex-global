@@ -44,6 +44,7 @@ import {
 import type { z } from 'zod';
 import type { Queryable } from '../db/client.ts';
 import * as s from '../db/schema.ts';
+import { legacySourceHash } from './legacy-source-hash.ts';
 
 export class ExportError extends Error {}
 
@@ -101,16 +102,39 @@ interface TrCols {
   trStatus: 'missing' | 'in_progress' | 'approved' | null;
   approvedSourceHash: string | null;
   approvedAt: string | null;
+  approvedSourceRevision?: number | null;
 }
 
-function translationStatus<R extends TrCols>(rows: ByLocale<R>, what: string): TranslationStatus {
+/**
+ * translationStatus of a record. With `sourceRevision` (the seven admin-managed entities, Phase F),
+ * approvals made for the current source revision are collected in `current`: their seed-format
+ * hash is recomputed from the finished record at the end of the export (finishApprovals), so a
+ * translation approved in the CMS exports as current, and one approved for an older revision keeps
+ * its stored hash and is reported as outdated by the site build validator.
+ */
+function translationStatus<R extends TrCols>(rows: ByLocale<R>, what: string, sourceRevision?: number, current?: Set<object>): TranslationStatus {
   const out = {} as TranslationStatus;
   for (const l of TRANSLATED_LOCALES) {
     const r = rows[l];
     if (!r.trStatus) throw new ExportError(`${what} [${l}]: translation status is not set`);
     out[l] = { status: r.trStatus, approvedSourceHash: r.approvedSourceHash, approvedAt: r.approvedAt };
+    if (current && sourceRevision !== undefined && r.trStatus === 'approved' && r.approvedSourceRevision != null && r.approvedSourceRevision >= sourceRevision)
+      current.add(out[l]);
   }
   return out;
+}
+
+/** Seed-format hash of approvals that are current in the database (see translationStatus). */
+function finishApprovals(records: Array<{ translationStatus: TranslationStatus }>, current: Set<object>) {
+  for (const record of records) {
+    let hash: string | null = null;
+    for (const l of TRANSLATED_LOCALES) {
+      const entry = record.translationStatus[l];
+      if (!current.has(entry)) continue;
+      hash ??= legacySourceHash(record);
+      entry.approvedSourceHash = hash;
+    }
+  }
 }
 
 function slugOf<R extends { slug: string }>(rows: ByLocale<R>, what: string): string {
@@ -121,6 +145,7 @@ function slugOf<R extends { slug: string }>(rows: ByLocale<R>, what: string): st
 }
 
 export async function exportStore(db: Queryable): Promise<ContentStore> {
+  const current = new Set<object>();
   // ---- media --------------------------------------------------------------
   const mediaRows = await db.select().from(s.media).orderBy(sql`${s.media.key} COLLATE "C"`);
   const mediaKey = new Map(mediaRows.map((m) => [m.id, m.key]));
@@ -185,7 +210,7 @@ export async function exportStore(db: Queryable): Promise<ContentStore> {
       productsProduced: list(tr, TextListV1, (r) => r.productsProduced) as Localized[],
       relatedProjectIds: techProjects.filter((x) => x.technologyId === t.id).map((x) => keyOf(projKey, x.projectId, 'project')),
       image: refReq(t.imageId),
-      translationStatus: translationStatus(tr, `technology ${t.key}`),
+      translationStatus: translationStatus(tr, `technology ${t.key}`, t.sourceRevision, current),
     };
   });
 
@@ -215,7 +240,7 @@ export async function exportStore(db: Queryable): Promise<ContentStore> {
       gallery: gallery.filter((g) => g.projectId === p.id).map((g) => refReq(g.mediaId)),
       relatedTechnologyId: keyOf(techKey, p.relatedTechnologyId, 'technology'),
       specs: list(tr, LabelValueListV1, (r) => r.specs) as LabelValueRecord[],
-      translationStatus: translationStatus(tr, `project ${p.key}`),
+      translationStatus: translationStatus(tr, `project ${p.key}`, p.sourceRevision, current),
     };
   });
 
@@ -240,7 +265,7 @@ export async function exportStore(db: Queryable): Promise<ContentStore> {
       relatedTechnologyId: keyOf(techKey, p.relatedTechnologyId, 'technology'),
       relatedProjectId: keyOf(projKey, p.relatedProjectId, 'project'),
       image: refReq(p.imageId),
-      translationStatus: translationStatus(tr, `product ${p.key}`),
+      translationStatus: translationStatus(tr, `product ${p.key}`, p.sourceRevision, current),
     };
   });
 
@@ -259,7 +284,7 @@ export async function exportStore(db: Queryable): Promise<ContentStore> {
       description: text(tr, (r) => r.description),
       deliverables: list(tr, TextListV1, (r) => r.deliverables) as Localized[],
       image: ref(e.imageId),
-      translationStatus: translationStatus(tr, `epcm stage ${e.key}`),
+      translationStatus: translationStatus(tr, `epcm stage ${e.key}`, e.sourceRevision, current),
     };
   });
 
@@ -289,7 +314,7 @@ export async function exportStore(db: Queryable): Promise<ContentStore> {
       placements: p.placements as PatentRecord['placements'],
       patentNo: p.patentNo,
       title: text(tr, (r) => r.title),
-      translationStatus: translationStatus(tr, `patent ${p.key}`),
+      translationStatus: translationStatus(tr, `patent ${p.key}`, p.sourceRevision, current),
     };
   });
 
@@ -308,7 +333,7 @@ export async function exportStore(db: Queryable): Promise<ContentStore> {
       description: text(tr, (r) => r.description),
       video: refReq(v.videoId),
       poster: refReq(v.posterId),
-      translationStatus: translationStatus(tr, `video ${v.key}`),
+      translationStatus: translationStatus(tr, `video ${v.key}`, v.sourceRevision, current),
     };
   });
 
@@ -368,7 +393,7 @@ export async function exportStore(db: Queryable): Promise<ContentStore> {
       media: Object.fromEntries(pageMediaRows.filter((m) => m.pageId === p.id).map((m) => [m.slot, refReq(m.mediaId)])),
       body: list(tr, PageBodyV1, (r) => r.body) as Localized[] | null,
       seo: p.hasSeo ? seo(tr, p.ogImageId, p.noindex) : null,
-      translationStatus: translationStatus(tr, `page ${p.key}`),
+      translationStatus: translationStatus(tr, `page ${p.key}`, p.sourceRevision, current),
     };
   });
 
@@ -435,6 +460,8 @@ export async function exportStore(db: Queryable): Promise<ContentStore> {
     statusCode: r.statusCode as 301 | 302,
     allLocales: r.allLocales,
   }));
+
+  finishApprovals([...technologies, ...projects, ...products, ...epcmStages, ...patents, ...videos, ...pages], current);
 
   return { pages, projects, technologies, products, epcmStages, patents, videos, media, settings, redirects };
 }

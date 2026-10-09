@@ -23,8 +23,9 @@ import { GLOBAL_LIMIT, sessionOrIpKey } from './routes/rate-limits.ts';
 import { systemRoutes } from './routes/system.ts';
 import { userRoutes } from './routes/users.ts';
 import { contentRoutes } from './routes/content.ts';
+import { translationRoutes } from './routes/translations.ts';
 
-export const API_VERSION = '0.5.0';
+export const API_VERSION = '0.6.0';
 export const BODY_LIMIT_BYTES = 64 * 1024;
 
 export interface BuildOptions {
@@ -108,6 +109,7 @@ export async function buildApp(opts: BuildOptions): Promise<FastifyInstance> {
         { name: 'passkeys', description: 'WebAuthn passkeys' },
         { name: 'users', description: 'User management' },
         { name: 'content', description: 'Content management (pages, projects, technologies, products, EPC/EPCM, patents, videos)' },
+        { name: 'translations', description: 'Translation management: states, completeness, translation editor, review' },
       ],
     },
     transform: (input) => {
@@ -126,6 +128,7 @@ export async function buildApp(opts: BuildOptions): Promise<FastifyInstance> {
     await passkeyRoutes(scope, deps);
     await userRoutes(scope, deps);
     await contentRoutes(scope, deps);
+    await translationRoutes(scope, deps);
   });
 
   return app;

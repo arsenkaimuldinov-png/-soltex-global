@@ -167,7 +167,10 @@ describe('content management API', { skip: !DB_ENABLED && 'DATABASE_URL not set'
     assert.equal(after.fields.title, `${before.fields.title} (edited)`);
     const ruAfter = await t.deps.db!.execute(`select title, scope from project_translations where project_id = '${id}' and locale = 'ru'`);
     assert.deepEqual(ruAfter.rows, ruBefore.rows, 'the Russian translation is untouched');
-    assert.equal(after.translations.ru.status, 'approved', 'translation status semantics unchanged');
+    // Phase F: the stored status is untouched; the API reports the approval as outdated (source text changed).
+    const stored = await t.deps.db!.execute(`select tr_status from project_translations where project_id = '${id}' and locale = 'ru'`);
+    assert.equal((stored.rows[0] as Json).tr_status, 'approved', 'stored translation status unchanged');
+    assert.equal(after.translations.ru.status, 'outdated', 'reported as outdated after a source text change');
     const ev = await lastAudit(id);
     assert.equal(ev!.action, 'content.update');
     assert.deepEqual(ev!.summary, { fields: ['title'] }, 'only the changed field is recorded');

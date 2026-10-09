@@ -101,6 +101,34 @@ export const routes = [
               return { element: <RequirePermission permission="content.read"><CollectionEditorPage /></RequirePermission> };
             },
           },
+          {
+            path: 'translations',
+            lazy: async () => {
+              const { TranslationsOverviewPage } = await import('./features/translations/TranslationsOverviewPage');
+              return { element: <RequirePermission permission="content.read"><TranslationsOverviewPage /></RequirePermission> };
+            },
+          },
+          {
+            path: 'translations/all',
+            lazy: async () => {
+              const { TranslationsListPage } = await import('./features/translations/TranslationsListPage');
+              return { element: <RequirePermission permission="content.read"><TranslationsListPage /></RequirePermission> };
+            },
+          },
+          {
+            path: 'translations/attention',
+            lazy: async () => {
+              const { TranslationsListPage } = await import('./features/translations/TranslationsListPage');
+              return { element: <RequirePermission permission="content.read"><TranslationsListPage key="attention" attention /></RequirePermission> };
+            },
+          },
+          {
+            path: 'translations/:type/:id/:locale',
+            lazy: async () => {
+              const { TranslationEditorPage } = await import('./features/translations/TranslationEditorPage');
+              return { element: <RequirePermission permission="content.read"><TranslationEditorPage /></RequirePermission> };
+            },
+          },
           { path: 'account', lazy: async () => ({ Component: (await import('./features/account/AccountPage')).AccountPage }) },
           {
             path: 'admin/users',

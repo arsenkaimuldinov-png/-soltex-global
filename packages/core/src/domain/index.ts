@@ -4,3 +4,4 @@
  */
 export * from './locales.ts';
 export * from './permissions.ts';
+export * from './translations.ts';

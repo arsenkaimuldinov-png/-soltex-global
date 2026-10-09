@@ -31,6 +31,7 @@ import {
 import type { z } from 'zod';
 import type { Queryable } from '../db/client.ts';
 import * as s from '../db/schema.ts';
+import { reconcileApprovals } from './reconcile.ts';
 
 export interface ImportReport {
   counts: Record<string, number>;
@@ -73,6 +74,13 @@ function trStatus(status: TranslationStatus, locale: Locale, where: string) {
   if (!e) throw new ImportError(`${where}: missing translationStatus.${locale}`);
   return { trStatus: e.status, approvedSourceHash: e.approvedSourceHash, approvedAt: e.approvedAt };
 }
+
+/**
+ * Review tracking of imported rows (Phase F): the import does not know database revisions, so it
+ * clears them; reconcileApprovals() then links every approval whose seed hash matches the imported
+ * English text to the current source revision. Settings rows have no such columns.
+ */
+const TR_REVIEW_RESET = { approvedSourceRevision: null, approvedBy: null, editedSourceRevision: null } as const;
 
 function sameSlug(slug: string) {
   // Slugs are identical in every language until localized slugs are enabled (approved: DEFERRED).
@@ -159,6 +167,7 @@ export async function importStore(tx: Tx, store: ContentStore): Promise<ImportRe
         technologyId: id,
         locale: l,
         ...trStatus(t.translationStatus, l, w),
+        ...TR_REVIEW_RESET,
         slug: sameSlug(t.slug),
         categoryTitle: textAt(t.categoryTitle, l, w),
         title: textAt(t.title, l, w),
@@ -207,6 +216,7 @@ export async function importStore(tx: Tx, store: ContentStore): Promise<ImportRe
         projectId: id,
         locale: l,
         ...trStatus(p.translationStatus, l, w),
+        ...TR_REVIEW_RESET,
         slug: sameSlug(p.slug),
         category: textAt(p.category, l, w),
         title: textAt(p.title, l, w),
@@ -267,6 +277,7 @@ export async function importStore(tx: Tx, store: ContentStore): Promise<ImportRe
         productId: id,
         locale: l,
         ...trStatus(p.translationStatus, l, w),
+        ...TR_REVIEW_RESET,
         slug: sameSlug(p.slug),
         categoryTitle: textAt(p.categoryTitle, l, w),
         title: textAt(p.title, l, w),
@@ -301,6 +312,7 @@ export async function importStore(tx: Tx, store: ContentStore): Promise<ImportRe
         stageId: id,
         locale: l,
         ...trStatus(e.translationStatus, l, w),
+        ...TR_REVIEW_RESET,
         title: textAt(e.title, l, w),
         focus: textAt(e.focus, l, w),
         description: textAt(e.description, l, w),
@@ -332,6 +344,7 @@ export async function importStore(tx: Tx, store: ContentStore): Promise<ImportRe
         patentId: id,
         locale: l,
         ...trStatus(p.translationStatus, l, w),
+        ...TR_REVIEW_RESET,
         title: textAt(p.title, l, w),
         statusLabel: textAt(p.statusLabel, l, w),
         patentLabel: textAt(p.patentLabel, l, w),
@@ -368,6 +381,7 @@ export async function importStore(tx: Tx, store: ContentStore): Promise<ImportRe
         videoId: id,
         locale: l,
         ...trStatus(v.translationStatus, l, w),
+        ...TR_REVIEW_RESET,
         category: textAt(v.category, l, w),
         title: textAt(v.title, l, w),
         headline: textAt(v.headline, l, w),
@@ -402,6 +416,7 @@ export async function importStore(tx: Tx, store: ContentStore): Promise<ImportRe
         pageId: id,
         locale: l,
         ...trStatus(p.translationStatus, l, w),
+        ...TR_REVIEW_RESET,
         headerBadgeLabel: textAt(h?.badgeLabel ?? null, l, `${w}.header`),
         headerTitle: textAt(h?.title ?? null, l, `${w}.header`),
         headerSubtitle: textAt(h?.subtitle ?? null, l, `${w}.header`),
@@ -523,5 +538,6 @@ export async function importStore(tx: Tx, store: ContentStore): Promise<ImportRe
   await reportMissing(s.pages as KeyedTable, 'pages', store.pages.map((p) => p.id));
   await reportMissing(s.redirects, 'redirects', store.redirects.map((r) => r.id));
 
+  count('approvals linked to the source revision', await reconcileApprovals(tx));
   return { counts, notInStore };
 }

@@ -122,8 +122,8 @@ The export requires the same shape in every language: the same list lengths and 
 
 - Translation **statuses are never changed** by Phase E.
 - After a source edit an approved translation keeps showing its approved text. A new list item shows the English copy in that language until it is translated.
-- Detecting "outdated" translations (approved source hash) and editing translations are **Phase F**.
-- The editors show each language's state («Исходный язык», «Переведено», «Перевод в работе», «Нет перевода»).
+- **Phase F** ([`admin-translations.md`](admin-translations.md)): a change of a translated source field raises the record's `source_revision`, so approved translations become **outdated** (derived, never stored); every write to a language row raises its `version`. Translations are edited and approved in «Переводы».
+- The editors show each language's effective state («Исходный язык», «Переведено», «Перевод в работе», «Устарел», «Нет перевода»), each linking to the translation editor.
 - Tested: after CMS writes the database still exports in the seed format. Untouched records are byte-identical; edited ones change only in the source language.
 
 ---
@@ -200,7 +200,7 @@ The export requires the same shape in every language: the same list lengths and 
 | No publish / unpublish, no revisions or history tab, no «Есть неопубликованные изменения» state | G |
 | No preview | H |
 | Slug of published records locked; no redirect dialog; no SEO checker or snippet preview | I |
-| Translations are not edited; no "outdated" detection | F |
+| ~~Translations are not edited; no "outdated" detection~~ — done in Phase F ([`admin-translations.md`](admin-translations.md)) | F |
 | No uploads, crops or variants; previews only with `VITE_MEDIA_BASE_URL` | J |
 | Page list items: texts only (no adding or removing timeline entries etc.) | later, when the page design gets new item templates |
 | Settings, offices, metrics, footer are not editable yet | next content task (review §X «Настройки») |

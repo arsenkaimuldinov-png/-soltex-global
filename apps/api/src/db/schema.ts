@@ -74,6 +74,13 @@ const entity = () => ({
     .default('en')
     .references(() => locales.code),
   version: integer('version').notNull().default(1),
+  /**
+   * Revision of the source-language TRANSLATABLE text (Phase F, migration 0004). Raised by one
+   * whenever a translated field of the source language changes; never by images, order, status,
+   * slug or other language-independent data. Translations record the revision they were approved
+   * against, so "outdated" = approved for an older revision (docs/admin-translations.md §2).
+   */
+  sourceRevision: integer('source_revision').notNull().default(1),
   publishedAt: timestamp('published_at', { withTimezone: true }),
   archivedAt: timestamp('archived_at', { withTimezone: true }),
   schemaVersion: smallint('schema_version').notNull().default(1),
@@ -92,6 +99,20 @@ const translation = () => ({
   approvedAt: date('approved_at', { mode: 'string' }),
   schemaVersion: smallint('schema_version').notNull().default(1),
   ...audit(),
+});
+
+/**
+ * Review tracking of the translation rows of the seven admin-managed entities (Phase F, migration
+ * 0004). Not on settings_translations (settings are not edited in the admin yet).
+ */
+const translationReview = () => ({
+  /** Concurrency token of this language row (If-Match of the translation editor). */
+  version: integer('version').notNull().default(1),
+  /** Entity source_revision this translation was approved against; null = not approved in the database. */
+  approvedSourceRevision: integer('approved_source_revision'),
+  approvedBy: uuid('approved_by').references((): AnyPgColumn => users.id, { onDelete: 'restrict' }),
+  /** Entity source_revision the translator last saved against (shows "source changed since"). */
+  editedSourceRevision: integer('edited_source_revision'),
 });
 
 /** Per-language SEO texts of routable entities (null = frontend default template). */
@@ -162,6 +183,7 @@ export const technologyTranslations = pgTable(
       .notNull()
       .references(() => technologies.id, { onDelete: 'cascade' }),
     ...translation(),
+    ...translationReview(),
     slug: text('slug').notNull(),
     categoryTitle: text('category_title').notNull(),
     title: text('title').notNull(),
@@ -205,6 +227,7 @@ export const projectTranslations = pgTable(
       .notNull()
       .references(() => projects.id, { onDelete: 'cascade' }),
     ...translation(),
+    ...translationReview(),
     slug: text('slug').notNull(),
     category: text('category').notNull(),
     title: text('title').notNull(),
@@ -277,6 +300,7 @@ export const productTranslations = pgTable(
       .notNull()
       .references(() => products.id, { onDelete: 'cascade' }),
     ...translation(),
+    ...translationReview(),
     slug: text('slug').notNull(),
     categoryTitle: text('category_title').notNull(),
     title: text('title').notNull(),
@@ -308,6 +332,7 @@ export const epcmStageTranslations = pgTable(
       .notNull()
       .references(() => epcmStages.id, { onDelete: 'cascade' }),
     ...translation(),
+    ...translationReview(),
     title: text('title').notNull(),
     focus: text('focus').notNull(),
     description: text('description').notNull(),
@@ -338,6 +363,7 @@ export const patentTranslations = pgTable(
       .notNull()
       .references(() => patents.id, { onDelete: 'cascade' }),
     ...translation(),
+    ...translationReview(),
     title: text('title').notNull(),
     statusLabel: text('status_label'),
     patentLabel: text('patent_label'),
@@ -370,6 +396,7 @@ export const videoTranslations = pgTable(
       .notNull()
       .references(() => videos.id, { onDelete: 'cascade' }),
     ...translation(),
+    ...translationReview(),
     category: text('category').notNull(),
     title: text('title').notNull(),
     headline: text('headline').notNull(),
@@ -403,6 +430,7 @@ export const pageTranslations = pgTable(
       .notNull()
       .references(() => pages.id, { onDelete: 'cascade' }),
     ...translation(),
+    ...translationReview(),
     headerBadgeLabel: text('header_badge_label'),
     headerTitle: text('header_title'),
     headerSubtitle: text('header_subtitle'),

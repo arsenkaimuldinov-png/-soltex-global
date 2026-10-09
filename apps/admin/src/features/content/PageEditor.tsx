@@ -233,7 +233,7 @@ function PageEditor({ id }: { id: string }) {
           </Section>
         ) : null}
 
-        <TranslationsCard translations={record.translations} />
+        <TranslationsCard translations={record.translations} type="pages" id={record.id} />
         <Advanced>
           <TechValue label="ID" value={record.id} />
           <TechValue label="Ключ" value={`${record.key} (${record.pageKey})`} />

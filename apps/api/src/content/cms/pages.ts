@@ -7,7 +7,7 @@
  * Same rules as content collections (service.ts): If-Match versions, field-level authorization,
  * audit in the transaction, translations keep their text and follow structural changes only.
  */
-import { and, asc, eq, inArray } from 'drizzle-orm';
+import { and, asc, eq, inArray, sql } from 'drizzle-orm';
 import { CONTENT_LOCALES, SOURCE_LOCALE, TRANSLATED_LOCALES } from '@soltex/core/domain';
 import { PAGE_REGISTRY, placeholdersMatch, PageCopyV1, type PageDef, type PageKey } from '@soltex/core/content';
 import { z } from 'zod';
@@ -19,7 +19,7 @@ import { recordAudit } from '../../audit/audit.ts';
 import { Problem, type FieldError } from '../../http/problem.ts';
 import type { UserRow } from '../../auth/sessions.ts';
 import { changes, LabelValueItemInput, LIMITS, ListOriginError, sourceValue, TextItemInput, translationValue, validateOrigins } from './fields.ts';
-import { authorizeFields, FieldsDenied, refuseFields, type ContentStatus, type RecordView, type TrState, type UserRef } from './service.ts';
+import { authorizeFields, FieldsDenied, refuseFields, trStateOf, type ContentStatus, type RecordView, type TrState, type UserRef } from './service.ts';
 
 // ---------------------------------------------------------------------------
 // Request / response schemas
@@ -161,7 +161,7 @@ async function pageView(db: Queryable, l: LoadedPage): Promise<PageView> {
   const p = l.page;
   const [u] = p.updatedBy ? await db.select({ id: s.users.id, name: s.users.name }).from(s.users).where(eq(s.users.id, p.updatedBy)) : [];
   const translations = {} as PageView['translations'];
-  for (const loc of TRANSLATED_LOCALES) translations[loc] = { status: (l.tr[loc]?.trStatus ?? 'missing') as TrState, approvedAt: l.tr[loc]?.approvedAt ?? null };
+  for (const loc of TRANSLATED_LOCALES) translations[loc] = { status: trStateOf(l.tr[loc], p.sourceRevision), approvedAt: l.tr[loc]?.approvedAt ?? null };
   return {
     id: p.id,
     key: p.key,
@@ -188,7 +188,9 @@ export async function listPages(deps: Deps) {
     .from(s.pages)
     .innerJoin(s.pageTranslations, and(eq(s.pageTranslations.pageId, s.pages.id), eq(s.pageTranslations.locale, SOURCE_LOCALE)))
     .orderBy(asc(s.pages.position), asc(s.pages.key));
-  const states = await db.select({ owner: s.pageTranslations.pageId, locale: s.pageTranslations.locale, trStatus: s.pageTranslations.trStatus }).from(s.pageTranslations);
+  const states = await db
+    .select({ owner: s.pageTranslations.pageId, locale: s.pageTranslations.locale, trStatus: s.pageTranslations.trStatus, approvedSourceRevision: s.pageTranslations.approvedSourceRevision })
+    .from(s.pageTranslations);
   const userIds = [...new Set(rows.map((r) => r.p.updatedBy).filter((x): x is string => !!x))];
   const users = userIds.length ? await db.select({ id: s.users.id, name: s.users.name }).from(s.users).where(inArray(s.users.id, userIds)) : [];
   return {
@@ -204,7 +206,7 @@ export async function listPages(deps: Deps) {
       updatedAt: r.p.updatedAt.toISOString(),
       updatedBy: users.find((u) => u.id === r.p.updatedBy) ?? null,
       translations: Object.fromEntries(
-        TRANSLATED_LOCALES.map((l) => [l, (states.find((x) => x.owner === r.p.id && x.locale === l)?.trStatus ?? 'missing') as TrState])
+        TRANSLATED_LOCALES.map((l) => [l, trStateOf(states.find((x) => x.owner === r.p.id && x.locale === l), r.p.sourceRevision)])
       ) as Record<(typeof TRANSLATED_LOCALES)[number], TrState>,
     })),
   };
@@ -218,6 +220,10 @@ export async function getPage(deps: Deps, id: string): Promise<PageView> {
 }
 
 // ---------------------------------------------------------------------------
+
+/** Is a changed page field translated text (Phase F source revision)? Images, badge number, ogImage and noindex are not. */
+export const isTranslatedPageField = (name: string): boolean =>
+  name.startsWith('copy.') || name.startsWith('lists.') || name === 'body' || name === 'seoMetaTitle' || name === 'seoMetaDescription' || (name.startsWith('header.') && name !== 'header.badgeNumber');
 
 /** Changed field names (for authorization and the audit log): header.title, copy.heroTitle, lists.timeline, media.heroImage, body, seoMetaTitle… */
 function changedPageFields(l: LoadedPage, input: PageUpdate, errors: FieldError[]): string[] {
@@ -317,6 +323,8 @@ async function writePage(deps: Deps, actor: UserRow, id: string, expectedVersion
     const now = deps.now();
     const has = (name: string) => changed.includes(name);
     const set: Record<string, unknown> = { version: expectedVersion + 1, updatedAt: now, updatedBy: actor.id };
+    // Phase F: only a change of translated source text makes approved translations outdated.
+    if (changed.some(isTranslatedPageField)) set.sourceRevision = sql`${s.pages.sourceRevision} + 1`;
     if (has('header.badgeNumber')) set.headerBadgeNumber = input.header!.badgeNumber;
     if (has('ogImage')) set.ogImageId = input.ogImage ?? null;
     if (has('noindex')) set.noindex = input.noindex;
@@ -356,12 +364,17 @@ async function writePage(deps: Deps, actor: UserRow, id: string, expectedVersion
       if (Object.keys(row).length)
         await tx
           .update(s.pageTranslations)
-          .set({ ...row, updatedAt: now, updatedBy: actor.id })
+          .set({ ...row, version: sql`${s.pageTranslations.version} + 1`, updatedAt: now, updatedBy: actor.id })
           .where(and(eq(s.pageTranslations.pageId, id), eq(s.pageTranslations.locale, locale)));
     }
 
     // List item texts: the source language and never-translated languages (same items, same structure).
     const mirrored = CONTENT_LOCALES.filter((loc) => loc === SOURCE_LOCALE || l.tr[loc]?.trStatus === 'missing');
+    if (changed.some((c) => c.startsWith('lists.')))
+      await tx
+        .update(s.pageTranslations)
+        .set({ version: sql`${s.pageTranslations.version} + 1` })
+        .where(and(eq(s.pageTranslations.pageId, id), inArray(s.pageTranslations.locale, [...mirrored])));
     for (const [listKey, items] of Object.entries(input.lists ?? {})) {
       if (!has(`lists.${listKey}`)) continue;
       const rows = l.items.filter((i) => i.listKey === listKey);

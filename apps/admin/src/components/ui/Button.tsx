@@ -13,6 +13,10 @@ const VARIANTS: Record<Variant, string> = {
 };
 const SIZES: Record<Size, string> = { sm: 'h-8 px-3 text-[13px] gap-1.5', md: 'h-9 px-4 text-sm gap-2' };
 
+/** Classes of a button, for links that look like buttons (no <button> inside <a>). */
+export const buttonClass = (variant: Variant = 'secondary', size: Size = 'md', className?: string) =>
+  cx('inline-flex shrink-0 items-center justify-center rounded-md font-medium whitespace-nowrap transition-colors', VARIANTS[variant], SIZES[size], className);
+
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
   size?: Size;

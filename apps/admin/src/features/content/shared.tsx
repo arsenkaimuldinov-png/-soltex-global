@@ -10,8 +10,8 @@ import { Alert } from '../../components/ui/Alert';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Layout';
 import { Status } from '../../components/ui/Status';
-import { cx } from '../../components/ui/cx';
-import { LOCALE_LABELS, STATUS_LABELS, STATUS_TONES, TR_STATE_LABELS } from './model';
+import { Link } from 'react-router-dom';
+import { LOCALE_LABELS, STATUS_LABELS, STATUS_TONES, TR_STATE_LABELS, TR_STATE_TONES } from './model';
 
 export type ContentStatus = keyof typeof STATUS_LABELS;
 export type TrState = keyof typeof TR_STATE_LABELS;
@@ -25,17 +25,34 @@ export function TranslationsSummaryText({ translations }: { translations: Record
   return <Status tone={n === total ? 'ok' : n === 0 ? 'neutral' : 'warn'}>{n === total ? 'Все языки' : `${n} из ${total}`}</Status>;
 }
 
-/** Language versions: the source language is edited here; translations are shown as a state (Phase F manages them). */
-export function TranslationsCard({ translations }: { translations: Record<string, { status: TrState }> }) {
+/** Language versions: the source language is edited here; translations are managed in «Переводы» (Phase F). */
+export function TranslationsCard({ translations, type, id }: { translations: Record<string, { status: TrState }>; type: string; id: string }) {
   return (
-    <Card title="Языковые версии" description="Здесь редактируется английская (исходная) версия. Переводы ведутся в разделе «Переводы»; после изменения исходного текста перевод остаётся прежним, пока его не обновят.">
+    <Card
+      title="Языковые версии"
+      description="Здесь редактируется английская (исходная) версия. Переводы ведутся в разделе «Переводы»; после изменения английского текста утверждённые переводы помечаются как устаревшие."
+      actions={
+        <Link to={`/translations/all?entity=${id}`} className="text-[13px] font-medium text-accent hover:underline">
+          Все переводы
+        </Link>
+      }
+    >
       <ul className="flex flex-wrap gap-2" aria-label="Состояние переводов">
         {CONTENT_LOCALES.map((l) => {
           const st = l === 'en' ? null : translations[l]?.status ?? 'missing';
           return (
-            <li key={l} className={cx('flex items-center gap-2 rounded-md border px-2.5 py-1.5 text-[13px]', st === null ? 'border-accent/30 bg-accent-soft' : 'border-line')}>
-              <span className="font-mono text-xs font-semibold">{LOCALE_LABELS[l]}</span>
-              {st === null ? <span>Исходный язык</span> : <Status tone={st === 'approved' ? 'ok' : st === 'in_progress' ? 'warn' : 'neutral'}>{TR_STATE_LABELS[st]}</Status>}
+            <li key={l}>
+              {st === null ? (
+                <span className="flex items-center gap-2 rounded-md border border-accent/30 bg-accent-soft px-2.5 py-1.5 text-[13px]">
+                  <span className="font-mono text-xs font-semibold">{LOCALE_LABELS[l]}</span>
+                  <span>Исходный язык</span>
+                </span>
+              ) : (
+                <Link to={`/translations/${type}/${id}/${l}`} className="flex items-center gap-2 rounded-md border border-line px-2.5 py-1.5 text-[13px] hover:bg-subtle">
+                  <span className="font-mono text-xs font-semibold">{LOCALE_LABELS[l]}</span>
+                  <Status tone={TR_STATE_TONES[st]}>{TR_STATE_LABELS[st]}</Status>
+                </Link>
+              )}
             </li>
           );
         })}

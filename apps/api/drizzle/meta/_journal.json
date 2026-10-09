@@ -29,6 +29,13 @@
       "when": 1791451017128,
       "tag": "0003_audit_append_only",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1791534551253,
+      "tag": "0004_translation_review",
+      "breakpoints": true
     }
   ]
 }

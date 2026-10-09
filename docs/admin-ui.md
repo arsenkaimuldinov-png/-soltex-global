@@ -59,6 +59,9 @@ Phase D delivers the admin shell and every screen that the Phase C API already s
 | `/admin/system` | `system.read` | Система |
 | `/content/pages`, `/content/pages/:id` | `content.read` | Страницы: list and page editor (Phase E, [`admin-content.md`](admin-content.md)) |
 | `/content/:collection`, `/content/:collection/:id` | `content.read` | Проекты, Технологии, Продукты, EPC / EPCM, Патенты, Видео: lists and typed editors. An unknown collection shows «Страница не найдена» |
+| `/translations` | `content.read` | Переводы · Обзор: completion per language and section (Phase F, [`admin-translations.md`](admin-translations.md)) |
+| `/translations/all`, `/translations/attention` | `content.read` | Все переводы / Требуют внимания: filters in the address (`locale`, `type`, `state`, `entity`, `q`, `sort`, `page`) |
+| `/translations/:type/:id/:locale` | `content.read` | Translation editor: English source next to the target language; Arabic inputs right-to-left. Unknown type or language shows «Страница не найдена» |
 | anything else | signed in | «Страница не найдена» |
 
 **Rules:**
@@ -182,8 +185,8 @@ X-Frame-Options: DENY
 
 | Suite | Command | Covers |
 |---|---|---|
-| Unit (11) | `npm run test -w @soltex/admin` | `routeFor` / `safeFrom` (open redirect), reset token parsing, navigation per role from the core permission map, no later-phase sections, ⌘K matching, API client (CSRF header, cookies only, URL encoding, problems, network and proxy errors), error texts and when a request id is shown, audit wording and labels for every API action, plurals and devices, generated password |
-| E2E (23) | `npm run test:e2e:admin` (`scripts/admin-e2e.mjs`) | Built admin under its CSP + real API + PostgreSQL + Chromium with a virtual WebAuthn authenticator |
+| Unit (11 → 25 with Phases E–F) | `npm run test -w @soltex/admin` | `routeFor` / `safeFrom` (open redirect), reset token parsing, navigation per role from the core permission map, no later-phase sections, ⌘K matching, API client (CSRF header, cookies only, URL encoding, problems, network and proxy errors), error texts and when a request id is shown, audit wording and labels for every API action, plurals and devices, generated password; content editors (`test/content.test.ts`, Phase E); translation editor model, RTL, validation and permissions (`test/translations.test.ts`, Phase F) |
+| E2E (23 → 45 with Phases E–F) | `npm run test:e2e:admin` (`scripts/admin-e2e.mjs`) | Built admin under its CSP + real API + PostgreSQL + Chromium with a virtual WebAuthn authenticator. Files: `admin.e2e.mjs` (shell, 23), `content.e2e.mjs` (Phase E, 12), `translations.e2e.mjs` (Phase F, 10) |
 
 **What the E2E suite does:**
 - **Sign-in and session:**

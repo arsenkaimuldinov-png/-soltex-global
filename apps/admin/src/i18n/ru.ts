@@ -43,6 +43,9 @@ export const AUDIT_ACTION_LABELS: Record<string, string> = {
   'content.update': 'Изменён материал',
   'content.archive': 'Материал перенесён в архив',
   'content.restore': 'Материал возвращён из архива',
+  'translation.update': 'Изменён перевод',
+  'translation.approve': 'Перевод утверждён',
+  'translation.reopen': 'Перевод возвращён в работу',
 };
 export const auditActionLabel = (action: string) => AUDIT_ACTION_LABELS[action] ?? 'Действие в системе';
 
@@ -66,7 +69,14 @@ export const AUDIT_DETAIL_LABELS: Record<string, string> = {
   draft: 'черновик',
   archived: 'в архиве',
   published: 'опубликовано',
+  missing: 'нет перевода',
+  in_progress: 'в работе',
+  outdated: 'устарел',
+  approved: 'утверждён',
 };
+
+/** Language codes in audit details. */
+export const LOCALE_NAMES: Record<string, string> = { en: 'английский', ru: 'русский', zh: 'китайский', tr: 'турецкий', ar: 'арабский', es: 'испанский' };
 
 /** Audit resource types of content (docs/admin-content.md §7). */
 export const RESOURCE_LABELS: Record<string, string> = {

@@ -44,6 +44,8 @@
 | `metrics`, `offices` | value / phone, e-mail, WhatsApp, order | label, highlight / region, title, country, address, representative |
 | `redirects` | from, to, status code, all languages, source, hits | — |
 
+**Phase F columns** (`drizzle/0004_translation_review.sql`, additive): the seven admin-managed entities (`pages`, `projects`, `technologies`, `products`, `epcm_stages`, `patents`, `videos`) have `source_revision` (revision of the English translatable text); their translation tables have `version`, `approved_source_revision`, `approved_by`, `edited_source_revision`. `settings_translations` is unchanged. See [`admin-translations.md`](admin-translations.md) §2.
+
 **Phase C tables** (`drizzle/0002_auth_users_sessions_audit.sql`, `0003_audit_append_only.sql`):
 
 | Table | Contents |
@@ -105,7 +107,7 @@ Each translation row carries `tr_status`, `approved_source_hash` and `approved_a
 | DB-6 | **Fixed-shape JSONB objects are re-read through their Zod schema** | The schema restores the canonical key order (`label, value`, `title, description`, …) |
 | DB-7 | **Media and redirects are exported sorted by key / source path** | They have no editorial order; the seed lists media by ID |
 | DB-8 | **Import never deletes**: entities missing from the store are reported, not removed | Importing an old seed must never wipe content edited in the admin |
-| DB-9 | **Translation status vocabulary kept from Phase 1** (`missing`, `in_progress`, `approved`) | Exact round trip; the admin maps them to Russian labels (Phase F) |
+| DB-9 | **Translation status vocabulary kept from Phase 1** (`missing`, `in_progress`, `approved`) | Exact round trip; the admin maps them to Russian labels. Phase F derives `outdated` from source revisions instead of adding an enum value ([`admin-translations.md`](admin-translations.md) §1–2) |
 | DB-10 | **Secrets are stored only as hashes or ciphertext:** session, device, reset tokens and recovery codes as sha256; TOTP secrets as AES-256-GCM bound to the user; IP addresses and unknown e-mails as keyed HMAC | A database dump does not allow signing in or tracking addresses (Phase C) |
 | DB-11 | **The audit log is protected by triggers, not only grants** | Grants protect against the application; the trigger also protects against mistakes by the schema owner. Phase B migrations were not changed; the protection is a new migration (0003) |
 | DB-12 | **Users are never hard-deleted**; they are disabled | Audit rows and `created_by` / `updated_by` reference them (`RESTRICT`) |
@@ -164,6 +166,7 @@ Put the three URLs in your local environment (see `.env.example`), then run `npm
 |---|---|
 | C | **done:** `users`, `sessions`, `known_devices`, WebAuthn credentials and challenges, TOTP, recovery codes, password resets, `audit_events` (append-only), FKs for `created_by/updated_by` |
 | E | **done, no migration:** optimistic locking (`version` + `If-Match`) and the locale-safe write rules in the API ([`admin-content.md`](admin-content.md) §4) |
+| F | **done, migration `0004_translation_review`** (additive): `source_revision` on the seven admin-managed entities; `version`, `approved_source_revision`, `approved_by` (FK users, RESTRICT), `edited_source_revision` on their `*_translations`. `db:migrate` and `db:import` then link existing approvals to the revision through the seed hash (`content/reconcile.ts`). Rollback = drop these columns ([`admin-translations.md`](admin-translations.md) §2) |
 | G | `revisions`, `content_snapshots`, `releases`, `release_events`; export of `published` revisions only |
 | I | redirect lookup, `seo_issues` |
 | J | media storage paths, variants, sha256, uploads |

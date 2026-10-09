@@ -277,7 +277,7 @@ function CollectionEditor({ collection, id }: { collection: CollectionName; id: 
           </Card>
         ))}
 
-        <TranslationsCard translations={record.translations} />
+        <TranslationsCard translations={record.translations} type={collection} id={record.id} />
         <Advanced>
           <TechValue label="ID" value={record.id} />
           <TechValue label="Ключ" value={record.key} />

@@ -3,7 +3,7 @@
  * writes only whitelisted summary keys (admin-auth.md §5); unknown keys and values are not shown
  * in the main row, only in «Дополнительно».
  */
-import { AUDIT_DETAIL_LABELS, auditActionLabel, RESOURCE_LABELS, ROLE_LABELS, USER_STATUS_LABELS } from '../../i18n/ru';
+import { AUDIT_DETAIL_LABELS, auditActionLabel, LOCALE_NAMES, RESOURCE_LABELS, ROLE_LABELS, USER_STATUS_LABELS } from '../../i18n/ru';
 import { plural } from '../../lib/format';
 
 export interface AuditItem {
@@ -31,6 +31,17 @@ const FIELD_LABELS: Record<string, string> = { name: 'имя', role: 'роль',
 export function describeAuditDetails(e: Pick<AuditItem, 'action' | 'summary' | 'result'> & { resourceType?: string | null }): string {
   const s = e.summary ?? {};
   const parts: string[] = [];
+  if (e.action.startsWith('translation.')) {
+    if (e.resourceType && RESOURCE_LABELS[e.resourceType]) parts.push(RESOURCE_LABELS[e.resourceType]!);
+    if (typeof s.locale === 'string' && LOCALE_NAMES[s.locale]) parts.push(LOCALE_NAMES[s.locale]!);
+    if (Array.isArray(s.fields) && s.fields.length)
+      parts.push(`${e.result === 'denied' ? 'отказано в изменении полей' : 'изменено полей'}: ${s.fields.length}`);
+    const from = word(s.previous_status);
+    const to = word(s.status);
+    if (from && to && from !== to) parts.push(`${from} → ${to}`);
+    else if (to) parts.push(to);
+    return parts.join(' · ');
+  }
   if (e.action.startsWith('content.')) {
     if (e.resourceType && RESOURCE_LABELS[e.resourceType]) parts.push(RESOURCE_LABELS[e.resourceType]!);
     if (Array.isArray(s.fields) && s.fields.length)

@@ -44,7 +44,7 @@ describe('content management (Phase E)', () => {
     const { page } = profiles.a;
     await signIn(profiles.a, EDITOR_A);
     const links = (await sidebar(page).getByRole('link').allTextContents()).map((s) => s.trim());
-    assert.deepEqual(links, ['Обзор', 'Страницы', 'Проекты', 'Технологии', 'Продукты', 'EPC / EPCM', 'Патенты', 'Видео']);
+    assert.deepEqual(links, ['Обзор', 'Страницы', 'Проекты', 'Технологии', 'Продукты', 'EPC / EPCM', 'Патенты', 'Видео', 'Обзор', 'Все переводы', 'Требуют внимания']);
     await sidebar(page).getByRole('link', { name: 'Проекты' }).click();
     await page.getByRole('heading', { name: 'Проекты' }).waitFor();
     const table = page.getByRole('table', { name: 'Проекты' });

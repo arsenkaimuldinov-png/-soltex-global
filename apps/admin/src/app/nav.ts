@@ -2,14 +2,14 @@
  * Navigation model (review §X sidebar). One list drives the sidebar, the ⌘K palette and the route
  * guards, so a screen is never visible in one place and hidden in another.
  *
- * Only screens that exist are listed. The sections of later phases (Медиатека, Переводы, Заявки,
- * SEO, Настройки) are added here together with their screens; there are no placeholders.
+ * Only screens that exist are listed. The sections of later phases (Медиатека, Заявки, SEO,
+ * Настройки) are added here together with their screens; there are no placeholders.
  * Visibility is a presentation of the user's permissions (from GET /auth/session); the API
  * enforces every permission on its own.
  */
 import type { Permission } from '@soltex/core/domain';
 import type { LucideIcon } from 'lucide-react';
-import { Activity, Award, FileText, FlaskConical, FolderKanban, LayoutDashboard, Package, ScrollText, ShieldCheck, Users, Video, Workflow } from 'lucide-react';
+import { Activity, AlertTriangle, Award, FileText, FlaskConical, FolderKanban, Languages, LayoutDashboard, ListChecks, Package, ScrollText, ShieldCheck, Users, Video, Workflow } from 'lucide-react';
 
 export interface NavItem {
   id: string;
@@ -18,6 +18,8 @@ export interface NavItem {
   icon: LucideIcon;
   /** Required permission; omitted = every signed-in user. */
   permission?: Permission;
+  /** Name outside the sidebar section (⌘K, overview), when the short label needs its section. */
+  title?: string;
   /** Extra words for ⌘K search. */
   keywords?: string[];
 }
@@ -44,6 +46,15 @@ export const NAV: NavSection[] = [
       { id: 'epcm-stages', label: 'EPC / EPCM', to: '/content/epcm-stages', icon: Workflow, permission: 'content.read', keywords: ['этапы', 'epc', 'epcm'] },
       { id: 'patents', label: 'Патенты', to: '/content/patents', icon: Award, permission: 'content.read', keywords: ['ис', 'интеллектуальная собственность'] },
       { id: 'videos', label: 'Видео', to: '/content/videos', icon: Video, permission: 'content.read', keywords: ['ролики'] },
+    ],
+  },
+  {
+    id: 'translations',
+    label: 'Переводы',
+    items: [
+      { id: 'translations-overview', label: 'Обзор', title: 'Переводы: обзор', to: '/translations', icon: Languages, permission: 'content.read', keywords: ['переводы', 'языки', 'готовность'] },
+      { id: 'translations-all', label: 'Все переводы', title: 'Переводы: все', to: '/translations/all', icon: ListChecks, permission: 'content.read', keywords: ['переводы', 'языки', 'ru', 'zh', 'tr', 'ar', 'es'] },
+      { id: 'translations-attention', label: 'Требуют внимания', title: 'Переводы: требуют внимания', to: '/translations/attention', icon: AlertTriangle, permission: 'content.read', keywords: ['переводы', 'устарел', 'нет перевода', 'утвердить'] },
     ],
   },
   {

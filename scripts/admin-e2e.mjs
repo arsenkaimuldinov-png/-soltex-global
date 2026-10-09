@@ -63,8 +63,8 @@ run('npm', ['run', 'db:migrate']);
 run('npm', ['run', 'db:import']);
 if (!args.includes('--no-build')) run('npm', ['run', 'build:admin']);
 
-// admin.e2e.mjs uses the first user of each role; content.e2e.mjs its own (second editor, …).
-const roles = ['owner', 'admin', 'content_manager', 'editor', 'marketer', 'editor', 'editor', 'seo_specialist', 'admin'];
+// admin.e2e.mjs uses the first user of each role; content.e2e.mjs and translations.e2e.mjs their own.
+const roles = ['owner', 'admin', 'content_manager', 'editor', 'marketer', 'editor', 'editor', 'seo_specialist', 'admin', 'editor', 'content_manager', 'marketer'];
 const users = JSON.parse(run(process.execPath, ['--import', 'tsx', 'apps/api/test/e2e-seed.ts', 'users', roles.join(',')], { capture: true }));
 
 const key = () => crypto.randomBytes(32).toString('base64');

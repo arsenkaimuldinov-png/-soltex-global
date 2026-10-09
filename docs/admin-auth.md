@@ -62,7 +62,9 @@ The content API (Phase E) will enforce these rules. The test suite already cover
 | `enrollment` | the second factor, if one is enrolled; the role requirement may still be unmet (enrolling a factor). Adding a further factor needs step-up |
 | `full` | the second factor and the role requirement met; optionally a `permission` (one, or a list meaning "any of", Phase E) and `stepUp` |
 
-Content mutations (Phase E) add field-level checks after the route permission: only changed fields are checked against `SEO_FIELDS`; a refusal is audited as `access.denied`. Content audit actions: `content.create`, `content.update` (summary: changed field names, never values), `content.archive`, `content.restore`. See [`admin-content.md`](admin-content.md).
+Content mutations (Phase E) add field-level checks after the route permission: only changed fields are checked against `SEO_FIELDS`; a refusal is a 403 audited as `content.update` with result `denied` and the refused field names (a refused route permission stays `access.denied`). Content audit actions: `content.create`, `content.update` (summary: changed field names, never values), `content.archive`, `content.restore`. See [`admin-content.md`](admin-content.md).
+
+Translations (Phase F) use the same matrix, **no new permission**: reading `content.read`; saving content texts `content.edit`, SEO texts `seo.edit` (field level, refusals audited as `translation.update` / `denied`); approving and returning to work `content.publish` (`TRANSLATION_REVIEW_PERMISSION` in `@soltex/core/domain`, held by Owner, Admin, Content Manager; MFA-required). See [`admin-translations.md`](admin-translations.md) §6.
 
 ---
 
@@ -164,7 +166,7 @@ Users who still have to enroll get `mfa_enrollment_required` everywhere except t
 - `summary` (jsonb), `schema_version`.
 
 **Secrets never reach the audit log or the application log:**
-- `summary` accepts only whitelisted keys (`reason`, `method`, `role`, `factor`, `count`, `email_hash`, …). Secret-looking keys (password, token, secret, code, cookie, e-mail, …) raise an error. Values are limited to 200 characters;
+- `summary` accepts only whitelisted keys (`reason`, `method`, `role`, `factor`, `count`, `email_hash`, `fields`, `status`; Phase F adds `locale`, `previous_status`, `revision`, …). Secret-looking keys (password, token, secret, code, cookie, e-mail, …) raise an error. Values are limited to 200 characters;
 - e-mail addresses of unknown accounts are stored only as `email_hash` (keyed HMAC);
 - IP addresses are stored only as a keyed HMAC;
 - the logger redacts `cookie`, `authorization` and `set-cookie`, and logs request URLs without the query string;
@@ -178,7 +180,9 @@ Users who still have to enroll get `mfa_enrollment_required` everywhere except t
 - `mfa.totp.enroll_start`, `mfa.totp.enroll`, `mfa.totp.disable`, `mfa.recovery.regenerate`;
 - `mfa.passkey.register`, `mfa.passkey.remove`;
 - `user.create`, `user.update`, `user.profile_update`, `user.mfa_reset`, `user.sessions_revoke`, `user.bootstrap_owner`;
-- `access.denied`.
+- `access.denied`;
+- content (Phase E): `content.create`, `content.update`, `content.archive`, `content.restore`;
+- translations (Phase F): `translation.update`, `translation.approve`, `translation.reopen`.
 
 **Reading:** `GET /api/v1/audit` (`audit.read`): newest first, cursor `before`, filters `actorId` and `action`.
 

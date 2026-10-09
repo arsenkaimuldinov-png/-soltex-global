@@ -53,7 +53,7 @@ export function OverviewPage() {
                   <li key={s.id}>
                     <Link to={s.to} className="flex items-center gap-3 py-2.5 text-[13px] hover:text-accent">
                       <s.icon className="size-4 text-ink-muted" aria-hidden />
-                      <span className="flex-1">{s.label}</span>
+                      <span className="flex-1">{s.title ?? s.label}</span>
                       <ArrowRight className="size-3.5 text-ink-faint" aria-hidden />
                     </Link>
                   </li>

@@ -261,7 +261,8 @@ export function fieldPermission(name: string): Permission {
 export const STATUS_LABELS = { draft: 'Черновик', published: 'Опубликовано', archived: 'В архиве' } as const;
 export const STATUS_TONES = { draft: 'warn', published: 'ok', archived: 'neutral' } as const;
 
-export const TR_STATE_LABELS = { missing: 'Нет перевода', in_progress: 'Перевод в работе', approved: 'Переведено' } as const;
+export const TR_STATE_LABELS = { missing: 'Нет перевода', in_progress: 'Перевод в работе', outdated: 'Устарел', approved: 'Переведено' } as const;
+export const TR_STATE_TONES = { missing: 'neutral', in_progress: 'warn', outdated: 'danger', approved: 'ok' } as const;
 export const LOCALE_LABELS = { en: 'EN', ru: 'RU', zh: 'ZH', tr: 'TR', ar: 'AR', es: 'ES' } as const;
 
 /** Messages of field-level API errors (problem `errors[].message`). */

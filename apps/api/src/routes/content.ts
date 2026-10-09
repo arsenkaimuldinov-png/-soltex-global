@@ -18,7 +18,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { and, asc, eq, ilike, or } from 'drizzle-orm';
 import { z } from 'zod';
-import { SOURCE_LOCALE, TRANSLATED_LOCALES } from '@soltex/core/domain';
+import { EFFECTIVE_TRANSLATION_STATES, SOURCE_LOCALE, TRANSLATED_LOCALES } from '@soltex/core/domain';
 import { SLUG_MAX_LENGTH } from '@soltex/core/seo';
 import type { Deps } from '../deps.ts';
 import { clientInfo, requireDb } from '../deps.ts';
@@ -31,7 +31,7 @@ import { getPage, listPages, PageFields, PageUpdateInput, updatePage } from '../
 import { problems, Uuid } from './schemas.ts';
 
 const Status = z.enum(['draft', 'published', 'archived']);
-const TrState = z.enum(['missing', 'in_progress', 'approved']);
+const TrState = z.enum(EFFECTIVE_TRANSLATION_STATES).describe('Effective translation state; outdated = approved for an older source text');
 const UserRefSchema = z.object({ id: Uuid, name: z.string() }).nullable();
 const TranslationsSummary = z.object(Object.fromEntries(TRANSLATED_LOCALES.map((l) => [l, TrState])) as Record<(typeof TRANSLATED_LOCALES)[number], typeof TrState>);
 const TranslationsDetail = z.object(

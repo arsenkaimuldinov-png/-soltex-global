@@ -434,6 +434,75 @@ Content, media, translations, leads, SEO, settings, publishing, releases and pre
 
 Publishing, revisions and scheduling (G); preview (H); SEO checker, redirects, slug changes of live records (I); translation workflow and outdated detection (F); uploads and the media library (J); leads and e-mail (K); settings, offices, metrics and footer editing; hard delete with usages; ASVS checklist (M); deployment (N).
 
-### Next: Phase F (translations) / Phase G (publishing)
+---
 
-Translation editing and statuses, then the publishing system: publish / unpublish, revisions, releases.
+## Phase F: Translation management (2026-10-09)
+
+**Base commit:** `6334636`. Details: [`admin-translations.md`](admin-translations.md).
+
+### What was done
+
+1. **State model** (`@soltex/core/domain` `translations.ts`):
+   - stored `missing` / `in_progress` / `approved` (enum unchanged);
+   - effective `outdated` derived from source revisions;
+   - workflow (save → in progress; approve; reopen), completion (rounded down), review permission (`content.publish`).
+2. **Migration `0004_translation_review`** (additive):
+   - `source_revision` on the seven admin-managed entities;
+   - `version`, `approved_source_revision`, `approved_by`, `edited_source_revision` on their translation tables.
+3. **Outdated detection:**
+   - Phase E saves raise `source_revision` only when translated source text changes;
+   - every write to a language row raises its `version`;
+   - existing approvals are linked to the revision by `reconcileApprovals()` (seed-hash check, same rule as the site build validator) in `db:import` and after `db:migrate`;
+   - the export writes the seed-format hash for current approvals, so `seed → DB → export` stays byte-identical and export → import keeps every state.
+4. **API** (tag `translations`, API 0.6.0):
+   - overview (one aggregate query);
+   - list with filters, sort and paging;
+   - read / save / approve / reopen per record and language;
+   - `If-Match` = `"<sourceRevision>.<rowVersion>"`;
+   - field-level authorization, RFC 9457, audit (`translation.update` / `approve` / `reopen`).
+   - The Phase E record and list responses now report the effective state (adds `outdated`).
+5. **Admin «Переводы»:**
+   - Обзор, Все переводы, Требуют внимания;
+   - side-by-side translation editor with RTL inputs for Arabic, dirty state, conflict handling and review actions (reopen through the Phase D confirmation dialog);
+   - Phase E «Языковые версии» link to the translations;
+   - audit wording in Russian.
+6. **Tests:** core +4, admin unit +6, API DB +15, admin E2E +10 (`translations.e2e.mjs`).
+7. **Test hygiene:** a Phase D E2E step («Новый пользователь» dialog) now closes with its «Отмена» button instead of Escape; Escape was occasionally lost under load (one flaky run in five).
+8. **Unchanged:** `apps/web` (no file changed), the seed, migrations 0000–0003, routes, SEO, prerender, fallback rules, release pipeline; no new dependency, role or permission.
+
+### Verification (2026-10-09)
+
+| Check | Result |
+|---|---|
+| `git diff --check` | clean |
+| `npm run lint` (typecheck web, admin incl. tests, api, core + check:deps) | pass |
+| `npm test` | 66 / 66 pass (core 21, api 20, admin 25) |
+| `npm run test:db` on a freshly provisioned database | 94 tests: 93 pass, 1 skipped (backup role: no `BACKUP_DATABASE_URL` locally) |
+| `npm run test:e2e:admin` | 45 / 45 pass (shell 23, content 12, translations 10); no page errors, no CSP violations |
+| `openapi.json`, admin API types | up to date (100 operations) |
+| Drizzle | `drizzle-kit check` OK; `generate` → no schema changes |
+| Migration on a Phase E database | 240 existing approvals linked; second run: nothing to do; export = seed |
+| Admin bundle | builds; no secrets or server addresses |
+| Public site build vs Phase E (`6334636`) | **byte-identical** (229 files, 180 HTML) |
+| `qa-regression --base-ref 6334636` | **IDENTICAL to the baseline**: dist bytes, page data of 348 page loads, no-JS / motion / script-fail / 404, interactions, navigation, inquiry topics |
+| DB regression: `seed → DB → export` after `test:db`; site from the DB export | **byte-identical** to the seed; **identical** build |
+
+### Deviations (Phase F)
+
+F-1 … F-8 in [`admin-translations.md`](admin-translations.md) §9. In short:
+- no translation revisions yet (G), so an unapproved translation falls back to English on the site;
+- approval reuses `content.publish`;
+- `outdated` is derived, not stored;
+- CMS approvals get their seed-format hash at export time;
+- settings, offices, metrics and alt texts are not translated in the admin;
+- migrated Phase E databases are reconciled conservatively;
+- no source diff;
+- no localized slugs, machine translation or tasks.
+
+### Not done in Phase F (by design)
+
+Publishing, revisions, releases, scheduling (G); preview (H); SEO checker and redirects (I); media library and alt-text translation (J); leads (K); dashboard (L); ASVS (M); deployment and backups (N); machine translation, translation tasks, translator role, localized slugs.
+
+### Next: Phase G (publishing)
+
+Publish / unpublish, revisions (including approved translation revisions served while a newer one is in progress), releases.

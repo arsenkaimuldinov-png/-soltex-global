@@ -42,7 +42,7 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
     };
     const list: Command[] = [];
     for (const item of [...visibleNav(can).flatMap((s) => s.items), ACCOUNT_ITEM])
-      list.push({ id: `nav:${item.id}`, group: 'Разделы', label: item.label, icon: item.icon, keywords: (item.keywords ?? []).join(' '), run: go(item.to) });
+      list.push({ id: `nav:${item.id}`, group: 'Разделы', label: item.title ?? item.label, icon: item.icon, keywords: (item.keywords ?? []).join(' '), run: go(item.to) });
     if (canUsers) list.push({ id: 'act:new-user', group: 'Действия', label: 'Добавить пользователя', icon: UserPlus, keywords: 'создать новый сотрудник', run: go('/admin/users?new=1') });
     list.push({
       id: 'act:logout',
