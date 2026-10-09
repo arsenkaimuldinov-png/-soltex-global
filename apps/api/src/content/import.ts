@@ -32,6 +32,7 @@ import type { z } from 'zod';
 import type { Queryable } from '../db/client.ts';
 import * as s from '../db/schema.ts';
 import { reconcileApprovals } from './reconcile.ts';
+import { syncRevisions } from '../publishing/revisions.ts';
 
 export interface ImportReport {
   counts: Record<string, number>;
@@ -89,7 +90,21 @@ function sameSlug(slug: string) {
 
 const now = () => new Date();
 
-export async function importStore(tx: Tx, store: ContentStore): Promise<ImportReport> {
+/** Store collections that hold one record per admin-managed entity. */
+export type RecordCollection = 'pages' | 'projects' | 'technologies' | 'products' | 'epcmStages' | 'patents' | 'videos';
+
+export interface ImportOptions {
+  /**
+   * Write only this one record (Phase G restore of a revision). Media, technologies and projects
+   * are then resolved from the database instead of being imported; settings, redirects, the
+   * "not in store" report and the approval reconcile are skipped.
+   */
+  only?: { collection: RecordCollection; key: string };
+}
+
+export async function importStore(tx: Tx, store: ContentStore, options: ImportOptions = {}): Promise<ImportReport> {
+  const only = options.only;
+  const include = (collection: RecordCollection, key: string) => !only || (only.collection === collection && only.key === key);
   const counts: Record<string, number> = {};
   const notInStore: Record<string, string[]> = {};
   const count = (k: string, n = 1) => (counts[k] = (counts[k] ?? 0) + n);
@@ -125,7 +140,8 @@ export async function importStore(tx: Tx, store: ContentStore): Promise<ImportRe
 
   // ---- media --------------------------------------------------------------
   const mediaId = new Map<string, string>();
-  for (const m of store.media) {
+  if (only) for (const m of await tx.select({ key: s.media.key, id: s.media.id }).from(s.media)) mediaId.set(m.key, m.id);
+  for (const m of only ? [] : store.media) {
     const id = await upsertEntity(s.media, { key: m.id, kind: m.kind, src: m.src, width: m.width, height: m.height });
     mediaId.set(m.id, id);
     if (m.alt === null) await tx.delete(s.mediaTranslations).where(eq(s.mediaTranslations.mediaId, id));
@@ -147,7 +163,9 @@ export async function importStore(tx: Tx, store: ContentStore): Promise<ImportRe
 
   // ---- technologies (before projects: projects reference technologies) ----
   const techId = new Map<string, string>();
+  if (only) for (const t of await tx.select({ key: s.technologies.key, id: s.technologies.id }).from(s.technologies)) techId.set(t.key, t.id);
   for (const t of store.technologies) {
+    if (!include('technologies', t.id)) continue;
     const w = `technology ${t.id}`;
     const id = await upsertEntity(s.technologies, {
       key: t.id,
@@ -194,7 +212,9 @@ export async function importStore(tx: Tx, store: ContentStore): Promise<ImportRe
 
   // ---- projects -----------------------------------------------------------
   const projectId = new Map<string, string>();
+  if (only) for (const p of await tx.select({ key: s.projects.key, id: s.projects.id }).from(s.projects)) projectId.set(p.key, p.id);
   for (const p of store.projects) {
+    if (!include('projects', p.id)) continue;
     const w = `project ${p.id}`;
     const id = await upsertEntity(s.projects, {
       key: p.id,
@@ -247,6 +267,7 @@ export async function importStore(tx: Tx, store: ContentStore): Promise<ImportRe
 
   // technology → related projects (after both exist)
   for (const t of store.technologies) {
+    if (!include('technologies', t.id)) continue;
     const id = techId.get(t.id)!;
     await tx.delete(s.technologyProjects).where(eq(s.technologyProjects.technologyId, id));
     if (t.relatedProjectIds.length)
@@ -257,6 +278,7 @@ export async function importStore(tx: Tx, store: ContentStore): Promise<ImportRe
 
   // ---- products -----------------------------------------------------------
   for (const p of store.products) {
+    if (!include('products', p.id)) continue;
     const w = `product ${p.id}`;
     const id = await upsertEntity(s.products, {
       key: p.id,
@@ -296,6 +318,7 @@ export async function importStore(tx: Tx, store: ContentStore): Promise<ImportRe
 
   // ---- EPC/EPCM stages ----------------------------------------------------
   for (const e of store.epcmStages) {
+    if (!include('epcmStages', e.id)) continue;
     const w = `epcm stage ${e.id}`;
     const id = await upsertEntity(s.epcmStages, {
       key: e.id,
@@ -325,6 +348,7 @@ export async function importStore(tx: Tx, store: ContentStore): Promise<ImportRe
 
   // ---- patents ------------------------------------------------------------
   for (const p of store.patents) {
+    if (!include('patents', p.id)) continue;
     const w = `patent ${p.id}`;
     const id = await upsertEntity(s.patents, {
       key: p.id,
@@ -365,6 +389,7 @@ export async function importStore(tx: Tx, store: ContentStore): Promise<ImportRe
 
   // ---- videos -------------------------------------------------------------
   for (const v of store.videos) {
+    if (!include('videos', v.id)) continue;
     const w = `video ${v.id}`;
     const id = await upsertEntity(s.videos, {
       key: v.id,
@@ -393,6 +418,7 @@ export async function importStore(tx: Tx, store: ContentStore): Promise<ImportRe
 
   // ---- pages --------------------------------------------------------------
   for (const p of store.pages) {
+    if (!include('pages', p.id)) continue;
     const w = `page ${p.id}`;
     const h = p.header;
     const id = await upsertEntity(s.pages, {
@@ -453,6 +479,8 @@ export async function importStore(tx: Tx, store: ContentStore): Promise<ImportRe
     }
     count('pages');
   }
+
+  if (only) return { counts, notInStore };
 
   // ---- settings, metrics, offices ----------------------------------------
   {
@@ -539,5 +567,7 @@ export async function importStore(tx: Tx, store: ContentStore): Promise<ImportRe
   await reportMissing(s.redirects, 'redirects', store.redirects.map((r) => r.id));
 
   count('approvals linked to the source revision', await reconcileApprovals(tx));
+  // Phase G: the revision history follows what was imported (baseline / import revisions).
+  count('revisions written', await syncRevisions(tx, 'import'));
   return { counts, notInStore };
 }

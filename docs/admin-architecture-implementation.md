@@ -503,6 +503,50 @@ F-1 … F-8 in [`admin-translations.md`](admin-translations.md) §9. In short:
 
 Publishing, revisions, releases, scheduling (G); preview (H); SEO checker and redirects (I); media library and alt-text translation (J); leads (K); dashboard (L); ASVS (M); deployment and backups (N); machine translation, translation tasks, translator role, localized slugs.
 
-### Next: Phase G (publishing)
+## Phase G: Publishing, revisions and releases (2026-10-09)
 
-Publish / unpublish, revisions (including approved translation revisions served while a newer one is in progress), releases.
+**Base commit:** `14d0f16`. Details: [`admin-publishing.md`](admin-publishing.md).
+
+### What was done
+
+1. **Domain** (`@soltex/core/domain` `releases.ts`): release statuses and kinds, the transition table (`canTransition`; preview builds can never become active), revision kinds, live state.
+2. **Migration `0005_publishing`** (additive, generated + hand-written guards): `content_revisions`, `content_snapshots`, `releases`, `release_events`, `preview_grants`; append-only triggers and revoked `UPDATE`/`DELETE`/`TRUNCATE` for the app role; immutable release identity and artifact columns; one active release per kind. `db:migrate` / `db:import` write baseline revisions (50 on the seed).
+3. **Revisions:** written in the transaction of every content change (create, update, archive, page update, translation save / approve / reopen, publish / unpublish, restore); full record per version; structured view and compare; restore as a new version (status and slug kept, field-level SEO rights, translation approvals become outdated when English changes).
+4. **Releases:** snapshot of the published records in one `REPEATABLE READ` transaction; worker process (`npm run worker -w @soltex/api`) with the releases table as queue (`FOR UPDATE SKIP LOCKED`) and a PostgreSQL advisory lock; isolated workspace build with the existing site build; blocking checks vs warnings; immutable artifacts (`release.json`, checksum, read-only, shared blobs); atomic `current` symlink switch with smoke check and switch-back on any failure; stale-release and duplicate-activation protection; rollback without rebuild (Owner/Admin, step-up); retry of failed builds; crash recovery (`worker_lost`) and symlink reconciliation.
+5. **Preview:** preview builds of the working copy; separate preview server (`npm run preview-server -w @soltex/api`) on its own origin; one-time token in the URL fragment exchanged for an `HttpOnly` `SameSite=Strict` cookie; 30-minute grants bound to the admin session; revocation; `noindex` / `no-store` everywhere; all 6 languages.
+6. **API** (tag `publishing`, API 0.7.0, 146 operations): revisions, compare, restore, publish/unpublish, overview, releases, activate, rollback, retry, preview links, preview revoke — Zod, RFC 9457, CSRF, `If-Match`, audit.
+7. **Admin «Публикация»:** Обзор, Ревизии (+ full history of a record), Релизы and the release page; «История изменений» and «Отметить к публикации / Снять с публикации» in the content editors; confirmations for publish, restore and rollback; step-up for rollback; no publishing commands in ⌘K; audit wording in Russian.
+8. **Tests:** core +3, admin unit +6 (and nav/audit updates), API DB +17 (`publishing.db.test.ts`, including a real site build activated in a temporary directory), admin E2E +11 (`publishing.e2e.mjs`: revisions, compare, restore, release build, preview on the preview origin in all languages, publish, failed publish, supersede, rollback with step-up, audit, mobile). `scripts/admin-e2e.mjs` starts the worker and the preview server with a temporary `RELEASES_DIR` and deletes it afterwards; `--only <suite>` runs one suite.
+9. **Unchanged:** `apps/web` (no file changed), the seed, migrations 0000–0004, public routes, SEO, prerender and fallback rules; no new dependency, role or permission.
+
+### Verification (2026-10-09)
+
+| Check | Result |
+|---|---|
+| `git diff --check` | clean |
+| `npm run lint` (typecheck web, admin incl. tests, api, core + check:deps) | pass |
+| `npm test` | 75 / 75 pass (core 24, api 20, admin 31) |
+| `npm run test:db` on a freshly provisioned database | 111 tests: 110 pass, 1 skipped (backup role: no `BACKUP_DATABASE_URL` locally) |
+| `npm run test:e2e:admin` | 56 / 56 pass (shell 23, content 12, translations 10, publishing 11); no page errors, no CSP violations |
+| `openapi.json`, admin API types | up to date (146 operations) |
+| Drizzle | `drizzle-kit check` OK; `generate` → no schema changes |
+| Migration of a Phase F database | 50 baseline revisions; export before = export after (translation states kept); second run writes nothing |
+| Admin bundle | builds; no secrets, database URLs or server paths |
+| Public site build vs `14d0f16` | **byte-identical** (229 files, 180 HTML); no file under `apps/web` changed |
+| `qa-regression --base-ref 14d0f16` | **IDENTICAL to the baseline**: dist bytes (229 files, 180 HTML), page data of 348 page loads, no-JS / motion / script-fail / 404, interactions, navigation, inquiry topics |
+| DB regression: `seed → DB → export` after `test:db`; site from the DB export | **byte-identical** to the seed; **identical** build (229 files, 180 HTML) |
+| Releases in tests | only temporary `RELEASES_DIR`s (removed afterwards); no repository `.releases`, no real `current` touched |
+
+### Deviations (Phase G)
+
+- G-1 No pg-boss and no `flock`: the releases table is the job queue; PostgreSQL advisory locks serialize builds and activations (no new dependency).
+- G-2 Production activation (nginx serving `RELEASES_DIR/current`) is not verified; activation is tested on temporary directories.
+- G-3 No release pruning and no revision retention policy yet (nothing is deleted).
+- G-4 No publishing hold after a rollback.
+- G-5 Preview always needs a build (≈ 5–20 s); no overlay banner in the preview.
+- G-6 An in-progress rework of an approved translation is not served from its previous approved revision (falls back to English); outdated translations do keep their previously approved text.
+- G-7 The worker builds in a copy of the repository's `apps/web`; it needs the checkout on the server.
+
+### Not done in Phase G (by design)
+
+Scheduled publishing; SEO checker and redirects (I); media library (J); leads (K); dashboard (L); ASVS (M); deployment of the worker / preview server / nginx switch and backups (N).

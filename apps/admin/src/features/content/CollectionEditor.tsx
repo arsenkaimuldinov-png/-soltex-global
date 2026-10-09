@@ -22,6 +22,8 @@ import { useToast } from '../../components/ui/Toast';
 import { NotFoundPage } from '../../app/ErrorPages';
 import { buildPatch, toForm, validateAll, type FormValues } from './form';
 import { COLLECTION_UI, COLLECTIONS, fieldPermission, SECTION_LABELS, type CollectionName, type FieldDef, type SectionId } from './model';
+import { HistoryPanel } from '../publishing/HistoryPanel';
+import { PublishButtons } from '../publishing/PublishButtons';
 import { apiFieldErrors, ConflictAlert, EditorBar, saveErrorMessage, StatusBadge, TranslationsCard, type ContentStatus } from './shared';
 import {
   BoolField,
@@ -220,6 +222,21 @@ function CollectionEditor({ collection, id }: { collection: CollectionName; id: 
                 Вернуть в черновики
               </Button>
             ) : null}
+            <PublishButtons
+              type={collection}
+              id={record.id}
+              status={record.status}
+              version={record.version}
+              dirty={dirty}
+              title={title}
+              onChanged={() => {
+                setValues(null);
+                void query.refetch();
+                void qc.invalidateQueries({ queryKey: ['content', collection, 'list'] });
+              }}
+              onConflict={() => setConflict(true)}
+              onErrors={setErrors}
+            />
           </>
         }
       />
@@ -234,7 +251,7 @@ function CollectionEditor({ collection, id }: { collection: CollectionName; id: 
           />
         ) : null}
         {record.status === 'published' ? (
-          <Alert tone="info">Запись опубликована. Изменения сохраняются в рабочей версии; на сайт они попадут при публикации — она подключается на следующем этапе.</Alert>
+          <Alert tone="info">Запись отмечена к публикации. Изменения сохраняются в рабочей версии; на сайт они попадут со следующим опубликованным релизом («Публикация» → «Релизы»).</Alert>
         ) : null}
         {record.status === 'archived' ? <Alert tone="info">Запись в архиве и не редактируется. Верните её в черновики, чтобы изменить.</Alert> : null}
         {!canEditSomething && record.status !== 'archived' ? <Alert tone="info">Ваша роль может только просматривать эту запись.</Alert> : null}
@@ -278,6 +295,16 @@ function CollectionEditor({ collection, id }: { collection: CollectionName; id: 
         ))}
 
         <TranslationsCard translations={record.translations} type={collection} id={record.id} />
+        <HistoryPanel
+          type={collection}
+          id={record.id}
+          entityVersion={record.version}
+          archived={record.status === 'archived'}
+          onRestored={() => {
+            setValues(null);
+            void query.refetch();
+          }}
+        />
         <Advanced>
           <TechValue label="ID" value={record.id} />
           <TechValue label="Ключ" value={record.key} />

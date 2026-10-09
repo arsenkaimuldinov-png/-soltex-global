@@ -20,12 +20,12 @@ export interface DialogProps {
   description?: ReactNode;
   children: ReactNode;
   footer?: ReactNode;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
   /** Prevent closing by Esc/outside click while something important is shown (e.g. recovery codes). */
   modalLock?: boolean;
 }
 
-const WIDTH = { sm: 'max-w-sm', md: 'max-w-lg', lg: 'max-w-2xl' };
+const WIDTH = { sm: 'max-w-sm', md: 'max-w-lg', lg: 'max-w-2xl', xl: 'max-w-4xl' };
 
 export function Dialog({ open, onOpenChange, title, description, children, footer, size = 'md', modalLock }: DialogProps) {
   return (

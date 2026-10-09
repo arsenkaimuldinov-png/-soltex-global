@@ -40,6 +40,7 @@ import { recordAudit } from '../../audit/audit.ts';
 import { Problem, type FieldError } from '../../http/problem.ts';
 import type { UserRow } from '../../auth/sessions.ts';
 import { COLLECTION_DEFS, requiredOnCreate, type CollectionDef, type EnFieldDef } from './collections.ts';
+import { recordRevision } from '../../publishing/revisions.ts';
 import { changes, ListOriginError, sourceValue, translationValue, validateOrigins, type TrKind } from './fields.ts';
 
 // Drizzle tables are addressed by property name here (one implementation for six collections).
@@ -424,6 +425,7 @@ export async function createRecord(deps: Deps, def: CollectionDef, actor: UserRo
         await tx.insert(tr).values(r);
       }
       await writeChildren(tx, def, id, input);
+      await recordRevision(tx, { type: def.name, id, kind: 'create', actorId: actor.id, summary: { fields: provided } });
       await recordAudit(deps, client, { action: 'content.create', result: 'success', actorId: actor.id, resourceType: def.resourceType, resourceId: id, summary: { status: 'draft' } }, tx);
       return view(tx, def, (await load(tx, def, id))!);
     });
@@ -528,6 +530,7 @@ export async function updateRecord(
             .where(and(eq(tr[def.trOwner], id), eq(tr.locale, locale)));
       }
       await writeChildren(tx, def, id, patch);
+      await recordRevision(tx, { type: def.name, id, kind: 'update', actorId: actor.id, summary: { fields: changed } });
       await recordAudit(deps, client, { action: 'content.update', result: 'success', actorId: actor.id, resourceType: def.resourceType, resourceId: id, summary: { fields: changed } }, tx);
       return view(tx, def, (await load(tx, def, id))!);
     });
@@ -571,6 +574,7 @@ export async function setArchived(
       .where(and(eq(t.id, id), eq(t.version, expectedVersion)))
       .returning({ id: t.id });
     if (!updated.length) throw new Problem('edit_conflict');
+    await recordRevision(tx, { type: def.name, id, kind: archive ? 'archive' : 'unarchive', actorId: actor.id });
     await recordAudit(
       deps,
       client,

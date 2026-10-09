@@ -34,6 +34,7 @@ import {
   text,
   timestamp,
   unique,
+  uniqueIndex,
   uuid,
 } from 'drizzle-orm/pg-core';
 import { v7 as uuidv7 } from 'uuid';
@@ -813,3 +814,176 @@ export const auditEvents = pgTable(
   (t) => [index('audit_events_at').on(t.at), index('audit_events_actor').on(t.actorId), index('audit_events_request').on(t.requestId)]
 );
 
+
+// ---------------------------------------------------------------------------
+// Phase G: revisions, content snapshots, releases, preview (docs/admin-publishing.md)
+// ---------------------------------------------------------------------------
+
+export const revisionKind = pgEnum('revision_kind', [
+  'baseline',
+  'import',
+  'create',
+  'update',
+  'archive',
+  'unarchive',
+  'publish',
+  'unpublish',
+  'translation',
+  'approve',
+  'reopen',
+  'restore',
+]);
+export const releaseStatus = pgEnum('release_status', ['queued', 'building', 'validating', 'ready', 'active', 'retired', 'failed', 'superseded']);
+export const releaseKind = pgEnum('release_kind', ['release', 'preview']);
+
+/**
+ * Revision history of the seven admin-managed entity types. Append-only (trigger refuses UPDATE
+ * and DELETE; the application role has INSERT and SELECT only). `data` is the entity's full record
+ * in the seed / ContentStore format (all languages, translation states, relations and media by
+ * stable key), so any revision can be compared and restored, and a release snapshot is made of the
+ * same records. No user data, no secrets.
+ */
+export const contentRevisions = pgTable(
+  'content_revisions',
+  {
+    id: bigint('id', { mode: 'number' }).primaryKey().generatedAlwaysAsIdentity(),
+    /** pages | projects | technologies | products | epcm-stages | patents | videos */
+    entityType: text('entity_type').notNull(),
+    entityId: uuid('entity_id').notNull(),
+    entityKey: text('entity_key').notNull(),
+    /** 1, 2, 3 … per entity; never reused. */
+    number: integer('number').notNull(),
+    kind: revisionKind('kind').notNull(),
+    /** Language of a translation change; null for source and state changes. */
+    locale: text('locale').references(() => locales.code),
+    /** Entity source_revision after the change (Phase F). */
+    sourceRevision: integer('source_revision').notNull(),
+    /** Entity version after the change (Phase E optimistic lock). */
+    entityVersion: integer('entity_version').notNull(),
+    /** Source-language title at the time (for lists). */
+    title: text('title').notNull(),
+    /** EntityRecordV1: the record in ContentStore format. */
+    data: json('data').notNull(),
+    /** RevisionSummaryV1: changed field names, restore origin… (no texts). */
+    summary: jsonb('summary').notNull().default(sql`'{}'::jsonb`),
+    schemaVersion: smallint('schema_version').notNull().default(1),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    createdBy: uuid('created_by').references((): AnyPgColumn => users.id, { onDelete: 'restrict' }),
+  },
+  (t) => [
+    unique('content_revisions_number').on(t.entityType, t.entityId, t.number),
+    index('content_revisions_created').on(t.createdAt),
+    index('content_revisions_entity').on(t.entityType, t.entityId),
+  ]
+);
+
+/**
+ * Immutable content snapshot a release (or a preview) is built from: the ContentStore in seed
+ * format, its SHA-256 and the revision numbers it contains. Append-only.
+ */
+export const contentSnapshots = pgTable('content_snapshots', {
+  id: pk(),
+  kind: releaseKind('kind').notNull(),
+  sha256: text('sha256').notNull(),
+  /** ContentStoreV1 */
+  store: json('store').notNull(),
+  /** "<type>/<key>" → revision number */
+  entityRevisions: jsonb('entity_revisions').notNull(),
+  /** Translation states of published records per language (counts and outdated/in-progress items). */
+  translations: jsonb('translations').notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  createdBy: uuid('created_by').references((): AnyPgColumn => users.id, { onDelete: 'restrict' }),
+});
+
+/**
+ * Releases (and preview builds). Status changes only through the publishing service, following
+ * @soltex/core/domain RELEASE_TRANSITIONS; a trigger keeps the identity, snapshot and artifact
+ * columns immutable once set. Every change is also written to release_events.
+ */
+export const releases = pgTable(
+  'releases',
+  {
+    id: pk(),
+    /** R-YYYYMMDD-HHMMSS-xxxxxx (P-… for previews): the artifact directory name. */
+    key: text('key').notNull().unique(),
+    kind: releaseKind('kind').notNull(),
+    status: releaseStatus('status').notNull(),
+    snapshotId: uuid('snapshot_id')
+      .notNull()
+      .references(() => contentSnapshots.id, { onDelete: 'restrict' }),
+    /** The release that was active when this one was created / activated over. */
+    previousReleaseId: uuid('previous_release_id').references((): AnyPgColumn => releases.id, { onDelete: 'restrict' }),
+    /** Optimistic lock for activation / rollback requests. */
+    version: integer('version').notNull().default(1),
+    attempt: integer('attempt').notNull().default(0),
+    note: text('note'),
+    /** ReleaseValidationV1: { errors: [], warnings: [], checks: {} } */
+    validation: jsonb('validation'),
+    /** { step, message } shown in the admin; never a stack trace. */
+    failure: jsonb('failure'),
+    buildStartedAt: timestamp('build_started_at', { withTimezone: true }),
+    buildFinishedAt: timestamp('build_finished_at', { withTimezone: true }),
+    heartbeatAt: timestamp('heartbeat_at', { withTimezone: true }),
+    artifactSha256: text('artifact_sha256'),
+    artifactBytes: bigint('artifact_bytes', { mode: 'number' }),
+    artifactFiles: integer('artifact_files'),
+    artifactPages: integer('artifact_pages'),
+    activatedAt: timestamp('activated_at', { withTimezone: true }),
+    activatedBy: uuid('activated_by').references((): AnyPgColumn => users.id, { onDelete: 'restrict' }),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    createdBy: uuid('created_by').references((): AnyPgColumn => users.id, { onDelete: 'restrict' }),
+  },
+  (t) => [
+    index('releases_status').on(t.status),
+    index('releases_created').on(t.createdAt),
+    // At most one active release (the database guarantees what the symlink shows).
+    uniqueIndex('releases_one_active').on(t.kind).where(sql`status = 'active'`),
+  ]
+);
+
+/** Append-only history of release state changes (who, when, from → to, why). */
+export const releaseEvents = pgTable(
+  'release_events',
+  {
+    id: bigint('id', { mode: 'number' }).primaryKey().generatedAlwaysAsIdentity(),
+    releaseId: uuid('release_id')
+      .notNull()
+      .references(() => releases.id, { onDelete: 'restrict' }),
+    at: timestamp('at', { withTimezone: true }).notNull().defaultNow(),
+    actorId: uuid('actor_id').references((): AnyPgColumn => users.id, { onDelete: 'restrict' }),
+    event: text('event').notNull(),
+    fromStatus: releaseStatus('from_status'),
+    toStatus: releaseStatus('to_status'),
+    detail: jsonb('detail').notNull().default(sql`'{}'::jsonb`),
+  },
+  (t) => [index('release_events_release').on(t.releaseId)]
+);
+
+/**
+ * Preview access (approved §9): an opaque one-time token (stored as SHA-256) is exchanged on the
+ * preview origin for a cookie (also stored as SHA-256). Bound to the user and the admin session
+ * that created it; expires after 30 minutes; revoked on «Закрыть предпросмотр» or when the admin
+ * session ends.
+ */
+export const previewGrants = pgTable(
+  'preview_grants',
+  {
+    id: pk(),
+    releaseId: uuid('release_id')
+      .notNull()
+      .references(() => releases.id, { onDelete: 'restrict' }),
+    userId: uuid('user_id')
+      .notNull()
+      .references((): AnyPgColumn => users.id, { onDelete: 'restrict' }),
+    sessionId: uuid('session_id')
+      .notNull()
+      .references((): AnyPgColumn => sessions.id, { onDelete: 'cascade' }),
+    tokenHash: text('token_hash').notNull().unique(),
+    cookieHash: text('cookie_hash').unique(),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+    consumedAt: timestamp('consumed_at', { withTimezone: true }),
+    revokedAt: timestamp('revoked_at', { withTimezone: true }),
+  },
+  (t) => [index('preview_grants_user').on(t.userId)]
+);

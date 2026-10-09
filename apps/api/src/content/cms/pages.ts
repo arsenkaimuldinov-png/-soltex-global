@@ -19,6 +19,7 @@ import { recordAudit } from '../../audit/audit.ts';
 import { Problem, type FieldError } from '../../http/problem.ts';
 import type { UserRow } from '../../auth/sessions.ts';
 import { changes, LabelValueItemInput, LIMITS, ListOriginError, sourceValue, TextItemInput, translationValue, validateOrigins } from './fields.ts';
+import { recordRevision } from '../../publishing/revisions.ts';
 import { authorizeFields, FieldsDenied, refuseFields, trStateOf, type ContentStatus, type RecordView, type TrState, type UserRef } from './service.ts';
 
 // ---------------------------------------------------------------------------
@@ -393,6 +394,7 @@ async function writePage(deps: Deps, actor: UserRow, id: string, expectedVersion
     for (const [slot, mediaId] of Object.entries(input.media ?? {}))
       if (has(`media.${slot}`)) await tx.update(s.pageMedia).set({ mediaId }).where(and(eq(s.pageMedia.pageId, id), eq(s.pageMedia.slot, slot)));
 
+    await recordRevision(tx, { type: 'pages', id, kind: 'update', actorId: actor.id, summary: { fields: changed } });
     await recordAudit(deps, client, { action: 'content.update', result: 'success', actorId: actor.id, resourceType: 'page', resourceId: id, summary: { fields: changed } }, tx);
     return pageView(tx, (await loadPage(tx, id))!);
   });

@@ -46,6 +46,17 @@ export const AUDIT_ACTION_LABELS: Record<string, string> = {
   'translation.update': 'Изменён перевод',
   'translation.approve': 'Перевод утверждён',
   'translation.reopen': 'Перевод возвращён в работу',
+  'content.publish': 'Материал отмечен к публикации',
+  'content.unpublish': 'Материал снят с публикации',
+  'revision.restore': 'Восстановлена версия материала',
+  'release.create': 'Создан релиз',
+  'release.build': 'Сборка релиза',
+  'release.activate': 'Релиз опубликован',
+  'release.rollback': 'Откат сайта к релизу',
+  'release.retry': 'Повторная сборка релиза',
+  'preview.build': 'Сборка предпросмотра',
+  'preview.grant': 'Открыт предпросмотр',
+  'preview.revoke': 'Предпросмотры закрыты',
 };
 export const auditActionLabel = (action: string) => AUDIT_ACTION_LABELS[action] ?? 'Действие в системе';
 
@@ -73,6 +84,17 @@ export const AUDIT_DETAIL_LABELS: Record<string, string> = {
   in_progress: 'в работе',
   outdated: 'устарел',
   approved: 'утверждён',
+  queued: 'в очереди',
+  ready: 'готов к публикации',
+  active: 'на сайте',
+  failed: 'ошибка',
+  artifact_missing: 'файлы релиза отсутствуют',
+  artifact_checksum: 'файлы релиза изменены',
+  artifact_unreadable: 'файлы релиза не читаются',
+  switch_failed: 'не удалось переключить сайт',
+  smoke_failed: 'проверка после переключения не пройдена',
+  activation_failed: 'публикация прервана, сайт возвращён',
+  worker_lost: 'процесс сборки прервался',
 };
 
 /** Language codes in audit details. */
@@ -88,6 +110,7 @@ export const RESOURCE_LABELS: Record<string, string> = {
   patent: 'патент',
   video: 'видео',
   user: 'пользователь',
+  release: 'релиз',
 };
 
 /** Password policy problems returned by the API (field errors of `password_rejected`). */

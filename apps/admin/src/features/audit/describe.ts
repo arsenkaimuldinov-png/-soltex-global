@@ -42,6 +42,21 @@ export function describeAuditDetails(e: Pick<AuditItem, 'action' | 'summary' | '
     else if (to) parts.push(to);
     return parts.join(' · ');
   }
+  if (e.action === 'revision.restore') {
+    if (e.resourceType && RESOURCE_LABELS[e.resourceType]) parts.push(RESOURCE_LABELS[e.resourceType]!);
+    if (typeof s.revision === 'number') parts.push(`из версии ${s.revision}`);
+    if (Array.isArray(s.fields) && s.fields.length) parts.push(`${e.result === 'denied' ? 'отказано в изменении полей' : 'полей'}: ${s.fields.length}`);
+    return parts.join(' · ');
+  }
+  if (e.action.startsWith('release.') || e.action.startsWith('preview.')) {
+    if (typeof s.target === 'string') parts.push(s.target);
+    const st = typeof s.status === 'string' ? AUDIT_DETAIL_LABELS[s.status] : null;
+    if (st) parts.push(st);
+    const reason = word(s.reason);
+    if (reason) parts.push(`причина: ${reason}`);
+    if (typeof s.count === 'number') parts.push(e.action === 'preview.revoke' ? `закрыто: ${s.count}` : e.action.endsWith('.build') ? `страниц: ${s.count}` : `материалов: ${s.count}`);
+    return parts.join(' · ');
+  }
   if (e.action.startsWith('content.')) {
     if (e.resourceType && RESOURCE_LABELS[e.resourceType]) parts.push(RESOURCE_LABELS[e.resourceType]!);
     if (Array.isArray(s.fields) && s.fields.length)

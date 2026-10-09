@@ -24,8 +24,9 @@ import { systemRoutes } from './routes/system.ts';
 import { userRoutes } from './routes/users.ts';
 import { contentRoutes } from './routes/content.ts';
 import { translationRoutes } from './routes/translations.ts';
+import { publishingRoutes } from './routes/publishing.ts';
 
-export const API_VERSION = '0.6.0';
+export const API_VERSION = '0.7.0';
 export const BODY_LIMIT_BYTES = 64 * 1024;
 
 export interface BuildOptions {
@@ -110,6 +111,7 @@ export async function buildApp(opts: BuildOptions): Promise<FastifyInstance> {
         { name: 'users', description: 'User management' },
         { name: 'content', description: 'Content management (pages, projects, technologies, products, EPC/EPCM, patents, videos)' },
         { name: 'translations', description: 'Translation management: states, completeness, translation editor, review' },
+        { name: 'publishing', description: 'Revisions, releases, preview, publication and rollback' },
       ],
     },
     transform: (input) => {
@@ -129,6 +131,7 @@ export async function buildApp(opts: BuildOptions): Promise<FastifyInstance> {
     await userRoutes(scope, deps);
     await contentRoutes(scope, deps);
     await translationRoutes(scope, deps);
+    await publishingRoutes(scope, deps);
   });
 
   return app;

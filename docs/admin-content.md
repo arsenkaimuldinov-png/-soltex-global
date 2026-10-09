@@ -27,7 +27,7 @@ Phase E lets the team edit the existing content through the admin: 7 pages and t
 - **Status in Phase E:**
   - creating makes a `draft`;
   - a draft can be archived and restored to `draft`;
-  - **publishing and unpublishing are the publishing system (Phase G)** and are not offered. A `published` record is edited (its working copy, §6) but not archived here;
+  - publishing and unpublishing belong to the publishing system (Phase G, [`admin-publishing.md`](admin-publishing.md)): the editor header has «Отметить к публикации» / «Снять с публикации» for `content.publish`; they change the working copy only, the site follows with the next release. A `published` record is edited (its working copy, §6) but not archived here;
   - an archived record is read-only until it is restored.
 
 ---
@@ -158,7 +158,8 @@ The export requires the same shape in every language: the same list lengths and 
   - the address of a non-draft record is locked;
   - a note explains why. The API enforces all of it again.
 - **Archive:** a confirmation dialog states the consequences («На сайт это не влияет: черновики на сайте не показываются»). Restore has its own confirmation.
-- **Published records:** an info banner says that changes are saved to the working copy and reach the site with publishing (Phase G).
+- **Published records:** an info banner says that changes are saved to the working copy and reach the site with the next published release.
+- **История изменений** (Phase G): every editor shows the last 8 versions of the record with author and time; view, compare with the current version (field by field, language by language) and «Восстановить» (a new version; status and slug kept; confirmation). «Вся история» opens `/publishing/revisions/:type/:id`.
 - **Media:**
   - a picker of existing files (file name, size, alt text);
   - uploads, crops and variants are Phase J;
@@ -175,7 +176,7 @@ The export requires the same shape in every language: the same list lengths and 
 | **Field-level authorization** | Only fields whose value **changes** are authorised: `deniedContentFields(role, changed)` from `@soltex/core/domain`, the same list (`SEO_FIELDS`) the admin uses. A refusal is 403 with the field names and is written to the audit log (`result: denied`) outside the rolled-back write. Creating with an explicit slug or SEO text needs `seo.edit` |
 | **Slugs** | `@soltex/core/seo`: lowercase Latin letters, digits, single hyphens, ≤ 80 characters; `technology/patents` reserved (`/technologies/patents` is a page); unique per type (database constraint + check → 409 `slug_taken`); one slug for all languages (localized slugs are DEFERRED). **The slug of a published record is locked** until slug changes create redirects (Phase I, review §J) |
 | **References** | Images must be images (videos videos); relations must exist and not be archived; galleries and related lists without duplicates |
-| **Working copy** | Edits change the content tables (the working copy). Until the publishing system exists (Phase G: revisions, snapshots, releases), the public site is still built from the seed; a database export reflects the working copy |
+| **Working copy** | Edits change the content tables (the working copy) and write one revision each (Phase G). The public site changes only when a release (a snapshot of the published records) is built and published; a database export reflects the working copy |
 | **Audit** | `content.create`, `content.update` (summary `fields`: the changed field names), `content.archive`, `content.restore`; denied field changes as `content.update` / `denied`. Resource type `page`, `project`, `technology`, `product`, `epcm_stage`, `patent`, `video` and the record id; request id and IP hash as in Phase C. No content text is copied into the audit log |
 
 ---

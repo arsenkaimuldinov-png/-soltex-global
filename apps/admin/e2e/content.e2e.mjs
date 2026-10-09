@@ -44,7 +44,7 @@ describe('content management (Phase E)', () => {
     const { page } = profiles.a;
     await signIn(profiles.a, EDITOR_A);
     const links = (await sidebar(page).getByRole('link').allTextContents()).map((s) => s.trim());
-    assert.deepEqual(links, ['Обзор', 'Страницы', 'Проекты', 'Технологии', 'Продукты', 'EPC / EPCM', 'Патенты', 'Видео', 'Обзор', 'Все переводы', 'Требуют внимания']);
+    assert.deepEqual(links, ['Обзор', 'Страницы', 'Проекты', 'Технологии', 'Продукты', 'EPC / EPCM', 'Патенты', 'Видео', 'Обзор', 'Все переводы', 'Требуют внимания', 'Обзор', 'Ревизии', 'Релизы']);
     await sidebar(page).getByRole('link', { name: 'Проекты' }).click();
     await page.getByRole('heading', { name: 'Проекты' }).waitFor();
     const table = page.getByRole('table', { name: 'Проекты' });
@@ -187,10 +187,10 @@ describe('content management (Phase E)', () => {
     await page.getByRole('alertdialog').getByRole('button', { name: 'Вернуть в черновики' }).click();
     await page.getByText('Запись возвращена в черновики').first().waitFor();
     assert.equal(await page.getByLabel('Название', { exact: true }).isDisabled(), false);
-    // Published records cannot be archived here (unpublishing is the publishing system).
+    // Published records cannot be archived here (unpublishing is the publishing system, Phase G).
     await openProject(page, 'SOLBAR ISRAEL');
     assert.equal(await page.getByRole('button', { name: 'В архив' }).count(), 0);
-    await page.getByText('Запись опубликована.').waitFor();
+    await page.getByText('Запись отмечена к публикации.').waitFor();
   });
 
   test('pages: fixed slots from the registry; placeholders guarded; header text saved', async () => {

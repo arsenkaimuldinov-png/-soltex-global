@@ -35,6 +35,7 @@ import { Problem, type FieldError } from '../../http/problem.ts';
 import type { UserRow } from '../../auth/sessions.ts';
 import { COLLECTION_DEFS, type CollectionName } from '../cms/collections.ts';
 import { LIMITS } from '../cms/fields.ts';
+import { recordRevision } from '../../publishing/revisions.ts';
 import { REVIEW_TABLES, TRANSLATABLE_TYPES, type TranslatableType } from '../review-tables.ts';
 import { type TranslationValue, groupOf, hasSourceText, kindOfTr, placeholdersOfValue, textsOf, validateValue, type DocumentField, type FieldSpec } from './document.ts';
 
@@ -78,6 +79,18 @@ JOIN ${r.tr} t ON t.${r.owner} = e.id AND t.locale = '${SOURCE_LOCALE}'
 JOIN ${r.tr} x ON x.${r.owner} = e.id AND x.locale <> '${SOURCE_LOCALE}'
 WHERE e.status <> 'archived'`;
   }).join('\nUNION ALL\n');
+}
+
+/** Effective translation state of every (non-archived record, translated language) — one query. */
+export async function effectiveStates(db: Queryable): Promise<Array<{ type: TranslatableType; key: string; entityStatus: string; locale: TranslatedLocale; state: EffectiveTranslationState }>> {
+  const { rows } = await db.execute(sql.raw(`SELECT type, key, entity_status, locale, state FROM (${unionSql()}) u ORDER BY type_order, position, key, locale`));
+  return (rows as Array<{ type: TranslatableType; key: string; entity_status: string; locale: TranslatedLocale; state: EffectiveTranslationState }>).map((r) => ({
+    type: r.type,
+    key: r.key,
+    entityStatus: r.entity_status,
+    locale: r.locale,
+    state: r.state,
+  }));
 }
 
 export interface LocaleSummary {
@@ -487,6 +500,7 @@ export async function saveTranslation(
         .where(and(eq(tr.table[tr.owner], id), eq(tr.table.locale, locale), eq(tr.table.version, expected.version)))
         .returning({ v: tr.table.version });
       if (!updated.length) throw new Problem('edit_conflict');
+      await recordRevision(tx, { type, id, kind: 'translation', actorId: actor.id, locale, summary: { fields: changed.map((c) => c.field.name) } });
       await recordAudit(
         deps,
         client,
@@ -597,6 +611,7 @@ export async function reviewTranslation(
       .where(and(eq(table[owner], id), eq(table.locale, locale), eq(table.version, expected.version)))
       .returning({ v: table.version });
     if (!updated.length) throw new Problem('edit_conflict');
+    await recordRevision(tx, { type, id, kind: action, actorId: actor.id, locale });
     await recordAudit(
       deps,
       client,

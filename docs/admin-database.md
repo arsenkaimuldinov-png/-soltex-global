@@ -46,6 +46,16 @@
 
 **Phase F columns** (`drizzle/0004_translation_review.sql`, additive): the seven admin-managed entities (`pages`, `projects`, `technologies`, `products`, `epcm_stages`, `patents`, `videos`) have `source_revision` (revision of the English translatable text); their translation tables have `version`, `approved_source_revision`, `approved_by`, `edited_source_revision`. `settings_translations` is unchanged. See [`admin-translations.md`](admin-translations.md) §2.
 
+**Phase G tables** (`drizzle/0005_publishing.sql`, additive; [`admin-publishing.md`](admin-publishing.md)):
+
+| Table | Contents |
+|---|---|
+| `content_revisions` | one row per change of a translatable record: type, id, key, number (unique per record), kind, locale, source revision, entity version, title, full record `data` (`json`, key order kept), `summary`, author, time. `UPDATE` / `DELETE` / `TRUNCATE` revoked from the app role plus a trigger |
+| `content_snapshots` | the published store of a release (`json`), sha256, revision number per record, translation summary. Append-only |
+| `releases` | key, kind (`release`/`preview`), status, snapshot, previous release, version, attempt, note, validation (errors/warnings), failure, build times, heartbeat, artifact checksum/bytes/files/pages, activation. At most one `active` per kind (partial unique index); identity and artifact columns immutable (trigger); no `DELETE` |
+| `release_events` | append-only history of every transition (from, to, event, actor, details) |
+| `preview_grants` | release, user, session (cascade), sha256 of the one-time token and of the cookie, expiry, consumed / revoked times; no `DELETE` |
+
 **Phase C tables** (`drizzle/0002_auth_users_sessions_audit.sql`, `0003_audit_append_only.sql`):
 
 | Table | Contents |
@@ -167,7 +177,7 @@ Put the three URLs in your local environment (see `.env.example`), then run `npm
 | C | **done:** `users`, `sessions`, `known_devices`, WebAuthn credentials and challenges, TOTP, recovery codes, password resets, `audit_events` (append-only), FKs for `created_by/updated_by` |
 | E | **done, no migration:** optimistic locking (`version` + `If-Match`) and the locale-safe write rules in the API ([`admin-content.md`](admin-content.md) §4) |
 | F | **done, migration `0004_translation_review`** (additive): `source_revision` on the seven admin-managed entities; `version`, `approved_source_revision`, `approved_by` (FK users, RESTRICT), `edited_source_revision` on their `*_translations`. `db:migrate` and `db:import` then link existing approvals to the revision through the seed hash (`content/reconcile.ts`). Rollback = drop these columns ([`admin-translations.md`](admin-translations.md) §2) |
-| G | `revisions`, `content_snapshots`, `releases`, `release_events`; export of `published` revisions only |
+| G | **done, migration `0005_publishing`** (additive): `content_revisions` (append-only, full record per version, `json`), `content_snapshots` (append-only), `releases` (state machine, one active per kind, immutable columns), `release_events` (append-only), `preview_grants` (hashes only); enums `revision_kind`, `release_status`, `release_kind`. `db:migrate` / `db:import` write baseline revisions. Rollback = drop these tables and enums ([`admin-publishing.md`](admin-publishing.md)) |
 | I | redirect lookup, `seo_issues` |
 | J | media storage paths, variants, sha256, uploads |
 | K | `leads`, `lead_events`, `consent_texts`, outbox |

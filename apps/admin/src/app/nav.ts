@@ -9,7 +9,7 @@
  */
 import type { Permission } from '@soltex/core/domain';
 import type { LucideIcon } from 'lucide-react';
-import { Activity, AlertTriangle, Award, FileText, FlaskConical, FolderKanban, Languages, LayoutDashboard, ListChecks, Package, ScrollText, ShieldCheck, Users, Video, Workflow } from 'lucide-react';
+import { Activity, AlertTriangle, Award, FileText, FlaskConical, FolderKanban, History, Languages, LayoutDashboard, ListChecks, Package, Rocket, ScrollText, Send, ShieldCheck, Users, Video, Workflow } from 'lucide-react';
 
 export interface NavItem {
   id: string;
@@ -58,6 +58,15 @@ export const NAV: NavSection[] = [
     ],
   },
   {
+    id: 'publishing',
+    label: 'Публикация',
+    items: [
+      { id: 'publishing-overview', label: 'Обзор', title: 'Публикация: обзор', to: '/publishing', icon: Send, permission: 'content.read', keywords: ['публикация', 'сайт', 'релиз', 'изменения'] },
+      { id: 'publishing-revisions', label: 'Ревизии', title: 'Публикация: ревизии', to: '/publishing/revisions', icon: History, permission: 'content.read', keywords: ['история', 'версии', 'восстановить', 'сравнить'] },
+      { id: 'publishing-releases', label: 'Релизы', title: 'Публикация: релизы', to: '/publishing/releases', icon: Rocket, permission: 'content.read', keywords: ['релизы', 'сборка', 'предпросмотр', 'откат'] },
+    ],
+  },
+  {
     id: 'administration',
     label: 'Администрирование',
     items: [
@@ -78,3 +87,6 @@ export function visibleNav(can: (p: Permission) => boolean, nav: NavSection[] = 
 }
 
 export const allNavItems = (nav: NavSection[] = NAV): NavItem[] => [...nav.flatMap((s) => s.items), ACCOUNT_ITEM];
+
+/** A section overview (e.g. /publishing) is highlighted only on itself when other items live below it. */
+export const hasChildRoute = (to: string, nav: NavSection[] = NAV): boolean => allNavItems(nav).some((i) => i.to !== to && i.to.startsWith(`${to}/`));

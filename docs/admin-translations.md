@@ -191,11 +191,17 @@ New sidebar section **Переводы**:
 
 No machine translation, no translation tasks, no rich-text editor (the content is plain text).
 
+## 8a. Publication (Phase G)
+
+- Translation saves write revisions of kind `translation` (with the language), approve/reopen revisions `approve` / `reopen`; they appear in the record's history and can be compared and restored with the record.
+- A release includes the translation rows as they are at snapshot time. The release page shows per language how many translations are approved, outdated, in progress or missing, and the checks list `translation_outdated` / `translation_fallback` warnings (they never block a release).
+- Restoring a record version restores its translation texts; if the English text changes, approvals become outdated.
+
 ## 9. Known limitations and deviations
 
 | # | Limitation / deviation | Reason, phase |
 |---|---|---|
-| F-1 | No translation revisions: saving changes the working row; while a translation is not approved, the site (after the next build) shows English for that record and language (Phase 1 fallback). Approved §15.1 "serve the previous approved revision while outdated / in draft" needs revisions | Publishing and revisions are Phase G |
+| F-1 | No translation revisions: saving changes the working row; while a translation is not approved, the site (after the next build) shows English for that record and language (Phase 1 fallback). Approved §15.1 "serve the previous approved revision while outdated / in draft" needs revisions | **Partly lifted in Phase G:** every translation save, approval and reopen writes a revision, and a release is a snapshot. An *outdated* translation keeps its previously approved text on the site; an *in-progress* rework of an approved translation is still not served from the previous approved revision (it falls back to English) — see [`admin-publishing.md`](admin-publishing.md) §3 |
 | F-2 | Approval uses the existing `content.publish` permission, not a dedicated reviewer permission or a "Translator" role | No new roles in this phase; review §F: a translator role can be added later without architecture change |
 | F-3 | `outdated` is derived (source revision), not a stored enum value; the seed-format hash is kept only for compatibility | Avoids rewriting translation rows on every source edit; deterministic, SQL-countable |
 | F-4 | An approval made in the CMS stores no seed-format hash; the export computes it while the approval is current | The hash covers the whole exported record; computing it per approval would need a full export in the transaction |

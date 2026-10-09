@@ -129,6 +129,41 @@ export const routes = [
               return { element: <RequirePermission permission="content.read"><TranslationEditorPage /></RequirePermission> };
             },
           },
+          {
+            path: 'publishing',
+            lazy: async () => {
+              const { PublishingOverviewPage } = await import('./features/publishing/PublishingOverviewPage');
+              return { element: <RequirePermission permission="content.read"><PublishingOverviewPage /></RequirePermission> };
+            },
+          },
+          {
+            path: 'publishing/revisions',
+            lazy: async () => {
+              const { RevisionsPage } = await import('./features/publishing/RevisionsPage');
+              return { element: <RequirePermission permission="content.read"><RevisionsPage /></RequirePermission> };
+            },
+          },
+          {
+            path: 'publishing/revisions/:type/:id',
+            lazy: async () => {
+              const { HistoryPage } = await import('./features/publishing/HistoryPage');
+              return { element: <RequirePermission permission="content.read"><HistoryPage /></RequirePermission> };
+            },
+          },
+          {
+            path: 'publishing/releases',
+            lazy: async () => {
+              const { ReleasesPage } = await import('./features/publishing/ReleasesPage');
+              return { element: <RequirePermission permission="content.read"><ReleasesPage /></RequirePermission> };
+            },
+          },
+          {
+            path: 'publishing/releases/:id',
+            lazy: async () => {
+              const { ReleaseDetailPage } = await import('./features/publishing/ReleaseDetailPage');
+              return { element: <RequirePermission permission="content.read"><ReleaseDetailPage /></RequirePermission> };
+            },
+          },
           { path: 'account', lazy: async () => ({ Component: (await import('./features/account/AccountPage')).AccountPage }) },
           {
             path: 'admin/users',

@@ -14,3 +14,6 @@ apps/web/src/content/snapshot/*.json
 
 # QA regression output (scripts/qa-regression.mjs)
 .qa/
+
+# Local release root of the publishing worker (Phase G; production: RELEASES_DIR=/srv/soltex)
+.releases/

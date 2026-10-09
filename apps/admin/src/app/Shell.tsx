@@ -12,7 +12,7 @@ import { ROLE_LABELS } from '../i18n/ru';
 import { cx } from '../components/ui/cx';
 import { Kbd } from '../components/ui/Layout';
 import { CommandPalette } from './CommandPalette';
-import { ACCOUNT_ITEM, visibleNav } from './nav';
+import { ACCOUNT_ITEM, hasChildRoute, visibleNav } from './nav';
 
 const isMac = () => typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
 
@@ -28,7 +28,7 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
               <li key={item.id}>
                 <NavLink
                   to={item.to}
-                  end={item.to === '/'}
+                  end={item.to === '/' || hasChildRoute(item.to)}
                   onClick={onNavigate}
                   className={({ isActive }) =>
                     cx('flex items-center gap-2.5 rounded-md px-2 py-1.5 text-[13px]', isActive ? 'bg-accent-soft font-medium text-accent' : 'text-ink hover:bg-subtle')

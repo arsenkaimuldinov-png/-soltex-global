@@ -42,7 +42,7 @@ test('reset token: from the fragment (preferred) or the query; malformed tokens 
 });
 
 test('navigation per role follows the permission map (no role shortcut)', () => {
-  const content = ['Страницы', 'Проекты', 'Технологии', 'Продукты', 'EPC / EPCM', 'Патенты', 'Видео', 'Обзор', 'Все переводы', 'Требуют внимания'];
+  const content = ['Страницы', 'Проекты', 'Технологии', 'Продукты', 'EPC / EPCM', 'Патенты', 'Видео', 'Обзор', 'Все переводы', 'Требуют внимания', 'Обзор', 'Ревизии', 'Релизы'];
   assert.deepEqual(labels('owner'), ['Обзор', ...content, 'Пользователи', 'Журнал действий', 'Система']);
   assert.deepEqual(labels('admin'), ['Обзор', ...content, 'Пользователи', 'Журнал действий', 'Система']);
   assert.deepEqual(labels('content_manager'), ['Обзор', ...content, 'Система']);
@@ -56,10 +56,10 @@ test('navigation per role follows the permission map (no role shortcut)', () => 
   for (const role of ROLES) for (const i of visibleNav(canFor(role)).flatMap((s) => s.items)) assert.ok(!i.permission || canFor(role)(i.permission));
 });
 
-test('no screens of later phases in the navigation (Phase F adds only «Переводы»)', () => {
+test('no screens of later phases in the navigation (Phase G adds only «Публикация»)', () => {
   const all = allNavItems(NAV).map((i) => i.label).join(' ');
-  for (const later of ['Медиатека', 'Заявки', 'SEO', 'Настройки', 'Публикац']) assert.ok(!all.includes(later), later);
-  assert.deepEqual(NAV.map((s) => s.label ?? ''), ['', 'Контент', 'Переводы', 'Администрирование']);
+  for (const later of ['Медиатека', 'Заявки', 'SEO', 'Настройки']) assert.ok(!all.includes(later), later);
+  assert.deepEqual(NAV.map((s) => s.label ?? ''), ['', 'Контент', 'Переводы', 'Публикация', 'Администрирование']);
 });
 
 test('⌘K matching: every word, any order, case-insensitive, Russian', () => {
@@ -126,6 +126,12 @@ test('audit rows in plain words; every action the API writes has a Russian label
   );
   assert.equal(describeAuditDetails({ action: 'translation.approve', result: 'success', resourceType: 'page', summary: { locale: 'ru', previous_status: 'outdated', status: 'approved', revision: 4 } }), 'страница · русский · устарел → утверждён');
   for (const a of ['translation.update', 'translation.approve', 'translation.reopen']) assert.ok(AUDIT_ACTION_LABELS[a], a);
+  for (const a of ['content.publish', 'content.unpublish', 'revision.restore', 'release.create', 'release.build', 'release.activate', 'release.rollback', 'release.retry', 'preview.build', 'preview.grant', 'preview.revoke'])
+    assert.ok(AUDIT_ACTION_LABELS[a], a);
+  assert.equal(describeAuditDetails({ action: 'release.activate', result: 'success', resourceType: 'release', summary: { status: 'active', target: 'R-20261009-120000-abcdef' } }), 'R-20261009-120000-abcdef · на сайте');
+  assert.equal(describeAuditDetails({ action: 'release.rollback', result: 'failure', resourceType: 'release', summary: { reason: 'artifact_checksum' } }), 'причина: файлы релиза изменены');
+  assert.equal(describeAuditDetails({ action: 'revision.restore', result: 'success', resourceType: 'project', summary: { fields: ['title'], revision: 2 } }), 'проект · из версии 2 · полей: 1');
+  assert.equal(describeAuditDetails({ action: 'preview.revoke', result: 'success', resourceType: 'user', summary: { count: 2 } }), 'закрыто: 2');
   for (const a of ['auth.login', 'auth.logout', 'auth.lockout', 'auth.mfa', 'auth.password.change', 'auth.password_reset.request', 'auth.password_reset.confirm', 'auth.session.revoke', 'auth.session.revoke_others', 'mfa.totp.enroll_start', 'mfa.totp.enroll', 'mfa.totp.disable', 'mfa.recovery.regenerate', 'mfa.passkey.register', 'mfa.passkey.remove', 'user.create', 'user.update', 'user.profile_update', 'user.mfa_reset', 'user.sessions_revoke', 'user.bootstrap_owner', 'access.denied', 'content.create', 'content.update', 'content.archive', 'content.restore'])
     assert.ok(AUDIT_ACTION_LABELS[a], a);
 });

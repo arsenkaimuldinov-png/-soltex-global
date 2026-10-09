@@ -44,6 +44,8 @@ Six fixed roles. Permissions are an explicit list per role. There is no wildcard
 
 The content API (Phase E) will enforce these rules. The test suite already covers them.
 
+**Publishing** (Phase G): no new permission or role. `content.publish` marks records for publication, creates releases and publishes ready ones; `system.rollback` (Owner, Admin) re-activates a previous release and always requires step-up; `system.deploy` rebuilds a failed release; `system.read` sees artifact details; previews need `content.edit`, `seo.edit` or `content.publish` to build and `content.read` to open. Restoring a revision needs `content.edit` and, field by field, the same SEO rule as an edit.
+
 **User management** (`canManageUser`):
 - only an Owner may create an Owner, or change or disable one;
 - nobody changes their own role or status, or resets their own MFA, through user management;
@@ -182,7 +184,8 @@ Users who still have to enroll get `mfa_enrollment_required` everywhere except t
 - `user.create`, `user.update`, `user.profile_update`, `user.mfa_reset`, `user.sessions_revoke`, `user.bootstrap_owner`;
 - `access.denied`;
 - content (Phase E): `content.create`, `content.update`, `content.archive`, `content.restore`;
-- translations (Phase F): `translation.update`, `translation.approve`, `translation.reopen`.
+- translations (Phase F): `translation.update`, `translation.approve`, `translation.reopen`;
+- publishing (Phase G, [`admin-publishing.md`](admin-publishing.md) §6): `content.publish`, `content.unpublish`, `revision.restore`, `release.create`, `release.build`, `preview.build`, `release.activate`, `release.rollback`, `release.retry`, `preview.grant`, `preview.revoke` (summary keys `target`, `status`, `reason`, `count`, `fields`, `revision`; no new keys). Preview tokens and cookies are never logged: only their hashes are stored.
 
 **Reading:** `GET /api/v1/audit` (`audit.read`): newest first, cursor `before`, filters `actorId` and `action`.
 

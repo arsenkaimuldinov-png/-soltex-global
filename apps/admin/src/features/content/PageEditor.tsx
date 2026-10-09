@@ -23,6 +23,8 @@ import { buildPagePatch, toPageForm, validatePage, type HeaderForm, type PageFor
 import { LIMITS, type FieldDef } from './model';
 import { LIST_FIELD_NAMES, LIST_NAMES, PAGE_NAMES, PAGE_PATHS, slotGroup, slotLabel } from './page-labels';
 import { PAGES_KEY } from './PagesListPage';
+import { HistoryPanel } from '../publishing/HistoryPanel';
+import { PublishButtons } from '../publishing/PublishButtons';
 import { apiFieldErrors, ConflictAlert, EditorBar, saveErrorMessage, StatusBadge, TranslationsCard } from './shared';
 
 function Section({ title, description, children }: { title: string; description?: ReactNode; children: ReactNode }) {
@@ -113,7 +115,25 @@ function PageEditor({ id }: { id: string }) {
         title={name}
         description={record.kind === 'template' ? 'Общие тексты, которые сайт показывает на каждой странице этого типа.' : PAGE_PATHS[record.pageKey as PageKey]}
         crumbs={[{ label: 'Контент' }, { label: 'Страницы', to: '/content/pages' }, { label: name }]}
-        actions={<StatusBadge status={record.status} />}
+        actions={
+          <>
+            <StatusBadge status={record.status} />
+            <PublishButtons
+              type="pages"
+              id={record.id}
+              status={record.status}
+              version={record.version}
+              dirty={dirty}
+              title={name}
+              onChanged={() => {
+                setValues(null);
+                void query.refetch();
+                void qc.invalidateQueries({ queryKey: PAGES_KEY });
+              }}
+              onConflict={() => setConflict(true)}
+            />
+          </>
+        }
       />
       <div className="space-y-4">
         {conflict ? (
@@ -125,7 +145,7 @@ function PageEditor({ id }: { id: string }) {
             }}
           />
         ) : null}
-        {record.status === 'published' ? <Alert tone="info">Страница опубликована. Изменения сохраняются в рабочей версии; на сайт они попадут при публикации — она подключается на следующем этапе.</Alert> : null}
+        {record.status === 'published' ? <Alert tone="info">Страница отмечена к публикации. Изменения сохраняются в рабочей версии; на сайт они попадут со следующим опубликованным релизом («Публикация» → «Релизы»).</Alert> : null}
         {!canContent && !canSeo ? <Alert tone="info">Ваша роль может только просматривать страницы.</Alert> : null}
         {!canContent && canSeo ? <Alert tone="info">Ваша роль меняет только SEO-данные страницы (внизу). Тексты и изображения меняют роли с правом на редактирование контента.</Alert> : null}
 
@@ -234,6 +254,16 @@ function PageEditor({ id }: { id: string }) {
         ) : null}
 
         <TranslationsCard translations={record.translations} type="pages" id={record.id} />
+        <HistoryPanel
+          type="pages"
+          id={record.id}
+          entityVersion={record.version}
+          archived={record.status === 'archived'}
+          onRestored={() => {
+            setValues(null);
+            void query.refetch();
+          }}
+        />
         <Advanced>
           <TechValue label="ID" value={record.id} />
           <TechValue label="Ключ" value={`${record.key} (${record.pageKey})`} />

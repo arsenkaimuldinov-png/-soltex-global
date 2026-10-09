@@ -2,6 +2,7 @@
  * API configuration from environment variables only (no secrets in code; see .env.example).
  * Values are validated at start-up; the process refuses to start with an invalid configuration.
  */
+import path from 'node:path';
 import { z } from 'zod';
 
 export type AppEnv = 'development' | 'test' | 'production';
@@ -27,6 +28,13 @@ export interface ApiConfig {
   apiDocs: 'off' | 'authenticated';
   /** Client decision (approved §22 item 7): MFA also for roles without sensitive permissions. */
   mfaForAllRoles: boolean;
+  /** Phase G publishing (docs/admin-publishing.md §5). */
+  publishing: {
+    /** Root of releases/, current, build/, blobs/ (production: /srv/soltex). Never inside apps/web. */
+    releasesDir: string;
+    /** Origin of the preview server, e.g. https://preview.soltexglobal.co */
+    previewOrigin: string;
+  };
 }
 
 const ENVS = ['development', 'test', 'production'] as const;
@@ -83,6 +91,13 @@ export function loadConfig(source: Record<string, string | undefined> = process.
   if (apiDocs !== 'off' && apiDocs !== 'authenticated') throw new Error('API_DOCS must be "off" or "authenticated"');
   if (env === 'production' && apiDocs !== 'off') throw new Error('API_DOCS must be "off" in production');
 
+  const releasesDir = path.resolve(source.RELEASES_DIR ?? (env === 'production' ? '' : path.resolve(import.meta.dirname, '../../../.releases')));
+  if (env === 'production' && !source.RELEASES_DIR) throw new Error('RELEASES_DIR must be set in production (e.g. /srv/soltex)');
+  const previewOrigin = (source.PREVIEW_ORIGIN ?? (env === 'production' ? '' : 'http://localhost:4176')).replace(/\/+$/, '');
+  if (!/^https?:\/\/[^/]+$/.test(previewOrigin)) throw new Error('PREVIEW_ORIGIN must be an origin, e.g. https://preview.soltexglobal.co');
+  if (env === 'production' && !previewOrigin.startsWith('https://')) throw new Error('PREVIEW_ORIGIN must use https in production');
+  if (previewOrigin === adminOrigin) throw new Error('PREVIEW_ORIGIN must differ from ADMIN_ORIGIN (approved §10)');
+
   return {
     env,
     // The API listens on loopback only; nginx is the public entry point (approved architecture §10).
@@ -97,5 +112,6 @@ export function loadConfig(source: Record<string, string | undefined> = process.
     secureCookies,
     apiDocs,
     mfaForAllRoles: source.MFA_FOR_ALL_ROLES === 'true',
+    publishing: { releasesDir, previewOrigin },
   };
 }
