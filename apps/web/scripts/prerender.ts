@@ -49,7 +49,8 @@ function renderPage(routePath: string, locale: Locale, meta: RouteMeta, url: str
     ...(withLinks
       ? [
           `<link rel="canonical" href="${esc(canonical)}" />`,
-          ...getAlternates(routePath, meta.alternateLocales).map(
+          // A noindex page is never part of an hreflang cluster (approved §15.2).
+          ...getAlternates(routePath, meta.indexable ? meta.alternateLocales : []).map(
             (a) => `<link rel="alternate" hreflang="${a.hreflang}" href="${esc(a.href)}" />`
           ),
         ]

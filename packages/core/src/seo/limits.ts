@@ -1,6 +1,6 @@
 /**
- * SEO text guidance (review §J). These are recommendations shown in the editor (WARNING level);
- * the blocking SEO checker arrives in Phase I. Empty SEO texts mean "frontend default template".
+ * SEO text guidance (review §J). Recommended ranges: outside them the SEO checker reports a WARNING;
+ * the BLOCKING hard limit is SEO_TITLE_HARD_MAX (meta.ts). Empty SEO texts mean "frontend default template".
  */
 export const SEO_TITLE_RECOMMENDED_MAX = 60;
 export const SEO_DESCRIPTION_RECOMMENDED_MIN = 70;

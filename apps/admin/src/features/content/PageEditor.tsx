@@ -25,6 +25,7 @@ import { LIST_FIELD_NAMES, LIST_NAMES, PAGE_NAMES, PAGE_PATHS, slotGroup, slotLa
 import { PAGES_KEY } from './PagesListPage';
 import { HistoryPanel } from '../publishing/HistoryPanel';
 import { PublishButtons } from '../publishing/PublishButtons';
+import { SeoPanel } from '../seo/SeoPanel';
 import { apiFieldErrors, ConflictAlert, EditorBar, saveErrorMessage, StatusBadge, TranslationsCard } from './shared';
 
 function Section({ title, description, children }: { title: string; description?: ReactNode; children: ReactNode }) {
@@ -240,10 +241,16 @@ function PageEditor({ id }: { id: string }) {
         {def.seo ? (
           <Section title="SEO" description="Пустые поля — сайт использует шаблон по умолчанию.">
             {!canSeo ? <p className="rounded-md bg-subtle px-3 py-2 text-[13px] text-ink-muted">Эти поля меняют роли с правом на SEO.</p> : null}
-            <TextField def={line('seoMetaTitle', 'SEO-заголовок (title)', 'lineNull', { max: 200, hint: 'Рекомендуется до 60 символов.' })} value={values.seoMetaTitle} disabled={!canSeo} error={errors.seoMetaTitle} onChange={(v) => set({ seoMetaTitle: v })} />
-            <TextField def={line('seoMetaDescription', 'Мета-описание (description)', 'textNull', { max: 400, hint: 'Рекомендуется 70–160 символов.' })} value={values.seoMetaDescription} disabled={!canSeo} error={errors.seoMetaDescription} onChange={(v) => set({ seoMetaDescription: v })} />
-            <MediaField def={{ name: 'ogImage', label: 'Изображение для соцсетей (OG)', kind: 'mediaNull', section: 'seo', mediaKind: 'image' }} value={values.ogImage} disabled={!canSeo} error={errors.ogImage} onChange={(v) => set({ ogImage: v })} />
-            <label className="flex items-start gap-2 text-[13px]">
+            <div data-field="seoMetaTitle">
+              <TextField def={line('seoMetaTitle', 'SEO-заголовок (title)', 'lineNull', { max: 200, hint: 'Рекомендуется до 60 символов.' })} value={values.seoMetaTitle} disabled={!canSeo} error={errors.seoMetaTitle} onChange={(v) => set({ seoMetaTitle: v })} />
+            </div>
+            <div data-field="seoMetaDescription">
+              <TextField def={line('seoMetaDescription', 'Мета-описание (description)', 'textNull', { max: 400, hint: 'Рекомендуется 70–160 символов.' })} value={values.seoMetaDescription} disabled={!canSeo} error={errors.seoMetaDescription} onChange={(v) => set({ seoMetaDescription: v })} />
+            </div>
+            <div data-field="ogImage">
+              <MediaField def={{ name: 'ogImage', label: 'Изображение для соцсетей (OG)', kind: 'mediaNull', section: 'seo', mediaKind: 'image' }} value={values.ogImage} disabled={!canSeo} error={errors.ogImage} onChange={(v) => set({ ogImage: v })} />
+            </div>
+            <label className="flex items-start gap-2 text-[13px]" data-field="noindex">
               <input type="checkbox" className="mt-0.5 size-4 accent-accent" checked={values.noindex} disabled={!canSeo} onChange={(e) => set({ noindex: e.target.checked })} />
               <span>
                 <span className="font-medium">Не индексировать (noindex)</span>
@@ -252,6 +259,7 @@ function PageEditor({ id }: { id: string }) {
             </label>
           </Section>
         ) : null}
+        {def.seo && record.kind === 'page' ? <SeoPanel type="pages" id={record.id} version={record.version} dirty={dirty} /> : null}
 
         <TranslationsCard translations={record.translations} type="pages" id={record.id} />
         <HistoryPanel

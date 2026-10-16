@@ -3,8 +3,10 @@
  *
  *   1. Load the content store from the configured source (CONTENT_SOURCE, default "seed").
  *   2. Validate it — the build FAILS on: duplicate IDs/slugs, broken relations, unknown media,
- *      missing English text, placeholder mismatches between languages, missing UI keys.
- *      Outdated translations (English changed after approval) are reported as warnings.
+ *      missing English text, placeholder mismatches between languages, missing UI keys, and every
+ *      BLOCKING issue of the SEO checker (@soltex/core/seo, docs/admin-seo.md).
+ *      Outdated translations (English changed after approval) are reported as warnings; SEO
+ *      warnings and hints are counted (SEO_VERBOSE=1 lists them).
  *   3. Write one resolved snapshot per language to src/content/snapshot/<locale>.json.
  *
  * The production frontend only ever reads these snapshots; it never calls a CMS at run time.
@@ -19,6 +21,7 @@ import type { ContentStore } from '../../src/content/types';
 import { seedContentSource } from '../../src/content/sources/seed';
 import { fileContentSource } from '../../src/content/sources/file';
 import { sourceHash } from './lib/source-hash';
+import { checkSeo, formatSeoIssue, type SeoTranslationState } from '@soltex/core/seo';
 
 const ROOT = path.resolve(import.meta.dirname, '../..');
 
@@ -167,6 +170,23 @@ validate(store);
 validateUi();
 validateArchitecture();
 
+// SEO checker on the published content (the same rules as the admin and the API).
+const entityByKey = new Map<string, { translationStatus?: Record<string, { status: string; approvedSourceHash: string | null }> }>(
+  [store.pages, store.projects, store.technologies, store.products, store.epcmStages, store.patents, store.videos].flat().map((r) => [r.id, r])
+);
+const hashes = new Map<string, string>();
+const seo = checkSeo(store, {
+  translationState: (_type, key, locale): SeoTranslationState => {
+    const rec = entityByKey.get(key);
+    const st = rec?.translationStatus?.[locale];
+    if (!rec || !st || st.status === 'missing') return 'missing';
+    if (st.status !== 'approved') return 'in_progress';
+    if (!hashes.has(key)) hashes.set(key, sourceHash(rec));
+    return st.approvedSourceHash === hashes.get(key) ? 'approved' : 'outdated';
+  },
+});
+for (const i of seo.issues) if (i.severity === 'blocking') errors.push(`seo: ${formatSeoIssue(i)}`);
+
 if (errors.length) {
   console.error(`content: ${errors.length} error(s)\n  - ${errors.join('\n  - ')}`);
   process.exit(1);
@@ -179,4 +199,9 @@ for (const l of LOCALES) {
   fs.writeFileSync(path.join(outDir, `${l.code}.json`), JSON.stringify(snapshot) + '\n');
 }
 if (warnings.length) console.warn(`content: ${warnings.length} warning(s)\n  - ${warnings.join('\n  - ')}`);
+if (seo.summary.warning || seo.summary.info)
+  console.warn(
+    `seo: ${seo.summary.warning} warning(s), ${seo.summary.info} hint(s)` +
+      (process.env.SEO_VERBOSE ? `\n  - ${seo.issues.filter((i) => i.severity !== 'blocking').map(formatSeoIssue).join('\n  - ')}` : ' (SEO_VERBOSE=1 lists them)')
+  );
 console.log(`content: source "${source.name}" → ${LOCALES.length} snapshots (${store.pages.length} pages, ${store.projects.length} projects, ${store.technologies.length} technologies, ${store.products.length} products)`);

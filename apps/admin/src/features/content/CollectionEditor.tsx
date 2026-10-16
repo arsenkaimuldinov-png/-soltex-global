@@ -24,6 +24,7 @@ import { buildPatch, toForm, validateAll, type FormValues } from './form';
 import { COLLECTION_UI, COLLECTIONS, fieldPermission, SECTION_LABELS, type CollectionName, type FieldDef, type SectionId } from './model';
 import { HistoryPanel } from '../publishing/HistoryPanel';
 import { PublishButtons } from '../publishing/PublishButtons';
+import { SeoPanel } from '../seo/SeoPanel';
 import { apiFieldErrors, ConflictAlert, EditorBar, saveErrorMessage, StatusBadge, TranslationsCard, type ContentStatus } from './shared';
 import {
   BoolField,
@@ -293,6 +294,8 @@ function CollectionEditor({ collection, id }: { collection: CollectionName; id: 
             </div>
           </Card>
         ))}
+
+        {ui.routable ? <SeoPanel type={collection} id={record.id} version={record.version} dirty={dirty} /> : null}
 
         <TranslationsCard translations={record.translations} type={collection} id={record.id} />
         <HistoryPanel

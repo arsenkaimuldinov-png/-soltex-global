@@ -3,7 +3,9 @@
  *
  * SEO       unique routes/slugs · title, description, lang, dir, one <h1> · self-referencing
  *           canonical · reciprocal hreflang with x-default = English · hreflang targets exist ·
- *           sitemap URLs exist, are indexable and canonical · no unexpected noindex ·
+ *           sitemap URLs exist, are indexable and canonical · noindex only where the content
+ *           sets it (then no hreflang, not in the sitemap) · every <title>, meta description and
+ *           robots value equals the SEO model of @soltex/core/seo (the admin snippet = the site) ·
  *           redirects: no loops, no chains, never shadow a live route
  * INTEGRITY every internal link resolves · every referenced image/video/file exists ·
  *           every content relation resolves · 404 pages exist for every language
@@ -17,6 +19,10 @@ import path from 'node:path';
 import { DEFAULT_LOCALE, LOCALES, SITE_URL } from '../src/i18n/config';
 import { localizePath } from '../src/i18n/paths';
 import type { ContentSnapshot } from '../src/content/types';
+import type { ContentSource } from '../src/content/source';
+import { seedContentSource } from '../src/content/sources/seed';
+import { fileContentSource } from '../src/content/sources/file';
+import { checkSeo, localizedPath, type SeoPageMeta } from '@soltex/core/seo';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const DIST = path.resolve(process.argv[2] ?? path.join(ROOT, 'dist'));
@@ -97,6 +103,13 @@ function parse(file: string): PageInfo {
 const infos = new Map(pages.map((f) => [f, parse(f)]));
 const byUrl = new Map([...infos.values()].map((i) => [i.url, i]));
 
+// The SEO model of every public page (same content source as the content build step).
+const SOURCES: Record<string, ContentSource> = { seed: seedContentSource, file: fileContentSource };
+const store = await SOURCES[process.env.CONTENT_SOURCE || 'seed']!.loadStore();
+const seoModel = new Map<string, SeoPageMeta>(
+  checkSeo(store).pages.map((m) => [`${SITE_URL}${m.locale === DEFAULT_LOCALE && m.path === '/' ? '/' : localizedPath(m.path, m.locale)}`, m])
+);
+
 // ---------------------------------------------------------------------------
 // Content (snapshots) — slugs, relations, redirects, media
 // ---------------------------------------------------------------------------
@@ -167,7 +180,15 @@ for (const i of infos.values()) {
   if (i.bodyText < 200) err(`${where}: page body is not prerendered (${i.bodyText} chars of text)`);
   if (i.canonical.length !== 1) err(`${where}: ${i.canonical.length} canonical links`);
   const indexable = !(i.robots ?? '').includes('noindex');
-  if (!indexable) err(`${where}: unexpected noindex on a public page`);
+  const model = seoModel.get(i.url);
+  if (!model) err(`${where}: page is missing from the SEO model`);
+  else {
+    if (unesc(i.title ?? '') !== model.title) err(`${where}: <title> differs from the SEO model ("${model.title}")`);
+    if (unesc(i.description ?? '') !== model.description) err(`${where}: meta description differs from the SEO model`);
+    if (indexable !== model.indexable) err(`${where}: robots ${i.robots} differs from the SEO model (indexable: ${model.indexable})`);
+  }
+  if (!indexable && model?.indexable !== false) err(`${where}: unexpected noindex on a public page`);
+  if (!indexable && i.hreflang.length) err(`${where}: a noindex page must not have hreflang alternates`);
   const canonical = i.canonical[0];
   if (canonical && canonical !== i.url) {
     // allowed only when the page falls back to English content (canonical → English URL)
@@ -211,7 +232,8 @@ else {
       if (info.canonical[0] !== loc) err(`sitemap: ${loc} is not canonical`);
     }
   }
-  for (const i of infos.values()) if (i.canonical[0] === i.url && !locs.includes(i.url)) err(`sitemap: missing ${i.url}`);
+  for (const i of infos.values())
+    if (i.canonical[0] === i.url && !(i.robots ?? '').includes('noindex') && !locs.includes(i.url)) err(`sitemap: missing ${i.url}`);
 }
 
 // ---------------------------------------------------------------------------

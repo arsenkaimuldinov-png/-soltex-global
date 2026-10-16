@@ -164,6 +164,13 @@ export const routes = [
               return { element: <RequirePermission permission="content.read"><ReleaseDetailPage /></RequirePermission> };
             },
           },
+          {
+            path: 'seo',
+            lazy: async () => {
+              const { SeoReportPage } = await import('./features/seo/SeoReportPage');
+              return { element: <RequirePermission permission="seo.read"><SeoReportPage /></RequirePermission> };
+            },
+          },
           { path: 'account', lazy: async () => ({ Component: (await import('./features/account/AccountPage')).AccountPage }) },
           {
             path: 'admin/users',

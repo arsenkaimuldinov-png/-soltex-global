@@ -550,3 +550,54 @@ Publishing, revisions, releases, scheduling (G); preview (H); SEO checker and re
 ### Not done in Phase G (by design)
 
 Scheduled publishing; SEO checker and redirects (I); media library (J); leads (K); dashboard (L); ASVS (M); deployment of the worker / preview server / nginx switch and backups (N).
+
+## Phase I-1: SEO check (2026-10-16)
+
+**Base commit:** `cb9d354`. Details: [`admin-seo.md`](admin-seo.md). Phase I is split: I-1 here; I-2 = slug changes of live records, redirects management, lookup endpoint and nginx 404 fallback.
+
+### What was done
+
+1. **Checker** (`@soltex/core/seo`):
+   - `checkSeo(store, { translationState })` returns BLOCKING / WARNING / INFO issues (approved §14) and the effective title, description, URL, served language and indexability of every public page;
+   - also: `seoDefaults` / `summarize` (the site's templates), `PAGE_ROUTES`, `pathProblem` (path syntax of approved §11.2), `formatSeoIssue`;
+   - the store is described structurally, because the seo layer may not import the content layer.
+2. **Site build:**
+   - `build-snapshots` fails on BLOCKING issues and counts warnings and hints;
+   - `validate-site` requires every `<title>`, meta description and robots value to equal the checker's model (parity guard; the client bundle is unchanged);
+   - noindex records now build: no hreflang, not in the sitemap; no current content is affected.
+3. **API** (tag `seo`, API 0.8.0, 154 operations):
+   - `GET /seo/report`, `GET /content/{type}/{id}/seo` (seo.read);
+   - new problem `seo_blocking` (409), returned by `setPublished` and `createRelease`; preview builds are not refused;
+   - releases record `seo_warnings:<n>`.
+4. **Admin:**
+   - «Проверка SEO» block in the editors: snippet per language, counters, checks, «Перейти к полю»;
+   - «SEO → Проверка SEO» page;
+   - «Отметить к публикации» and «Создать релиз» disabled with the reason;
+   - Russian wording for every code.
+5. **Tests:** core +9 (`seo-checker.test.ts`), admin unit +3 (`seo.test.ts`) and nav updates, API DB +6 (`seo.db.test.ts`), admin E2E +7 (`seo.e2e.mjs`). The other suites' sidebar expectations were updated.
+6. **Unchanged:** `apps/web/src` (no file changed; only build scripts), the seed, migrations (none added), roles, permissions, audit actions, dependencies.
+
+### Verification (2026-10-16)
+
+| Check | Result |
+|---|---|
+| `git diff --check` | clean |
+| `npm run lint` (typecheck web, admin incl. tests, api, core + check:deps) | pass |
+| `npm test` | 87 / 87 pass (core 33, api 20, admin 34) |
+| `npm run test:db` on a freshly provisioned database | 117 tests: 116 pass, 1 skipped (backup role: no `BACKUP_DATABASE_URL` locally) |
+| `npm run test:e2e:admin` | 63 / 63 pass (shell 23, content 12, translations 10, publishing 11, seo 7); no page errors, no CSP violations |
+| `openapi.json`, admin API types | up to date (154 operations) |
+| Drizzle | `drizzle-kit check` OK; `generate` → no schema changes |
+| Seed through the checker | 0 blocking, 160 warnings, 56 hints; build parity guard OK on all 174 pages; a deliberate template drift is caught |
+| noindex build (project + page set to noindex via the file source) | builds; robots noindex, no hreflang, not in the sitemap |
+| Admin bundle | builds; no secrets or server addresses |
+| `qa-regression --base-ref cb9d354` | **IDENTICAL to the baseline**: dist bytes (230 files, 180 HTML), page data of 348 page loads, no-JS / motion / script-fail / 404, interactions, navigation, inquiry topics |
+| DB regression: `seed → DB → export` after `test:db`; site from the DB export | **byte-identical** to the seed; **identical** build (230 files, 180 HTML) |
+
+### Deviations (Phase I-1)
+
+I-1 … I-6 in [`admin-seo.md`](admin-seo.md) §7. In short:
+- no `seo_issues` table (computed per request);
+- no alt-text or file-size checks (J);
+- no orphan / canonical-override / hreflang-override checks (no such content or fields; generated tags are validated by the build);
+- slug changes and redirects come in I-2.

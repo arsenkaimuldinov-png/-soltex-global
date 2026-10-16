@@ -28,6 +28,7 @@ import { serialize } from '../content/seed-files.ts';
 import { REVIEW_TABLES, TRANSLATABLE_TYPES, type TranslatableType } from '../content/review-tables.ts';
 import { effectiveStates } from '../content/translations/service.ts';
 import { canonical, recordsOf, recordTitle, syncRevisions } from './revisions.ts';
+import { assertNoBlocking, runChecks, seoContext } from '../seo/report.ts';
 import { readCurrent, smokeCheck, switchCurrent, verifyArtifact } from './artifacts.ts';
 
 type ReleaseRow = typeof s.releases.$inferSelect;
@@ -135,6 +136,11 @@ export async function createRelease(deps: Deps, actor: UserRow, input: { kind: R
         if (c.outdated) warnings.push(`translation_outdated:${l}:${c.outdated}`);
         if (c.in_progress + c.missing) warnings.push(`translation_fallback:${l}:${c.in_progress + c.missing}`);
       }
+      // SEO (Phase I-1): a release candidate with BLOCKING issues is refused before anything is
+      // stored; its warnings are recorded. Preview builds are not refused (they show drafts).
+      const seo = runChecks(await seoContext(tx, full), store);
+      if (input.kind === 'release') assertNoBlocking(seo.issues, 'Релиз нельзя создать:');
+      if (seo.summary.warning) warnings.push(`seo_warnings:${seo.summary.warning}`);
       const now = deps.now();
       const sha256 = crypto.createHash('sha256').update(serialize(store)).digest('hex');
       const [snap] = await tx

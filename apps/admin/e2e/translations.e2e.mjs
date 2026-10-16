@@ -60,7 +60,7 @@ describe('translation management (Phase F)', () => {
     const { page } = profiles.editor;
     await signIn(profiles.editor, EDITOR);
     const links = (await sidebar(page).getByRole('link').allTextContents()).map((s) => s.trim());
-    assert.deepEqual(links.slice(-6, -3), ['Обзор', 'Все переводы', 'Требуют внимания']);
+    assert.deepEqual(links.slice(-7, -4), ['Обзор', 'Все переводы', 'Требуют внимания']);
     await sidebar(page).getByRole('link', { name: 'Обзор' }).nth(1).click();
     await page.getByRole('heading', { name: 'Переводы' }).waitFor();
     await page.getByText('Исходный язык — английский').waitFor();

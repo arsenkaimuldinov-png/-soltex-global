@@ -45,7 +45,7 @@ export const SECTION_LABELS: Record<SectionId, { title: string; description?: st
   home: { title: 'Карточка на главной', description: 'Поля карточки в блоке «Технологии и интеллектуальная собственность» главной страницы.' },
   registry: { title: 'Запись в реестре патентов', description: 'Поля записи на странице «Патенты».' },
   relations: { title: 'Изображения и связи' },
-  seo: { title: 'SEO', description: 'Пустые поля — сайт использует шаблон по умолчанию. Полная проверка SEO появится в разделе SEO.' },
+  seo: { title: 'SEO', description: 'Пустые поля — сайт использует шаблон по умолчанию. Результат проверки — в блоке «Проверка SEO» ниже.' },
 };
 
 export interface FieldDef {

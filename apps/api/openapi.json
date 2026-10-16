@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Soltex Global Admin API",
-    "version": "0.7.0",
+    "version": "0.8.0",
     "description": "Authentication, second factors, users, audit (Phase C) and content management (Phase E). Errors are RFC 9457 Problem Details (application/problem+json) with `request_id`; every response carries `X-Request-ID`. State-changing requests need the header `x-requested-with: soltex-admin`."
   },
   "components": {
@@ -1962,6 +1962,351 @@
           "failed",
           "pending",
           "currentOnDisk"
+        ]
+      },
+      "SeoSummaryInput": {
+        "type": "object",
+        "properties": {
+          "blocking": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "warning": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "info": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "blocking",
+          "warning",
+          "info"
+        ]
+      },
+      "SeoIssueInput": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "slug_invalid",
+              "slug_duplicate",
+              "relation_broken",
+              "media_missing",
+              "link_broken",
+              "title_missing",
+              "description_missing",
+              "title_too_long",
+              "redirect_invalid",
+              "redirect_self",
+              "redirect_loop",
+              "redirect_shadows_page",
+              "redirect_target_missing",
+              "title_length",
+              "description_length",
+              "title_duplicate",
+              "description_duplicate",
+              "translation_missing",
+              "translation_outdated",
+              "og_image_missing",
+              "noindex_in_navigation",
+              "redirect_chain",
+              "title_default",
+              "description_default"
+            ]
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "blocking",
+              "warning",
+              "info"
+            ]
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "pages",
+                  "projects",
+                  "technologies",
+                  "products",
+                  "epcm-stages",
+                  "patents",
+                  "videos"
+                ]
+              },
+              {
+                "type": "string",
+                "const": "redirects"
+              }
+            ]
+          },
+          "key": {
+            "type": "string"
+          },
+          "locale": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "en",
+                  "ru",
+                  "zh",
+                  "tr",
+                  "ar",
+                  "es"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "field": {
+            "description": "Editor field the issue points to",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "params": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": [
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "required": [
+          "code",
+          "severity",
+          "type",
+          "key",
+          "locale",
+          "field",
+          "params"
+        ]
+      },
+      "SeoSiteIssueInput": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "slug_invalid",
+              "slug_duplicate",
+              "relation_broken",
+              "media_missing",
+              "link_broken",
+              "title_missing",
+              "description_missing",
+              "title_too_long",
+              "redirect_invalid",
+              "redirect_self",
+              "redirect_loop",
+              "redirect_shadows_page",
+              "redirect_target_missing",
+              "title_length",
+              "description_length",
+              "title_duplicate",
+              "description_duplicate",
+              "translation_missing",
+              "translation_outdated",
+              "og_image_missing",
+              "noindex_in_navigation",
+              "redirect_chain",
+              "title_default",
+              "description_default"
+            ]
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "blocking",
+              "warning",
+              "info"
+            ]
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "pages",
+                  "projects",
+                  "technologies",
+                  "products",
+                  "epcm-stages",
+                  "patents",
+                  "videos"
+                ]
+              },
+              {
+                "type": "string",
+                "const": "redirects"
+              }
+            ]
+          },
+          "key": {
+            "type": "string"
+          },
+          "locale": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "en",
+                  "ru",
+                  "zh",
+                  "tr",
+                  "ar",
+                  "es"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "field": {
+            "description": "Editor field the issue points to",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "params": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": [
+                "string",
+                "number"
+              ]
+            }
+          },
+          "record": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "title",
+                  "status"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The record in the admin (null for redirects)"
+          }
+        },
+        "required": [
+          "code",
+          "severity",
+          "type",
+          "key",
+          "locale",
+          "field",
+          "params",
+          "record"
+        ]
+      },
+      "SeoPageMetaInput": {
+        "type": "object",
+        "properties": {
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en",
+              "ru",
+              "zh",
+              "tr",
+              "ar",
+              "es"
+            ]
+          },
+          "servedLocale": {
+            "type": "string",
+            "enum": [
+              "en",
+              "ru",
+              "zh",
+              "tr",
+              "ar",
+              "es"
+            ],
+            "description": "Language the page is served in (English when the translation is not approved)"
+          },
+          "url": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "titleSource": {
+            "type": "string",
+            "enum": [
+              "override",
+              "default"
+            ]
+          },
+          "descriptionSource": {
+            "type": "string",
+            "enum": [
+              "override",
+              "default"
+            ]
+          },
+          "indexable": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "locale",
+          "servedLocale",
+          "url",
+          "path",
+          "title",
+          "description",
+          "titleSource",
+          "descriptionSource",
+          "indexable"
         ]
       },
       "ContentListItemInput": {
@@ -7322,6 +7667,65 @@
           "expiresAt"
         ]
       },
+      "SeoReportInput": {
+        "type": "object",
+        "properties": {
+          "summary": {
+            "$ref": "#/components/schemas/SeoSummaryInput"
+          },
+          "pages": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991,
+            "description": "Public pages checked (route × language)"
+          },
+          "issues": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeoSiteIssueInput"
+            }
+          },
+          "checkedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "summary",
+          "pages",
+          "issues",
+          "checkedAt"
+        ]
+      },
+      "SeoRecordReportInput": {
+        "type": "object",
+        "properties": {
+          "summary": {
+            "$ref": "#/components/schemas/SeoSummaryInput"
+          },
+          "meta": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeoPageMetaInput"
+            }
+          },
+          "issues": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeoIssueInput"
+            }
+          },
+          "canPublish": {
+            "type": "boolean",
+            "description": "No BLOCKING issue"
+          }
+        },
+        "required": [
+          "summary",
+          "meta",
+          "issues",
+          "canPublish"
+        ]
+      },
       "Problem": {
         "type": "object",
         "properties": {
@@ -9305,6 +9709,356 @@
           "failed",
           "pending",
           "currentOnDisk"
+        ],
+        "additionalProperties": false
+      },
+      "SeoSummary": {
+        "type": "object",
+        "properties": {
+          "blocking": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "warning": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "info": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "blocking",
+          "warning",
+          "info"
+        ],
+        "additionalProperties": false
+      },
+      "SeoIssue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "slug_invalid",
+              "slug_duplicate",
+              "relation_broken",
+              "media_missing",
+              "link_broken",
+              "title_missing",
+              "description_missing",
+              "title_too_long",
+              "redirect_invalid",
+              "redirect_self",
+              "redirect_loop",
+              "redirect_shadows_page",
+              "redirect_target_missing",
+              "title_length",
+              "description_length",
+              "title_duplicate",
+              "description_duplicate",
+              "translation_missing",
+              "translation_outdated",
+              "og_image_missing",
+              "noindex_in_navigation",
+              "redirect_chain",
+              "title_default",
+              "description_default"
+            ]
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "blocking",
+              "warning",
+              "info"
+            ]
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "pages",
+                  "projects",
+                  "technologies",
+                  "products",
+                  "epcm-stages",
+                  "patents",
+                  "videos"
+                ]
+              },
+              {
+                "type": "string",
+                "const": "redirects"
+              }
+            ]
+          },
+          "key": {
+            "type": "string"
+          },
+          "locale": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "en",
+                  "ru",
+                  "zh",
+                  "tr",
+                  "ar",
+                  "es"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "field": {
+            "description": "Editor field the issue points to",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "params": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": [
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "required": [
+          "code",
+          "severity",
+          "type",
+          "key",
+          "locale",
+          "field",
+          "params"
+        ],
+        "additionalProperties": false
+      },
+      "SeoSiteIssue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "slug_invalid",
+              "slug_duplicate",
+              "relation_broken",
+              "media_missing",
+              "link_broken",
+              "title_missing",
+              "description_missing",
+              "title_too_long",
+              "redirect_invalid",
+              "redirect_self",
+              "redirect_loop",
+              "redirect_shadows_page",
+              "redirect_target_missing",
+              "title_length",
+              "description_length",
+              "title_duplicate",
+              "description_duplicate",
+              "translation_missing",
+              "translation_outdated",
+              "og_image_missing",
+              "noindex_in_navigation",
+              "redirect_chain",
+              "title_default",
+              "description_default"
+            ]
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "blocking",
+              "warning",
+              "info"
+            ]
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "pages",
+                  "projects",
+                  "technologies",
+                  "products",
+                  "epcm-stages",
+                  "patents",
+                  "videos"
+                ]
+              },
+              {
+                "type": "string",
+                "const": "redirects"
+              }
+            ]
+          },
+          "key": {
+            "type": "string"
+          },
+          "locale": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "en",
+                  "ru",
+                  "zh",
+                  "tr",
+                  "ar",
+                  "es"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "field": {
+            "description": "Editor field the issue points to",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "params": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": [
+                "string",
+                "number"
+              ]
+            }
+          },
+          "record": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "title",
+                  "status"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The record in the admin (null for redirects)"
+          }
+        },
+        "required": [
+          "code",
+          "severity",
+          "type",
+          "key",
+          "locale",
+          "field",
+          "params",
+          "record"
+        ],
+        "additionalProperties": false
+      },
+      "SeoPageMeta": {
+        "type": "object",
+        "properties": {
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en",
+              "ru",
+              "zh",
+              "tr",
+              "ar",
+              "es"
+            ]
+          },
+          "servedLocale": {
+            "type": "string",
+            "enum": [
+              "en",
+              "ru",
+              "zh",
+              "tr",
+              "ar",
+              "es"
+            ],
+            "description": "Language the page is served in (English when the translation is not approved)"
+          },
+          "url": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "titleSource": {
+            "type": "string",
+            "enum": [
+              "override",
+              "default"
+            ]
+          },
+          "descriptionSource": {
+            "type": "string",
+            "enum": [
+              "override",
+              "default"
+            ]
+          },
+          "indexable": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "locale",
+          "servedLocale",
+          "url",
+          "path",
+          "title",
+          "description",
+          "titleSource",
+          "descriptionSource",
+          "indexable"
         ],
         "additionalProperties": false
       },
@@ -14742,6 +15496,67 @@
         "required": [
           "url",
           "expiresAt"
+        ],
+        "additionalProperties": false
+      },
+      "SeoReport": {
+        "type": "object",
+        "properties": {
+          "summary": {
+            "$ref": "#/components/schemas/SeoSummary"
+          },
+          "pages": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991,
+            "description": "Public pages checked (route × language)"
+          },
+          "issues": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeoSiteIssue"
+            }
+          },
+          "checkedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "summary",
+          "pages",
+          "issues",
+          "checkedAt"
+        ],
+        "additionalProperties": false
+      },
+      "SeoRecordReport": {
+        "type": "object",
+        "properties": {
+          "summary": {
+            "$ref": "#/components/schemas/SeoSummary"
+          },
+          "meta": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeoPageMeta"
+            }
+          },
+          "issues": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeoIssue"
+            }
+          },
+          "canPublish": {
+            "type": "boolean",
+            "description": "No BLOCKING issue"
+          }
+        },
+        "required": [
+          "summary",
+          "meta",
+          "issues",
+          "canPublish"
         ],
         "additionalProperties": false
       }
@@ -30520,6 +31335,697 @@
           }
         }
       }
+    },
+    "/api/v1/seo/report": {
+      "get": {
+        "summary": "SEO check of the next release (all public pages, all languages)",
+        "tags": [
+          "seo"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "blocking",
+                "warning",
+                "info"
+              ]
+            },
+            "in": "query",
+            "name": "severity",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "en",
+                "ru",
+                "zh",
+                "tr",
+                "ar",
+                "es"
+              ]
+            },
+            "in": "query",
+            "name": "locale",
+            "required": false
+          },
+          {
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "pages",
+                    "projects",
+                    "technologies",
+                    "products",
+                    "epcm-stages",
+                    "patents",
+                    "videos"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "redirects"
+                  ]
+                }
+              ]
+            },
+            "in": "query",
+            "name": "type",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "seo.read"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SeoReport"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/pages/{id}/seo": {
+      "get": {
+        "summary": "SEO of one pages record (as if published)",
+        "tags": [
+          "seo"
+        ],
+        "description": "Effective title, description and URL per language (what the site renders) and the issues of this record. A draft is checked as if it were published.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "seo.read"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SeoRecordReport"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/projects/{id}/seo": {
+      "get": {
+        "summary": "SEO of one projects record (as if published)",
+        "tags": [
+          "seo"
+        ],
+        "description": "Effective title, description and URL per language (what the site renders) and the issues of this record. A draft is checked as if it were published.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "seo.read"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SeoRecordReport"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/technologies/{id}/seo": {
+      "get": {
+        "summary": "SEO of one technologies record (as if published)",
+        "tags": [
+          "seo"
+        ],
+        "description": "Effective title, description and URL per language (what the site renders) and the issues of this record. A draft is checked as if it were published.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "seo.read"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SeoRecordReport"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/products/{id}/seo": {
+      "get": {
+        "summary": "SEO of one products record (as if published)",
+        "tags": [
+          "seo"
+        ],
+        "description": "Effective title, description and URL per language (what the site renders) and the issues of this record. A draft is checked as if it were published.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "seo.read"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SeoRecordReport"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/epcm-stages/{id}/seo": {
+      "get": {
+        "summary": "SEO of one epcm-stages record (as if published)",
+        "tags": [
+          "seo"
+        ],
+        "description": "Effective title, description and URL per language (what the site renders) and the issues of this record. A draft is checked as if it were published.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "seo.read"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SeoRecordReport"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/patents/{id}/seo": {
+      "get": {
+        "summary": "SEO of one patents record (as if published)",
+        "tags": [
+          "seo"
+        ],
+        "description": "Effective title, description and URL per language (what the site renders) and the issues of this record. A draft is checked as if it were published.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "seo.read"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SeoRecordReport"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/videos/{id}/seo": {
+      "get": {
+        "summary": "SEO of one videos record (as if published)",
+        "tags": [
+          "seo"
+        ],
+        "description": "Effective title, description and URL per language (what the site renders) and the issues of this record. A draft is checked as if it were published.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "seo.read"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SeoRecordReport"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "servers": [
@@ -30565,6 +32071,10 @@
     {
       "name": "publishing",
       "description": "Revisions, releases, preview, publication and rollback"
+    },
+    {
+      "name": "seo",
+      "description": "SEO check: effective titles and descriptions, BLOCKING / WARNING / INFO issues"
     }
   ]
 }

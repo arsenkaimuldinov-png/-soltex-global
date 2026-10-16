@@ -24,6 +24,7 @@ export const PROBLEM_CODES = {
   edit_conflict: { status: 409, title: 'Запись была изменена другим пользователем. Обновите страницу перед сохранением.' },
   slug_taken: { status: 409, title: 'Такой адрес страницы уже занят' },
   invalid_transition: { status: 409, title: 'Это действие недоступно для записи в текущем статусе' },
+  seo_blocking: { status: 409, title: 'Публикация невозможна: есть блокирующие ошибки SEO' },
   precondition_required: { status: 428, title: 'Не указана версия записи: обновите страницу и повторите' },
   password_rejected: { status: 422, title: 'Пароль не соответствует требованиям' },
   challenge_invalid: { status: 400, title: 'Запрос подтверждения устарел или уже использован' },

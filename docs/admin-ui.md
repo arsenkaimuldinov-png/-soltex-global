@@ -62,6 +62,7 @@ Phase D delivers the admin shell and every screen that the Phase C API already s
 | `/translations` | `content.read` | Переводы · Обзор: completion per language and section (Phase F, [`admin-translations.md`](admin-translations.md)) |
 | `/translations/all`, `/translations/attention` | `content.read` | Все переводы / Требуют внимания: filters in the address (`locale`, `type`, `state`, `entity`, `q`, `sort`, `page`) |
 | `/translations/:type/:id/:locale` | `content.read` | Translation editor: English source next to the target language; Arabic inputs right-to-left. Unknown type or language shows «Страница не найдена» |
+| `/seo` | `seo.read` | SEO · Проверка SEO: every issue of the next release, filters `severity`, `locale`, `type` in the address (Phase I-1, [`admin-seo.md`](admin-seo.md)) |
 | `/publishing` | `content.read` | Публикация · Обзор: what is live, builds, unpublished changes, «Создать релиз», «Предпросмотр черновиков» (Phase G, [`admin-publishing.md`](admin-publishing.md)) |
 | `/publishing/revisions`, `/publishing/revisions/:type/:id` | `content.read` | Ревизии: all versions (filters `type`, `kind`, `q`, `page` in the address); full history of one record |
 | `/publishing/releases`, `/publishing/releases/:id` | `content.read` | Релизы (filters `kind`, `status`, `page`) and the release page (steps, changes, checks, translations, events; publish / rollback / retry / preview actions by permission) |
@@ -133,6 +134,11 @@ The dashboard numbers of review §X (leads, SEO, translations, builds, backups) 
 - each row opens a dialog; technical values (record number, request id, action code, object, raw data) are in «Дополнительно».
 
 **Система:** whether the API answers and how fast, checked every 30 s. Disk, backups and the queue (approved §19) come with Phases L and N; builds and releases are under «Публикация».
+
+**SEO** (Phase I-1, [`admin-seo.md`](admin-seo.md) §5):
+- «Проверка SEO» (`/seo`): totals by severity, filters, links to the editors;
+- the editors' «Проверка SEO» block: search snippet per language, counters, checks with «Перейти к полю»;
+- BLOCKING issues disable «Отметить к публикации» and «Создать релиз» with the reason.
 
 **Публикация** (Phase G, [`admin-publishing.md`](admin-publishing.md) §7):
 - Обзор, Ревизии, Релизы in the sidebar section «Публикация»; a section overview is highlighted only on its own address (`hasChildRoute` in `nav.ts`);

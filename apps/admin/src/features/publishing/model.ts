@@ -120,6 +120,8 @@ export function describeValidation(code: string): string {
       const [a, b] = arg.split('→');
       return `Число страниц изменилось: было ${a}, стало ${b}.`;
     }
+    case 'seo_warnings':
+      return `Замечаний SEO: ${arg}. Они не блокируют публикацию; список — «SEO → Проверка SEO».`;
     case 'content':
       return `Сборка: ${arg}`;
     default:

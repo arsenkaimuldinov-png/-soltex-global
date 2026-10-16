@@ -97,6 +97,11 @@ translation is shown; an *outdated* one keeps showing the previously approved te
 in-progress translations fall back to English. Outdated / fallback counts per language are
 release **warnings** (`translation_outdated:<l>:<n>`, `translation_fallback:<l>:<n>`).
 
+**SEO (Phase I-1).** Before the snapshot is stored, the SEO checker runs on it. Any BLOCKING
+issue refuses the release (`409 seo_blocking`, nothing stored). SEO warnings are recorded as
+`seo_warnings:<n>`. «Отметить к публикации» runs the same check for the record. See
+[`admin-seo.md`](admin-seo.md).
+
 ### States
 
 ```

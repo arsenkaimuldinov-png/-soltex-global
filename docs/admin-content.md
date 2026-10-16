@@ -159,6 +159,7 @@ The export requires the same shape in every language: the same list lengths and 
   - a note explains why. The API enforces all of it again.
 - **Archive:** a confirmation dialog states the consequences («На сайт это не влияет: черновики на сайте не показываются»). Restore has its own confirmation.
 - **Published records:** an info banner says that changes are saved to the working copy and reach the site with the next published release.
+- **Проверка SEO** (Phase I-1, [`admin-seo.md`](admin-seo.md)): projects, technologies, products and routable pages show the search snippet per language and the record's SEO checks; «Отметить к публикации» stays disabled while there is a blocking SEO error.
 - **История изменений** (Phase G): every editor shows the last 8 versions of the record with author and time; view, compare with the current version (field by field, language by language) and «Восстановить» (a new version; status and slug kept; confirmation). «Вся история» opens `/publishing/revisions/:type/:id`.
 - **Media:**
   - a picker of existing files (file name, size, alt text);

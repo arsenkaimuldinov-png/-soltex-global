@@ -6,7 +6,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { api } from '../../lib/api/client';
+import { api, isApiError } from '../../lib/api/client';
 import { formatDateTime } from '../../lib/format';
 import { useCan } from '../../lib/session';
 import { Alert } from '../../components/ui/Alert';
@@ -35,6 +35,7 @@ export function useCreateBuild() {
       toast.success(kind === 'release' ? 'Релиз создан: идёт сборка' : 'Собирается предпросмотр');
       navigate(`/publishing/releases/${rel.id}`);
     } catch (e) {
+      if (isApiError(e, 'seo_blocking')) void qc.invalidateQueries({ queryKey: ['seo'] });
       toast.error(e);
     } finally {
       setBusy(false);
@@ -57,6 +58,13 @@ export function PublishingOverviewPage() {
   const { create, busy } = useCreateBuild();
   const [confirm, setConfirm] = useState(false);
   const canPreview = PREVIEW_PERMISSIONS.some((p) => can(p));
+  // BLOCKING SEO issues refuse «Создать релиз» (Phase I-1); the API refuses them too.
+  const seo = useQuery({
+    queryKey: ['seo', 'report', { severity: 'blocking' }],
+    queryFn: () => api('GET /api/v1/seo/report', { query: { severity: 'blocking' } }),
+    enabled: can('content.publish') && can('seo.read'),
+  });
+  const seoBlocking = seo.data?.summary.blocking ?? 0;
 
   return (
     <>
@@ -72,7 +80,7 @@ export function PublishingOverviewPage() {
               </Button>
             ) : null}
             {can('content.publish') ? (
-              <Button variant="primary" onClick={() => setConfirm(true)} disabled={busy}>
+              <Button variant="primary" onClick={() => setConfirm(true)} disabled={busy || seoBlocking > 0} title={seoBlocking ? 'Сначала исправьте ошибки SEO' : undefined}>
                 Создать релиз
               </Button>
             ) : null}
@@ -87,6 +95,11 @@ export function PublishingOverviewPage() {
         </Alert>
       ) : (
         <div className="space-y-4">
+          {seoBlocking ? (
+            <Alert tone="danger" action={<Link to="/seo?severity=blocking" className="text-[13px] font-medium text-accent hover:underline">Проверка SEO</Link>}>
+              Релиз нельзя создать: блокирующих ошибок SEO — {seoBlocking}. Исправьте их в материалах.
+            </Alert>
+          ) : null}
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             <Card title="Сейчас на сайте">
               {q.data.active ? (

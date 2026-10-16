@@ -2,14 +2,14 @@
  * Navigation model (review §X sidebar). One list drives the sidebar, the ⌘K palette and the route
  * guards, so a screen is never visible in one place and hidden in another.
  *
- * Only screens that exist are listed. The sections of later phases (Медиатека, Заявки, SEO,
+ * Only screens that exist are listed. The sections of later phases (Медиатека, Заявки,
  * Настройки) are added here together with their screens; there are no placeholders.
  * Visibility is a presentation of the user's permissions (from GET /auth/session); the API
  * enforces every permission on its own.
  */
 import type { Permission } from '@soltex/core/domain';
 import type { LucideIcon } from 'lucide-react';
-import { Activity, AlertTriangle, Award, FileText, FlaskConical, FolderKanban, History, Languages, LayoutDashboard, ListChecks, Package, Rocket, ScrollText, Send, ShieldCheck, Users, Video, Workflow } from 'lucide-react';
+import { Activity, AlertTriangle, Award, FileText, FlaskConical, FolderKanban, History, Languages, SearchCheck, LayoutDashboard, ListChecks, Package, Rocket, ScrollText, Send, ShieldCheck, Users, Video, Workflow } from 'lucide-react';
 
 export interface NavItem {
   id: string;
@@ -56,6 +56,11 @@ export const NAV: NavSection[] = [
       { id: 'translations-all', label: 'Все переводы', title: 'Переводы: все', to: '/translations/all', icon: ListChecks, permission: 'content.read', keywords: ['переводы', 'языки', 'ru', 'zh', 'tr', 'ar', 'es'] },
       { id: 'translations-attention', label: 'Требуют внимания', title: 'Переводы: требуют внимания', to: '/translations/attention', icon: AlertTriangle, permission: 'content.read', keywords: ['переводы', 'устарел', 'нет перевода', 'утвердить'] },
     ],
+  },
+  {
+    id: 'seo',
+    label: 'SEO',
+    items: [{ id: 'seo-report', label: 'Проверка SEO', title: 'SEO: проверка', to: '/seo', icon: SearchCheck, permission: 'seo.read', keywords: ['seo', 'title', 'description', 'мета', 'поиск', 'ошибки'] }],
   },
   {
     id: 'publishing',

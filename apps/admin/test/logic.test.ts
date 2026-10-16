@@ -42,7 +42,7 @@ test('reset token: from the fragment (preferred) or the query; malformed tokens 
 });
 
 test('navigation per role follows the permission map (no role shortcut)', () => {
-  const content = ['Страницы', 'Проекты', 'Технологии', 'Продукты', 'EPC / EPCM', 'Патенты', 'Видео', 'Обзор', 'Все переводы', 'Требуют внимания', 'Обзор', 'Ревизии', 'Релизы'];
+  const content = ['Страницы', 'Проекты', 'Технологии', 'Продукты', 'EPC / EPCM', 'Патенты', 'Видео', 'Обзор', 'Все переводы', 'Требуют внимания', 'Проверка SEO', 'Обзор', 'Ревизии', 'Релизы'];
   assert.deepEqual(labels('owner'), ['Обзор', ...content, 'Пользователи', 'Журнал действий', 'Система']);
   assert.deepEqual(labels('admin'), ['Обзор', ...content, 'Пользователи', 'Журнал действий', 'Система']);
   assert.deepEqual(labels('content_manager'), ['Обзор', ...content, 'Система']);
@@ -56,10 +56,10 @@ test('navigation per role follows the permission map (no role shortcut)', () => 
   for (const role of ROLES) for (const i of visibleNav(canFor(role)).flatMap((s) => s.items)) assert.ok(!i.permission || canFor(role)(i.permission));
 });
 
-test('no screens of later phases in the navigation (Phase G adds only «Публикация»)', () => {
+test('no screens of later phases in the navigation (Phase I-1 adds «SEO · Проверка SEO»)', () => {
   const all = allNavItems(NAV).map((i) => i.label).join(' ');
-  for (const later of ['Медиатека', 'Заявки', 'SEO', 'Настройки']) assert.ok(!all.includes(later), later);
-  assert.deepEqual(NAV.map((s) => s.label ?? ''), ['', 'Контент', 'Переводы', 'Публикация', 'Администрирование']);
+  for (const later of ['Медиатека', 'Заявки', 'Редиректы', 'Настройки']) assert.ok(!all.includes(later), later);
+  assert.deepEqual(NAV.map((s) => s.label ?? ''), ['', 'Контент', 'Переводы', 'SEO', 'Публикация', 'Администрирование']);
 });
 
 test('⌘K matching: every word, any order, case-insensitive, Russian', () => {

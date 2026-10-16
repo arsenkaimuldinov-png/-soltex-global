@@ -5,7 +5,8 @@
  * contain. The live site changes only when a release containing it is published. Requires
  * content.publish (route). Before a record is marked published, the same blocking rules the build
  * applies to it are checked here, so an editor sees the problem at once instead of in a failed
- * build: every English text filled in, related records published.
+ * build: every English text filled in, related records published, and no BLOCKING issue of the SEO
+ * checker for this record (Phase I-1, docs/admin-seo.md).
  */
 import { sql } from 'drizzle-orm';
 import { isLocalized, type ContentStore } from '@soltex/core/content';
@@ -17,6 +18,7 @@ import type { UserRow } from '../auth/sessions.ts';
 import { exportStore } from '../content/export.ts';
 import { REVIEW_TABLES, type TranslatableType } from '../content/review-tables.ts';
 import { recordRevision, recordsOf, type EntityRecord } from './revisions.ts';
+import { asPublished, assertNoBlocking, issuesOf, runChecks, seoContext } from '../seo/report.ts';
 
 /** Paths of empty English texts in a record (the build's "empty English text" rule). */
 export function emptyEnglish(value: unknown, where = ''): string[] {
@@ -59,6 +61,8 @@ export async function setPublished(deps: Deps, type: TranslatableType, actor: Us
         ...unpublishedRelations(store, type, rec),
       ];
       if (errors.length) throw new Problem('validation_failed', 'Запись нельзя опубликовать: заполните пустые поля и опубликуйте связанные материалы.', { errors: errors.slice(0, 50) });
+      const ctx = await seoContext(tx, store);
+      assertNoBlocking(issuesOf(runChecks(ctx, asPublished(store, type, head.key)), type, head.key), 'Запись нельзя опубликовать:');
     }
     const now = deps.now();
     await tx.execute(

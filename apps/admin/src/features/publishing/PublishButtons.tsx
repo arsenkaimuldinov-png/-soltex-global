@@ -11,6 +11,8 @@ import { Button } from '../../components/ui/Button';
 import { ConfirmDialog } from '../../components/ui/Dialog';
 import { useToast } from '../../components/ui/Toast';
 import type { TranslatableType } from '../translations/model';
+import { useQuery } from '@tanstack/react-query';
+import { seoRecordKey } from '../seo/SeoPanel';
 
 export function PublishButtons({
   type,
@@ -37,7 +39,14 @@ export function PublishButtons({
   const toast = useToast();
   const [confirm, setConfirm] = useState<'publish' | 'unpublish' | null>(null);
   const [busy, setBusy] = useState(false);
+  // BLOCKING SEO issues (Phase I-1) disable «Отметить к публикации»; the API refuses them too.
+  const seo = useQuery({
+    queryKey: [...seoRecordKey(type, id), version],
+    queryFn: () => api(`GET /api/v1/content/${type}/{id}/seo` as 'GET /api/v1/content/projects/{id}/seo', { params: { id } }),
+    enabled: can('content.publish') && status === 'draft',
+  });
   if (!can('content.publish') || status === 'archived') return null;
+  const seoBlocking = seo.data?.summary.blocking ?? 0;
 
   const run = async (action: 'publish' | 'unpublish') => {
     setBusy(true);
@@ -47,7 +56,10 @@ export function PublishButtons({
       onChanged();
     } catch (e) {
       if (isApiError(e, 'edit_conflict')) onConflict();
-      else {
+      else if (isApiError(e, 'seo_blocking')) {
+        void seo.refetch();
+        toast.error(e);
+      } else {
         if (isApiError(e, 'validation_failed') && onErrors)
           onErrors(Object.fromEntries(e.fieldErrors.map((f) => [f.field.split('.')[0]!, f.message === 'unpublished_reference' ? 'Связанный материал не опубликован.' : 'Заполните поле перед публикацией.'])));
         toast.error(e);
@@ -61,9 +73,22 @@ export function PublishButtons({
   return (
     <>
       {status === 'draft' ? (
-        <Button size="sm" icon={<Send className="size-3.5" aria-hidden />} onClick={() => setConfirm('publish')} disabled={dirty || busy} title={dirty ? 'Сначала сохраните изменения' : undefined}>
-          Отметить к публикации
-        </Button>
+        <>
+          <Button
+            size="sm"
+            icon={<Send className="size-3.5" aria-hidden />}
+            onClick={() => setConfirm('publish')}
+            disabled={dirty || busy || seoBlocking > 0}
+            title={dirty ? 'Сначала сохраните изменения' : seoBlocking ? 'Исправьте ошибки SEO (блок «Проверка SEO»)' : undefined}
+          >
+            Отметить к публикации
+          </Button>
+          {seoBlocking ? (
+            <span className="text-xs font-medium text-danger" data-seo-blocked>
+              Ошибок SEO: {seoBlocking}
+            </span>
+          ) : null}
+        </>
       ) : (
         <Button size="sm" icon={<Undo2 className="size-3.5" aria-hidden />} onClick={() => setConfirm('unpublish')} disabled={dirty || busy} title={dirty ? 'Сначала сохраните изменения' : undefined}>
           Снять с публикации
