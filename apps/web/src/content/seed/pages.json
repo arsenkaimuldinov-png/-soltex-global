@@ -860,7 +860,7 @@
     },
     "media": {
       "heroImage": {
-        "mediaId": "media-hero-soltex-panoramic-plant-1790270267701"
+        "mediaId": "media-soltex-hero-industrial"
       }
     },
     "body": null,
@@ -887,27 +887,27 @@
     "translationStatus": {
       "ru": {
         "status": "approved",
-        "approvedSourceHash": "eb1453b55ae7b563",
+        "approvedSourceHash": "3d6870768249e7aa",
         "approvedAt": "2026-10-01"
       },
       "zh": {
         "status": "approved",
-        "approvedSourceHash": "eb1453b55ae7b563",
+        "approvedSourceHash": "3d6870768249e7aa",
         "approvedAt": "2026-10-01"
       },
       "tr": {
         "status": "approved",
-        "approvedSourceHash": "eb1453b55ae7b563",
+        "approvedSourceHash": "3d6870768249e7aa",
         "approvedAt": "2026-10-01"
       },
       "ar": {
         "status": "approved",
-        "approvedSourceHash": "eb1453b55ae7b563",
+        "approvedSourceHash": "3d6870768249e7aa",
         "approvedAt": "2026-10-01"
       },
       "es": {
         "status": "approved",
-        "approvedSourceHash": "eb1453b55ae7b563",
+        "approvedSourceHash": "3d6870768249e7aa",
         "approvedAt": "2026-10-01"
       }
     }

@@ -120,6 +120,14 @@
     "alt": null
   },
   {
+    "id": "media-soltex-hero-industrial",
+    "kind": "image",
+    "src": "/images/soltex-hero-industrial.webp",
+    "width": 2117,
+    "height": 743,
+    "alt": null
+  },
+  {
     "id": "media-soltex-technologies",
     "kind": "video",
     "src": "/videos/soltex-technologies.mp4",

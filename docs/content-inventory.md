@@ -62,7 +62,7 @@ This document lists every piece of content the public site renders, where it liv
 | copy.heroUsp | Alcohol-free processing technologies with proven commercial operation | Hero | HERO_DATA (soltexData.ts) |
 | lists.heroTags (4 items) | fields: label | Hero | HERO_DATA.metadataTags |
 | lists.keyDirections (6 items) | fields: id, number, title, subtitle, description, image, href, rawMaterials, endProducts, technologyFeatures | KeyDirections | KEY_DIRECTIONS (soltexData.ts) |
-| media.heroImage | `media-hero-soltex-panoramic-plant-1790270267701` | Hero | hard-coded image path |
+| media.heroImage | `media-soltex-hero-industrial` (`/images/soltex-hero-industrial.webp`, 2117×743; replaced `media-hero-soltex-panoramic-plant-1790270267701` on 2026-10-16) | Hero | hard-coded image path |
 | seo.metaTitle / metaDescription | Soltex Global — Turnkey Engineering for Advanced Plant Processing | prerender / SeoHead | `HOME_TITLE` / `HOME_DESCRIPTION` in src/i18n/seo.ts |
 
 ### `company` — /company (page, published)

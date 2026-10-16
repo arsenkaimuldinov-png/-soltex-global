@@ -21,7 +21,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
             src={heroImage.src}
             alt={c('heroImageAlt')}
             referrerPolicy="no-referrer"
-            className="s-seq-settle w-full h-full object-cover object-[right_center]"
+            className="s-seq-settle w-full h-full object-cover object-[72%_center]"
           />
 
           {/* Smooth feathered horizontal transition overlay over ~200px: #FBFBF8 -> transparent */}
@@ -87,7 +87,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
               src={heroImage.src}
               alt={c('heroImageAlt')}
               referrerPolicy="no-referrer"
-              className="s-seq-settle w-full h-full object-cover object-[right_center]"
+              className="s-seq-settle w-full h-full object-cover object-[72%_center]"
             />
           </div>
         </div>
