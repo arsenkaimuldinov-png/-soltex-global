@@ -1,6 +1,5 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
-import { useI18n } from '../i18n/I18nProvider';
 import { usePage } from '../content/useContent';
 
 interface HeroProps {
@@ -8,7 +7,6 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
-  const { t } = useI18n();
   const { c, media } = usePage('home');
   const heroImage = media('heroImage');
   return (
@@ -61,7 +59,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
                 style={{ '--seq': '880ms' } as React.CSSProperties}
                 className="s-seq-rise s-btn inline-flex items-center justify-center gap-3 px-7 py-3.5 bg-[#0E482C] text-white text-xs font-bold tracking-wider uppercase hover:bg-[#0A3620] transition-colors shadow-xs group cursor-pointer border border-[#0E482C] rounded-none"
               >
-                <span>{t('common.startYourProject')}</span>
+                <span>{c('heroPrimaryCta')}</span>
                 <ArrowRight className="w-4 h-4 text-[#D4B982] group-hover:translate-x-1 transition-transform" />
               </button>
 

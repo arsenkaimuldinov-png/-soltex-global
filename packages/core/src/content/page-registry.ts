@@ -52,6 +52,7 @@ export const PAGE_REGISTRY: Readonly<Record<PageKey, PageDef>> = {
       s('heroHeadlineLine2'),
       s('heroHeadlineLine3'),
       s('heroImageAlt'),
+      s('heroPrimaryCta'),
       s('heroSecondaryCta'),
       s('ipHeading', true),
       s('ipIntro', true),

@@ -47,10 +47,11 @@ This document lists every piece of content the public site renders, where it liv
 | copy.epcmHeading | FROM CONCEPT ⏎ TO COMMERCIAL ⏎ PRODUCTION | EpcmStages | inline JSX `t()` |
 | copy.epcmIntro | Full-cycle EPC / EPCM solutions for industrial plants. | EpcmStages | inline JSX `t()` |
 | copy.epcmLink | OUR EPC / EPCM APPROACH | EpcmStages | inline JSX `t()` |
-| copy.heroHeadlineLine1 | ENGINEERING | Hero | inline JSX `t()` |
-| copy.heroHeadlineLine2 | ADVANCED PLANT | Hero | inline JSX `t()` |
-| copy.heroHeadlineLine3 | PROCESSING FACILITIES | Hero | inline JSX `t()` |
+| copy.heroHeadlineLine1 | TURNKEY PLANTS (until 2026-10-16: ENGINEERING) | Hero | inline JSX `t()` |
+| copy.heroHeadlineLine2 | FOR ADVANCED (until 2026-10-16: ADVANCED PLANT) | Hero | inline JSX `t()` |
+| copy.heroHeadlineLine3 | PLANT PROCESSING (until 2026-10-16: PROCESSING FACILITIES) | Hero | inline JSX `t()` |
 | copy.heroImageAlt | Soltex Global Turnkey Industrial Processing Plant Facility | Hero | inline JSX `t()` |
+| copy.heroPrimaryCta | SEND AN INQUIRY (slot added 2026-10-16; the button used the shared UI string «START YOUR PROJECT») | Hero | UI string `common.startYourProject` |
 | copy.heroSecondaryCta | EXPLORE TECHNOLOGIES | Hero | inline JSX `t()` |
 | copy.ipHeading | TECHNOLOGY & ⏎ INTELLECTUAL PROPERTY | IntellectualProperty | inline JSX `t()` |
 | copy.ipIntro | Our technologies are protected by patents and patent applications in … | IntellectualProperty | inline JSX `t()` |
@@ -58,8 +59,8 @@ This document lists every piece of content the public site renders, where it liv
 | copy.technologiesHeading | TECHNOLOGIES FOR HIGH-VALUE INGREDIENTS | KeyDirections | inline JSX `t()` |
 | copy.videosHeading | VIDEO MATERIALS | VideoBlock | inline JSX `t()` |
 | copy.heroEyebrow | INTERNATIONAL EPC / EPCM ENGINEERING GROUP | Hero | HERO_DATA (soltexData.ts) |
-| copy.heroDescription | From feasibility studies and technology selection to engineering, equ… | Hero | HERO_DATA (soltexData.ts) |
-| copy.heroUsp | Alcohol-free processing technologies with proven commercial operation | Hero | HERO_DATA (soltexData.ts) |
+| copy.heroDescription | EPCM design and construction for the production of pectin, dietary fiber, … (until 2026-10-16: From feasibility studies …) | Hero | HERO_DATA (soltexData.ts) |
+| copy.heroUsp | Unique alcohol-free technologies proven in industrial operation (until 2026-10-16: Alcohol-free processing technologies with proven commercial operation) | Hero | HERO_DATA (soltexData.ts) |
 | lists.heroTags (4 items) | fields: label | Hero | HERO_DATA.metadataTags |
 | lists.keyDirections (6 items) | fields: id, number, title, subtitle, description, image, href, rawMaterials, endProducts, technologyFeatures | KeyDirections | KEY_DIRECTIONS (soltexData.ts) |
 | media.heroImage | `media-soltex-hero-industrial` (`/images/soltex-hero-industrial.webp`, 2117×743; replaced `media-hero-soltex-panoramic-plant-1790270267701` on 2026-10-16) | Hero | hard-coded image path |

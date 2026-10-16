@@ -56,28 +56,28 @@
         "es": "NUESTRO ENFOQUE EPC / EPCM"
       },
       "heroHeadlineLine1": {
-        "en": "ENGINEERING",
-        "ru": "ИНЖИНИРИНГ",
-        "zh": "工程",
-        "tr": "MÜHENDİSLİK",
-        "ar": "الهندسة",
-        "es": "INGENIERÍA"
+        "en": "TURNKEY PLANTS",
+        "ru": "ЗАВОДЫ ГЛУБОКОЙ",
+        "zh": "植物原料深加工",
+        "tr": "ANAHTAR TESLİM",
+        "ar": "مصانع المعالجة العميقة",
+        "es": "PLANTAS DE"
       },
       "heroHeadlineLine2": {
-        "en": "ADVANCED PLANT",
-        "ru": "ПЕРЕДОВЫХ ЗАВОДОВ",
-        "zh": "先进植物原料",
-        "tr": "İLERİ BİTKİSEL İŞLEME",
-        "ar": "لمنشآت معالجة",
-        "es": "DE PLANTAS AVANZADAS"
+        "en": "FOR ADVANCED",
+        "ru": "ПЕРЕРАБОТКИ РАСТИТЕЛЬНОГО",
+        "zh": "交钥匙工厂",
+        "tr": "BİTKİSEL HAMMADDE",
+        "ar": "للمواد الخام النباتية",
+        "es": "PROCESAMIENTO VEGETAL"
       },
       "heroHeadlineLine3": {
-        "en": "PROCESSING FACILITIES",
-        "ru": "АГРОПЕРЕРАБОТКИ",
-        "zh": "加工设施",
-        "tr": "TESİSLERİ",
-        "ar": "المواد النباتية المتقدمة",
-        "es": "DE PROCESAMIENTO VEGETAL"
+        "en": "PLANT PROCESSING",
+        "ru": "СЫРЬЯ ПОД КЛЮЧ",
+        "zh": "设计与建设",
+        "tr": "İŞLEME TESİSLERİ",
+        "ar": "بنظام تسليم المفتاح",
+        "es": "LLAVE EN MANO"
       },
       "heroImageAlt": {
         "en": "Soltex Global Turnkey Industrial Processing Plant Facility",
@@ -86,6 +86,14 @@
         "tr": "Soltex Global anahtar teslim endüstriyel işleme tesisi",
         "ar": "منشأة Soltex Global للمعالجة الصناعية بنظام تسليم المفتاح",
         "es": "Instalación industrial de procesamiento llave en mano de Soltex Global"
+      },
+      "heroPrimaryCta": {
+        "en": "SEND AN INQUIRY",
+        "ru": "ОСТАВИТЬ ЗАЯВКУ",
+        "zh": "提交需求",
+        "tr": "TALEP GÖNDERİN",
+        "ar": "أرسل طلبك",
+        "es": "ENVIAR SOLICITUD"
       },
       "heroSecondaryCta": {
         "en": "EXPLORE TECHNOLOGIES",
@@ -144,20 +152,20 @@
         "es": "GRUPO INTERNACIONAL DE INGENIERÍA EPC / EPCM"
       },
       "heroDescription": {
-        "en": "From feasibility studies and technology selection to engineering, equipment supply, construction, commissioning and operational support — Soltex delivers industrial processing plants for high-value ingredients.",
-        "ru": "От технико-экономического обоснования и выбора технологии до проектирования, поставки оборудования, строительства, пусконаладки и эксплуатационной поддержки — Soltex создаёт промышленные перерабатывающие заводы для производства ценных ингредиентов.",
-        "zh": "从可行性研究、技术选型到工程设计、设备供应、施工、调试及运营支持——Soltex 为高附加值配料建设工业化加工厂。",
-        "tr": "Fizibilite etüdü ve teknoloji seçiminden mühendislik, ekipman tedariki, inşaat, devreye alma ve işletme desteğine kadar — Soltex, yüksek katma değerli bileşenler için endüstriyel işleme tesisleri kurar.",
-        "ar": "من دراسات الجدوى واختيار التكنولوجيا إلى الهندسة وتوريد المعدات والإنشاء والتشغيل التجريبي والدعم التشغيلي — تنفّذ Soltex مصانع معالجة صناعية لإنتاج المكونات عالية القيمة.",
-        "es": "Desde estudios de viabilidad y selección de tecnología hasta ingeniería, suministro de equipos, construcción, puesta en marcha y soporte operativo, Soltex desarrolla plantas industriales de procesamiento para ingredientes de alto valor."
+        "en": "EPCM design and construction for the production of pectin, dietary fiber, soy protein isolate, inulin and other high-value ingredients.",
+        "ru": "Проектирование и строительство по модели EPCM для производства пектина, пищевых волокон, изолята соевого белка, инулина и других ингредиентов с высокой добавленной стоимостью.",
+        "zh": "以 EPCM 模式提供工程设计与建设，用于生产果胶、膳食纤维、大豆分离蛋白、菊粉等高附加值配料。",
+        "tr": "Pektin, diyet lifi, soya protein izolatı, inülin ve diğer yüksek katma değerli bileşenlerin üretimi için EPCM modeliyle tasarım ve inşaat.",
+        "ar": "تصميم وإنشاء وفق نموذج EPCM لإنتاج البكتين والألياف الغذائية وبروتين الصويا المعزول والإينولين وغيرها من المكونات عالية القيمة المضافة.",
+        "es": "Diseño y construcción bajo el modelo EPCM para producir pectina, fibra dietética, aislado de proteína de soja, inulina y otros ingredientes de alto valor añadido."
       },
       "heroUsp": {
-        "en": "Alcohol-free processing technologies with proven commercial operation",
-        "ru": "Безалкогольные технологии переработки, подтверждённые коммерческой эксплуатацией",
-        "zh": "经商业运营验证的无醇加工技术",
-        "tr": "Ticari işletmede kanıtlanmış alkolsüz işleme teknolojileri",
-        "ar": "تقنيات معالجة خالية من الكحول ومثبتة بالتشغيل التجاري",
-        "es": "Tecnologías de procesamiento sin alcohol con operación comercial probada"
+        "en": "Unique alcohol-free technologies proven in industrial operation",
+        "ru": "Уникальные бесспиртовые технологии, подтверждённые промышленной эксплуатацией",
+        "zh": "独有的无醇工艺，已获工业化生产验证",
+        "tr": "Endüstriyel işletmede kanıtlanmış, alkolsüz özgün teknolojiler",
+        "ar": "تقنيات فريدة خالية من الكحول، مثبتة بالتشغيل الصناعي",
+        "es": "Tecnologías únicas sin alcohol, probadas en operación industrial"
       }
     },
     "lists": {
@@ -887,28 +895,28 @@
     "translationStatus": {
       "ru": {
         "status": "approved",
-        "approvedSourceHash": "3d6870768249e7aa",
-        "approvedAt": "2026-10-01"
+        "approvedSourceHash": "d70db74b5b08c8da",
+        "approvedAt": "2026-10-16"
       },
       "zh": {
         "status": "approved",
-        "approvedSourceHash": "3d6870768249e7aa",
-        "approvedAt": "2026-10-01"
+        "approvedSourceHash": "d70db74b5b08c8da",
+        "approvedAt": "2026-10-16"
       },
       "tr": {
         "status": "approved",
-        "approvedSourceHash": "3d6870768249e7aa",
-        "approvedAt": "2026-10-01"
+        "approvedSourceHash": "d70db74b5b08c8da",
+        "approvedAt": "2026-10-16"
       },
       "ar": {
         "status": "approved",
-        "approvedSourceHash": "3d6870768249e7aa",
-        "approvedAt": "2026-10-01"
+        "approvedSourceHash": "d70db74b5b08c8da",
+        "approvedAt": "2026-10-16"
       },
       "es": {
         "status": "approved",
-        "approvedSourceHash": "3d6870768249e7aa",
-        "approvedAt": "2026-10-01"
+        "approvedSourceHash": "d70db74b5b08c8da",
+        "approvedAt": "2026-10-16"
       }
     }
   },

@@ -89,6 +89,7 @@ const WORDS: Record<string, string> = {
   paragraph: 'абзац',
   patent: 'патент',
   philosophy: 'подход',
+  primary: 'основной',
   principles: 'принципы',
   projects: 'проекты',
   provenance: 'происхождение',
