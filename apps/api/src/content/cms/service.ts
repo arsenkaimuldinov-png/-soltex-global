@@ -31,13 +31,14 @@ import {
   type StoredTranslationState,
   type TranslatedLocale,
 } from '@soltex/core/domain';
-import { slugify, slugProblem } from '@soltex/core/seo';
+import { DETAIL_PATH_PREFIX, slugify, slugProblem } from '@soltex/core/seo';
 import type { Queryable } from '../../db/client.ts';
 import * as s from '../../db/schema.ts';
 import type { ClientInfo, Deps } from '../../deps.ts';
 import { requireDb } from '../../deps.ts';
 import { recordAudit } from '../../audit/audit.ts';
 import { Problem, type FieldError } from '../../http/problem.ts';
+import { slugChangeRedirects } from '../../seo/redirects.ts';
 import type { UserRow } from '../../auth/sessions.ts';
 import { COLLECTION_DEFS, requiredOnCreate, type CollectionDef, type EnFieldDef } from './collections.ts';
 import { recordRevision } from '../../publishing/revisions.ts';
@@ -478,7 +479,7 @@ export async function updateRecord(
       await validateEnFields(tx, def, patch, errors);
       if ('slug' in patch) {
         if (l.entity.status !== 'draft')
-          throw new Problem('invalid_transition', 'Адрес опубликованной записи меняется вместе с перенаправлением со старого адреса — это появится в разделе SEO.', {
+          throw new Problem('invalid_transition', 'Адрес опубликованной записи меняется через «Изменить адрес»: со старого адреса будет создано перенаправление.', {
             errors: [{ field: 'slug', message: 'locked_published' }],
           });
         const p = slugProblem(def.routable!, patch.slug as string);
@@ -536,6 +537,71 @@ export async function updateRecord(
     });
   } catch (e) {
     if (e instanceof FieldsDenied) await refuseFields(deps, client, actor, def.resourceType, id, e);
+    if (pgCode(e) === '23505') throw new Problem('slug_taken', undefined, { errors: [{ field: 'slug', message: 'taken' }] });
+    throw e;
+  }
+}
+
+/**
+ * Change the address (slug) of a PUBLISHED record (Phase I-2, review §O). Drafts change it in the
+ * form; a published record changes it only here, so the old address keeps working:
+ *  - the slug is changed in every language row (one slug per entity) and the record version is
+ *    raised; translations do not become outdated (the source text did not change);
+ *  - with `redirect` (default) a 301 from the old to the new address is created for all languages
+ *    and older redirects to the old address are rewritten (no chains); a redirect from the new
+ *    address is removed either way (it would hide the page);
+ *  - a revision and an audit entry are recorded. The change reaches the site with the next release.
+ */
+export async function changeSlug(
+  deps: Deps,
+  def: CollectionDef,
+  actor: UserRow,
+  id: string,
+  expectedVersion: number,
+  input: { slug: string; redirect: boolean },
+  client: ClientInfo
+): Promise<{ record: RecordView; redirect: { from: string; to: string } | null; rewritten: number; removed: number }> {
+  const db = requireDb(deps);
+  if (!def.routable) throw new Problem('not_found');
+  try {
+    return await db.transaction(async (tx) => {
+      const l = await load(tx, def, id, true);
+      if (!l) throw new Problem('not_found');
+      if (l.entity.version !== expectedVersion) throw new Problem('edit_conflict');
+      if (l.entity.status !== 'published')
+        throw new Problem('invalid_transition', 'Через «Изменить адрес» меняется адрес опубликованной записи. У черновика адрес меняется в форме.');
+      const oldSlug = l.tr[SOURCE_LOCALE]!.slug as string;
+      const slug = input.slug.trim();
+      if (slug === oldSlug) throw new Problem('validation_failed', undefined, { errors: [{ field: 'slug', message: 'unchanged' }] });
+      const p = slugProblem(def.routable!, slug);
+      if (p) throw new Problem('validation_failed', undefined, { errors: [{ field: 'slug', message: p }] });
+      if (await slugTaken(tx, def, slug, id)) throw new Problem('slug_taken', undefined, { errors: [{ field: 'slug', message: 'taken' }] });
+
+      const t = def.table as AnyTable;
+      const tr = def.trTable as AnyTable;
+      const now = deps.now();
+      const updated = await tx
+        .update(t)
+        .set({ version: sql`${t.version} + 1`, updatedAt: now, updatedBy: actor.id })
+        .where(and(eq(t.id, id), eq(t.version, expectedVersion)))
+        .returning({ id: t.id });
+      if (!updated.length) throw new Problem('edit_conflict');
+      await tx.update(tr).set({ slug, version: sql`${tr.version} + 1`, updatedAt: now, updatedBy: actor.id }).where(eq(tr[def.trOwner], id));
+
+      const prefix = DETAIL_PATH_PREFIX[def.name as keyof typeof DETAIL_PATH_PREFIX];
+      const from = prefix + oldSlug;
+      const to = prefix + slug;
+      const res = await slugChangeRedirects(tx, deps, actor, from, to, input.redirect);
+      await recordRevision(tx, { type: def.name, id, kind: 'update', actorId: actor.id, summary: { fields: ['slug'] } });
+      await recordAudit(
+        deps,
+        client,
+        { action: 'content.slug_change', result: 'success', actorId: actor.id, resourceType: def.resourceType, resourceId: id, summary: { slug, previous_slug: oldSlug, count: res.rewritten + res.removed + (res.created ? 1 : 0) } },
+        tx
+      );
+      return { record: await view(tx, def, (await load(tx, def, id))!), redirect: res.created ? { from: res.created.fromPath, to: res.created.toPath } : null, rewritten: res.rewritten, removed: res.removed };
+    });
+  } catch (e) {
     if (pgCode(e) === '23505') throw new Problem('slug_taken', undefined, { errors: [{ field: 'slug', message: 'taken' }] });
     throw e;
   }

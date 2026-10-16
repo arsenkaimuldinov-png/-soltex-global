@@ -57,6 +57,10 @@ export const AUDIT_ACTION_LABELS: Record<string, string> = {
   'preview.build': 'Сборка предпросмотра',
   'preview.grant': 'Открыт предпросмотр',
   'preview.revoke': 'Предпросмотры закрыты',
+  'content.slug_change': 'Изменён адрес страницы',
+  'redirect.create': 'Создан редирект',
+  'redirect.update': 'Изменён редирект',
+  'redirect.delete': 'Удалён редирект',
 };
 export const auditActionLabel = (action: string) => AUDIT_ACTION_LABELS[action] ?? 'Действие в системе';
 
@@ -111,6 +115,7 @@ export const RESOURCE_LABELS: Record<string, string> = {
   video: 'видео',
   user: 'пользователь',
   release: 'релиз',
+  redirect: 'редирект',
 };
 
 /** Password policy problems returned by the API (field errors of `password_rejected`). */

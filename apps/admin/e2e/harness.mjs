@@ -33,9 +33,11 @@ export async function closeBrowser() {
  * A browser profile with its own cookies and a virtual platform authenticator (Touch ID-like:
  * resident keys, user verification). Collects page errors and CSP violations.
  */
-export async function profile({ width = 1280, height = 800 } = {}) {
+export async function profile({ width = 1280, height = 800, ip } = {}) {
   const b = await launch();
-  const context = await b.newContext({ viewport: { width, height }, locale: 'ru-RU' });
+  // `ip`: the client address the API sees (through the preview proxy), so a suite's sign-ins do not
+  // count against the per-IP sign-in limit of the others.
+  const context = await b.newContext({ viewport: { width, height }, locale: 'ru-RU', ...(ip ? { extraHTTPHeaders: { 'x-forwarded-for': ip } } : {}) });
   const page = await context.newPage();
   const problems = [];
   page.on('pageerror', (e) => problems.push(`pageerror: ${e.message}`));

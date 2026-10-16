@@ -47,7 +47,17 @@ const run = (cmd, argv, opts = {}) => {
 };
 
 const children = [];
-const stop = () => children.forEach((c) => c.exitCode === null && c.kill('SIGTERM'));
+// `npx vite` runs vite in a child process: stop the whole process group, or vite outlives the run.
+const stop = () =>
+  children.forEach((c) => {
+    if (c.exitCode !== null) return;
+    try {
+      if (c.spawnargs[0] === 'npx') process.kill(-c.pid, 'SIGTERM');
+      else c.kill('SIGTERM');
+    } catch {
+      c.kill('SIGTERM');
+    }
+  });
 const removeReleases = () => {
   // Release directories are read-only by design; make them writable before deleting.
   spawnSync('chmod', ['-R', 'u+w', RELEASES_DIR]);
@@ -78,7 +88,7 @@ run('npm', ['run', 'db:import']);
 if (!args.includes('--no-build')) run('npm', ['run', 'build:admin']);
 
 // admin.e2e.mjs uses the first user of each role; content, translations, publishing and seo their own.
-const roles = ['owner', 'admin', 'content_manager', 'editor', 'marketer', 'editor', 'editor', 'seo_specialist', 'admin', 'editor', 'content_manager', 'marketer', 'content_manager', 'admin', 'editor', 'seo_specialist', 'content_manager'];
+const roles = ['owner', 'admin', 'content_manager', 'editor', 'marketer', 'editor', 'editor', 'seo_specialist', 'admin', 'editor', 'content_manager', 'marketer', 'content_manager', 'admin', 'editor', 'seo_specialist', 'content_manager', 'seo_specialist', 'content_manager'];
 const users = JSON.parse(run(process.execPath, ['--import', 'tsx', 'apps/api/test/e2e-seed.ts', 'users', roles.join(',')], { capture: true }));
 
 const key = () => crypto.randomBytes(32).toString('base64');
@@ -107,6 +117,7 @@ const preview = spawn('npx', ['vite', 'preview', '--port', String(WEB_PORT), '--
   cwd: path.join(ROOT, 'apps/admin'),
   env: { ...process.env, ADMIN_API_PROXY: `http://127.0.0.1:${API_PORT}` },
   stdio: ['ignore', 'ignore', 'inherit'],
+  detached: true,
 });
 children.push(preview);
 

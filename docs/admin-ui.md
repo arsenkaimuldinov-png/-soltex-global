@@ -63,6 +63,7 @@ Phase D delivers the admin shell and every screen that the Phase C API already s
 | `/translations/all`, `/translations/attention` | `content.read` | Все переводы / Требуют внимания: filters in the address (`locale`, `type`, `state`, `entity`, `q`, `sort`, `page`) |
 | `/translations/:type/:id/:locale` | `content.read` | Translation editor: English source next to the target language; Arabic inputs right-to-left. Unknown type or language shows «Страница не найдена» |
 | `/seo` | `seo.read` | SEO · Проверка SEO: every issue of the next release, filters `severity`, `locale`, `type` in the address (Phase I-1, [`admin-seo.md`](admin-seo.md)) |
+| `/seo/redirects` | `redirects.read` | SEO · Редиректы: rules with source, code, languages, hits and checks; add / change / delete with `redirects.manage` (Phase I-2, [`admin-seo.md`](admin-seo.md) §8) |
 | `/publishing` | `content.read` | Публикация · Обзор: what is live, builds, unpublished changes, «Создать релиз», «Предпросмотр черновиков» (Phase G, [`admin-publishing.md`](admin-publishing.md)) |
 | `/publishing/revisions`, `/publishing/revisions/:type/:id` | `content.read` | Ревизии: all versions (filters `type`, `kind`, `q`, `page` in the address); full history of one record |
 | `/publishing/releases`, `/publishing/releases/:id` | `content.read` | Релизы (filters `kind`, `status`, `page`) and the release page (steps, changes, checks, translations, events; publish / rollback / retry / preview actions by permission) |
@@ -139,6 +140,8 @@ The dashboard numbers of review §X (leads, SEO, translations, builds, backups) 
 - «Проверка SEO» (`/seo`): totals by severity, filters, links to the editors;
 - the editors' «Проверка SEO» block: search snippet per language, counters, checks with «Перейти к полю»;
 - BLOCKING issues disable «Отметить к публикации» and «Создать релиз» with the reason.
+- «Редиректы» (`/seo/redirects`, Phase I-2, §8): the list with each rule's checks; a dialog for add / change with the reasons next to the fields; delete with confirmation; a collapsed chain is reported.
+- «Изменить адрес» (Phase I-2, §9): under the address of a published project, technology or product, for `redirects.manage`; the dialog shows the old and new address in six languages and the 301 option.
 
 **Публикация** (Phase G, [`admin-publishing.md`](admin-publishing.md) §7):
 - Обзор, Ревизии, Релизы in the sidebar section «Публикация»; a section overview is highlighted only on its own address (`hasChildRoute` in `nav.ts`);

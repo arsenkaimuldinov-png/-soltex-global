@@ -609,6 +609,8 @@ export const redirects = pgTable(
     statusCode: smallint('status_code').notNull().default(301),
     allLocales: boolean('all_locales').notNull().default(true),
     source: redirectSource('source').notNull().default('manual'),
+    /** Optimistic lock for edits in the admin (Phase I-2, migration 0006). */
+    version: integer('version').notNull().default(1),
     hits: integer('hits').notNull().default(0),
     lastHitAt: timestamp('last_hit_at', { withTimezone: true }),
     ...audit(),

@@ -57,6 +57,17 @@ export function describeAuditDetails(e: Pick<AuditItem, 'action' | 'summary' | '
     if (typeof s.count === 'number') parts.push(e.action === 'preview.revoke' ? `закрыто: ${s.count}` : e.action.endsWith('.build') ? `страниц: ${s.count}` : `материалов: ${s.count}`);
     return parts.join(' · ');
   }
+  if (e.action === 'content.slug_change') {
+    if (e.resourceType && RESOURCE_LABELS[e.resourceType]) parts.push(RESOURCE_LABELS[e.resourceType]!);
+    if (typeof s.previous_slug === 'string' && typeof s.slug === 'string') parts.push(`${s.previous_slug} → ${s.slug}`);
+    if (typeof s.count === 'number' && s.count) parts.push(`редиректов затронуто: ${s.count}`);
+    return parts.join(' · ');
+  }
+  if (e.action.startsWith('redirect.')) {
+    if (typeof s.from === 'string' && typeof s.to === 'string') parts.push(`${s.from} → ${s.to}`);
+    if (typeof s.count === 'number' && s.count) parts.push(`других редиректов изменено: ${s.count}`);
+    return parts.join(' · ');
+  }
   if (e.action.startsWith('content.')) {
     if (e.resourceType && RESOURCE_LABELS[e.resourceType]) parts.push(RESOURCE_LABELS[e.resourceType]!);
     if (Array.isArray(s.fields) && s.fields.length)

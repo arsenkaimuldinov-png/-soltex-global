@@ -25,6 +25,7 @@ import { COLLECTION_UI, COLLECTIONS, fieldPermission, SECTION_LABELS, type Colle
 import { HistoryPanel } from '../publishing/HistoryPanel';
 import { PublishButtons } from '../publishing/PublishButtons';
 import { SeoPanel } from '../seo/SeoPanel';
+import { SlugDialog } from '../seo/SlugDialog';
 import { apiFieldErrors, ConflictAlert, EditorBar, saveErrorMessage, StatusBadge, TranslationsCard, type ContentStatus } from './shared';
 import {
   BoolField,
@@ -117,6 +118,7 @@ function CollectionEditor({ collection, id }: { collection: CollectionName; id: 
   const [saving, setSaving] = useState(false);
   const [conflict, setConflict] = useState(false);
   const [confirm, setConfirm] = useState<'archive' | 'restore' | null>(null);
+  const [slugDialog, setSlugDialog] = useState(false);
 
   useEffect(() => {
     if (initial) setValues(initial);
@@ -129,7 +131,10 @@ function CollectionEditor({ collection, id }: { collection: CollectionName; id: 
   const readOnlyReason = (f: FieldDef): string | null => {
     if (status === 'archived') return 'Запись в архиве.';
     if (!can(fieldPermission(f.name))) return fieldPermission(f.name) === 'seo.edit' ? 'Меняют роли с правом на SEO.' : 'Меняют роли с правом на редактирование контента.';
-    if (f.kind === 'slug' && status !== 'draft') return 'Адрес опубликованной записи меняется вместе с перенаправлением — это появится в разделе SEO.';
+    if (f.kind === 'slug' && status !== 'draft')
+      return can('redirects.manage')
+        ? 'Адрес опубликованной записи меняется кнопкой «Изменить адрес»: со старого адреса создаётся 301-редирект.'
+        : 'Адрес опубликованной записи меняют роли с правом на редиректы (SEO-специалист, администратор).';
     return null;
   };
   const canEditSomething = status !== 'archived' && (can('content.edit') || can('seo.edit'));
@@ -288,6 +293,11 @@ function CollectionEditor({ collection, id }: { collection: CollectionName; id: 
                           {String(values.slug ?? '')}
                         </p>
                       ) : null}
+                      {f.kind === 'slug' && record.status === 'published' && can('redirects.manage') ? (
+                        <Button size="sm" className="mt-2" disabled={dirty || query.isFetching} title={dirty ? 'Сначала сохраните изменения' : undefined} onClick={() => setSlugDialog(true)}>
+                          Изменить адрес
+                        </Button>
+                      ) : null}
                     </div>
                   );
                 })}
@@ -296,6 +306,15 @@ function CollectionEditor({ collection, id }: { collection: CollectionName; id: 
         ))}
 
         {ui.routable ? <SeoPanel type={collection} id={record.id} version={record.version} dirty={dirty} /> : null}
+        {ui.routable && ui.pathPrefix && record.status === 'published' ? (
+          <SlugDialog
+            collection={collection as 'projects' | 'technologies' | 'products'}
+            record={{ id: record.id, version: record.version, slug: String(record.fields.slug ?? '') }}
+            pathPrefix={ui.pathPrefix}
+            open={slugDialog}
+            onOpenChange={setSlugDialog}
+          />
+        ) : null}
 
         <TranslationsCard translations={record.translations} type={collection} id={record.id} />
         <HistoryPanel

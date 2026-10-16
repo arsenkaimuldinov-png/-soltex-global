@@ -43,6 +43,13 @@
       "when": 1791551917289,
       "tag": "0005_publishing",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1792175318805,
+      "tag": "0006_redirects_version",
+      "breakpoints": true
     }
   ]
 }

@@ -41,3 +41,20 @@ test('issues are ordered errors → warnings → hints; release warning in words
   assert.deepEqual(sorted.map((i) => i.severity), ['blocking', 'warning', 'info']);
   assert.match(describeValidation('seo_warnings:12'), /Замечаний SEO: 12/);
 });
+
+test('redirects: every path rule and refusal has a Russian message; address-change URLs in six languages', async () => {
+  const { redirectErrorMessage, REDIRECT_SOURCE_LABELS, slugChangeUrls } = await import('../src/features/seo/model');
+  const { describeAuditDetails, auditActionLabel } = await import('../src/features/audit/describe');
+  for (const m of ['exists', 'self', 'empty', 'not_absolute', 'protocol_relative', 'backslash', 'scheme', 'control', 'encoded', 'dot_segment', 'too_long', 'query', 'trailing_slash', 'locale_prefix', 'reserved', 'redirect_target_missing', 'redirect_shadows_page', 'redirect_duplicate', 'redirect_loop']) {
+    const text = redirectErrorMessage(m);
+    assert.ok(/[а-я]/i.test(text) && !text.includes('_') && text !== 'Проверьте адрес.', m);
+  }
+  assert.deepEqual(Object.keys(REDIRECT_SOURCE_LABELS).sort(), ['import', 'manual', 'slug_change']);
+  const urls = slugChangeUrls('/projects/', 'old', 'new');
+  assert.equal(urls.length, 6);
+  assert.deepEqual(urls[0], { locale: 'en', from: 'https://soltexglobal.co/projects/old', to: 'https://soltexglobal.co/projects/new' });
+  assert.equal(urls.find((u) => u.locale === 'ar')!.to, 'https://soltexglobal.co/ar/projects/new');
+  for (const a of ['content.slug_change', 'redirect.create', 'redirect.update', 'redirect.delete']) assert.notEqual(auditActionLabel(a), 'Действие в системе', a);
+  assert.equal(describeAuditDetails({ action: 'content.slug_change', resourceType: 'project', result: 'success', summary: { slug: 'b', previous_slug: 'a', count: 1 } }), 'проект · a → b · редиректов затронуто: 1');
+  assert.equal(describeAuditDetails({ action: 'redirect.create', result: 'success', summary: { from: '/old', to: '/new', count: 0 } }), '/old → /new');
+});

@@ -26,8 +26,9 @@ import { contentRoutes } from './routes/content.ts';
 import { translationRoutes } from './routes/translations.ts';
 import { publishingRoutes } from './routes/publishing.ts';
 import { seoRoutes } from './routes/seo.ts';
+import { redirectRoutes } from './routes/redirects.ts';
 
-export const API_VERSION = '0.8.0';
+export const API_VERSION = '0.9.0';
 export const BODY_LIMIT_BYTES = 64 * 1024;
 
 export interface BuildOptions {
@@ -113,7 +114,7 @@ export async function buildApp(opts: BuildOptions): Promise<FastifyInstance> {
         { name: 'content', description: 'Content management (pages, projects, technologies, products, EPC/EPCM, patents, videos)' },
         { name: 'translations', description: 'Translation management: states, completeness, translation editor, review' },
         { name: 'publishing', description: 'Revisions, releases, preview, publication and rollback' },
-        { name: 'seo', description: 'SEO check: effective titles and descriptions, BLOCKING / WARNING / INFO issues' },
+        { name: 'seo', description: 'SEO check (effective titles and descriptions, BLOCKING / WARNING / INFO issues), redirects and address changes' },
       ],
     },
     transform: (input) => {
@@ -135,6 +136,7 @@ export async function buildApp(opts: BuildOptions): Promise<FastifyInstance> {
     await translationRoutes(scope, deps);
     await publishingRoutes(scope, deps);
     await seoRoutes(scope, deps);
+    await redirectRoutes(scope, deps);
   });
 
   return app;

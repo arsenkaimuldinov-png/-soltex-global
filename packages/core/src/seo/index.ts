@@ -8,3 +8,4 @@ export * from './limits.ts';
 export * from './meta.ts';
 export * from './paths.ts';
 export * from './checker.ts';
+export * from './redirects.ts';

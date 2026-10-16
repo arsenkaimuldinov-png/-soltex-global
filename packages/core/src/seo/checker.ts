@@ -13,7 +13,7 @@
 import { CONTENT_LOCALES, type Locale } from '../domain/locales.ts';
 import { DETAIL_PATH_PREFIX, NAVIGATION_PAGES, PAGE_ROUTES, PAGE_ROUTE_PATHS, type PageRouteKey, type RoutableCollection, SEO_TITLE_HARD_MAX, seoDefaults } from './meta.ts';
 import { SEO_DESCRIPTION_RECOMMENDED_MAX, SEO_DESCRIPTION_RECOMMENDED_MIN, SEO_TITLE_RECOMMENDED_MAX } from './limits.ts';
-import { pathProblem } from './paths.ts';
+import { buildRedirectIndex, expandRedirect, REDIRECT_MAX_HOPS, redirectPathProblem, splitLocale, type RedirectRule } from './redirects.ts';
 import { slugProblem } from './slug.ts';
 
 // ---------------------------------------------------------------------------
@@ -52,7 +52,7 @@ export interface SeoCheckStore {
   patents: ReadonlyArray<Base>;
   videos: ReadonlyArray<Base>;
   media: ReadonlyArray<{ id: string }>;
-  redirects: ReadonlyArray<{ id: string; from: string; to: string }>;
+  redirects: ReadonlyArray<RedirectRule>;
 }
 
 /** Entity types as named by the API and the admin. */
@@ -84,6 +84,7 @@ export const SEO_ISSUE_SEVERITY = {
   title_too_long: 'blocking',
   redirect_invalid: 'blocking',
   redirect_self: 'blocking',
+  redirect_duplicate: 'blocking',
   redirect_loop: 'blocking',
   redirect_shadows_page: 'blocking',
   redirect_target_missing: 'blocking',
@@ -316,11 +317,14 @@ export function checkSeo(store: SeoCheckStore, options: SeoCheckOptions = {}): S
     }
   }
 
-  // Redirects ----------------------------------------------------------------------------------
-  const redirectFrom = new Map<string, { id: string; to: string }>();
+  // Redirects (Phase I-2: concrete paths per language, see ./redirects.ts) ----------------------
+  // A path is live when its locale-less form is a public page: every page exists in every language.
+  const isLive = (path: string) => livePaths.has(splitLocale(path).path);
+  const valid: RedirectRule[] = [];
   for (const r of store.redirects) {
-    const fromProblem = pathProblem(r.from);
-    const toProblem = pathProblem(r.to);
+    const all = !!r.allLocales;
+    const fromProblem = redirectPathProblem(r.from, 'from', all);
+    const toProblem = redirectPathProblem(r.to, 'to', all);
     if (fromProblem || toProblem) {
       add('redirect_invalid', 'redirects', r.id, null, fromProblem ? 'from' : 'to', { problem: (fromProblem ?? toProblem)! });
       continue;
@@ -329,27 +333,46 @@ export function checkSeo(store: SeoCheckStore, options: SeoCheckOptions = {}): S
       add('redirect_self', 'redirects', r.id, null, 'to');
       continue;
     }
-    if (livePaths.has(r.from)) add('redirect_shadows_page', 'redirects', r.id, null, 'from', { path: r.from });
-    redirectFrom.set(r.from, { id: r.id, to: r.to });
+    valid.push(r);
   }
-  for (const [from, r] of redirectFrom) {
-    const seen = new Set([from]);
-    let to = r.to;
-    let hops = 1;
-    let loop = false;
-    while (redirectFrom.has(to)) {
-      if (seen.has(to)) {
-        loop = true;
-        break;
-      }
-      seen.add(to);
-      to = redirectFrom.get(to)!.to;
-      hops++;
+  const owner = new Map<string, string>();
+  const duplicates: Array<[string, string]> = [];
+  for (const r of valid)
+    for (const c of expandRedirect(r)) {
+      const first = owner.get(c.from);
+      if (first === undefined) owner.set(c.from, r.id);
+      else if (first !== r.id) duplicates.push([first, c.from], [r.id, c.from]);
     }
-    if (loop) add('redirect_loop', 'redirects', r.id, null, 'to', { path: from });
-    else {
-      if (hops > 1) add('redirect_chain', 'redirects', r.id, null, 'to', { hops, final: to });
-      if (!livePaths.has(to)) add('redirect_target_missing', 'redirects', r.id, null, 'to', { path: to });
+  for (const [id, path] of new Map(duplicates)) add('redirect_duplicate', 'redirects', id, null, 'from', { path });
+  const index = buildRedirectIndex(valid);
+  for (const r of valid) {
+    const once = new Set<string>();
+    const report = (code: SeoIssueCode, field: string, params: SeoIssue['params']) => {
+      if (once.has(code)) return;
+      once.add(code);
+      add(code, 'redirects', r.id, null, field, params);
+    };
+    for (const c of expandRedirect(r)) {
+      if (isLive(c.from)) report('redirect_shadows_page', 'from', { path: c.from });
+      if (owner.get(c.from) !== r.id) continue;
+      let to = c.to;
+      let hops = 1;
+      let loop = false;
+      const seen = new Set([c.from]);
+      while (index.has(to)) {
+        if (seen.has(to) || hops >= REDIRECT_MAX_HOPS) {
+          loop = true;
+          break;
+        }
+        seen.add(to);
+        to = index.get(to)!.to;
+        hops++;
+      }
+      if (loop) report('redirect_loop', 'to', { path: c.from });
+      else {
+        if (hops > 1) report('redirect_chain', 'to', { hops, final: to });
+        if (!isLive(to)) report('redirect_target_missing', 'to', { path: to });
+      }
     }
   }
 

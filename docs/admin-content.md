@@ -64,7 +64,7 @@ The route guard now accepts a list of permissions ("any of"); Phase C routes are
 | `invalid_transition` | 409 | «Это действие недоступно для записи в текущем статусе» (archived record, published slug, archive of a published record) |
 | `precondition_required` | 428 | missing or malformed `If-Match` |
 
-Field problems carry `errors[]` with `{field, message}` codes: `required`, `not_allowed`, `taken`, `format`, `reserved`, `locked_published`, `not_an_image`, `unknown_reference`, `archived_reference`, `placeholders`, `not_on_this_page`, `structure_is_fixed`, `invalid_list_origin`. The admin translates each into Russian.
+Field problems carry `errors[]` with `{field, message}` codes: `required`, `not_allowed`, `taken`, `format`, `reserved`, `locked_published`, `unchanged` (address change), `not_an_image`, `unknown_reference`, `archived_reference`, `placeholders`, `not_on_this_page`, `structure_is_fixed`, `invalid_list_origin`. The admin translates each into Russian.
 
 ---
 
@@ -175,7 +175,7 @@ The export requires the same shape in every language: the same list lengths and 
 |---|---|
 | **Optimistic locking** | `version` per record. GET returns `ETag: "<n>"`. PATCH, archive and restore require `If-Match`; the update is `… WHERE version = <n>` and raises the version in the same statement. A stale version → 409 `edit_conflict`; a missing header → 428 |
 | **Field-level authorization** | Only fields whose value **changes** are authorised: `deniedContentFields(role, changed)` from `@soltex/core/domain`, the same list (`SEO_FIELDS`) the admin uses. A refusal is 403 with the field names and is written to the audit log (`result: denied`) outside the rolled-back write. Creating with an explicit slug or SEO text needs `seo.edit` |
-| **Slugs** | `@soltex/core/seo`: lowercase Latin letters, digits, single hyphens, ≤ 80 characters; `technology/patents` reserved (`/technologies/patents` is a page); unique per type (database constraint + check → 409 `slug_taken`); one slug for all languages (localized slugs are DEFERRED). **The slug of a published record is locked** until slug changes create redirects (Phase I, review §J) |
+| **Slugs** | `@soltex/core/seo`: lowercase Latin letters, digits, single hyphens, ≤ 80 characters; `technology/patents` reserved (`/technologies/patents` is a page); unique per type (database constraint + check → 409 `slug_taken`); one slug for all languages (localized slugs are DEFERRED). **The slug of a published record** is not changed with PATCH (`locked_published`); it changes with «Изменить адрес» (`POST …/{id}/slug`), which creates the 301 from the old address (Phase I-2, [`admin-seo.md`](admin-seo.md) §9) |
 | **References** | Images must be images (videos videos); relations must exist and not be archived; galleries and related lists without duplicates |
 | **Working copy** | Edits change the content tables (the working copy) and write one revision each (Phase G). The public site changes only when a release (a snapshot of the published records) is built and published; a database export reflects the working copy |
 | **Audit** | `content.create`, `content.update` (summary `fields`: the changed field names), `content.archive`, `content.restore`; denied field changes as `content.update` / `denied`. Resource type `page`, `project`, `technology`, `product`, `epcm_stage`, `patent`, `video` and the record id; request id and IP hash as in Phase C. No content text is copied into the audit log |
@@ -201,7 +201,7 @@ The export requires the same shape in every language: the same list lengths and 
 |---|---|
 | No publish / unpublish, no revisions or history tab, no «Есть неопубликованные изменения» state | G |
 | No preview | H |
-| Slug of published records locked; no redirect dialog; no SEO checker or snippet preview | I |
+| ~~Slug of published records locked; no redirect dialog; no SEO checker or snippet preview~~ — done in Phase I ([`admin-seo.md`](admin-seo.md)) | I |
 | ~~Translations are not edited; no "outdated" detection~~ — done in Phase F ([`admin-translations.md`](admin-translations.md)) | F |
 | No uploads, crops or variants; previews only with `VITE_MEDIA_BASE_URL` | J |
 | Page list items: texts only (no adding or removing timeline entries etc.) | later, when the page design gets new item templates |

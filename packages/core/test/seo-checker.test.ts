@@ -58,7 +58,7 @@ test('severity table: every code has exactly one severity; blocking list of appr
   assert.equal(SEO_ISSUE_CODES.length, Object.keys(SEO_ISSUE_SEVERITY).length);
   assert.deepEqual(
     SEO_ISSUE_CODES.filter((c) => SEO_ISSUE_SEVERITY[c] === 'blocking').sort(),
-    ['description_missing', 'link_broken', 'media_missing', 'redirect_invalid', 'redirect_loop', 'redirect_self', 'redirect_shadows_page', 'redirect_target_missing', 'relation_broken', 'slug_duplicate', 'slug_invalid', 'title_missing', 'title_too_long']
+    ['description_missing', 'link_broken', 'media_missing', 'redirect_duplicate', 'redirect_invalid', 'redirect_loop', 'redirect_self', 'redirect_shadows_page', 'redirect_target_missing', 'relation_broken', 'slug_duplicate', 'slug_invalid', 'title_missing', 'title_too_long']
   );
 });
 

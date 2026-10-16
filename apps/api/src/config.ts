@@ -35,6 +35,8 @@ export interface ApiConfig {
     /** Origin of the preview server, e.g. https://preview.soltexglobal.co */
     previewOrigin: string;
   };
+  /** Public site origin used for redirect `Location` headers (Phase I-2, approved §11.3). */
+  publicSiteUrl: string;
 }
 
 const ENVS = ['development', 'test', 'production'] as const;
@@ -98,6 +100,10 @@ export function loadConfig(source: Record<string, string | undefined> = process.
   if (env === 'production' && !previewOrigin.startsWith('https://')) throw new Error('PREVIEW_ORIGIN must use https in production');
   if (previewOrigin === adminOrigin) throw new Error('PREVIEW_ORIGIN must differ from ADMIN_ORIGIN (approved §10)');
 
+  const publicSiteUrl = (source.PUBLIC_SITE_URL ?? 'https://soltexglobal.co').replace(/\/+$/, '');
+  if (!/^https?:\/\/[^/]+$/.test(publicSiteUrl)) throw new Error('PUBLIC_SITE_URL must be an origin, e.g. https://soltexglobal.co');
+  if (env === 'production' && !publicSiteUrl.startsWith('https://')) throw new Error('PUBLIC_SITE_URL must use https in production');
+
   return {
     env,
     // The API listens on loopback only; nginx is the public entry point (approved architecture §10).
@@ -113,5 +119,6 @@ export function loadConfig(source: Record<string, string | undefined> = process.
     apiDocs,
     mfaForAllRoles: source.MFA_FOR_ALL_ROLES === 'true',
     publishing: { releasesDir, previewOrigin },
+    publicSiteUrl,
   };
 }

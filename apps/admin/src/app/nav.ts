@@ -9,7 +9,7 @@
  */
 import type { Permission } from '@soltex/core/domain';
 import type { LucideIcon } from 'lucide-react';
-import { Activity, AlertTriangle, Award, FileText, FlaskConical, FolderKanban, History, Languages, SearchCheck, LayoutDashboard, ListChecks, Package, Rocket, ScrollText, Send, ShieldCheck, Users, Video, Workflow } from 'lucide-react';
+import { Activity, AlertTriangle, Award, FileText, FlaskConical, FolderKanban, History, Languages, SearchCheck, Signpost, LayoutDashboard, ListChecks, Package, Rocket, ScrollText, Send, ShieldCheck, Users, Video, Workflow } from 'lucide-react';
 
 export interface NavItem {
   id: string;
@@ -60,7 +60,10 @@ export const NAV: NavSection[] = [
   {
     id: 'seo',
     label: 'SEO',
-    items: [{ id: 'seo-report', label: 'Проверка SEO', title: 'SEO: проверка', to: '/seo', icon: SearchCheck, permission: 'seo.read', keywords: ['seo', 'title', 'description', 'мета', 'поиск', 'ошибки'] }],
+    items: [
+      { id: 'seo-report', label: 'Проверка SEO', title: 'SEO: проверка', to: '/seo', icon: SearchCheck, permission: 'seo.read', keywords: ['seo', 'title', 'description', 'мета', 'поиск', 'ошибки'] },
+      { id: 'redirects', label: 'Редиректы', title: 'SEO: редиректы', to: '/seo/redirects', icon: Signpost, permission: 'redirects.read', keywords: ['redirect', '301', 'перенаправление', 'старый адрес', 'url'] },
+    ],
   },
   {
     id: 'publishing',

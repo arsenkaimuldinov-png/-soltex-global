@@ -57,31 +57,23 @@ Server rule (the same on any server):
 
 > A `404.html` file alone is **not** a real 404. The server must send status code 404 together with it. Check with `curl -I https://soltexglobal.co/does-not-exist` → `HTTP/2 404`.
 
-### nginx (example — to be finalized after the Host.KZ plan is confirmed)
+### nginx (Phase I-2: `deploy/nginx/soltexglobal.conf`)
 
-```nginx
-server {
-  listen 443 ssl http2;
-  server_name soltexglobal.co;
-  root /var/www/soltexglobal/dist;
+The site configuration is a file in the repository: `deploy/nginx/soltexglobal.conf`. It is tested automatically with the real file (`apps/api/test/nginx.db.test.ts`). It implements the rule above, plus redirects of old addresses (approved architecture §11; docs/admin-seo.md §10):
 
-  location / {
-    try_files $uri $uri.html $uri/index.html =404;
-  }
-  location ~ ^/(ru|zh|tr|ar|es)(/|$) {
-    try_files $uri $uri.html $uri/index.html =404;
-    error_page 404 /$1/404.html;
-  }
-  error_page 404 /404.html;
+1. **Existing file:** `try_files $uri $uri.html $uri/index.html` serves the page. The API is not involved, so the site works with the admin, API or database down.
+2. **Trailing slash:** a 301 to the address without the slash when that page exists. Never a directory listing.
+3. **Anything else:** `@lookup` asks the API on loopback (`/internal/v1/redirect`, 1 s connect / 2 s read, rate-limited). The API answers with a 301/302 to `https://soltexglobal.co` + an internal path, or 404.
+4. **404, API down, slow or failing:** status **404** with `/<locale>/404.html` (by the language prefix of the request) or `/404.html`. Never a 502.
 
-  location /assets/ { add_header Cache-Control "public, max-age=31536000, immutable"; }
-  location ~* ^/(images|videos)/ { add_header Cache-Control "public, max-age=2592000"; }
-  location ~* \.html$ { add_header Cache-Control "no-cache"; }
-  gzip on; gzip_types text/css application/javascript application/json application/xml image/svg+xml;
-}
-server { listen 80; server_name soltexglobal.co www.soltexglobal.co; return 301 https://soltexglobal.co$request_uri; }
-server { listen 443 ssl http2; server_name www.soltexglobal.co; return 301 https://soltexglobal.co$request_uri; }
-```
+Installation notes:
+- `root` is the `current` symlink of the publishing system (`/srv/soltex/current`).
+- The API listens on `127.0.0.1:3100` (`API_PORT`).
+- Set `PUBLIC_SITE_URL=https://soltexglobal.co` for the API.
+- The file also contains the `http → https` and `www → apex` redirects.
+- Certificate paths assume Let's Encrypt; adjust them to the Host.KZ setup.
+- Cache headers follow the next section.
+- The CSP header (below) is added once the final inline-script hash is fixed.
 
 ### Apache `.htaccess` (example — to be finalized after the Host.KZ plan is confirmed)
 
@@ -140,7 +132,7 @@ Add `connect-src` / `form-action` for the future lead endpoint, and `media-src` 
 
 - An `A` (and `AAAA`, if offered) record for `soltexglobal.co` pointing to the Host.KZ server, and `www` as a redirect to the apex.
 - A TLS certificate (Let's Encrypt or Host.KZ-provided) with automatic renewal.
-- Before switching DNS, crawl the **currently live** soltexglobal.co and map its old URLs to the new ones with 301 redirects (redirect entity in `src/content/seed/redirects.json`; the server configuration is generated or maintained once the server type is known).
+- Before switching DNS, crawl the **currently live** soltexglobal.co and map its old URLs to the new ones with 301 redirects. Enter them in «SEO → Редиректы», or import them through `redirects.json` (source `import`). nginx needs no change: the rules are served by the lookup endpoint from the active release.
 
 ## Future backend and database requirements (not implemented)
 

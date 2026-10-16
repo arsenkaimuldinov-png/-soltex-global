@@ -3,8 +3,8 @@
  * severities and the search-result snippet. Pure functions (unit-tested in node). The checks run in
  * @soltex/core/seo on the server; the admin only presents them.
  */
-import type { Locale } from '@soltex/core/domain';
-import { SEO_DESCRIPTION_RECOMMENDED_MAX, SEO_TITLE_RECOMMENDED_MAX, type SeoIssueCode, type SeoSeverity } from '@soltex/core/seo';
+import { CONTENT_LOCALES, type Locale } from '@soltex/core/domain';
+import { DEFAULT_SITE_URL, localizedPath, SEO_DESCRIPTION_RECOMMENDED_MAX, SEO_TITLE_RECOMMENDED_MAX, type SeoIssueCode, type SeoSeverity } from '@soltex/core/seo';
 
 export interface SeoIssueView {
   code: SeoIssueCode | string;
@@ -38,6 +38,10 @@ const PATH_PROBLEMS: Record<string, string> = {
   encoded: 'закодированные служебные символы недопустимы',
   dot_segment: 'сегменты «..» недопустимы',
   too_long: 'путь слишком длинный',
+  query: 'параметры после «?» и «#» не учитываются — укажите путь без них',
+  trailing_slash: 'уберите «/» в конце',
+  locale_prefix: 'для правила на всех языках укажите путь без языкового префикса (/ru, /zh, …)',
+  reserved: 'с этого адреса сайт отдаёт файлы или главную страницу — редирект не сработает',
 };
 
 const p = (i: SeoIssueView, k: string) => String(i.params[k] ?? '');
@@ -85,6 +89,8 @@ export function describeSeoIssue(i: SeoIssueView): string {
       return `Некорректный редирект: ${PATH_PROBLEMS[p(i, 'problem')] ?? p(i, 'problem')}.`;
     case 'redirect_self':
       return 'Редирект ведёт сам на себя.';
+    case 'redirect_duplicate':
+      return `С адреса ${p(i, 'path')} уже есть другой редирект.`;
     case 'redirect_loop':
       return 'Редиректы зациклены.';
     case 'redirect_shadows_page':
@@ -135,4 +141,34 @@ export function snippetUrl(url: string): string {
 
 export function sortIssues<T extends SeoIssueView>(issues: T[]): T[] {
   return [...issues].sort((a, b) => SEVERITY_ORDER[a.severity] - SEVERITY_ORDER[b.severity] || (a.locale ?? '').localeCompare(b.locale ?? ''));
+}
+
+// ---------------------------------------------------------------------------
+// Redirects (Phase I-2)
+// ---------------------------------------------------------------------------
+
+export const REDIRECT_SOURCE_LABELS: Record<string, string> = { manual: 'Вручную', slug_change: 'Смена адреса', import: 'Импорт' };
+
+/** Russian message for a field error of the redirects API (path rule, `exists`, `self` or an issue code). */
+export function redirectErrorMessage(message: string): string {
+  if (message === 'exists') return 'С этого адреса уже есть редирект — измените его в списке.';
+  if (message === 'self') return 'Адрес назначения совпадает с исходным.';
+  if (PATH_PROBLEMS[message]) {
+    const text = PATH_PROBLEMS[message]!;
+    return text.charAt(0).toUpperCase() + text.slice(1) + '.';
+  }
+  const rejected: Record<string, string> = {
+    redirect_target_missing: 'Такой страницы нет среди опубликованных (с учётом следующего релиза).',
+    redirect_shadows_page: 'По этому адресу открывается страница сайта — редирект её бы закрыл.',
+    redirect_duplicate: 'Для этого адреса уже есть редирект на одном из языков.',
+    redirect_loop: 'Редиректы зациклились бы.',
+    redirect_self: 'Адрес назначения совпадает с исходным.',
+    redirect_invalid: 'Некорректный адрес.',
+  };
+  return rejected[message] ?? 'Проверьте адрес.';
+}
+
+/** Old and new addresses of a record in every language, for the address-change dialog. */
+export function slugChangeUrls(prefix: string, oldSlug: string, newSlug: string, siteUrl: string = DEFAULT_SITE_URL): Array<{ locale: Locale; from: string; to: string }> {
+  return CONTENT_LOCALES.map((locale) => ({ locale, from: siteUrl + localizedPath(prefix + oldSlug, locale), to: siteUrl + localizedPath(prefix + newSlug, locale) }));
 }

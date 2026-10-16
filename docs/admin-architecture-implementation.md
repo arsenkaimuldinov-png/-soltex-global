@@ -601,3 +601,73 @@ I-1 … I-6 in [`admin-seo.md`](admin-seo.md) §7. In short:
 - no alt-text or file-size checks (J);
 - no orphan / canonical-override / hreflang-override checks (no such content or fields; generated tags are validated by the build);
 - slug changes and redirects come in I-2.
+
+## Phase I-2: Address changes, redirects and nginx fallback (2026-10-16)
+
+**Base commit:** `ecf2e7e`. Details: [`admin-seo.md`](admin-seo.md) §8–§11. Implements approved §11 (redirects and 404 fallback) and review §O.
+
+### What was done
+
+1. **Core** (`@soltex/core/seo`, `redirects.ts`):
+   - path rules for redirects;
+   - normalization of editor input;
+   - expansion per language;
+   - exact-match resolution with chains / loops;
+   - `Location` builder;
+   - chain collapsing on save.
+   The checker now works on concrete paths per language (language prefixes understood) and adds the BLOCKING `redirect_duplicate`.
+2. **API** (API 0.9.0, 162 operations):
+   - redirects CRUD with optimistic locking: migration `0006` adds `redirects.version`;
+   - every save is normalized, collapsed and checked against the next release (`redirect_exists` / `redirect_rejected`, 409);
+   - `POST /content/{type}/{id}/slug` changes the address of a published record, with the 301 from the old address and rewriting of older rules;
+   - `GET /internal/v1/redirect` for nginx: loopback only, outside `/api`, not in OpenAPI; serves the active release; asynchronous hit counter;
+   - `PUBLIC_SITE_URL`;
+   - audit `redirect.*`, `content.slug_change`.
+3. **Admin:**
+   - «SEO → Редиректы»;
+   - «Изменить адрес» dialog in the editors of published projects, technologies and products;
+   - Russian texts for every path rule, refusal and audit action.
+4. **nginx:**
+   - `deploy/nginx/soltexglobal.conf`: static first, trailing slash 301, `@lookup` with 1 s / 2 s timeouts and `limit_req`, localized 404 for every failure (never 502), and a control-character guard;
+   - `docs/deployment.md` points to it.
+5. **Tests:**
+
+   | Suite | Added |
+   |---|---|
+   | Core (`redirects.test.ts`) | +6 |
+   | Admin unit | +1 (plus nav updates) |
+   | API DB (`redirects.db.test.ts`) | +5 |
+   | nginx (`nginx.db.test.ts`) | +6, with the real config file, a static site and the real API |
+   | Admin E2E (`redirects.e2e.mjs`) | +7 |
+
+   Sidebar expectations of the other E2E files were updated. The E2E harness also changed:
+   - `profile({ ip })` gives a suite its own client address for the per-IP sign-in limit;
+   - the runner stops the whole `vite preview` process group, which used to survive a run.
+6. **Unchanged:**
+   - `apps/web` (no file changed);
+   - the seed;
+   - roles and permissions (`redirects.read` / `redirects.manage` already existed);
+   - dependencies.
+
+### Verification (2026-10-17)
+
+| Check | Result |
+|---|---|
+| `git diff --check` | clean |
+| `npm run lint` (typecheck web, admin incl. tests, api, core + check:deps) | pass |
+| `npm test` | 94 / 94 pass (core 39, api 20, admin 35) |
+| `npm run test:db` on a freshly provisioned database | 128 tests: 127 pass, 1 skipped (backup role: no `BACKUP_DATABASE_URL` locally) |
+| `npm run test:e2e:admin` | 70 / 70 pass; no page errors, no CSP violations |
+| `openapi.json`, admin API types | up to date (162 operations) |
+| Drizzle | `drizzle-kit check` OK; `generate` → no schema changes beyond `0006` |
+| Admin bundle | builds; no secrets, server addresses or internal endpoints |
+| DB regression | `seed → DB → export` is **byte-identical** to the seed; the site from the DB export is **identical** (230 files, 180 HTML) |
+| `qa-regression --base-ref ecf2e7e` (two runs) | dist **byte-identical** (230 files, 180 HTML). **IDENTICAL** in all of: page data of 348 page loads, interactions, navigation, inquiry topics, 404 status and no-JS output. Only difference: the scroll-reveal counter of the motion check (`notRevealed` on `/ru/company` and `/ar/company`). It is a timing effect: the identical files give 0, 1 or 2 from run to run, and the **baseline** changed between the two runs as well |
+
+### Deviations (Phase I-2)
+
+I-7 … I-10 in [`admin-seo.md`](admin-seo.md) §11. In short:
+- the query string is not carried over;
+- the dialog shows the working-copy address;
+- redirects are not in the content history (the audit log covers them);
+- external targets are DEFERRED (§11.3).
