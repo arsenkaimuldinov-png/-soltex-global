@@ -6,6 +6,8 @@
  *   - an unknown URL → 404 with the localized not-found page, for all six language prefixes;
  *   - API stopped → 404 (not 502); API slow (> 2 s) → 404;
  *   - injection cases of §11.2 → 404 without a Location header.
+ * Phase N-0: the admin host (deploy/nginx/admin.soltexglobal.conf) — SPA fallback, strict headers,
+ * /api proxied to the same API, /internal and robots closed.
  * Skipped when nginx is not installed (CI installs it; production uses the same file).
  */
 import assert from 'node:assert/strict';
@@ -23,6 +25,7 @@ import { activateWorkingCopy, resetToSeed } from './release-helpers.ts';
 
 const NGINX = ['/usr/sbin/nginx', '/usr/local/sbin/nginx', '/opt/homebrew/bin/nginx', '/usr/local/bin/nginx'].find((p) => fs.existsSync(p));
 const CONF = path.resolve(import.meta.dirname, '../../../deploy/nginx/soltexglobal.conf');
+const ADMIN_CONF = path.resolve(import.meta.dirname, '../../../deploy/nginx/admin.soltexglobal.conf');
 const LOCALES = ['en', 'ru', 'zh', 'tr', 'ar', 'es'] as const;
 
 async function freePort(): Promise<number> {
@@ -72,6 +75,7 @@ describe('nginx fallback (Phase I-2, approved §11.4)', { skip: (!DB_ENABLED && 
   let dir: string;
   let apiPort: number;
   let webPort: number;
+  let adminPort: number;
   let slow: http.Server | null = null;
 
   const nginx = (...args: string[]) => spawnSync(NGINX!, ['-p', dir, '-c', path.join(dir, 'nginx.conf'), ...args], { encoding: 'utf8' });
@@ -89,6 +93,7 @@ describe('nginx fallback (Phase I-2, approved §11.4)', { skip: (!DB_ENABLED && 
 
     apiPort = await freePort();
     webPort = await freePort();
+    adminPort = await freePort();
     await t.app.listen({ host: '127.0.0.1', port: apiPort });
 
     dir = fs.mkdtempSync(path.join(os.tmpdir(), 'soltex-nginx-'));
@@ -115,6 +120,15 @@ describe('nginx fallback (Phase I-2, approved §11.4)', { skip: (!DB_ENABLED && 
       .replace('alias /srv/soltex/media/originals/;', `alias ${media}/originals/;`)
       .replace('alias /srv/soltex/media/variants/;', `alias ${media}/variants/;`);
     fs.writeFileSync(path.join(dir, 'site.conf'), site);
+    // The admin host, same treatment; its built SPA is two files.
+    const adminRoot = path.join(dir, 'admin');
+    fs.mkdirSync(path.join(adminRoot, 'assets'), { recursive: true });
+    fs.writeFileSync(path.join(adminRoot, 'index.html'), '<!doctype html><title>ADMIN SPA</title><div id="root"></div>');
+    fs.writeFileSync(path.join(adminRoot, 'assets/index-abc.js'), 'console.log(2)');
+    let admin = fs.readFileSync(ADMIN_CONF, 'utf8');
+    admin = admin.replace(/# >>> tls[\s\S]*?# <<< tls/, `listen 127.0.0.1:${adminPort};`).replace(/# >>> host-redirects[\s\S]*?# <<< host-redirects/, '');
+    assert.ok(admin.includes('root /srv/soltex/admin;'), 'marker of the production file');
+    fs.writeFileSync(path.join(dir, 'admin.conf'), admin.replace('root /srv/soltex/admin;', `root ${adminRoot};`));
     const mime = ['/etc/nginx/mime.types', '/usr/local/etc/nginx/mime.types', '/opt/homebrew/etc/nginx/mime.types'].find((p) => fs.existsSync(p));
     fs.writeFileSync(
       path.join(dir, 'nginx.conf'),
@@ -129,6 +143,7 @@ describe('nginx fallback (Phase I-2, approved §11.4)', { skip: (!DB_ENABLED && 
         '  access_log off;',
         ...['client_body', 'proxy', 'fastcgi', 'uwsgi', 'scgi'].map((x) => `  ${x}_temp_path ${dir}/tmp/${x};`),
         `  include ${dir}/site.conf;`,
+        `  include ${dir}/admin.conf;`,
         '}',
       ].join('\n')
     );
@@ -259,6 +274,39 @@ describe('nginx fallback (Phase I-2, approved §11.4)', { skip: (!DB_ENABLED && 
     assert.match(JSON.parse(ok.body).reference, /^SOL-\d{4}-\d{6}$/);
     assert.equal((await post({ origin: 'https://soltexglobal.co' })).status, 403, 'without the site header');
     for (const p of ['/api/v1/health', '/api/v1/leads', '/api/v1/auth/session']) assert.equal((await get(webPort, p)).status, 404, `${p} is not reachable on the site host`);
+  });
+
+  test('admin host (Phase N-0): client-side routes get the SPA with strict headers; /api reaches the API; /internal and robots closed', async () => {
+    const raw = (p: string) =>
+      new Promise<{ status: number; headers: http.IncomingHttpHeaders; body: string }>((resolve, reject) =>
+        http
+          .get({ host: '127.0.0.1', port: adminPort, path: p, headers: { host: 'admin.soltexglobal.co' } }, (res) => {
+            let body = '';
+            res.setEncoding('utf8');
+            res.on('data', (c) => (body += c));
+            res.on('end', () => resolve({ status: res.statusCode!, headers: res.headers, body }));
+          })
+          .on('error', reject)
+      );
+    for (const p of ['/', '/content/projects', '/admin/settings', '/login']) {
+      const r = await raw(p);
+      assert.equal(r.status, 200, p);
+      assert.ok(r.body.includes('ADMIN SPA'), p);
+      assert.equal(r.headers['x-frame-options'], 'DENY');
+      assert.equal(r.headers['cache-control'], 'no-cache');
+      assert.match(String(r.headers['x-robots-tag']), /noindex/);
+      assert.match(String(r.headers['content-security-policy']), /script-src 'self';.*frame-ancestors 'none'/);
+    }
+    const asset = await raw('/assets/index-abc.js');
+    assert.equal(asset.status, 200);
+    assert.match(String(asset.headers['cache-control']), /immutable/);
+    assert.equal((await raw('/assets/missing.js')).status, 404, 'a missing asset is not the SPA');
+    const health = await raw('/api/v1/health');
+    assert.equal(health.status, 200);
+    assert.match(health.body, /"status"/);
+    assert.equal((await raw('/internal/v1/redirect')).status, 404);
+    const robots = await raw('/robots.txt');
+    assert.match(robots.body, /Disallow: \//);
   });
 
   test('API stopped → 404 (never 502); static pages still served', async () => {

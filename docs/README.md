@@ -1,6 +1,6 @@
 # Documentation index
 
-Status: current as of Phase M-1 (commit 959f733)
+Status: current as of Phase N-0
 
 **Current** documents describe the code as it is and are kept in sync with it. **Historical** documents record a past state, plan or review. They are kept for reasoning and traceability; where they conflict with a current document, the current one wins.
 
@@ -21,14 +21,15 @@ The Directus / Next.js planning documents of September 2026 are not in the repos
 | [`content-model.md`](content-model.md) | Current | Content entities, fields and relations as modelled in code |
 | [`cms-schema.md`](cms-schema.md) | Current | PostgreSQL schema of the admin / API |
 | [`routes.md`](routes.md) | Current | Public site, admin and API routes |
-| [`seo.md`](seo.md) | Current | Head tags, hreflang, sitemap, redirects, security headers, checks, known gaps |
+| [`seo.md`](seo.md) | Current | Head tags, og:image, JSON-LD, hreflang, sitemap, robots.txt, redirects, security headers, checks, known gaps |
 | [`design-system.md`](design-system.md) | Current | Colours, type, layout, breakpoints, radius/shadow, imagery; admin styling |
 | [`components.md`](components.md) | Current | Component inventory of `apps/web` and `apps/admin`; reuse rules |
 | [`motion-system.md`](motion-system.md) | Current | Motion tokens, reveal primitives, page transitions, reduced motion |
 | [`design-v1-implementation.md`](design-v1-implementation.md) | Current | Status of Design Direction V1.0 on the site: pass 1 changes and open items |
 | [`i18n-architecture.md`](i18n-architecture.md) | Current | Languages, UI strings vs content, translation status and fallback |
 | [`i18n-terminology.md`](i18n-terminology.md) | Current | Terminology map for the five translations |
-| [`deployment.md`](deployment.md) | Current | Demo (Netlify) vs production (Host.KZ, nginx, releases); build and headers |
+| [`deployment.md`](deployment.md) | Current | Demo (Netlify) vs production (Host.KZ, nginx, releases); build, headers, server files in `deploy/` |
+| [`deploy-runbook-ru.md`](deploy-runbook-ru.md) | Current | Пошаговый запуск на сервере (на русском): DNS, пакеты, база, сервисы, HTTPS, переключение, бэкапы, обновления |
 
 ## Admin and API (by subsystem)
 
@@ -36,7 +37,7 @@ The Directus / Next.js planning documents of September 2026 are not in the repos
 |---|---|---|
 | [`admin-architecture-approved.md`](admin-architecture-approved.md) | Current (target) | Approved backend / admin architecture (ADR-01…21); source of truth for intent |
 | [`admin-architecture-implementation.md`](admin-architecture-implementation.md) | Current | Implementation log per phase (A–M-1) with deviations |
-| [`admin-database.md`](admin-database.md) | Current | Database tables, import / export, DB decisions (Phase B) |
+| [`admin-database.md`](admin-database.md) | Current | Database tables, import / export, DB decisions, cleanup job (Phases B, N-0) |
 | [`admin-auth.md`](admin-auth.md) | Current | Sessions, MFA, roles, permissions, audit (Phase C) |
 | [`admin-ui.md`](admin-ui.md) | Current | Admin stack, API contract, routes, dashboard, ⌘K (Phases D, L) |
 | [`admin-content.md`](admin-content.md) | Current | Content editors and write rules (Phase E) |
@@ -45,6 +46,7 @@ The Directus / Next.js planning documents of September 2026 are not in the repos
 | [`admin-seo.md`](admin-seo.md) | Current | SEO checker, redirects, address changes, nginx fallback (Phase I) |
 | [`admin-media.md`](admin-media.md) | Current | Media library, responsive copies, image checks (Phase J) |
 | [`admin-leads.md`](admin-leads.md) | Current | Lead intake, protection, notifications, site forms, attribution (Phase K) |
+| [`admin-settings.md`](admin-settings.md) | Current | Site settings: contacts, headquarters, footer, default SEO, metrics, offices (Phase N-0) |
 | [`admin-security-asvs.md`](admin-security-asvs.md) | Current | OWASP ASVS 4.0.3 L2 review, ZAP scan, open security points (Phase M-1) |
 
 ## Historical

@@ -111,7 +111,7 @@ Translations (Phase F) use the same matrix, **no new permission**: reading `cont
   - `aal = 1` after the password;
   - `aal = 2` after a passkey, TOTP or recovery code;
   - the token rotates at every level change and at every password change (session fixation).
-- **Step-up:** sensitive actions need a second factor verified within the last 10 minutes. These actions are user management, removing a factor, regenerating recovery codes, adding a factor once one exists, release rollback (Phase G) and the lead CSV export (Phase K-1).
+- **Step-up:** sensitive actions need a second factor verified within the last 10 minutes. These actions are user management, removing a factor, regenerating recovery codes, adding a factor once one exists, release rollback (Phase G), the lead CSV export (Phase K-1) and saving the site settings (Phase N-0).
 - **Failed second factors:** after 5 failed checks the session is revoked.
 - **Endpoints:**
   - list own sessions;
@@ -121,6 +121,7 @@ Translations (Phase F) use the same matrix, **no new permission**: reading `cont
   - an admin can revoke all sessions of a user.
 - **Automatic revocation:** a role change, disabling an account, a password reset and an MFA reset revoke all of the user's sessions.
 - **Stored per session:** IP as a keyed HMAC hash only, and the User-Agent truncated to 200 characters.
+- **Cleanup (Phase N-0):** the worker deletes, once an hour, sessions that ended (expired or revoked) more than 30 days ago, except those referenced by preview grants; also expired known devices, WebAuthn challenges expired more than 1 day ago and password resets expired more than 30 days ago (audit `system.cleanup`; [`admin-database.md`](admin-database.md) §8).
 
 ---
 
@@ -197,6 +198,7 @@ Users who still have to enroll get `mfa_enrollment_required` everywhere except t
 - SEO (Phase I-2): `redirect.create`, `redirect.update`, `redirect.delete`, `content.slug_change`;
 - media (Phase J): `media.upload`, `media.replace`, `media.delete`;
 - leads (Phase K): `lead.view` (Phase M-1: who opened a lead's personal data, ASVS §8.3.5), `lead.update`, `lead.note`, `lead.delete`, `lead.restore`, `lead.export`, `lead.notify_retry`, `lead.anonymize`.
+- settings and system (Phase N-0): `settings.update` (summary `fields`: names of the changed parts only, never values), `system.cleanup` (summary `count`, `kind`; no actor).
 
 Every action the API writes has Russian wording in «Журнал действий»; `apps/admin/test/audit-actions.test.ts` reads the actions from the API sources and fails on a missing label.
 

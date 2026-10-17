@@ -27,10 +27,11 @@ import { translationRoutes } from './routes/translations.ts';
 import { publishingRoutes } from './routes/publishing.ts';
 import { seoRoutes } from './routes/seo.ts';
 import { redirectRoutes } from './routes/redirects.ts';
+import { settingsRoutes } from './routes/settings.ts';
 import { mediaRoutes } from './routes/media.ts';
 import { leadRoutes } from './routes/leads.ts';
 
-export const API_VERSION = '0.13.0';
+export const API_VERSION = '0.14.0';
 export const BODY_LIMIT_BYTES = 64 * 1024;
 
 export interface BuildOptions {
@@ -123,6 +124,7 @@ export async function buildApp(opts: BuildOptions): Promise<FastifyInstance> {
         { name: 'seo', description: 'SEO check (effective titles and descriptions, BLOCKING / WARNING / INFO issues), redirects and address changes' },
         { name: 'media', description: 'Media library: upload, replace, usages, delete' },
         { name: 'leads', description: 'Leads: the site forms, their processing, export and anonymization' },
+        { name: 'settings', description: 'Site settings: contacts, headquarters, footer, default SEO texts, metrics, offices' },
       ],
     },
     transform: (input) => {
@@ -148,6 +150,7 @@ export async function buildApp(opts: BuildOptions): Promise<FastifyInstance> {
     // Own scope: the raw-upload content type parser applies to the media routes only.
     await scope.register(async (media) => mediaRoutes(media, deps));
     await leadRoutes(scope, deps);
+    await settingsRoutes(scope, deps);
   });
 
   return app;

@@ -183,3 +183,23 @@ Put the three URLs in your local environment (see `.env.example`), then run `npm
 | J | **done, migrations `0007_media_library`, `0008_media_variants`** (additive): source, storage path, original name, mime, bytes and sha256 on `media`; `variants` ([`admin-media.md`](admin-media.md)) |
 | K | **done, migration `0009_leads`**: `leads`, `lead_events`, `outbox`; consent is recorded on the lead (no `consent_texts` table) ([`admin-leads.md`](admin-leads.md)) |
 | M | **done, migration `0010_temporary_password`** (Phase M-1, additive): `users.password_temporary` — an initial password given by an Owner or Admin is valid 7 days and replaced at the first sign-in. Rollback = drop the column ([`admin-auth.md`](admin-auth.md) §2) |
+| N-0 | **done, no migration:** settings editing in the admin (writes `settings`, `settings_translations`, `metrics`, `metric_translations`, `offices`, `office_translations`; [`admin-settings.md`](admin-settings.md)) and the hourly cleanup (§8) |
+
+---
+
+## 8. Cleanup of expired service rows (Phase N-0)
+
+`cleanupExpired()` (`apps/api/src/system/cleanup.ts`) runs in the worker loop once an hour, in one transaction. It deletes only rows that can never be used again, after a grace period kept for security investigations:
+
+| Table | Deleted when |
+|---|---|
+| `webauthn_challenges` | expired more than 1 day ago |
+| `password_resets` | expired more than 30 days ago |
+| `known_devices` | expired |
+| `sessions` | ended (expired, or revoked) more than 30 days ago, **except** sessions referenced by `preview_grants` |
+| `outbox` | sent more than 30 days ago (unsent mail is never deleted) |
+
+- When anything was deleted, one audit event `system.cleanup` is written with `count` and `kind` (e.g. `sessions=3 outbox=12`); an empty run writes nothing.
+- Append-only history (`audit_events`, `content_revisions`, `releases`, `preview_grants`, `lead_events`) is never touched. Audit retention is still open (§3).
+- Errors are logged by the worker and retried the next hour.
+- Test: `apps/api/test/cleanup.db.test.ts` (2 tests, in `npm run test:db`).

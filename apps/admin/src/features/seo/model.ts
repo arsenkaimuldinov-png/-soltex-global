@@ -78,7 +78,7 @@ export function describeSeoIssue(i: SeoIssueView): string {
     case 'translation_outdated':
       return 'Перевод устарел — на сайте остаётся ранее утверждённый текст.';
     case 'og_image_missing':
-      return 'Не задано изображение для соцсетей (OG).';
+      return 'Своё изображение для соцсетей (OG) не задано — в превью ссылки будет фото страницы или общая карточка с логотипом.';
     case 'image_too_large':
       return `Изображение весит ${(Number(i.params.bytes) / 1024 / 1024).toFixed(1).replace('.', ',')} МБ, а уменьшенных копий для сайта ещё нет — страница будет грузиться медленно.`;
     case 'og_image_small':

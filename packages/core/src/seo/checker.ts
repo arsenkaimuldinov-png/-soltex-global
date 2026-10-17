@@ -100,7 +100,7 @@ export const SEO_ISSUE_SEVERITY = {
   description_duplicate: 'warning',
   translation_missing: 'warning',
   translation_outdated: 'warning',
-  og_image_missing: 'warning',
+  og_image_missing: 'info',
   noindex_in_navigation: 'warning',
   image_too_large: 'warning',
   og_image_small: 'warning',

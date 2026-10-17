@@ -40,6 +40,7 @@ export function SeoHead() {
     upsertMeta('property', 'og:description', meta.description);
     upsertMeta('property', 'og:url', canonical);
     upsertMeta('property', 'og:locale', info.ogLocale);
+    if (meta.ogImage) upsertMeta('property', 'og:image', meta.ogImage);
     upsertLink('link[rel="canonical"]', { rel: 'canonical', href: canonical });
 
     document.head.querySelectorAll('link[rel="alternate"][hreflang]').forEach((el) => el.remove());

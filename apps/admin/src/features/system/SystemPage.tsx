@@ -153,8 +153,28 @@ function StatusCards({ s }: { s: SystemStatus }) {
         {!s.mail.configured ? <p className="mt-2 text-xs text-ink-muted">Пока почта не настроена, уведомления ждут в очереди и ничего не теряется.</p> : null}
       </Card>
       <Card title="Резервные копии">
-        <Facts items={[{ label: 'Состояние', value: <Status tone="neutral">Не настроены</Status> }]} />
-        <p className="mt-2 text-xs text-ink-muted">Резервные копии и проверка восстановления настраиваются при развёртывании на сервере.</p>
+        <Facts
+          items={[
+            {
+              label: 'Состояние',
+              value: !s.backups.configured ? (
+                <Status tone="neutral">Не настроены</Status>
+              ) : s.backups.stale ? (
+                <Status tone="danger">{s.backups.lastSuccessAt ? 'Давно не было' : 'Ещё не было'}</Status>
+              ) : (
+                <Status tone="ok">Работают</Status>
+              ),
+            },
+            ...(s.backups.configured ? [{ label: 'Последняя успешная', value: s.backups.lastSuccessAt ? formatDateTime(s.backups.lastSuccessAt) : '—' }] : []),
+          ]}
+        />
+        <p className="mt-2 text-xs text-ink-muted">
+          {!s.backups.configured
+            ? 'Резервные копии настраиваются на сервере (docs/deploy-runbook-ru.md).'
+            : s.backups.stale
+              ? 'Ночной бэкап не выполнялся больше 36 часов — сообщите администратору сервера.'
+              : 'База данных и медиатека копируются каждую ночь.'}
+        </p>
       </Card>
       <p className="text-xs text-ink-muted md:col-span-2">Проверено {formatDateTime(s.checkedAt)}.</p>
     </>

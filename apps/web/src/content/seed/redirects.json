@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "id": "redirect-legacy-about",
+    "from": "/about",
+    "to": "/company",
+    "statusCode": 301,
+    "allLocales": false
+  },
+  {
+    "id": "redirect-legacy-services",
+    "from": "/services",
+    "to": "/epcm",
+    "statusCode": 301,
+    "allLocales": false
+  },
+  {
+    "id": "redirect-legacy-tech",
+    "from": "/tech",
+    "to": "/technologies",
+    "statusCode": 301,
+    "allLocales": false
+  }
+]

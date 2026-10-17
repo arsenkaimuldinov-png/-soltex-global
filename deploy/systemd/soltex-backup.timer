@@ -1,0 +1,11 @@
+# Every night at 03:17 server time; a missed run (server off) runs at the next boot.
+[Unit]
+Description=Soltex Global nightly backup
+
+[Timer]
+OnCalendar=*-*-* 03:17:00
+Persistent=true
+RandomizedDelaySec=300
+
+[Install]
+WantedBy=timers.target

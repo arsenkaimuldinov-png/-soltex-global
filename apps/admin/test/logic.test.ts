@@ -50,8 +50,8 @@ test('navigation per role follows the permission map (no role shortcut)', () => 
     'Обзор', 'Все переводы', 'Требуют внимания',
     'Проверка SEO', ...(redirects ? ['Редиректы'] : []), 'Обзор', 'Ревизии', 'Релизы',
   ];
-  assert.deepEqual(labels('owner'), ['Обзор', ...nav(true, true), 'Пользователи', 'Журнал действий', 'Система']);
-  assert.deepEqual(labels('admin'), ['Обзор', ...nav(true, true), 'Пользователи', 'Журнал действий', 'Система']);
+  assert.deepEqual(labels('owner'), ['Обзор', ...nav(true, true), 'Пользователи', 'Журнал действий', 'Настройки сайта', 'Система']);
+  assert.deepEqual(labels('admin'), ['Обзор', ...nav(true, true), 'Пользователи', 'Журнал действий', 'Настройки сайта', 'Система']);
   assert.deepEqual(labels('content_manager'), ['Обзор', ...nav(true, false), 'Система']);
   assert.deepEqual(labels('seo_specialist'), ['Обзор', ...nav(true, false), 'Система']);
   assert.deepEqual(labels('editor'), ['Обзор', ...nav(false, false)]);
@@ -63,9 +63,7 @@ test('navigation per role follows the permission map (no role shortcut)', () => 
   for (const role of ROLES) for (const i of visibleNav(canFor(role)).flatMap((s) => s.items)) assert.ok(!i.permission || canFor(role)(i.permission));
 });
 
-test('no screens of later phases in the navigation (Phase K-1 adds «Заявки»)', () => {
-  const all = allNavItems(NAV).map((i) => i.label).join(' ');
-  for (const later of ['Настройки']) assert.ok(!all.includes(later), later);
+test('navigation sections (Phase K-1 adds «Заявки», Phase N-0 «Настройки сайта» under administration)', () => {
   assert.deepEqual(NAV.map((s) => s.label ?? ''), ['', 'Контент', 'Заявки', 'Переводы', 'SEO', 'Публикация', 'Администрирование']);
 });
 

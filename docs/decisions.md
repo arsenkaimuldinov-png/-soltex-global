@@ -1,12 +1,12 @@
 # Decision index
 
-Status: current as of Phase M-1 (commit 959f733)
+Status: current as of Phase N-0
 
 This is the index of decisions that hold for the current code base. The full reasoning stays in the source documents linked in the last column; this file does not repeat or change it.
 
 **Archived log.** The earlier decision log from the Directus / Next.js planning stage (D-001 … D-029, September 2026) is archived in the claude.ai project as `docs/archive/decisions-2026-09-directus.md`.
 - It is **superseded wherever it conflicts** with this index: no Directus, no Next.js, no ISR (P1-02, ADR-09).
-- Its brand and visual decisions were checked against the code. Only those the code agrees with are listed in §8 as still in force.
+- Its brand and visual decisions were checked against the code. Only those the code agrees with are listed in §9 as still in force.
 
 **Precedence:**
 1. Later phase over earlier phase.
@@ -143,7 +143,27 @@ Sources: [`admin-security-asvs.md`](admin-security-asvs.md), implementation log,
 | M-4 | ZAP ran on loopback in development mode | Phase N repeats it on the real host | implementation log |
 | M1-P | **Accepted partial:** Google Fonts stylesheet without SRI | Dynamic stylesheet | ASVS 14.2.3 |
 
-## 6. Design pass 1 (2026-10-02)
+## 6. Phase N-0: launch preparation (2026-10-18)
+
+Sources: [`seo.md`](seo.md), [`admin-settings.md`](admin-settings.md), [`admin-database.md`](admin-database.md) §cleanup, [`deployment.md`](deployment.md), [`deploy-runbook-ru.md`](deploy-runbook-ru.md).
+
+| ID | Decision | Why | Code |
+|---|---|---|---|
+| N0-1 | Default social card `/og-default.png` (1200×630): the client logo scaled onto the site background `#FBFBF8`. Used when a page has neither an SEO image nor a JPEG/PNG photo of its own | Every page gets a card; the supplied logo is used as is (D-004) | `apps/web/src/i18n/seo.ts` (`DEFAULT_OG_IMAGE`), `apps/web/public/og-default.png` |
+| N0-2 | JSON-LD only with facts the content already states: Organization + WebSite on home (from settings), BreadcrumbList on detail pages (visible breadcrumb labels). No `Product`, `Article`, addresses or ratings | No invented claims (project rule) | `apps/web/src/i18n/structured-data.ts` |
+| N0-3 | Site settings are edited in all six languages on one screen; approved settings translations stay approved (source hash renewed on save); the UI warns per language when English changed and that language did not | The editor sees every language; a separate translation round for an e-mail or a phone would block small fixes | `apps/api/src/settings/service.ts`, `apps/admin/src/features/settings/model.ts` |
+| N0-4 | Settings records (metrics, offices) are edit-only: no create, delete or reorder; logos and the footer image stay with the developer. No draft and no content revisions: a change goes live with the next publication | The layout is built for the existing records; brand assets are not editor content | same |
+| N0-5 | Hourly cleanup of expired service rows after a grace period: WebAuthn challenges 1 day after expiry, password resets 30 days, known devices at expiry, sessions 30 days after expiry/revocation (never those referenced by preview grants), outbox rows 30 days after sending. Append-only history is never touched | Tables stay small; recent rows stay available for a security investigation | `apps/api/src/system/cleanup.ts` |
+| N0-6 | Server layout: code in `/opt/soltex/app`, data in `/srv/soltex` (releases, media, admin build), environment split into three files in `/etc/soltex/`: `soltex.env` (app processes), `migrate.env` (migrations only), `backup.env` (backups only) | Each process gets only its own database role and secrets; the services cannot write the code | `deploy/systemd/`, `deploy/*.env.example` |
+| N0-7 | Backups = nightly database dump (custom format, checked with `pg_restore --list`) + media snapshots (`rsync --link-dest`), 14-day retention, optional off-site copy. Releases are not backed up | Every release can be rebuilt from its content snapshot (in the database) and the code (git) | `deploy/scripts/backup.sh`, `restore-check.sh`, `soltex-backup.timer` |
+| N0-8 | TLS: the first certificate of each host is issued with `certbot --standalone`, then switched to `--webroot` renewals through `/var/www/letsencrypt` (port-80 blocks serve `/.well-known/acme-challenge/`) | nginx cannot start with a TLS block before the certificate exists; renewals then need no downtime | `deploy/nginx/*.conf`, runbook |
+| N0-9 | Old-site redirects `/about` → `/company`, `/tech` → `/technologies`, `/services` → `/epcm` (301, English) are kept in the seed by hand; the legacy migration no longer overwrites `redirects.json` | D-002 planned them; a full list remains client decision 10 | `apps/web/src/content/seed/redirects.json` |
+| N0-10 | «Система» shows backups from a status file (`BACKUP_STATUS_FILE`) that `backup.sh` writes after each success: only the time is read; stale after 36 hours | The admin sees a failed nightly backup without server access; no paths or credentials reach the API | `apps/api/src/system/overview.ts` (`backupStatus`), `deploy/scripts/backup.sh` |
+| N0-11 | `og_image_missing` is INFO, not WARNING | Every page has a social card since N0-1; an own SEO image is an improvement, not a defect | `packages/core/src/seo/checker.ts` |
+
+---
+
+## 7. Design pass 1 (2026-10-02)
 
 Source: [`design-v1-implementation.md`](design-v1-implementation.md).
 
@@ -163,30 +183,30 @@ Source: [`design-v1-implementation.md`](design-v1-implementation.md).
 - inner-page cleanup;
 - which logo rule set is current (D-006 "radius 0, no exceptions" vs the current brief).
 
-## 7. Motion
+## 8. Motion
 
 Source: [`motion-system.md`](motion-system.md).
 
 One easing, transform / opacity / clip-path only, one IntersectionObserver, View Transitions for page changes, reduced-motion respected, content never gated on JS.
 
-## 8. Archived (Directus-era) decisions checked against the code
+## 9. Archived (Directus-era) decisions checked against the code
 
 | Archived ID | Decision | Status in code |
 |---|---|---|
 | D-004 | Client-supplied logo is the source of truth, never redrawn | **In force.** The site renders the supplied 1280 × 440 raster (`/images/soltex-global-logo*.png`) as `<img>` from settings |
-| D-005 | Favicon from the symbol | **In force (partial):** `.ico`, PNG 16 / 32 / 180 / 192 / 512 and maskable 512 exist. No 48 px PNG, no 1200 × 630 OG image |
-| D-002 | IA: Technology / Product / EPCM as separate axes; `/company`, `/technologies`, `/epcm` | **Routes in force.** The planned 301s (`/services`, `/tech`, `/about`) do not exist (`redirects.json` is empty) |
+| D-005 | Favicon from the symbol | **In force (partial):** `.ico`, PNG 16 / 32 / 180 / 192 / 512 and maskable 512 exist. No 48 px PNG. A 1200 × 630 default OG card exists since N0-1 |
+| D-002 | IA: Technology / Product / EPCM as separate axes; `/company`, `/technologies`, `/epcm` | **Routes in force.** The planned 301s (`/services`, `/tech`, `/about`) exist since N0-9 |
 | D-003 | No global site search | **In force.** The planned `/products` type-ahead is not implemented |
 | D-011 | Publish states `draft → published → archived` | **In force** (`PublishStatus` in `packages/core/src/content/store.ts`). The planned 410 for archived records is not implemented |
 | D-017 | Navigation is code, not CMS content | **In force** (`NAVIGATION_PAGES` in `@soltex/core/seo`) |
 | D-006 | Radius 0, no exceptions | **Not in force as written:** square buttons and cards, but circles as markers (DV-4). Open |
 | D-007 | Source Serif 4 / Archivo / IBM Plex Mono | **Not in force:** the site uses Plus Jakarta Sans, JetBrains Mono and system serif / mono stacks ([`design-system.md`](design-system.md) §2) |
 | D-008 | Measured logo palette (`#06452A`, gold `#B89863` / `#7E5F24` / `#C4A87A`) | **Not in force:** the code uses `#0E482C` and golds `#B89758` / `#BA9B60` / `#D4B982` |
-| D-013 | Products as schema.org `TechArticle` | **Not implemented:** no JSON-LD at all ([`seo.md`](seo.md) §2) |
+| D-013 | Products as schema.org `TechArticle` | **Not implemented:** JSON-LD is limited to Organization, WebSite and BreadcrumbList (N0-2, [`seo.md`](seo.md) §2) |
 | D-016 | Leads not stored in the CMS | **Superseded** by ADR-16 (leads in the database, own admin section) |
 | D-015, D-018, D-022, D-023, D-029, … | Directus- and Next.js-specific mechanics | **Superseded** by P1-02, ADR-09 |
 
-## 9. Open client decisions
+## 10. Open client decisions
 
 Approved §21–§22:
 - hosting plan;

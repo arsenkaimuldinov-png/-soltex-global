@@ -242,7 +242,7 @@ release with the same snapshot.
 | POST | `/api/v1/preview/revoke` | content.read |
 
 Zod schemas, RFC 9457 problems, CSRF on every change; OpenAPI (`apps/api/openapi.json`; these routes
-since 0.7.0, now 0.13.0) and the admin types are generated and checked in CI.
+since 0.7.0, now 0.14.0) and the admin types are generated and checked in CI.
 
 ## 6. Authorization and audit
 

@@ -548,7 +548,7 @@ describe('publishing: revisions, releases, preview', { skip: !DB_ENABLED && 'DAT
     assert.equal(res.outcome, 'done');
     const row = await releaseRow(rel);
     assert.equal(row.status, 'ready', JSON.stringify(row.failure));
-    assert.equal(row.artifactFiles, 230); // the public build: 229 files + the homepage hero image (soltex-hero-industrial.webp)
+    assert.equal(row.artifactFiles, 232); // the public build: 229 files + robots.txt + og-default.png (Phase N-0) + the homepage hero image (soltex-hero-industrial.webp)
     assert.equal(row.artifactPages, 180);
     const d = await get(cm, `/api/v1/releases/${rel}`);
     assert.equal((await post(cm, `/api/v1/releases/${rel}/activate`, undefined, d.etag)).statusCode, 200);

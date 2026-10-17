@@ -512,7 +512,7 @@ write('src/content/seed/patents.json', patents);
 write('src/content/seed/videos.json', videos);
 write('src/content/seed/media.json', [...media.values()].sort((a, b) => a.id.localeCompare(b.id)));
 write('src/content/seed/settings.json', settings);
-write('src/content/seed/redirects.json', []);
+// redirects.json is maintained by hand since Phase N-0 (old-site URLs); the migration leaves it alone.
 for (const l of LOCALES) {
   const sorted = Object.fromEntries(Object.keys(ui[l.code]).sort().map((k) => [k, ui[l.code][k]]));
   write(`src/i18n/ui/${l.code}.json`, sorted);

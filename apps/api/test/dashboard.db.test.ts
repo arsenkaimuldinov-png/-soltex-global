@@ -95,7 +95,7 @@ describe('Dashboard, system status, search (Phase L)', { skip: !DB_ENABLED && 'D
     assert.match(st.database.version, /^\d+/);
     assert.equal(st.worker.running, false, 'no worker in this test');
     assert.ok(st.disk.length >= 1 && st.disk.every((d: Json) => d.totalBytes > 0 && d.freeBytes >= 0 && d.freeBytes <= d.totalBytes));
-    assert.deepEqual(st.backups, { configured: false });
+    assert.deepEqual(st.backups, { configured: false, lastSuccessAt: null, stale: false });
     assert.deepEqual(st.mail, { configured: false, recipients: 0 });
     assert.ok(st.site.active?.key);
     for (const secret of [t.config.publishing.releasesDir, t.config.media.dir, process.env.DATABASE_URL!, 'postgres://']) assert.ok(!res.body.includes(secret), `exposes ${secret.slice(0, 20)}`);

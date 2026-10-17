@@ -213,10 +213,30 @@ export async function systemStatus(deps: Deps) {
       { label: 'Медиатека', dir: deps.config.media.dir },
     ]),
     mail: { configured: deps.config.mail !== null, recipients: deps.config.leads.notifyTo.length },
-    // Phase N (approved §12): backups, WAL archiving and restore tests are set up with the server.
-    backups: { configured: false as const },
+    backups: backupStatus(deps),
     checkedAt: deps.now().toISOString(),
   };
+}
+
+/** Older than this, the last backup is reported as stale (the timer runs nightly). */
+export const BACKUP_STALE_MS = 36 * 60 * 60 * 1000;
+
+/**
+ * Backups (Phase N-0): deploy/scripts/backup.sh writes the time of its last success to
+ * BACKUP_STATUS_FILE. Only that time is read — no paths, sizes or credentials reach the admin.
+ */
+export function backupStatus(deps: Deps): { configured: boolean; lastSuccessAt: string | null; stale: boolean } {
+  const file = deps.config.backupStatusFile;
+  if (!file) return { configured: false, lastSuccessAt: null, stale: false };
+  let at: Date | null = null;
+  try {
+    const text = fs.readFileSync(file, 'utf8').trim();
+    const d = new Date(text);
+    if (/^\d{4}-\d{2}-\d{2}T/.test(text) && !Number.isNaN(d.getTime())) at = d;
+  } catch {
+    /* no backup yet, or unreadable: reported as stale */
+  }
+  return { configured: true, lastSuccessAt: at ? at.toISOString() : null, stale: !at || deps.now().getTime() - at.getTime() > BACKUP_STALE_MS };
 }
 
 // ---------------------------------------------------------------------------

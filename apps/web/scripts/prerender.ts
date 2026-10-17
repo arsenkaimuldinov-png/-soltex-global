@@ -14,12 +14,15 @@
  *   dist/404.html              unknown URLs (served with HTTP 404 — see docs/deployment.md)
  *   dist/<locale>/404.html     unknown URLs under /<locale>/
  *   dist/sitemap.xml           every public URL with hreflang alternates
+ *   dist/robots.txt            allows everything, points to the sitemap (Phase N-0)
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import { DEFAULT_LOCALE, LOCALES, Locale, getLocaleInfo } from '../src/i18n/config';
 import { localizePath } from '../src/i18n/paths';
 import { absoluteUrl, getAlternates, getNotFoundMeta, getRouteMeta, RouteMeta } from '../src/i18n/seo';
+import { getStructuredData, jsonLdScript } from '../src/i18n/structured-data';
+import { SITE_URL } from '../src/i18n/config';
 import { getPublicPaths } from '../src/content/routes';
 import type { ContentSnapshot } from '../src/content/types';
 import { getBundle, primeBundle, renderRoute } from '../src/entry-server';
@@ -41,6 +44,7 @@ const esc = (s: string) =>
 
 function renderPage(routePath: string, locale: Locale, meta: RouteMeta, url: string, withLinks: boolean, notFound = false): string {
   const info = getLocaleInfo(locale);
+  const structured = withLinks && meta.indexable ? getStructuredData(routePath, getBundle(locale)!.content, locale, getBundle(locale)!.ui) : [];
   const canonical = absoluteUrl(routePath, meta.canonicalLocale === locale ? locale : meta.canonicalLocale);
   const head = [
     `<title>${esc(meta.title)}</title>`,
@@ -67,6 +71,7 @@ function renderPage(routePath: string, locale: Locale, meta: RouteMeta, url: str
           )}&amp;display=swap" />`,
         ]
       : []),
+    ...structured.map(jsonLdScript),
   ].join('\n    ');
 
   const body = renderRoute(url);
@@ -136,4 +141,7 @@ ${sitemapEntries.join('\n')}
 `
 );
 
-console.log(`prerender: ${written} pages (${routes.length} routes × ${LOCALES.length} languages) + ${LOCALES.length} not-found pages + sitemap.xml`);
+// robots.txt: the whole public site may be crawled; drafts and previews never reach this host.
+fs.writeFileSync(path.join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+
+console.log(`prerender: ${written} pages (${routes.length} routes × ${LOCALES.length} languages) + ${LOCALES.length} not-found pages + sitemap.xml + robots.txt`);

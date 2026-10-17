@@ -1,6 +1,6 @@
 # SEO (as implemented)
 
-Status: current as of Phase M-1 (commit 959f733)
+Status: current as of Phase N-0 (robots.txt, JSON-LD, og:image, old-site redirects)
 
 The public site is a static, prerendered build. All SEO tags are written into each HTML file at build time (`apps/web/scripts/prerender.ts`) and kept in sync during client-side navigation by `apps/web/src/i18n/SeoHead.tsx`. Both use the same functions in `apps/web/src/i18n/seo.ts`. The admin, the API and the build check the same rules through `@soltex/core/seo` (details: [`admin-seo.md`](admin-seo.md)).
 
@@ -19,7 +19,7 @@ The public site is a static, prerendered build. All SEO tags are written into ea
 | `og:title`, `og:description` | Same as title and description | `prerender.ts` |
 | `og:url` | Canonical URL | same |
 | `og:locale` | `en_US`, `ru_RU`, `zh_CN`, `tr_TR`, `ar_AR`, `es_ES` | `i18n/config.ts` |
-| `og:image` | Absolute URL of `seo.ogImage` **only if set**. No record sets it today, so **no page emits `og:image`** | `seo.ts` `build()` |
+| `og:image` | On **every** page, absolute URL of the first that exists: `seo.ogImage` → the page's own photo if it is JPEG/PNG (the entity image; for fixed pages the first media of the page; WebP/AVIF are skipped because link previews do not show them reliably) → `DEFAULT_OG_IMAGE` = `/og-default.png` (`apps/web/public/og-default.png`, 1200×630, the client logo on `#FBFBF8`). 404 pages get the default. `SeoHead` updates it on client-side navigation | `seo.ts` `build()`, `getNotFoundMeta()` |
 | `og:type`, `twitter:card` | `website`, `summary_large_image`: static, from `apps/web/index.html`, identical on every page | `index.html` |
 
 - **Origin:** `SITE_URL` = `VITE_SITE_URL` or `https://soltexglobal.co` (`i18n/config.ts`).
@@ -29,7 +29,17 @@ The public site is a static, prerendered build. All SEO tags are written into ea
 
 ## 2. Structured data (JSON-LD)
 
-**None is emitted.** No `application/ld+json` or schema.org markup exists in `apps/web`, `packages/core` or the build scripts. The archived Directus-era plan (Products as `TechArticle`, decision D-013 of the archived log) is not implemented. Open item.
+Written by `prerender.ts` into the static HTML of indexable pages, from `apps/web/src/i18n/structured-data.ts` (`getStructuredData()`, `jsonLdScript()`). Only facts the content already states are emitted (decision N0-2):
+
+| Page | Types | Fields |
+|---|---|---|
+| Home (each language) | `Organization` (`@id` = `<SITE_URL>/#organization`) + `WebSite` (`publisher` → the Organization, `inLanguage`) | From settings: `name` (site name), `legalName` (headquarters name, only if it differs), `url`, `logo`, `email` (primary e-mail), `description` (default SEO description) — each only when set |
+| Technology, product, project detail | `BreadcrumbList` | Home → index page → item, with the visible breadcrumb labels (`nav.home`, `breadcrumb.technologies` / `products` / `projects`, item title) |
+| Other pages, 404 | none | |
+
+- `<` is escaped as `\u003c`, so content can never close the `<script>` element. `application/ld+json` is data, so `SITE_CSP` is unaffected.
+- Not updated by `SeoHead` on client-side navigation (crawlers read the prerendered HTML).
+- The archived Directus-era plan (Products as `TechArticle`, D-013 of the archived log) is not implemented.
 
 ## 3. Sitemap and robots
 
@@ -37,9 +47,9 @@ The public site is a static, prerendered build. All SEO tags are written into ea
 |---|---|
 | `sitemap.xml` | Written by `prerender.ts` into the build root. One `<url>` per indexable page per language whose canonical is itself, each with `xhtml:link` hreflang alternates including `x-default`. No `lastmod`, `priority` or `changefreq` |
 | Sitemap checks | `validate-site.ts`: every sitemap URL exists, is indexable and canonical; every indexable self-canonical page is in the sitemap |
-| `robots.txt` (public site) | **Not generated, not in `apps/web/public`.** nginx has no rule for it, so `/robots.txt` goes to the redirect lookup and ends in a 404. The sitemap is therefore not announced. Open item |
+| `robots.txt` (public site) | Written by `prerender.ts` into the build root: `User-agent: *`, `Allow: /`, `Sitemap: <SITE_URL>/sitemap.xml`. Served by nginx as a static file of the release |
 | Preview server | `/robots.txt` = `Disallow: /`; every answer has `X-Robots-Tag: noindex, nofollow, noarchive` (`apps/api/src/preview/server.ts`) |
-| Admin | `apps/admin/public/robots.txt` and `<meta name="robots" content="noindex, nofollow, noarchive">` in `apps/admin/index.html` |
+| Admin | `apps/admin/public/robots.txt`, `<meta name="robots" content="noindex, nofollow, noarchive">` in `apps/admin/index.html`; on the server `deploy/nginx/admin.soltexglobal.conf` answers `/robots.txt` with `Disallow: /` and sends `X-Robots-Tag: noindex, nofollow, noarchive` |
 
 ## 4. Not-found pages
 
@@ -54,7 +64,7 @@ Two kinds, both stored in the `redirects` table (source of truth) and both serve
 |---|---|---|
 | Manual | `manual` | Admin «SEO → Редиректы» (`redirects.manage`) |
 | Address change | `slug_change` | Admin «Изменить адрес» on a published project, technology or product: creates `old → new` (301, all languages) by default and rewrites older rules to the new address |
-| Import | `import` | `src/content/seed/redirects.json`, imported with the seed. **The file is empty today**, so no old soltexglobal.co addresses are redirected yet |
+| Import | `import` | `src/content/seed/redirects.json`, imported with the seed (`db:import`). Since Phase N-0 it holds the old-site addresses `/about` → `/company`, `/tech` → `/technologies`, `/services` → `/epcm` (301, English only). The file is maintained by hand; `migrate-legacy.ts` no longer overwrites it |
 
 **Serving:**
 
@@ -116,13 +126,13 @@ frame-ancestors 'self'
 | Where | What |
 |---|---|
 | Content build (`scripts/content/build-snapshots.ts`) | The SEO checker runs on the published content; any BLOCKING issue fails the build |
-| Output validation (`scripts/validate-site.ts`) | Unique routes and slugs; title, description, `lang`, `dir`, one `<h1>`; self-referencing canonical; reciprocal hreflang with `x-default` = English; hreflang targets exist; sitemap consistency; noindex only where the content sets it; every `<title>`, description and robots equals the `@soltex/core/seo` model; redirects without loops, chains or shadowing; links, assets and relations resolve; no secrets or development URLs in the output |
+| Output validation (`scripts/validate-site.ts`) | Unique routes and slugs; title, description, `lang`, `dir`, one `<h1>`; self-referencing canonical; reciprocal hreflang with `x-default` = English; hreflang targets exist; sitemap consistency; noindex only where the content sets it; every `<title>`, description and robots equals the `@soltex/core/seo` model; redirects without loops, chains or shadowing; `robots.txt` exists, does not block the site and names the sitemap; every page has `og:image` and its file exists; every JSON-LD block parses and has `@context`/`@type`; links, assets and relations resolve; no secrets or development URLs in the output |
 | Admin and API | «Проверка SEO» panel in each editor, the site-wide report `/seo`, and refusal of «Отметить к публикации» / «Создать релиз» on BLOCKING issues |
 
 **Severities:**
 - **BLOCKING:** slug, relation, media, link, empty title or description, title over 120 characters, redirect errors.
-- **WARNING:** title over 60, description outside 70–160, duplicates, missing or outdated translations, `og_image_missing` on detail pages, chains, image size.
-- **INFO:** default template used.
+- **WARNING:** title over 60, description outside 70–160, duplicates, missing or outdated translations, chains, image size.
+- **INFO:** default template used; `og_image_missing` on detail pages (since Phase N-0: the site falls back to the page photo or the default card).
 
 Full list: [`admin-seo.md`](admin-seo.md) §3.
 
@@ -130,8 +140,6 @@ Full list: [`admin-seo.md`](admin-seo.md) §3.
 
 | Gap | Note |
 |---|---|
-| No JSON-LD | §2 |
-| No `og:image` on any page | The field exists; no content sets it; the checker warns on detail pages |
-| No public `robots.txt` | §3; the architecture review planned one with a sitemap link |
 | No `lastmod` in the sitemap | Proposed in the architecture review (§0), not implemented |
-| Old-site redirects not imported | `redirects.json` is empty; client decision 10 (approved §22) pending |
+| Old-site redirects: only three | `/about`, `/tech`, `/services` (English). A full list of old URLs is client decision 10 (approved §22) |
+| No structured data beyond Organization, WebSite, BreadcrumbList | No `Product`, `Article` etc.; adding them needs content the site states (decision N0-2) |

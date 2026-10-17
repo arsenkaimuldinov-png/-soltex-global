@@ -206,6 +206,6 @@ The export requires the same shape in every language: the same list lengths and 
 | ~~Translations are not edited; no "outdated" detection~~ — done in Phase F ([`admin-translations.md`](admin-translations.md)) | F |
 | ~~No uploads; previews only with `VITE_MEDIA_BASE_URL`~~ — done in Phases J-1 and J-2 ([`admin-media.md`](admin-media.md)); no crops | J |
 | Page list items: texts only (no adding or removing timeline entries etc.) | later, when the page design gets new item templates |
-| Settings, offices, metrics, footer are not editable yet | next content task (review §X «Настройки») |
+| ~~Settings, offices, metrics, footer are not editable~~ — done in Phase N-0 for existing records ([`admin-settings.md`](admin-settings.md)); no create/delete of offices or metrics | N-0 |
 | No hard delete; no usages view («используется в 4 проектах») | with the delete flow (Admin-only, review §G) |
 | ~~⌘K does not search content~~ — done in Phase L: titles in every language, keys, media, leads (`ILIKE`; FTS when the volume needs it) | L |

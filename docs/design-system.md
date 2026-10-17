@@ -84,8 +84,8 @@ Loaded from Google Fonts in `apps/web/index.html` (allowed by the site CSP: `sty
 |---|---|---|
 | **Plus Jakarta Sans** | 300–800 | `body`, `h1–h3`, `.font-editorial` (letter-spacing −0.025em on headings) |
 | **JetBrains Mono** | 400–600 | `.font-tech`: labels, eyebrows, section headings on the home page, figures |
-| Cinzel | 500–800 | only via `.font-brand-serif`, which **no component uses** |
-| Cormorant Garamond | 400–700, italics | only as the second fallback of `.font-brand-serif`; **unused** |
+
+Cinzel and Cormorant Garamond (and the unused `.font-brand-serif` rule) were removed in Phase N-0.
 
 Tailwind's default stacks are also used directly and do **not** resolve to the brand faces in English:
 

@@ -1,0 +1,45 @@
+# Soltex Global — publishing worker: site builds, image copies, e-mail outbox, lead anonymization, cleanup
+# Phase N-0, docs/deploy-runbook-ru.md. Install: cp deploy/systemd/*.service *.timer /etc/systemd/system/
+# && systemctl daemon-reload && systemctl enable --now soltex-worker
+[Unit]
+Description=Soltex Global worker
+After=network-online.target postgresql.service
+Wants=network-online.target
+Requires=postgresql.service
+
+[Service]
+Type=simple
+User=soltex
+Group=soltex
+WorkingDirectory=/opt/soltex/app/apps/api
+# Application secrets only (no migration or backup credentials): see deploy/soltex.env.example.
+EnvironmentFile=/etc/soltex/soltex.env
+ExecStart=/usr/bin/node --import tsx src/worker.ts
+Restart=always
+RestartSec=3
+# A running build is abandoned on stop; the next start recovers it (recoverStale).
+TimeoutStopSec=30
+
+# Hardening: read-only system and code, writable data only.
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+# full, not strict: the site build reads the code in /opt/soltex/app and hard-links public/
+# files into /srv/soltex/build (a read-only bind mount of /opt would turn the links into copies).
+ProtectSystem=full
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictNamespaces=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+# Release files and image copies must be readable by nginx (www-data).
+UMask=0022
+ReadWritePaths=/srv/soltex
+# npm and tsx caches of the site build (the build gets HOME from here).
+Environment=HOME=/srv/soltex/.worker-home
+
+[Install]
+WantedBy=multi-user.target

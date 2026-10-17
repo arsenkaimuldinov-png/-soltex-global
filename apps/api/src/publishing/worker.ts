@@ -26,6 +26,7 @@ import type { Deps } from '../deps.ts';
 import { requireDb } from '../deps.ts';
 import { recordAudit } from '../audit/audit.ts';
 import { generateNextVariants } from '../media/variants.ts';
+import { cleanupExpired } from '../system/cleanup.ts';
 import { anonymizeDue, processNextOutbox } from '../leads/service.ts';
 import { UnconfiguredEmailProvider, type EmailProvider } from '../notify/email.ts';
 import { readCurrent, readTree, releaseDir, removeDir, storeArtifact, type ArtifactTree } from './artifacts.ts';
@@ -218,6 +219,7 @@ export async function workerLoop(deps: Deps, builder: Builder, signal: AbortSign
   await recoverStale(deps).catch(() => 0);
   await reconcileActive(deps).catch(() => null);
   let lastAnonymize = 0;
+  let lastCleanup = 0;
   while (!signal.aborted) {
     let r: JobResult = { outcome: 'idle' };
     try {
@@ -243,6 +245,11 @@ export async function workerLoop(deps: Deps, builder: Builder, signal: AbortSign
     if (Date.now() - lastAnonymize > 60 * 60_000) {
       lastAnonymize = Date.now();
       await anonymizeDue(deps).catch((e: Error) => console.error('worker: anonymization error', e.message));
+    }
+    // Phase N-0: expired sessions, challenges, password resets, devices and sent mail, hourly.
+    if (Date.now() - lastCleanup > 60 * 60_000) {
+      lastCleanup = Date.now();
+      await cleanupExpired(deps).catch((e: Error) => console.error('worker: cleanup error', e.message));
     }
     if (r.outcome !== 'done' && media !== 'done' && mail !== 'done') await new Promise((res) => setTimeout(res, intervalMs));
   }

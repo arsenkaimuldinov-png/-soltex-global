@@ -5,7 +5,7 @@ The site is a **static, prerendered build** with no runtime dependency on any ho
 | Environment | Flow | Status |
 |---|---|---|
 | **DEMO / client preview** | GitHub → Netlify (`netlify.toml`) | **Temporary.** Used only to present the site to Soltex and get approval |
-| **PRODUCTION** | Admin «Создать релиз» → the worker builds the release → «Опубликовать» switches `RELEASES_DIR/current` → nginx on **Host.KZ** → `soltexglobal.co` ([`admin-publishing.md`](admin-publishing.md)) | Final target. Server setup (Phase N) **to be finalized after the exact Host.KZ hosting plan is confirmed** |
+| **PRODUCTION** | Admin «Создать релиз» → the worker builds the release → «Опубликовать» switches `RELEASES_DIR/current` → nginx on **Host.KZ** → `soltexglobal.co` ([`admin-publishing.md`](admin-publishing.md)) | Final target. Server files are in `deploy/` (Phase N-0); install step by step with [`deploy-runbook-ru.md`](deploy-runbook-ru.md). The server is not set up yet |
 
 Netlify is not part of the application architecture. The only Netlify-specific file is `netlify.toml`, which holds the build command, the publish directory and the localized 404 rules. There are no Netlify Functions, Blobs, Forms, Identity or build hooks.
 
@@ -47,6 +47,8 @@ dist/ru/company.html            /ru/company            (same for zh, tr, ar, es)
 dist/404.html                   not-found page (English)
 dist/ru/404.html                not-found page per language
 dist/sitemap.xml
+dist/robots.txt                 allows everything, names the sitemap (Phase N-0)
+dist/og-default.png             default social card (Phase N-0)
 dist/assets/*                   hashed JS/CSS (immutable)
 dist/images/*, dist/videos/*    media (unchanged paths)
 ```
@@ -76,9 +78,9 @@ Installation notes:
 - Set `PUBLIC_SITE_URL=https://soltexglobal.co` for the API.
 - Leads (Phase K): set `SMTP_URL`, `MAIL_FROM`, `LEAD_NOTIFY_TO`, `LEAD_RETENTION_MONTHS` (and `PRIVACY_NOTICE_VERSION` once the text exists) for the API and the worker. On the site host nginx proxies only `POST /api/v1/public/leads` to the API. See [`admin-leads.md`](admin-leads.md).
 - Site forms (Phase K-2): `SITE_LEADS_ENABLED` and `ATTRIBUTION_ENABLED` for the worker (and the API, which reports them in «Заявки»). Both `false` until the client approves the privacy texts. A change applies from the next published release.
-- Media library (Phase J): `MEDIA_DIR=/srv/soltex/media` for the API and the worker. nginx serves `MEDIA_DIR/originals/` and `MEDIA_DIR/variants/` (responsive copies, J-2) as `/media/…` (immutable, one-year cache). After the first deployment, run `npm run media:variants -w @soltex/api` once (the worker keeps them up to date afterwards). The files are not copied into releases; back them up with restic (approved §12). See [`admin-media.md`](admin-media.md).
-- The file also contains the `http → https` and `www → apex` redirects.
-- Certificate paths assume Let's Encrypt; adjust them to the Host.KZ setup.
+- Media library (Phase J): `MEDIA_DIR=/srv/soltex/media` for the API and the worker. nginx serves `MEDIA_DIR/originals/` and `MEDIA_DIR/variants/` (responsive copies, J-2) as `/media/…` (immutable, one-year cache). After the first deployment, run `npm run media:variants -w @soltex/api` once (the worker keeps them up to date afterwards). The files are not copied into releases; `deploy/scripts/backup.sh` snapshots them nightly (see "Server files" below). See [`admin-media.md`](admin-media.md).
+- The file also contains the `http → https` and `www → apex` redirects; on port 80 it serves `/.well-known/acme-challenge/` from `/var/www/letsencrypt` for certificate renewals (Phase N-0).
+- Certificate paths assume Let's Encrypt (`/etc/letsencrypt/live/<host>/`).
 - Cache headers follow the next section.
 - Security headers, including the CSP, are in the file (see "Security headers" below).
 
@@ -141,28 +143,45 @@ What the policy allows:
 
 **TLS:** TLS 1.2 and 1.3 only, the Mozilla "intermediate" settings, in the `# >>> tls` block.
 
+The admin host (`deploy/nginx/admin.soltexglobal.conf`) sends `ADMIN_CSP`, HSTS, `X-Robots-Tag: noindex, nofollow, noarchive`, `X-Frame-Options: DENY` and `Referrer-Policy: no-referrer`; the preview server sends its own headers.
+
 **Still to set on the server (Phase N, `docs/admin-security-asvs.md` §4):**
-- the admin host's own nginx block, with the admin CSP of `apps/admin/vite.config.ts` and HSTS;
 - an access-log format without query strings (`$uri` instead of `$request_uri`) on the admin host. An exact e-mail or phone search in «Заявки» is in the query string;
 - time synchronisation;
-- separate system users;
 - an external TLS test of the real certificate.
 
 ## HTTPS and DNS (to be finalized with Host.KZ)
 
 - An `A` (and `AAAA`, if offered) record for `soltexglobal.co` pointing to the Host.KZ server, and `www` as a redirect to the apex.
-- A TLS certificate (Let's Encrypt or Host.KZ-provided) with automatic renewal.
-- Before switching DNS, crawl the **currently live** soltexglobal.co and map its old URLs to the new ones with 301 redirects. Enter them in «SEO → Редиректы», or import them through `redirects.json` (source `import`). nginx needs no change: the rules are served by the lookup endpoint from the active release.
+- Let's Encrypt certificates for `soltexglobal.co` (+ `www`), `admin.` and `preview.`: the first one per host with `certbot --standalone`, renewals with `--webroot /var/www/letsencrypt` (runbook steps 8–9).
+- Before switching DNS, crawl the **currently live** soltexglobal.co and map its old URLs to the new ones with 301 redirects. Enter them in «SEO → Редиректы», or import them through `redirects.json` (source `import`; it already holds `/about`, `/tech`, `/services`). nginx needs no change: the rules are served by the lookup endpoint from the active release.
 
-## Server requirements (Phase N, not set up yet)
+## Server requirements and files (Phase N)
 
-The admin, API and database are implemented (approved architecture: `docs/admin-architecture-approved.md`). The production host needs:
+The install procedure is [`deploy-runbook-ru.md`](deploy-runbook-ru.md) (Russian, step by step). The production host needs:
 
-- Node.js 22 and the repository checkout (the worker runs the site build);
-- PostgreSQL 17 with the three roles of `apps/api/db/provision.sql` (`soltex_app`, `soltex_migrate`, `soltex_backup`); `npm run db:migrate` applies migrations `0000`–`0010`; automated backups;
-- three processes of the same codebase (systemd units), all on loopback: the API (`npm run start -w @soltex/api`, `API_PORT` 3100), the worker (`npm run worker -w @soltex/api`) and the preview server (`npm run preview-server -w @soltex/api`, `PREVIEW_PORT` 3102);
-- `RELEASES_DIR` (e.g. `/srv/soltex`) and `MEDIA_DIR` (e.g. `/srv/soltex/media`) on one local filesystem, backed up;
-- nginx with `deploy/nginx/soltexglobal.conf`, plus server blocks for the admin and preview hosts;
-- outgoing e-mail (SMTP) with SPF/DKIM/DMARC for lead notifications.
+- Node.js 22 and the repository checkout in `/opt/soltex/app` (the worker runs the site build);
+- PostgreSQL 17 with the three roles of `apps/api/db/provision.sql` (`soltex_app`, `soltex_migrate`, `soltex_backup`); `npm run db:migrate` applies migrations `0000`–`0010`;
+- data in `/srv/soltex` on one local filesystem: `RELEASES_DIR=/srv/soltex` (releases, `current`), `MEDIA_DIR=/srv/soltex/media`, the admin build in `/srv/soltex/admin`;
+- nginx, certbot, rsync; outgoing e-mail (SMTP) with SPF/DKIM/DMARC for lead notifications.
+
+**Files in `deploy/`:**
+
+| File | Role |
+|---|---|
+| `nginx/soltexglobal.conf` | Public site (above) |
+| `nginx/admin.soltexglobal.conf` | Admin SPA from `/srv/soltex/admin` (unknown paths → `index.html`), `ADMIN_CSP` and `X-Robots-Tag: noindex`, `/api/` proxied to the API (210 MB body limit for uploads, streamed, 30 r/s), `/internal/` → 404, `/robots.txt` = `Disallow: /`, port 80 → https + ACME webroot. Needs `soltexglobal.conf` enabled (`upstream soltex_api`) |
+| `nginx/preview.soltexglobal.conf` | Everything proxied to the preview server `127.0.0.1:3102`; port 80 → https + ACME webroot |
+| `systemd/soltex-api.service`, `soltex-worker.service`, `soltex-preview.service` | The three processes as user `soltex`, `EnvironmentFile=/etc/soltex/soltex.env`, hardened (`ProtectSystem=strict`, writable `/srv/soltex` only). The worker uses `ProtectSystem=full` (the site build hard-links files from the code into `/srv/soltex/build`) and `HOME=/srv/soltex/.worker-home` (npm/tsx caches) |
+| `systemd/soltex-backup.service` + `.timer` | `backup.sh` as user `soltex-backup`, nightly at 03:17 (`Persistent=true`, up to 5 min random delay) |
+| `scripts/backup.sh` | `pg_dump` (custom format) with the read-only `soltex_backup` role, checked with `pg_restore --list`; media snapshots with `rsync --link-dest` (unchanged files hard-linked); retention `BACKUP_KEEP_DAYS` (14); optional off-site copy `BACKUP_REMOTE`; writes `BACKUP_DIR/last-success`. Releases are not backed up: they are rebuilt from the content snapshots in the database |
+| `scripts/restore-check.sh` | Restores the newest dump into a scratch database, counts rows of the main tables, drops it. Monthly and after any backup change |
+| `scripts/update.sh` | New code version: fast-forward to `origin/main` or a git bundle, `npm ci`, lint, unit tests, migrations (`migrate.env`), admin build → `/srv/soltex/admin`, restart of the three services, smoke test. Never re-imports content |
+| `scripts/smoke.sh` | Read-only GET/HEAD checks of the API, admin, preview and site (robots, sitemap, 404, `/about` redirect, host redirects, API not public). `SMOKE_SKIP_SITE=1` before the site's DNS points to the server |
+| `soltex.env.example` | `/etc/soltex/soltex.env`: environment of the three services (no migration or backup credentials) |
+| `migrate.env.example` | `/etc/soltex/migrate.env`: `MIGRATION_DATABASE_URL`, used only by `update.sh` |
+| `backup.env.example` | `/etc/soltex/backup.env`: `BACKUP_DATABASE_URL`, `BACKUP_DIR`, `MEDIA_DIR`, `BACKUP_KEEP_DAYS`, `BACKUP_STATUS_FILE` (also in `soltex.env`: «Система» shows the last success), optional `BACKUP_REMOTE` |
+
+Tests: `apps/api/src/deploy-files.test.ts` (unit, 5: `soltex.env.example` accepted by the production config and free of systemd pitfalls, units reference existing entry files and unprivileged users, admin CSP = `ADMIN_CSP`, scripts are strict-mode bash, the backup status shown in «Система») and `apps/api/test/nginx.db.test.ts` (10, real nginx, including the admin host).
 
 The public site stays static and keeps working if the admin, API or database is down.

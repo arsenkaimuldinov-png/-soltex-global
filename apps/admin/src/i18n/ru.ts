@@ -72,6 +72,8 @@ export const AUDIT_ACTION_LABELS: Record<string, string> = {
   'lead.export': 'Выгрузка заявок в CSV',
   'lead.notify_retry': 'Повторная отправка уведомления о заявке',
   'lead.anonymize': 'Заявки обезличены',
+  'system.cleanup': 'Удалены устаревшие служебные записи',
+  'settings.update': 'Изменены настройки сайта',
   'user.initial_password': 'Выдан новый начальный пароль',
 };
 export const auditActionLabel = (action: string) => AUDIT_ACTION_LABELS[action] ?? 'Действие в системе';
@@ -130,6 +132,8 @@ export const RESOURCE_LABELS: Record<string, string> = {
   user: 'пользователь',
   release: 'релиз',
   redirect: 'редирект',
+  settings: 'настройки сайта',
+  system: 'система',
 };
 
 /** Password policy problems returned by the API (field errors of `password_rejected`). */

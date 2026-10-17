@@ -146,7 +146,13 @@ export async function systemRoutes(app: FastifyInstance, deps: Deps) {
               site: z.object({ active: z.object({ key: z.string(), activatedAt: z.string().nullable() }).nullable(), lastSuccessfulBuild: Build.nullable(), lastFailedBuild: Build.nullable() }),
               disk: z.array(z.object({ label: z.string(), totalBytes: z.number(), freeBytes: z.number() })),
               mail: z.object({ configured: z.boolean(), recipients: z.number().int() }),
-              backups: z.object({ configured: z.boolean() }).describe('Phase N'),
+              backups: z
+                .object({
+                  configured: z.boolean().describe('BACKUP_STATUS_FILE is set'),
+                  lastSuccessAt: z.string().nullable().describe('Last successful nightly backup'),
+                  stale: z.boolean().describe('No successful backup in the last 36 hours'),
+                })
+                .describe('Phase N-0: deploy/scripts/backup.sh'),
               checkedAt: z.string(),
             })
             .meta({ id: 'SystemStatus' }),

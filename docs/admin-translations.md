@@ -45,7 +45,7 @@ Phase F manages the five translated languages (RU, ZH, TR, AR, ES) of the existi
 | | `approved_by uuid NULL → users` | Who approved |
 | | `edited_source_revision int NULL` | Source revision of the translator's last save |
 
-`settings_translations` has none of them: settings are not edited in the admin yet.
+`settings_translations` has none of them: settings are edited in all six languages at once in «Настройки сайта» (Phase N-0), outside this workflow; a save renews the seed-format hash of approved rows ([`admin-settings.md`](admin-settings.md)).
 
 **Rules:**
 - A Phase E save raises `source_revision` by one **only** when a translated source field changes:
@@ -91,7 +91,7 @@ All endpoints are under `/api/v1` and follow the Phase C/E conventions:
 - session + second factor, CSRF header, RBAC (route and field level);
 - Zod validation, RFC 9457 problems with `request_id`, `X-Request-ID`;
 - audit in the transaction;
-- OpenAPI tag `translations`; API version 0.13.0 (`apps/api/openapi.json`).
+- OpenAPI tag `translations`; API version 0.14.0 (`apps/api/openapi.json`).
 
 | Method and path | Access | Notes |
 |---|---|---|
@@ -205,7 +205,7 @@ No machine translation, no translation tasks, no rich-text editor (the content i
 | F-2 | Approval uses the existing `content.publish` permission, not a dedicated reviewer permission or a "Translator" role | No new roles in this phase; review §F: a translator role can be added later without architecture change |
 | F-3 | `outdated` is derived (source revision), not a stored enum value; the seed-format hash is kept only for compatibility | Avoids rewriting translation rows on every source edit; deterministic, SQL-countable |
 | F-4 | An approval made in the CMS stores no seed-format hash; the export computes it while the approval is current | The hash covers the whole exported record; computing it per approval would need a full export in the transaction |
-| F-5 | Settings, offices, metrics and media alt texts are not translated in the admin | They are not editable in the admin yet (Phase E §8) |
+| F-5 | Settings, offices, metrics and media alt texts are not part of the translation workflow | Media alt texts are not editable in the admin; settings, offices and metrics are edited in every language on one screen since Phase N-0 ([`admin-settings.md`](admin-settings.md)) |
 | F-6 | A Phase E database migrated to 0004: approvals are linked through the seed hash. An English edit made in Phase E (or a change of order or images, which the old hash also covers) marks those translations outdated — conservative | The database did not record what an old approval reviewed |
 | F-7 | "Source changed since the last save" is shown for in-progress translations, but the translation editor shows no diff of the English text | The record's «История изменений» compares English versions field by field (Phase G, [`admin-content.md`](admin-content.md) §5); a diff inside the translation editor is not built |
 | F-8 | Localized slugs, machine translation, translation tasks and assignments are not implemented | Out of scope (approved: deferred) |

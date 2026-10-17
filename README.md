@@ -2,14 +2,14 @@
 
 Monorepo of the Soltex Global website platform. Source of truth for the architecture: [`docs/admin-architecture-approved.md`](docs/admin-architecture-approved.md). Phase-by-phase implementation status: [`docs/admin-architecture-implementation.md`](docs/admin-architecture-implementation.md).
 
-| Workspace | What | Status (Phase M-1) |
+| Workspace | What | Status (Phase N-0) |
 |---|---|---|
-| [`apps/web`](apps/web) | Public website: React 19 + Vite, static prerender, 6 languages | Built from the seed or from a database export |
-| [`apps/admin`](apps/admin) | Admin SPA (Russian UI) | Sign-in, content, translations, publishing, SEO and redirects, media, leads, overview, users, audit log, system status |
-| [`apps/api`](apps/api) | API, background worker and preview server (Fastify 5, PostgreSQL 17) | `/api/v1` 0.13.0, 182 operations; migrations `0000`–`0010` |
+| [`apps/web`](apps/web) | Public website: React 19 + Vite, static prerender, 6 languages | Built from the seed or from a database export; robots.txt, JSON-LD and og:image on every page |
+| [`apps/admin`](apps/admin) | Admin SPA (Russian UI) | Sign-in, content, translations, publishing, SEO and redirects, media, leads, overview, users, audit log, site settings, system status |
+| [`apps/api`](apps/api) | API, background worker and preview server (Fastify 5, PostgreSQL 17) | `/api/v1` 0.14.0, 184 operations; migrations `0000`–`0010` |
 | [`packages/core`](packages/core) | Shared domain layer: domain, validation, SEO, content | Domain rules, SEO checker, redirects, content schemas (`validation` still empty) |
 
-Server deployment (Phase N) is not done yet. See [`docs/deployment.md`](docs/deployment.md).
+Server files (nginx, systemd, backup / update / smoke scripts, env templates) are in [`deploy/`](deploy); the server itself is not set up yet. See [`docs/deployment.md`](docs/deployment.md) and the step-by-step [`docs/deploy-runbook-ru.md`](docs/deploy-runbook-ru.md).
 
 ## Requirements
 
@@ -34,9 +34,9 @@ npm install
 | `npm run typecheck` | Type check of all workspaces (web includes content validation) |
 | `npm run check:deps` | Dependency direction (core ← apps, no app → app), reviewed `sql.raw` uses, and site CSP consistency (`scripts/check-*.mjs`) |
 | `npm run lint` | `typecheck` + `check:deps` |
-| `npm test` | Unit tests of core, api, admin and web (120) |
-| `npm run test:db` | API database tests (159; needs a provisioned PostgreSQL 17) |
-| `npm run test:e2e:admin` | End-to-end tests: API + PostgreSQL + Chromium (102; `scripts/admin-e2e.mjs`) |
+| `npm test` | Unit tests of core, api, admin and web (132: core 46, api 27, admin 49, web 10) |
+| `npm run test:db` | API database tests (166: 165 pass, 1 skipped by design; file list in `apps/api/package.json` `test:db`; needs a provisioned PostgreSQL 17) |
+| `npm run test:e2e:admin` | End-to-end tests: API + PostgreSQL + Chromium (104; `scripts/admin-e2e.mjs`) |
 | `npm run db:migrate` / `db:import` / `db:export` | Database migrations, seed import, content export (see `apps/api/README.md`) |
 | `npm run openapi` | Regenerate `apps/api/openapi.json` |
 | `npm run auth:bootstrap-owner` | Create the first Owner from the console |

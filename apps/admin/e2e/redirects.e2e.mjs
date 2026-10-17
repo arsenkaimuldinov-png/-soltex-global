@@ -155,7 +155,8 @@ describe('Redirects and address changes (Phase I-2)', () => {
       await page.getByRole('alertdialog').getByRole('button', { name: 'Удалить' }).click();
       await row(page, from).waitFor({ state: 'detached' });
     }
-    await table(page).getByText(/Редиректов пока нет/).waitFor();
+    // The old-site addresses of the seed stay (Phase N-0).
+    for (const from of ['/about', '/services', '/tech']) await row(page, from).waitFor();
   });
 
   test('mobile: the redirects list fits a 390 px screen', async () => {

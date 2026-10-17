@@ -4,7 +4,7 @@
 **API contract:** [`admin-auth.md`](admin-auth.md), [`apps/api/openapi.json`](../apps/api/openapi.json).
 **Code:** `apps/admin`.
 
-Phase D delivered the admin shell and every screen that the Phase C API served. Later phases added content (E), translations (F), publishing and preview (G), SEO and redirects (I), media (J), leads (K) and the overview, system status and content search (L). Settings is not built yet, and it does not appear in the interface: there are no placeholders and no empty sections.
+Phase D delivered the admin shell and every screen that the Phase C API served. Later phases added content (E), translations (F), publishing and preview (G), SEO and redirects (I), media (J), leads (K), the overview, system status and content search (L), and «Настройки сайта» (N-0, [`admin-settings.md`](admin-settings.md)). There are no placeholders and no empty sections.
 
 ---
 
@@ -57,6 +57,7 @@ Phase D delivered the admin shell and every screen that the Phase C API served. 
 | `/account` | signed in | Профиль и безопасность |
 | `/admin/users` | `users.manage` | Пользователи |
 | `/admin/audit` | `audit.read` | Журнал действий |
+| `/admin/settings` | `settings.manage` | Администрирование · Настройки сайта: contacts, headquarters, footer texts, default SEO texts, metrics and offices in six language tabs; save with step-up (Phase N-0, [`admin-settings.md`](admin-settings.md)) |
 | `/admin/system` | `system.read` | Система |
 | `/content/pages`, `/content/pages/:id` | `content.read` | Страницы: list and page editor (Phase E, [`admin-content.md`](admin-content.md)) |
 | `/content/:collection`, `/content/:collection/:id` | `content.read` | Проекты, Технологии, Продукты, EPC / EPCM, Патенты, Видео: lists and typed editors. An unknown collection shows «Страница не найдена» |
@@ -151,7 +152,7 @@ Every number is a link to the list it counts, with that list's filter in the add
 - the site: the live release, the last successful and the last failed build with the reason;
 - free disk space of the releases and the media library (a warning under 10 %);
 - mail: configured or not, number of lead recipients;
-- backups: «Не настроены» until the server is set up (Phase N).
+- backups (Phase N-0): «Не настроены» until `BACKUP_STATUS_FILE` is set; then «Работают» with the time of the last successful nightly backup, or a red «Ещё не было» / «Давно не было» when there is none in 36 hours (`deploy/scripts/backup.sh` writes the file).
 
 No paths, connection strings or secrets.
 
@@ -167,6 +168,12 @@ No paths, connection strings or secrets.
 - every action that changes the live site (publish, rollback) or the working copy (restore, mark for publication) asks for confirmation and states the consequences; rollback also asks for a fresh second factor (step-up);
 - build progress is polled while a release builds; the preview opens in a new tab on the preview origin with a one-time link;
 - ⌘K offers screens and finds records (Phase L, §6), but has no publish, rollback or restore commands.
+
+**Настройки сайта** (`/admin/settings`, `settings.manage` = Owner and Admin; Phase N-0, [`admin-settings.md`](admin-settings.md)):
+- cards «Контакты» (two e-mails, the same in every language), headquarters, footer, default SEO texts, metrics, regional offices;
+- language tabs above the texts (Arabic right-to-left); a tab shows a count and an alert when English was changed in this edit but that language was not;
+- «Сохранить» saves everything at once and asks for a fresh second factor; a conflict with another user's save shows «Загрузить заново»;
+- the page says that changes reach the site with the next publication, links «Публикация», and that logos, the footer background and new offices are the developer's.
 
 **«Дополнительно»** (approved §16): technical details are collapsed and rendered only for Owner and Admin. The main UI shows no ids, codes, enum values or JSON.
 
@@ -200,7 +207,7 @@ No paths, connection strings or secrets.
 
 ## 8. Security headers for the admin host
 
-The SPA works under a strict Content-Security-Policy. nginx must send it for `admin.soltexglobal.co` (Phase N); `vite preview` sends the same header, so E2E runs under it:
+The SPA works under a strict Content-Security-Policy. nginx sends it for `admin.soltexglobal.co` (`deploy/nginx/admin.soltexglobal.conf`, Phase N-0; `apps/api/src/deploy-files.test.ts` checks that it equals `ADMIN_CSP`); `vite preview` sends the same header, so E2E runs under it:
 
 ```
 Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';
@@ -222,8 +229,8 @@ X-Frame-Options: DENY
 
 | Suite | Command | Covers |
 |---|---|---|
-| Unit (46) | `npm run test -w @soltex/admin` | `test/logic.test.ts` (11): `routeFor` / `safeFrom` (open redirect), reset token parsing, navigation per role from the core permission map, no later-phase sections, ⌘K matching, API client (CSRF header, cookies only, URL encoding, problems, network and proxy errors), error texts and when a request id is shown, audit wording, plurals and devices, generated password; `audit-actions.test.ts` (1): a label for every audit action in the API sources; `content.test.ts` (8, Phase E); `translations.test.ts` (6, Phase F: editor model, RTL, validation, permissions); `publishing.test.ts` (6, Phase G); `seo.test.ts` (4, Phase I); `media.test.ts` (4, Phase J); `leads.test.ts` (3, Phase K); `overview.test.ts` (3, Phase L) |
-| E2E (102) | `npm run test:e2e:admin` (`scripts/admin-e2e.mjs`, runs every `apps/admin/e2e/*.e2e.mjs`) | Built admin under its CSP + real API + PostgreSQL + Chromium with a virtual WebAuthn authenticator. Files: `admin.e2e.mjs` (shell, 25), `content.e2e.mjs` (12), `publishing.e2e.mjs` (11), `translations.e2e.mjs` (10), `leads.e2e.mjs` (7), `media.e2e.mjs` (7), `redirects.e2e.mjs` (7), `seo.e2e.mjs` (7), `site-forms.e2e.mjs` (7), `dashboard.e2e.mjs` (6), `site-csp.e2e.mjs` (3) |
+| Unit (49) | `npm run test -w @soltex/admin` | `test/logic.test.ts` (11): `routeFor` / `safeFrom` (open redirect), reset token parsing, navigation per role from the core permission map, the navigation sections, ⌘K matching, API client (CSRF header, cookies only, URL encoding, problems, network and proxy errors), error texts and when a request id is shown, audit wording, plurals and devices, generated password; `audit-actions.test.ts` (1): a label for every audit action in the API sources; `content.test.ts` (8, Phase E); `translations.test.ts` (6, Phase F: editor model, RTL, validation, permissions); `publishing.test.ts` (6, Phase G); `seo.test.ts` (4, Phase I); `media.test.ts` (4, Phase J); `leads.test.ts` (3, Phase K); `overview.test.ts` (3, Phase L); `settings.test.ts` (3, Phase N-0: form round trip, translations to check, field errors per language) |
+| E2E (104) | `npm run test:e2e:admin` (`scripts/admin-e2e.mjs`, runs every `apps/admin/e2e/*.e2e.mjs`) | Built admin under its CSP + real API + PostgreSQL + Chromium with a virtual WebAuthn authenticator. Files: `admin.e2e.mjs` (shell, 25), `content.e2e.mjs` (12), `publishing.e2e.mjs` (11), `translations.e2e.mjs` (10), `leads.e2e.mjs` (7), `media.e2e.mjs` (7), `redirects.e2e.mjs` (7), `seo.e2e.mjs` (7), `site-forms.e2e.mjs` (7), `dashboard.e2e.mjs` (6), `site-csp.e2e.mjs` (3), `settings.e2e.mjs` (2, Phase N-0, with the 4th Admin user: edit and save with step-up, language-tab warning; invalid e-mail refused) |
 
 **What the E2E suite does:**
 - **Sign-in and session:**

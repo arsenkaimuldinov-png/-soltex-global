@@ -224,6 +224,13 @@ export const routes = [
             },
           },
           {
+            path: 'admin/settings',
+            lazy: async () => {
+              const { SettingsPage } = await import('./features/settings/SettingsPage');
+              return { element: <RequirePermission permission="settings.manage"><SettingsPage /></RequirePermission> };
+            },
+          },
+          {
             path: 'admin/system',
             lazy: async () => {
               const { SystemPage } = await import('./features/system/SystemPage');

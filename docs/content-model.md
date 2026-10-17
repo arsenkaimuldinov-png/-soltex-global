@@ -1,6 +1,6 @@
 # Content model
 
-Status: current as of Phase M-1 (commit 959f733)
+Status: current as of Phase N-0
 
 This document lists the content entities as they are modelled in the code. It does not describe the entities the brief asked for. Sources:
 - `packages/core/src/content/store.ts`: stored, multilingual `ContentStore` types;
@@ -27,8 +27,8 @@ The `ContentStore` holds ten collections. It is the format of the seed, of `db:e
 | `patents` | `PatentRecord` | no (listed on home and `/technologies/patents`) | yes | 6 (4 `home`, 2 `registry`) | all published |
 | `videos` | `VideoRecord` | no (home video block) | yes | 2 | all published |
 | `media` | `MediaRecord` | files only | yes (media library) | 25 (23 images, 2 videos) | — |
-| `settings` | `GlobalSettingsRecord` (with `metrics[]`, `offices[]`) | no | **no** (no API or screen yet) | 1 singleton: 5 metrics, 4 offices | — |
-| `redirects` | `RedirectRecord` | — | yes («SEO → Редиректы») | 0 | — |
+| `settings` | `GlobalSettingsRecord` (with `metrics[]`, `offices[]`) | no | yes, texts and contacts of existing records («Настройки сайта», Phase N-0); not logos or images | 1 singleton: 5 metrics, 4 offices | — |
+| `redirects` | `RedirectRecord` | — | yes («SEO → Редиректы») | 3 (old-site addresses, Phase N-0) | — |
 
 Leads and users are not content. They live only in the database and are never part of the store ([`admin-leads.md`](admin-leads.md), [`admin-auth.md`](admin-auth.md)).
 
@@ -156,7 +156,7 @@ The homepage is composed in code: hero, metric ribbon (settings metrics), key di
 | `offices[]` | `{ id, order, region, title, country, address?, representative? (Localized), phone?, email, whatsapp? }` |
 | `defaultSeo` | `siteTitle`, `siteDescription` (Localized) |
 
-Settings have a `translationStatus` but no publishing status, no review columns and no revisions. **They cannot be edited in the admin** ([`admin-content.md`](admin-content.md)). Changes go through the seed and `db:import`.
+Settings have a `translationStatus` but no publishing status, no review columns and no revisions. Since Phase N-0 «Настройки сайта» edits `primaryEmail`, `headquarters` (texts and e-mail), footer texts, `defaultSeo`, and the texts and contacts of existing `metrics[]` and `offices[]` in all six languages at once ([`admin-settings.md`](admin-settings.md)). Not editable there: `siteName`, `logo`, `logoReversed`, `footerBackground`, `footerBackgroundAlt`, and adding, removing or reordering metrics and offices (seed and `db:import`, by the developer).
 
 ### 3.9 Media (`media`)
 
@@ -233,14 +233,14 @@ The brief lists more entities than the code has. The state of each:
 | Brief entity | State | What exists (verified) |
 |---|---|---|
 | **Industries** | **NOT IMPLEMENTED** as an entity | No table, store type or route. Industry-like information appears only as free text: product `applications`, technology `applications`. `apps/web/src/components/IndustriesModal.tsx` and `SectorsGrid.tsx` (data from `apps/web/src/data/soltexData.ts`) hold **hardcoded** sector lists, but no page or component imports them (unused) |
-| **Countries / Locations** | **NOT IMPLEMENTED** as an entity | `Project.country` is free Localized text. `settings.offices[]` (4 offices: region, title, country, address, contacts) is the only structured location data. It is rendered on `/company/global-presence` and cannot be edited in the admin. No country table, no project↔country relation |
+| **Countries / Locations** | **NOT IMPLEMENTED** as an entity | `Project.country` is free Localized text. `settings.offices[]` (4 offices: region, title, country, address, contacts) is the only structured location data. It is rendered on `/company/global-presence`; existing offices are edited in «Настройки сайта». No country table, no project↔country relation |
 | **Insights / Articles** | **NOT IMPLEMENTED** | No table, type, route or admin screen. `apps/web/src/components/InsightsModal.tsx` holds hardcoded sample articles and is imported nowhere (unused). Whether its texts are real company content is **UNKNOWN** |
 | **Team** | **NOT IMPLEMENTED** | No entity, page list or slot for people. Only generic mentions of "team" inside page copy texts |
 | **Documents / PDF library** | **NOT IMPLEMENTED** | `media_kind` is `image` \| `video`. Upload types exclude PDF (DB CHECK and `MEDIA_TYPES`). No document field on any entity. The seed has no PDF references |
 | Services | Partial | Modelled as EPC/EPCM stages (§3.4). There is no separate service entity |
-| Company information | Partial | `company` and `globalPresence` pages (slots + `capabilities` and `timeline` lists) and `settings` (HQ, metrics, offices). Settings are not editable in the admin |
+| Company information | Partial | `company` and `globalPresence` pages (slots + `capabilities` and `timeline` lists) and `settings` (HQ, metrics, offices), edited in «Настройки сайта» |
 | Navigation | NOT IMPLEMENTED as content | Navigation is code (`Navbar`, `Footer`) with UI-string labels |
-| Contact / Leads | Implemented | Leads are a database-only domain, not content ([`admin-leads.md`](admin-leads.md)). Contact details are in `settings` (not editable in the admin) |
+| Contact / Leads | Implemented | Leads are a database-only domain, not content ([`admin-leads.md`](admin-leads.md)). Contact details are in `settings` («Настройки сайта») |
 
 **Legacy hardcoded data:** `apps/web/src/data/soltexData.ts` and `pagesData.ts` still exist.
 - `soltexData.ts` is imported only by components that no page renders: `MissionDark`, `SectorsGrid`, `WhySoltex`, `FinalCta`, `FeaturedProject`.

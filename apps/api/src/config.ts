@@ -48,6 +48,8 @@ export interface ApiConfig {
   };
   /** SMTP for all e-mail; null = not configured (mail waits in the outbox, nothing is lost). */
   mail: { smtpUrl: string; from: string } | null;
+  /** Status file written by deploy/scripts/backup.sh after each successful backup (Phase N-0); null = not set up. */
+  backupStatusFile: string | null;
   /**
    * Switches of the public site's forms (Phase K-2), applied by the next site build. Both stay off
    * until the client approves the privacy texts (approved §13.2–§13.3, client decisions B3 / §22.6).
@@ -181,6 +183,7 @@ export function loadConfig(source: Record<string, string | undefined> = process.
     media: { dir: mediaDir, legacyDir },
     leads: { notifyTo, retentionMonths, privacyNoticeVersion: source.PRIVACY_NOTICE_VERSION?.trim() || null },
     mail: smtpUrl ? { smtpUrl, from: source.MAIL_FROM! } : null,
+    backupStatusFile: source.BACKUP_STATUS_FILE?.trim() || null,
     site: { leadsEnabled, attributionEnabled },
   };
 }

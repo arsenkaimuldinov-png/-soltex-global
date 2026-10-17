@@ -1,6 +1,6 @@
 # Architecture
 
-Status: current as of Phase M-1 (commit 959f733)
+Status: current as of Phase N-0
 
 This document describes the system as it is implemented. It does not describe plans. The approved target architecture is [`admin-architecture-approved.md`](admin-architecture-approved.md). Phase-by-phase progress is in [`admin-architecture-implementation.md`](admin-architecture-implementation.md).
 
@@ -45,7 +45,7 @@ Other top-level folders:
 |---|---|
 | `apps/api/drizzle/` | SQL migrations `0000`–`0010` ([`cms-schema.md`](cms-schema.md)) |
 | `apps/api/db/provision.sql` | DB roles |
-| `deploy/nginx/soltexglobal.conf` | Public site host |
+| `deploy/` | Server files: nginx hosts (`nginx/soltexglobal.conf` site, `admin.soltexglobal.conf`, `preview.soltexglobal.conf`), systemd units (`systemd/`), scripts (`scripts/backup.sh`, `restore-check.sh`, `update.sh`, `smoke.sh`), env templates ([`deployment.md`](deployment.md)) |
 | `netlify.toml` | Temporary demo hosting only |
 | `scripts/` | Lint guards, QA, admin E2E |
 
@@ -73,12 +73,14 @@ The root `drizzle/` folder only holds an empty `meta/_journal.json`. The real mi
 
 | Process | Entry | Listens | Does |
 |---|---|---|---|
-| API | `npm run start -w @soltex/api` | `API_HOST` (default `127.0.0.1`):`API_PORT` (3100) | `/api/v1/*` for the admin (182 documented operations), the public lead endpoint, the hidden nginx redirect lookup |
-| Worker | `npm run worker -w @soltex/api` | — | One loop (`workerLoop`). Builds queued releases one at a time (advisory lock `724001`). When idle, makes responsive image copies. Sends one outbox e-mail per tick. Anonymizes due leads hourly. On start, marks stale builds `failed` and reconciles the DB with the `current` symlink |
+| API | `npm run start -w @soltex/api` | `API_HOST` (default `127.0.0.1`):`API_PORT` (3100) | `/api/v1/*` for the admin (184 documented operations), the public lead endpoint, the hidden nginx redirect lookup |
+| Worker | `npm run worker -w @soltex/api` | — | One loop (`workerLoop`). Builds queued releases one at a time (advisory lock `724001`). When idle, makes responsive image copies. Sends one outbox e-mail per tick. Anonymizes due leads hourly. Deletes expired service rows hourly (`cleanupExpired`, [`admin-database.md`](admin-database.md)). On start, marks stale builds `failed` and reconciles the DB with the `current` symlink |
 | Preview server | `npm run preview-server -w @soltex/api` | loopback:`PREVIEW_PORT` (3102) | Serves a built release or preview artifact to the holder of a one-time grant. `noindex`, `no-store`, `robots.txt` Disallow |
 | nginx (site host) | `deploy/nginx/soltexglobal.conf` | 443 | Serves `/srv/soltex/current`, `/media/originals/`, `/media/variants/`. Proxies only `POST /api/v1/public/leads` and the `@lookup` fallback to the API |
+| nginx (admin host) | `deploy/nginx/admin.soltexglobal.conf` | 443 | Serves the admin build from `/srv/soltex/admin` (SPA fallback), proxies `/api/` to the API, `/internal/` → 404, `noindex` |
+| nginx (preview host) | `deploy/nginx/preview.soltexglobal.conf` | 443 | Proxies everything to the preview server |
 
-The admin host's and preview host's nginx blocks are **not in the repository yet**. [`deployment.md`](deployment.md) lists them under "Still to set on the server (Phase N)".
+The processes run as systemd units `soltex-api`, `soltex-worker`, `soltex-preview` (`deploy/systemd/`); nightly backups run from `soltex-backup.timer`.
 
 ---
 
@@ -138,7 +140,7 @@ The full review is [`admin-security-asvs.md`](admin-security-asvs.md) (OWASP ASV
 | Data at rest | Lead e-mail, phone, message and notes encrypted per column (AES-256-GCM, `DATA_ENCRYPTION_KEYS`). HMAC blind indexes. IPs only as keyed hashes ([`admin-leads.md`](admin-leads.md)) |
 | Database | Three roles. The app role cannot change the schema. Append-only audit log, revisions, snapshots and release events enforced by grants **and** triggers ([`cms-schema.md`](cms-schema.md) §5) |
 | Logging | pino with redaction of cookies, authorization, bodies and lead fields. URLs logged without query strings |
-| Headers | Site: CSP (`SITE_CSP`, checked by `scripts/check-site-csp.mjs`), HSTS, nosniff, Referrer-Policy, Permissions-Policy, X-Frame-Options. Admin CSP is defined in `apps/admin/vite.config.ts` (nginx block pending) |
+| Headers | Site: CSP (`SITE_CSP`, checked by `scripts/check-site-csp.mjs`), HSTS, nosniff, Referrer-Policy, Permissions-Policy, X-Frame-Options. Admin CSP is defined in `apps/admin/vite.config.ts` (`ADMIN_CSP`) and sent by `deploy/nginx/admin.soltexglobal.conf` (equality checked by `apps/api/src/deploy-files.test.ts`) |
 | API docs | `/api/v1/docs/openapi.json` only when `API_DOCS=authenticated` (forced `off` in production) |
 | Build isolation | The site build gets no secrets. Artifact validation fails on secret-like strings |
 
@@ -146,8 +148,9 @@ The full review is [`admin-security-asvs.md`](admin-security-asvs.md) (OWASP ASV
 
 ## 7. Deployment (summary)
 
-- Production target: a Host.KZ-compatible VPS. Server setup (Phase N) is **not done**.
-- The server runs nginx, PostgreSQL 17 with the three roles of `provision.sql`, and three systemd units (API, worker, preview server), with `RELEASES_DIR=/srv/soltex` and `MEDIA_DIR=/srv/soltex/media` on one filesystem.
+- Production target: a Host.KZ-compatible VPS. The server files are in `deploy/` (Phase N-0); the step-by-step install is [`deploy-runbook-ru.md`](deploy-runbook-ru.md). The server itself is not set up yet.
+- Layout: code in `/opt/soltex/app`, data in `/srv/soltex` (`RELEASES_DIR=/srv/soltex`, `MEDIA_DIR=/srv/soltex/media`, admin build in `/srv/soltex/admin`), environment in `/etc/soltex/` (`soltex.env`, `migrate.env`, `backup.env`), backups in `/var/backups/soltex`.
+- The server runs nginx, PostgreSQL 17 with the roles of `provision.sql`, and the systemd units of `deploy/systemd/`.
 - Netlify (`netlify.toml`) is a temporary demo of the seed build only.
 
 Full details: [`deployment.md`](deployment.md).
@@ -169,9 +172,10 @@ Full details: [`deployment.md`](deployment.md).
 | SEO checks, slugs, redirects | [`admin-seo.md`](admin-seo.md) |
 | Media library | [`admin-media.md`](admin-media.md) |
 | Leads | [`admin-leads.md`](admin-leads.md) |
+| Site settings | [`admin-settings.md`](admin-settings.md) |
 | Authentication, MFA, sessions | [`admin-auth.md`](admin-auth.md) |
 | Admin UI conventions | [`admin-ui.md`](admin-ui.md) |
 | Security review | [`admin-security-asvs.md`](admin-security-asvs.md) |
 | Public, admin and API routes | [`routes.md`](routes.md) |
-| Hosting, nginx, headers | [`deployment.md`](deployment.md) |
+| Hosting, nginx, headers | [`deployment.md`](deployment.md), [`deploy-runbook-ru.md`](deploy-runbook-ru.md) |
 | Frontend motion / design | [`motion-system.md`](motion-system.md), [`design-v1-implementation.md`](design-v1-implementation.md) |

@@ -112,7 +112,7 @@ export class Client {
     readonly ip = nextIp()
   ) {}
 
-  async req(method: 'GET' | 'POST' | 'PATCH' | 'DELETE', url: string, body?: unknown, headers: Record<string, string> = {}): Promise<LightMyRequestResponse> {
+  async req(method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE', url: string, body?: unknown, headers: Record<string, string> = {}): Promise<LightMyRequestResponse> {
     const res = await this.t.app.inject({
       method,
       url,

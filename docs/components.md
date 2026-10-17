@@ -1,6 +1,6 @@
 # Component inventory
 
-Status: current as of Phase M-1 (commit 959f733)
+Status: current as of Phase N-0
 
 Two front-ends, no shared components: the public site (`apps/web`, React 19 + Vite + Tailwind 4, prerendered) and the admin (`apps/admin`, React 19 + Vite + Tailwind 4 + Radix, Russian UI). Shared **logic** (SEO rules, permissions, locales, page registry, validation) lives in `packages/core`; shared **UI** does not exist by design.
 
@@ -97,13 +97,14 @@ Excluded from type checking in `apps/web/tsconfig.json` and kept for a later cle
 | `i18n/I18nProvider.tsx` | Locale, `t()`/`tr()`, content of the current language, `lp()`, `switchLocale()` |
 | `i18n/config.ts`, `paths.ts`, `bundles.ts`, `translate.ts` | Locale list, URL prefixes, code-split language bundles, UI-string lookup |
 | `i18n/Link.tsx` | Locale-aware link; page changes inside a View Transition |
-| `i18n/SeoHead.tsx`, `seo.ts` | Head tags on client navigation; per-route SEO metadata (see [`seo.md`](seo.md)) |
+| `i18n/SeoHead.tsx`, `seo.ts` | Head tags on client navigation (including `og:image`); per-route SEO metadata with the `og:image` fallback chain and `DEFAULT_OG_IMAGE` (see [`seo.md`](seo.md)) |
+| `i18n/structured-data.ts` | JSON-LD for prerender: Organization + WebSite on home, BreadcrumbList on detail pages (`getStructuredData()`, `jsonLdScript()`) |
 | `motion/prefs.ts`, `useRevealSystem.ts`, `usePresence.ts` | Motion classes, the single reveal observer, exit transitions |
 | `hooks/useDialog.ts` | Shared dialog behaviour |
 | `services/leads/*` | Lead service: demo (`simulated.ts`) or HTTP (`http.ts`) chosen by build flag; topics; UTM attribution (off by default) |
 | `entry-server.tsx`, `main.tsx`, `App.tsx` | Prerender entry (StaticRouter), browser entry (hydrate), routes and layout |
 
-Build scripts: `scripts/content/build-snapshots.ts` (validate content, run the SEO checker, write snapshots), `scripts/prerender.ts` (HTML per route × language, 404 pages, sitemap), `scripts/validate-site.ts` (output checks), `scripts/qa/*` (visual regression).
+Build scripts: `scripts/content/build-snapshots.ts` (validate content, run the SEO checker, write snapshots), `scripts/prerender.ts` (HTML per route × language with JSON-LD, 404 pages, sitemap, robots.txt), `scripts/validate-site.ts` (output checks), `scripts/qa/*` (visual regression).
 
 ---
 
@@ -150,6 +151,7 @@ Build scripts: `scripts/content/build-snapshots.ts` (validate content, run the S
 | `seo/` | `SeoReportPage`, `SeoPanel` (snippet and checks in editors), `RedirectsPage`, `SlugDialog` («Изменить адрес»), `model.ts` |
 | `media/` | `MediaLibraryPage`, `MediaDetailPage`, `upload.tsx`, `model.ts` |
 | `leads/` | `LeadsListPage`, `LeadDetailPage`, `model.ts` |
+| `settings/` | `SettingsPage` («Настройки сайта»: contacts, headquarters, footer, default SEO texts, metrics, offices, language tabs; save with step-up), `model.ts` (form ↔ API body, `translationsToCheck()`, field-error mapping) |
 | `users/` | `UsersPage`, `UserDialogs` |
 | `audit/` | `AuditPage`, `describe.ts` (audit events in Russian) |
 | `system/` | `SystemPage` (API, database, worker, queues, release) |

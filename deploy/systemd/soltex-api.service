@@ -1,0 +1,40 @@
+# Soltex Global — API (admin + public form endpoint), 127.0.0.1:3100
+# Phase N-0, docs/deploy-runbook-ru.md. Install: cp deploy/systemd/*.service *.timer /etc/systemd/system/
+# && systemctl daemon-reload && systemctl enable --now soltex-api
+[Unit]
+Description=Soltex Global api
+After=network-online.target postgresql.service
+Wants=network-online.target
+Requires=postgresql.service
+
+[Service]
+Type=simple
+User=soltex
+Group=soltex
+WorkingDirectory=/opt/soltex/app/apps/api
+# Application secrets only (no migration or backup credentials): see deploy/soltex.env.example.
+EnvironmentFile=/etc/soltex/soltex.env
+ExecStart=/usr/bin/node --import tsx src/server.ts
+Restart=always
+RestartSec=3
+TimeoutStopSec=30
+
+# Hardening: read-only system and code, writable data only.
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictNamespaces=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+# Uploaded media must be readable by nginx (www-data).
+UMask=0022
+ReadWritePaths=/srv/soltex
+
+[Install]
+WantedBy=multi-user.target

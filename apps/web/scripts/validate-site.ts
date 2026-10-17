@@ -6,7 +6,8 @@
  *           sitemap URLs exist, are indexable and canonical · noindex only where the content
  *           sets it (then no hreflang, not in the sitemap) · every <title>, meta description and
  *           robots value equals the SEO model of @soltex/core/seo (the admin snippet = the site) ·
- *           redirects: no loops, no chains, never shadow a live route
+ *           redirects: no loops, no chains, never shadow a live route · robots.txt allows the
+ *           site and names the sitemap · every page has og:image · JSON-LD parses (Phase N-0)
  * INTEGRITY every internal link resolves · every referenced image/video/file exists ·
  *           every content relation resolves · 404 pages exist for every language
  * PORTABILITY / SECURITY  production output contains no CMS/backend secrets, no localhost or
@@ -250,6 +251,28 @@ else {
     if (i.canonical[0] === i.url && !(i.robots ?? '').includes('noindex') && !locs.includes(i.url)) err(`sitemap: missing ${i.url}`);
 }
 
+// robots.txt, social card, structured data
+if (!fileSet.has('/robots.txt')) err('robots.txt missing');
+else {
+  const robots = read('/robots.txt');
+  if (!robots.includes(`Sitemap: ${SITE_URL}/sitemap.xml`)) err('robots.txt: no Sitemap line for this site');
+  if (/^Disallow:\s*\/\s*$/m.test(robots)) err('robots.txt blocks the whole site');
+}
+for (const f of htmlPages) {
+  const html = read(f);
+  const og = html.match(/<meta property="og:image" content="([^"]+)"/)?.[1];
+  if (!og) err(`${f}: no og:image`);
+  else if (og.startsWith(SITE_URL) && !assetExists(decodeURI(og.slice(SITE_URL.length)))) err(`${f}: og:image missing: ${og}`);
+  for (const m of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    try {
+      const data = JSON.parse(m[1]!) as Record<string, unknown>;
+      if (data['@context'] !== 'https://schema.org' || typeof data['@type'] !== 'string') err(`${f}: JSON-LD without @context/@type`);
+    } catch {
+      err(`${f}: JSON-LD does not parse`);
+    }
+  }
+}
+
 // ---------------------------------------------------------------------------
 // 404 pages
 // ---------------------------------------------------------------------------
@@ -323,5 +346,5 @@ if (errors.length) {
   process.exit(1);
 }
 console.log(
-  `validate-site: OK — ${pages.length} pages, ${LOCALES.length} not-found pages, ${checked.size} internal links/assets, sitemap, hreflang, redirects, portability`
+  `validate-site: OK — ${pages.length} pages, ${LOCALES.length} not-found pages, ${checked.size} internal links/assets, sitemap, robots.txt, og:image, JSON-LD, hreflang, redirects, portability`
 );

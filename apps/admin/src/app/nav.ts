@@ -2,14 +2,13 @@
  * Navigation model (review §X sidebar). One list drives the sidebar, the ⌘K palette and the route
  * guards, so a screen is never visible in one place and hidden in another.
  *
- * Only screens that exist are listed. The sections of later phases (Настройки) are added here
- * together with their screens; there are no placeholders.
+ * Only screens that exist are listed; there are no placeholders.
  * Visibility is a presentation of the user's permissions (from GET /auth/session); the API
  * enforces every permission on its own.
  */
 import type { Permission } from '@soltex/core/domain';
 import type { LucideIcon } from 'lucide-react';
-import { Activity, AlertTriangle, Award, FileText, FlaskConical, FolderKanban, History, Images, Inbox, Languages, SearchCheck, Signpost, LayoutDashboard, ListChecks, Package, Rocket, ScrollText, Send, ShieldCheck, Users, Video, Workflow } from 'lucide-react';
+import { Activity, AlertTriangle, Award, FileText, FlaskConical, FolderKanban, History, Images, Inbox, Languages, SearchCheck, Signpost, LayoutDashboard, ListChecks, Package, Rocket, ScrollText, Send, Settings, ShieldCheck, Users, Video, Workflow } from 'lucide-react';
 
 export interface NavItem {
   id: string;
@@ -86,6 +85,7 @@ export const NAV: NavSection[] = [
     items: [
       { id: 'users', label: 'Пользователи', to: '/admin/users', icon: Users, permission: 'users.manage', keywords: ['роли', 'доступ', 'сотрудники'] },
       { id: 'audit', label: 'Журнал действий', to: '/admin/audit', icon: ScrollText, permission: 'audit.read', keywords: ['аудит', 'история', 'лог'] },
+      { id: 'settings', label: 'Настройки сайта', to: '/admin/settings', icon: Settings, permission: 'settings.manage', keywords: ['контакты', 'офисы', 'телефон', 'e-mail', 'адрес', 'подвал', 'цифры', 'реквизиты'] },
       { id: 'system', label: 'Система', to: '/admin/system', icon: Activity, permission: 'system.read', keywords: ['состояние', 'сервер', 'api'] },
     ],
   },

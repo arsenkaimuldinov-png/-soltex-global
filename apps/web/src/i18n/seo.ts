@@ -15,7 +15,7 @@ import { DEFAULT_LOCALE, LOCALES, Locale, SITE_URL, getLocaleInfo } from './conf
 import { localizePath } from './paths';
 import type { ContentApi } from '../content/getters';
 import { resolveRoute } from '../content/routes';
-import type { Seo } from '../content/types';
+import type { MediaAsset, Seo } from '../content/types';
 
 export interface RouteMeta {
   title: string;
@@ -25,9 +25,15 @@ export interface RouteMeta {
   canonicalLocale: Locale;
   /** Locales that have this page (for hreflang). */
   alternateLocales: Locale[];
-  /** Absolute OG image URL, if any. */
+  /** Absolute OG image URL: the SEO override, else the page's own photo, else DEFAULT_OG_IMAGE. */
   ogImage: string | null;
 }
+
+/**
+ * Social-card image used when a page has neither an SEO image nor a photo of its own (Phase N-0):
+ * the client logo scaled onto the site background, 1200×630 (docs/seo.md).
+ */
+export const DEFAULT_OG_IMAGE = '/og-default.png';
 
 const BRAND = 'Soltex Global';
 
@@ -49,9 +55,12 @@ const withBrand = (title: string) => `${title} | ${BRAND}`;
 
 const toAbsolute = (src: string) => (/^https?:\/\//.test(src) ? src : `${SITE_URL}${src}`);
 
+/** A page photo usable as a social card: link previews do not reliably show WebP/AVIF. */
+const photo = (m: MediaAsset | null | undefined) => (m && m.kind === 'image' && /\.(jpe?g|png)$/i.test(m.src) ? m.src : null);
+
 function build(
   seo: Seo | null,
-  defaults: { title: string; description: string },
+  defaults: { title: string; description: string; image?: string | null },
   meta: { contentLocale: Locale; availableLocales: Locale[] }
 ): RouteMeta {
   return {
@@ -60,7 +69,7 @@ function build(
     indexable: !(seo?.noindex ?? false),
     canonicalLocale: meta.contentLocale,
     alternateLocales: meta.availableLocales,
-    ogImage: seo?.ogImage ? toAbsolute(seo.ogImage.src) : null,
+    ogImage: toAbsolute(seo?.ogImage?.src ?? defaults.image ?? DEFAULT_OG_IMAGE),
   };
 }
 
@@ -76,16 +85,17 @@ export function getRouteMeta(path: string, content: ContentApi): RouteMeta | nul
         {
           title: withBrand(page.header?.title ?? BRAND),
           description: summarize(page.header?.description ?? ''),
+          image: photo(Object.values(page.media ?? {})[0]),
         },
         page
       );
     }
     case 'technology':
-      return build(route.item.seo, { title: withBrand(route.item.title), description: summarize(route.item.overview) }, route.item);
+      return build(route.item.seo, { title: withBrand(route.item.title), description: summarize(route.item.overview), image: photo(route.item.image) }, route.item);
     case 'product':
-      return build(route.item.seo, { title: withBrand(route.item.title), description: summarize(route.item.description) }, route.item);
+      return build(route.item.seo, { title: withBrand(route.item.title), description: summarize(route.item.description), image: photo(route.item.image) }, route.item);
     case 'project':
-      return build(route.item.seo, { title: withBrand(route.item.title), description: summarize(route.item.overview) }, route.item);
+      return build(route.item.seo, { title: withBrand(route.item.title), description: summarize(route.item.overview), image: photo(route.item.image) }, route.item);
   }
 }
 
@@ -97,7 +107,7 @@ export function getNotFoundMeta(title: string, content: ContentApi): RouteMeta {
     indexable: false,
     canonicalLocale: DEFAULT_LOCALE,
     alternateLocales: [],
-    ogImage: null,
+    ogImage: toAbsolute(DEFAULT_OG_IMAGE),
   };
 }
 

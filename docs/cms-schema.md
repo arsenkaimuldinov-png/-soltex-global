@@ -1,6 +1,6 @@
 # CMS schema (PostgreSQL)
 
-Status: current as of Phase M-1 (commit 959f733)
+Status: current as of Phase N-0
 
 "CMS" here means the project's own admin + API. No third-party CMS is used ([`architecture.md`](architecture.md) §1).
 
@@ -101,7 +101,7 @@ Each entity below has the `entity()` columns. Each translation table has the `tr
 
 ### 3.4 Site settings
 
-These tables are not editable in the admin yet. There is no API for them.
+Edited in the admin through `GET`/`PUT /api/v1/settings` since Phase N-0 (existing rows only; no inserts or deletes; logos, footer image and `footer_background_alt` are not editable) — [`admin-settings.md`](admin-settings.md). A save renews `approved_source_hash` of approved `settings_translations` rows.
 
 | Table | Purpose | Key columns |
 |---|---|---|
@@ -210,5 +210,6 @@ After migrating, `db:migrate` and `db:import` also link existing approvals to re
 | Leads | Worker, hourly: `anonymizeDue()` in `apps/api/src/leads/service.ts` | Leads deleted more than 30 days ago (`LEAD_DELETE_GRACE_DAYS`), or created more than `LEAD_RETENTION_MONTHS` ago (default 24, allowed 1–120), are anonymized. The job nulls `name`, `company`, the encrypted contact fields, blind indexes, `ip_hash` and `attribution`, and nulls `lead_events.note_enc`. It then writes an `anonymized` event and one `lead.anonymize` audit entry. Up to 500 rows per run. Date, form, locale, page, topic and status remain |
 | Audit log | none | Kept forever. Pruning needs a separate reviewed migration that works around the trigger (comment in 0003) |
 | Revisions, snapshots, releases, release artifacts | none | Never deleted. Pruning is a later decision ([`admin-publishing.md`](admin-publishing.md)) |
-| Expired sessions, challenges, password resets, preview grants, sent outbox rows | **none found** | No cleanup job in `apps/api/src`. Expiry is enforced on read. Rows accumulate |
+| Expired service rows | Worker, hourly: `cleanupExpired()` in `apps/api/src/system/cleanup.ts` (Phase N-0) | Deletes `webauthn_challenges` expired > 1 day, `password_resets` expired > 30 days, expired `known_devices`, `sessions` ended (expired or revoked) > 30 days unless referenced by `preview_grants`, `outbox` rows sent > 30 days. One `system.cleanup` audit entry (`count`, `kind`) when anything was deleted |
+| Preview grants | none | Append-only; kept as a record ([`admin-database.md`](admin-database.md) §8) |
 | Media files | none | Files are immutable. Unreferenced files are meant for a later garbage collection that respects backup retention (`apps/api/src/media/storage.ts`) |

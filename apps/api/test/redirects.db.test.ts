@@ -71,7 +71,7 @@ describe('Redirects and address changes (Phase I-2)', { skip: !DB_ENABLED && 'DA
     assert.equal(await field({ from: '/gone', to: '/nowhere' }), 'redirect_rejected:to=redirect_target_missing');
     assert.equal(await field({ from: '/contact', to: '/company' }), 'redirect_rejected:from=redirect_shadows_page');
     assert.equal(await field({ from: '/ru/old-company', to: '/ru', allLocales: false }), 'redirect_rejected:from=redirect_duplicate');
-    assert.equal((await t.deps.db!.select().from(s.redirects)).length, 1, 'nothing stored by refused saves');
+    assert.equal((await t.deps.db!.select().from(s.redirects)).filter((r) => r.source !== 'import').length, 1, 'nothing stored by refused saves (besides the seed redirects)');
   });
 
   test('chains are collapsed: a new rule to a redirected path points to the final page; rules to its source are rewritten', async () => {
