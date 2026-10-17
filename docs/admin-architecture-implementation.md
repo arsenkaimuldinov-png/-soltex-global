@@ -799,3 +799,75 @@ J-8 … J-10 in [`admin-media.md`](admin-media.md) §12:
 - WebP only, no `<picture>` / AVIF;
 - alt texts still contextual;
 - `srcset` on content images only.
+
+## Phase K-1: Leads — intake, protection, notifications, admin (2026-10-17)
+
+**Base commit:** `f5277da`. Details: [`admin-leads.md`](admin-leads.md). Phase K is split:
+- **K-1** (here): the server side and the admin;
+- **K-2**: the forms of the site and UTM attribution, behind flags that stay off until the client confirms the privacy texts.
+
+Open client decisions (approved §21 B3–B5, §22.4/6) are handled with safe defaults (admin-leads.md, beginning).
+
+### What was done
+
+1. **Core** (`@soltex/core/domain`, `leads.ts`):
+   - forms, statuses, required fields, limits;
+   - normalization for the blind index;
+   - `spamVerdict` (honeypot, fill time, links, markup, keywords);
+   - `leadReference`;
+   - `csvCell` (formula-safe).
+2. **Database** (migration `0009`):
+   - `leads` (encrypted e-mail / phone / message, blind indexes, IP hash, consent record, bin, anonymization);
+   - `lead_events` (history; encrypted notes);
+   - `outbox`;
+   - sequence `lead_number_seq`.
+3. **API** (tag `leads`, API 0.11.0, 178 operations):
+   - `POST /public/leads`: site header and origin, ≤ 20 KB, 5 per 10 min per IP, field-name-only errors, spam stored as spam;
+   - list (filters; exact e-mail / phone search through the blind index), detail, status / assignee, notes, bin / restore, notice retry;
+   - CSV export with step-up, audit and an Owner notice;
+   - `EmailProvider`: SMTP through nodemailer, unconfigured, fake;
+   - the worker delivers the outbox with backoff and anonymizes hourly (30 days after deletion, after `LEAD_RETENTION_MONTHS`);
+   - pino `redact` for lead data;
+   - the CSRF hook accepts `X-Requested-With: soltex-site` from the site origin on `/api/v1/public/*` only;
+   - config: `SMTP_URL`, `MAIL_FROM`, `LEAD_NOTIFY_TO`, `LEAD_RETENTION_MONTHS`, `PRIVACY_NOTICE_VERSION`;
+   - new dependency `nodemailer`. It has no dependencies of its own; 10.0.11 was chosen as a release more than two weeks old.
+4. **nginx:** the site host proxies only `POST /api/v1/public/leads` (10 per minute, 32 KB). Tested with the real config.
+5. **Admin:**
+   - «Заявки → Все заявки» (status chips with counts, filters in the address, search, bin, «Выгрузить CSV» with step-up);
+   - lead page (contacts with `tel:` / `mailto:`, message, status, assignee, notes, history, notification state with «Отправить ещё раз», consent record, bin);
+   - `downloadFile` in the API client.
+   - `DataTable`'s scroll container is now `relative`: visually hidden labels in cells no longer widen the page on phones.
+6. **Tests:**
+
+   | Suite | Added |
+   |---|---|
+   | Core (`leads.test.ts`) | +3 |
+   | API DB (`leads.db.test.ts`) | +10, including the canary test of approved §13.1 |
+   | nginx | +1 |
+   | Admin unit (`leads.test.ts`) | +2 |
+   | Admin E2E (`leads.e2e.mjs`) | +7 |
+
+   The public-route lists of `app.test.ts` and `rbac.db.test.ts` now include the form endpoint. Each E2E run removes the leads of earlier runs (they were encrypted with that run's random keys) and clears the image-copy records (their files lived in that run's `MEDIA_DIR`; the worker makes them again).
+
+### Verification (2026-10-17)
+
+| Check | Result |
+|---|---|
+| `git diff --check` | clean |
+| `npm run lint`, `npm test` | pass; 107 / 107 (core 46, api 20, admin 41) |
+| `npm run test:db` on a freshly provisioned database | 147 tests: 146 pass, 1 skipped (backup role) |
+| `npm run test:e2e:admin` | 84 / 84 pass (77 earlier + 7 leads) |
+| `openapi.json`, admin API types | up to date (178 operations) |
+| Drizzle | `check` OK; `generate` → no changes beyond `0009` |
+| DB regression | `seed → DB → export` byte-identical to the seed; the site from the DB export identical |
+| Public site vs `f5277da` | IDENTICAL: 230 files byte-equal, 348 pages, checks and navigation identical |
+
+### Deviations (Phase K-1)
+
+K-1 … K-6 in [`admin-leads.md`](admin-leads.md) §9:
+- the forms still use the demo service (K-2);
+- the outbox is delivered by the worker, not pg-boss;
+- security e-mails are not moved to the outbox yet;
+- recipients come from the environment;
+- no CAPTCHA;
+- the list shows up to 200 leads per filter.

@@ -64,6 +64,7 @@ Phase D delivers the admin shell and every screen that the Phase C API already s
 | `/translations/:type/:id/:locale` | `content.read` | Translation editor: English source next to the target language; Arabic inputs right-to-left. Unknown type or language shows «Страница не найдена» |
 | `/seo` | `seo.read` | SEO · Проверка SEO: every issue of the next release, filters `severity`, `locale`, `type` in the address (Phase I-1, [`admin-seo.md`](admin-seo.md)) |
 | `/media`, `/media/:id` | `media.read` | Контент · Медиатека: library with previews, upload (media.upload), file page with usages, «Заменить файл» (media.replace), «Удалить» (media.delete) (Phase J-1, [`admin-media.md`](admin-media.md)) |
+| `/leads`, `/leads/:id` | `leads.read` | Заявки: list with status chips, filters and search, bin, CSV export (`leads.export` + step-up); lead page with contacts, message, status / assignee / notes (`leads.manage`), history (Phase K-1, [`admin-leads.md`](admin-leads.md)) |
 | `/seo/redirects` | `redirects.read` | SEO · Редиректы: rules with source, code, languages, hits and checks; add / change / delete with `redirects.manage` (Phase I-2, [`admin-seo.md`](admin-seo.md) §8) |
 | `/publishing` | `content.read` | Публикация · Обзор: what is live, builds, unpublished changes, «Создать релиз», «Предпросмотр черновиков» (Phase G, [`admin-publishing.md`](admin-publishing.md)) |
 | `/publishing/revisions`, `/publishing/revisions/:type/:id` | `content.read` | Ревизии: all versions (filters `type`, `kind`, `q`, `page` in the address); full history of one record |

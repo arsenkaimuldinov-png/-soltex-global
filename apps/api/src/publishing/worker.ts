@@ -26,6 +26,8 @@ import type { Deps } from '../deps.ts';
 import { requireDb } from '../deps.ts';
 import { recordAudit } from '../audit/audit.ts';
 import { generateNextVariants } from '../media/variants.ts';
+import { anonymizeDue, processNextOutbox } from '../leads/service.ts';
+import { UnconfiguredEmailProvider, type EmailProvider } from '../notify/email.ts';
 import { readCurrent, readTree, releaseDir, removeDir, storeArtifact, type ArtifactTree } from './artifacts.ts';
 import { BuildFailure, type Builder } from './builder.ts';
 import { transition, withAdvisoryLock } from './releases.ts';
@@ -212,9 +214,10 @@ async function build(deps: Deps, builder: Builder, r: ReleaseRow): Promise<Relea
 }
 
 /** Long-running loop (`npm run worker -w @soltex/api`). */
-export async function workerLoop(deps: Deps, builder: Builder, signal: AbortSignal, intervalMs = 2000) {
+export async function workerLoop(deps: Deps, builder: Builder, signal: AbortSignal, intervalMs = 2000, email: EmailProvider = new UnconfiguredEmailProvider()) {
   await recoverStale(deps).catch(() => 0);
   await reconcileActive(deps).catch(() => null);
+  let lastAnonymize = 0;
   while (!signal.aborted) {
     let r: JobResult = { outcome: 'idle' };
     try {
@@ -230,7 +233,18 @@ export async function workerLoop(deps: Deps, builder: Builder, signal: AbortSign
       } catch (e) {
         console.error('worker: image variants error', (e as Error).message);
       }
-    if (r.outcome !== 'done' && media !== 'done') await new Promise((res) => setTimeout(res, intervalMs));
+    // Phase K: e-mail from the outbox (one message per tick), and the hourly lead anonymization.
+    let mail: 'done' | 'idle' = 'idle';
+    try {
+      mail = await processNextOutbox(deps, email);
+    } catch (e) {
+      console.error('worker: outbox error', (e as Error).message);
+    }
+    if (Date.now() - lastAnonymize > 60 * 60_000) {
+      lastAnonymize = Date.now();
+      await anonymizeDue(deps).catch((e: Error) => console.error('worker: anonymization error', e.message));
+    }
+    if (r.outcome !== 'done' && media !== 'done' && mail !== 'done') await new Promise((res) => setTimeout(res, intervalMs));
   }
 }
 

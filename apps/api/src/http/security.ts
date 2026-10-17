@@ -14,6 +14,8 @@ import { Problem } from './problem.ts';
 
 export const CSRF_HEADER = 'x-requested-with';
 export const CSRF_VALUE = 'soltex-admin';
+/** Header value the public site sends with lead forms (a simple request cannot set it cross-site). */
+export const SITE_CSRF_VALUE = 'soltex-site';
 const SAFE = new Set(['GET', 'HEAD', 'OPTIONS']);
 
 export async function registerSecurity(app: FastifyInstance, deps: Deps) {
@@ -28,6 +30,13 @@ export async function registerSecurity(app: FastifyInstance, deps: Deps) {
 
   app.addHook('onRequest', async (request) => {
     if (SAFE.has(request.method) || !request.url.startsWith('/api/v1/')) return;
+    // The public site (Phase K: lead forms) posts from its own origin, without cookies or sessions.
+    if (request.url.startsWith('/api/v1/public/')) {
+      if (request.headers[CSRF_HEADER] !== SITE_CSRF_VALUE) throw new Problem('csrf_rejected');
+      const origin = request.headers.origin;
+      if (origin !== undefined && origin !== deps.config.publicSiteUrl) throw new Problem('csrf_rejected');
+      return;
+    }
     if (request.headers[CSRF_HEADER] !== CSRF_VALUE) throw new Problem('csrf_rejected');
     const origin = request.headers.origin;
     if (origin !== undefined && origin !== deps.config.adminOrigin) throw new Problem('csrf_rejected');

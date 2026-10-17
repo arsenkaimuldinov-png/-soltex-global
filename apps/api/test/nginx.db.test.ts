@@ -230,6 +230,25 @@ describe('nginx fallback (Phase I-2, approved §11.4)', { skip: (!DB_ENABLED && 
     }
   });
 
+  test('the site forms reach the API through nginx (Phase K); nothing else under /api', async () => {
+    const body = JSON.stringify({ formType: 'cta_section', fields: { name: 'Nginx Test', phone: '+77011234567' }, topic: null, locale: 'en', pagePath: '/', fillMs: 9000 });
+    const post = (headers: Record<string, string>) =>
+      new Promise<{ status: number; body: string }>((resolve, reject) => {
+        const req = http.request({ host: '127.0.0.1', port: webPort, method: 'POST', path: '/api/v1/public/leads', headers: { 'content-type': 'application/json', ...headers } }, (res) => {
+          let b = '';
+          res.on('data', (c) => (b += c));
+          res.on('end', () => resolve({ status: res.statusCode!, body: b }));
+        });
+        req.on('error', reject);
+        req.end(body);
+      });
+    const ok = await post({ 'x-requested-with': 'soltex-site', origin: 'https://soltexglobal.co' });
+    assert.equal(ok.status, 201, ok.body);
+    assert.match(JSON.parse(ok.body).reference, /^SOL-\d{4}-\d{6}$/);
+    assert.equal((await post({ origin: 'https://soltexglobal.co' })).status, 403, 'without the site header');
+    for (const p of ['/api/v1/health', '/api/v1/leads', '/api/v1/auth/session']) assert.equal((await get(webPort, p)).status, 404, `${p} is not reachable on the site host`);
+  });
+
   test('API stopped → 404 (never 502); static pages still served', async () => {
     await t.app.close();
     const r = await get(webPort, '/old-company');

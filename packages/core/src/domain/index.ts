@@ -7,3 +7,4 @@ export * from './permissions.ts';
 export * from './translations.ts';
 export * from './releases.ts';
 export * from './media.ts';
+export * from './leads.ts';

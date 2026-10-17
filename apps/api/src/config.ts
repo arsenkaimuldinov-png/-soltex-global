@@ -37,6 +37,17 @@ export interface ApiConfig {
   };
   /** Public site origin used for redirect `Location` headers (Phase I-2, approved §11.3). */
   publicSiteUrl: string;
+  /** Leads and e-mail (Phase K, approved §13, §19). */
+  leads: {
+    /** Recipients of new-lead notices; empty = notices wait in the outbox. */
+    notifyTo: string[];
+    /** Leads older than this are anonymized (client decision §22.4; proposal 24). */
+    retentionMonths: number;
+    /** Version of the privacy notice the forms display (approved §13.2); null until the text exists. */
+    privacyNoticeVersion: string | null;
+  };
+  /** SMTP for all e-mail; null = not configured (mail waits in the outbox, nothing is lost). */
+  mail: { smtpUrl: string; from: string } | null;
   /** Media library (Phase J, review §I). */
   media: {
     /** Uploaded files: originals/<yyyy>/<uuid>.<ext> (served by nginx as /media/originals/…), previews/, tmp/. */
@@ -124,6 +135,14 @@ export function loadConfig(source: Record<string, string | undefined> = process.
 
   const { dir: mediaDir, legacyDir } = mediaConfig(source, env, releasesDir);
 
+  const notifyTo = (source.LEAD_NOTIFY_TO ?? '').split(',').map((x) => x.trim()).filter(Boolean);
+  for (const a of notifyTo) if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(a)) throw new Error('LEAD_NOTIFY_TO must be a comma-separated list of e-mail addresses');
+  const retentionMonths = Number(source.LEAD_RETENTION_MONTHS ?? 24);
+  if (!Number.isInteger(retentionMonths) || retentionMonths < 1 || retentionMonths > 120) throw new Error('LEAD_RETENTION_MONTHS must be an integer 1–120');
+  const smtpUrl = source.SMTP_URL ?? '';
+  if (smtpUrl && !/^smtps?:\/\/[^\s]+$/.test(smtpUrl)) throw new Error('SMTP_URL must be smtp://… or smtps://…');
+  if (smtpUrl && !source.MAIL_FROM) throw new Error('MAIL_FROM must be set together with SMTP_URL');
+
   return {
     env,
     // The API listens on loopback only; nginx is the public entry point (approved architecture §10).
@@ -141,5 +160,7 @@ export function loadConfig(source: Record<string, string | undefined> = process.
     publishing: { releasesDir, previewOrigin },
     publicSiteUrl,
     media: { dir: mediaDir, legacyDir },
+    leads: { notifyTo, retentionMonths, privacyNoticeVersion: source.PRIVACY_NOTICE_VERSION?.trim() || null },
+    mail: smtpUrl ? { smtpUrl, from: source.MAIL_FROM! } : null,
   };
 }

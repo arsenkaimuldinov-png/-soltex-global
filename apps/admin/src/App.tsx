@@ -165,6 +165,20 @@ export const routes = [
             },
           },
           {
+            path: 'leads',
+            lazy: async () => {
+              const { LeadsListPage } = await import('./features/leads/LeadsListPage');
+              return { element: <RequirePermission permission="leads.read"><LeadsListPage /></RequirePermission> };
+            },
+          },
+          {
+            path: 'leads/:id',
+            lazy: async () => {
+              const { LeadDetailPage } = await import('./features/leads/LeadDetailPage');
+              return { element: <RequirePermission permission="leads.read"><LeadDetailPage /></RequirePermission> };
+            },
+          },
+          {
             path: 'media',
             lazy: async () => {
               const { MediaLibraryPage } = await import('./features/media/MediaLibraryPage');

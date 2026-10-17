@@ -46,7 +46,7 @@ describe('RBAC on the API', { skip: !DB_ENABLED && 'DATABASE_URL not set' }, () 
 
   test('every non-public route refuses anonymous requests (no route is public by accident)', async () => {
     const anon = new Client(t);
-    const publicRoutes = new Set(['/api/v1/health', '/api/v1/auth/login', '/api/v1/auth/password-reset/request', '/api/v1/auth/password-reset/confirm']);
+    const publicRoutes = new Set(['/api/v1/health', '/api/v1/auth/login', '/api/v1/auth/password-reset/request', '/api/v1/auth/password-reset/confirm', '/api/v1/public/leads']);
     const urls = t.app.routeAccess.map((r) => ({ method: r.method, url: r.url.replace(':id', '00000000-0000-7000-8000-000000000000'), level: r.access.level }));
     for (const r of urls) assert.equal(r.level === 'public', publicRoutes.has(r.url), `${r.method} ${r.url} access level ${r.level}`);
     assert.ok(urls.length >= 20, `found ${urls.length} routes`);

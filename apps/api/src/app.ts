@@ -28,8 +28,9 @@ import { publishingRoutes } from './routes/publishing.ts';
 import { seoRoutes } from './routes/seo.ts';
 import { redirectRoutes } from './routes/redirects.ts';
 import { mediaRoutes } from './routes/media.ts';
+import { leadRoutes } from './routes/leads.ts';
 
-export const API_VERSION = '0.10.0';
+export const API_VERSION = '0.11.0';
 export const BODY_LIMIT_BYTES = 64 * 1024;
 
 export interface BuildOptions {
@@ -57,7 +58,11 @@ export async function buildApp(opts: BuildOptions): Promise<FastifyInstance> {
       level: config.logLevel,
       ...(opts.logStream ? { stream: opts.logStream } : {}),
       // Never log credentials: cookies, authorization headers, set-cookie, request bodies.
-      redact: { paths: ['req.headers.cookie', 'req.headers.authorization', 'res.headers["set-cookie"]'], censor: '[redacted]' },
+      // Phase K (approved §13.1): personal data of leads is redacted wherever it might appear.
+      redact: {
+        paths: ['req.headers.cookie', 'req.headers.authorization', 'res.headers["set-cookie"]', '*.email', '*.phone', '*.message', '*.name', '*.fields', 'body', '*.body'],
+        censor: '[redacted]',
+      },
       serializers: {
         req: (req) => ({ id: req.id, method: req.method, url: String(req.url).split('?')[0] }),
       },
@@ -117,6 +122,7 @@ export async function buildApp(opts: BuildOptions): Promise<FastifyInstance> {
         { name: 'publishing', description: 'Revisions, releases, preview, publication and rollback' },
         { name: 'seo', description: 'SEO check (effective titles and descriptions, BLOCKING / WARNING / INFO issues), redirects and address changes' },
         { name: 'media', description: 'Media library: upload, replace, usages, delete' },
+        { name: 'leads', description: 'Leads: the site forms, their processing, export and anonymization' },
       ],
     },
     transform: (input) => {
@@ -141,6 +147,7 @@ export async function buildApp(opts: BuildOptions): Promise<FastifyInstance> {
     await redirectRoutes(scope, deps);
     // Own scope: the raw-upload content type parser applies to the media routes only.
     await scope.register(async (media) => mediaRoutes(media, deps));
+    await leadRoutes(scope, deps);
   });
 
   return app;

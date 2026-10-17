@@ -81,7 +81,8 @@ export function DataTable<T extends RowData>({ data, columns, getRowId, searchTe
           {toolbar ? <div className="ml-auto flex flex-wrap items-center gap-2">{toolbar}</div> : null}
         </div>
       ) : null}
-      <div className="overflow-x-auto rounded-lg border border-line bg-surface">
+      {/* relative: visually hidden (absolute) labels inside cells must not widen the page. */}
+      <div className="relative overflow-x-auto rounded-lg border border-line bg-surface">
         <table className="w-full border-collapse text-left text-[13px]">
           <caption className="sr-only">{caption}</caption>
           <thead className="bg-subtle text-xs text-ink-muted">

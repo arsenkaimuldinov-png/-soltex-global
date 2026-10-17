@@ -43,6 +43,7 @@
 | `settings` (singleton) | site name, e-mails, logo / footer images | footer texts, headquarters texts, default SEO |
 | `metrics`, `offices` | value / phone, e-mail, WhatsApp, order | label, highlight / region, title, country, address, representative |
 | `redirects` | from, to, status code, all languages, source, hits, version (migration 0006, Phase I-2) | — |
+| `leads`, `lead_events`, `outbox` | Phase K-1 (migration 0009): leads with encrypted e-mail / phone / message, blind indexes, consent record, bin and anonymization; their history (notes encrypted); the outbox for e-mail — [`admin-leads.md`](admin-leads.md) §1 | — |
 
 **Phase F columns** (`drizzle/0004_translation_review.sql`, additive): the seven admin-managed entities (`pages`, `projects`, `technologies`, `products`, `epcm_stages`, `patents`, `videos`) have `source_revision` (revision of the English translatable text); their translation tables have `version`, `approved_source_revision`, `approved_by`, `edited_source_revision`. `settings_translations` is unchanged. See [`admin-translations.md`](admin-translations.md) §2.
 

@@ -28,6 +28,7 @@ import {
   json,
   jsonb,
   pgEnum,
+  pgSequence,
   pgTable,
   primaryKey,
   smallint,
@@ -1012,3 +1013,111 @@ export const previewGrants = pgTable(
   },
   (t) => [index('preview_grants_user').on(t.userId)]
 );
+
+// ===========================================================================
+// Leads (Phase K-1, approved §13, review §K; docs/admin-leads.md)
+// ===========================================================================
+
+export const leadForm = pgEnum('lead_form', ['cta_section', 'inquiry_modal', 'contact_page']);
+export const leadStatus = pgEnum('lead_status', ['new', 'in_progress', 'qualified', 'won', 'lost', 'spam']);
+/** approved §13.2: without a consent checkbox in the forms the record is `notice_only`. */
+export const consentBasis = pgEnum('consent_basis', ['notice_only', 'checkbox']);
+export const leadEventKind = pgEnum('lead_event_kind', ['created', 'status', 'assignee', 'note', 'notified', 'notify_failed', 'deleted', 'restored', 'anonymized']);
+
+/**
+ * One inquiry from the site. E-mail, phone and message are encrypted per column (AES-256-GCM,
+ * DATA_ENCRYPTION_KEYS with key ids); `*_bidx` are HMAC blind indexes of the normalized e-mail and
+ * phone for exact search and duplicate hints. Name and company stay plain for search (approved
+ * §13.1). The IP address is stored only as a keyed hash. After anonymization every personal field
+ * is null and only date, form, language and status remain.
+ */
+export const leads = pgTable(
+  'leads',
+  {
+    id: pk(),
+    /** SOL-<year>-<number>, shown to the visitor. */
+    reference: text('reference').notNull().unique(),
+    number: bigint('number', { mode: 'number' }).notNull().unique(),
+    formType: leadForm('form_type').notNull(),
+    locale: text('locale')
+      .notNull()
+      .references(() => locales.code),
+    pagePath: text('page_path'),
+    topic: text('topic'),
+    name: text('name'),
+    company: text('company'),
+    emailEnc: text('email_enc'),
+    phoneEnc: text('phone_enc'),
+    messageEnc: text('message_enc'),
+    emailBidx: text('email_bidx'),
+    phoneBidx: text('phone_bidx'),
+    ipHash: text('ip_hash'),
+    status: leadStatus('status').notNull().default('new'),
+    assigneeId: uuid('assignee_id').references((): AnyPgColumn => users.id, { onDelete: 'restrict' }),
+    spamScore: integer('spam_score').notNull().default(0),
+    spamReasons: text('spam_reasons').array().notNull().default(sql`'{}'::text[]`),
+    consentBasis: consentBasis('consent_basis').notNull().default('notice_only'),
+    privacyNoticeVersion: text('privacy_notice_version'),
+    consentTextVersion: text('consent_text_version'),
+    consentAt: timestamp('consent_at', { withTimezone: true }),
+    /** First / last touch (Phase K-2, behind ATTRIBUTION_ENABLED). */
+    attribution: jsonb('attribution'),
+    notifiedAt: timestamp('notified_at', { withTimezone: true }),
+    version: integer('version').notNull().default(1),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedBy: uuid('updated_by').references((): AnyPgColumn => users.id, { onDelete: 'restrict' }),
+    deletedAt: timestamp('deleted_at', { withTimezone: true }),
+    deletedBy: uuid('deleted_by').references((): AnyPgColumn => users.id, { onDelete: 'restrict' }),
+    anonymizedAt: timestamp('anonymized_at', { withTimezone: true }),
+  },
+  (t) => [
+    index('leads_created').on(t.createdAt),
+    index('leads_status').on(t.status),
+    index('leads_email_bidx').on(t.emailBidx),
+    index('leads_phone_bidx').on(t.phoneBidx),
+    check('leads_reference', sql`${t.reference} ~ '^SOL-[0-9]{4}-[0-9]{6,}$'`),
+  ]
+);
+
+/** History of a lead: who changed what. Notes are encrypted like the lead's own text. */
+export const leadEvents = pgTable(
+  'lead_events',
+  {
+    id: pk(),
+    leadId: uuid('lead_id')
+      .notNull()
+      .references(() => leads.id, { onDelete: 'cascade' }),
+    at: timestamp('at', { withTimezone: true }).notNull().defaultNow(),
+    actorId: uuid('actor_id').references((): AnyPgColumn => users.id, { onDelete: 'restrict' }),
+    kind: leadEventKind('kind').notNull(),
+    /** Small facts without personal data: { from, to } of a status, an error code, … */
+    data: jsonb('data').notNull().default(sql`'{}'::jsonb`),
+    noteEnc: text('note_enc'),
+  },
+  (t) => [index('lead_events_lead').on(t.leadId, t.at)]
+);
+
+/**
+ * Outbox (approved §19): domain events written in the same transaction as their cause and
+ * delivered by the worker with retries, so a lead is never lost when e-mail is down. The payload
+ * carries ids only — never personal data; the mail is built from the database when it is sent.
+ */
+export const outbox = pgTable(
+  'outbox',
+  {
+    id: pk(),
+    kind: text('kind').notNull(),
+    payload: jsonb('payload').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    attempts: integer('attempts').notNull().default(0),
+    nextAttemptAt: timestamp('next_attempt_at', { withTimezone: true }).notNull().defaultNow(),
+    sentAt: timestamp('sent_at', { withTimezone: true }),
+    /** Error code of the last attempt (never a message with addresses or content). */
+    lastError: text('last_error'),
+  },
+  (t) => [index('outbox_due').on(t.sentAt, t.nextAttemptAt)]
+);
+
+/** Numbers of SOL-<year>-<number> references (one sequence; numbers never repeat). */
+export const leadNumberSeq = pgSequence('lead_number_seq', { startWith: 1, increment: 1 });

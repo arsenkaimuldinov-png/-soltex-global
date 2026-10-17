@@ -70,6 +70,7 @@ Installation notes:
 - `root` is the `current` symlink of the publishing system (`/srv/soltex/current`).
 - The API listens on `127.0.0.1:3100` (`API_PORT`).
 - Set `PUBLIC_SITE_URL=https://soltexglobal.co` for the API.
+- Leads (Phase K): set `SMTP_URL`, `MAIL_FROM`, `LEAD_NOTIFY_TO`, `LEAD_RETENTION_MONTHS` (and `PRIVACY_NOTICE_VERSION` once the text exists) for the API and the worker. On the site host nginx proxies only `POST /api/v1/public/leads` to the API. See [`admin-leads.md`](admin-leads.md).
 - Media library (Phase J): `MEDIA_DIR=/srv/soltex/media` for the API and the worker. nginx serves `MEDIA_DIR/originals/` and `MEDIA_DIR/variants/` (responsive copies, J-2) as `/media/…` (immutable, one-year cache). After the first deployment, run `npm run media:variants -w @soltex/api` once (the worker keeps them up to date afterwards). The files are not copied into releases; back them up with restic (approved §12). See [`admin-media.md`](admin-media.md).
 - The file also contains the `http → https` and `www → apex` redirects.
 - Certificate paths assume Let's Encrypt; adjust them to the Host.KZ setup.

@@ -4,8 +4,9 @@
  *   node --import tsx apps/api/test/e2e-seed.ts users <role,role,…>   → JSON [{role,email,name,password,id}]
  *   node --import tsx apps/api/test/e2e-seed.ts age-step-up <userId>  → second factor of the user's
  *        live sessions dated 11 minutes back, so the next sensitive action needs step-up
- *   node --import tsx apps/api/test/e2e-seed.ts reset-media           → remove media library uploads of
- *        earlier runs (their files lived in that run's temporary MEDIA_DIR); run after the seed import
+ *   node --import tsx apps/api/test/e2e-seed.ts reset-run             → remove what earlier runs left that
+ *        cannot work in this one: media uploads and image copies (their files lived in that run's
+ *        MEDIA_DIR) and leads (encrypted with that run's random keys); run after the seed import
  *
  * Users get unique e-mails (`e2e.<role>.<random>@soltex.test`) and random passwords, so runs never
  * collide and nothing has to be deleted. Uses DATABASE_URL (role soltex_app).
@@ -15,7 +16,7 @@ import { and, eq, isNull } from 'drizzle-orm';
 import { ROLES, type Role } from '@soltex/core/domain';
 import { loadConfig } from '../src/config.ts';
 import { connect } from '../src/db/client.ts';
-import { media, sessions } from '../src/db/schema.ts';
+import { leads, media, outbox, sessions } from '../src/db/schema.ts';
 import { UnconfiguredNotifier } from '../src/notify/notifier.ts';
 import { insertUser } from '../src/users/users.ts';
 import { STEP_UP_WINDOW_MS } from '../src/auth/sessions.ts';
@@ -27,9 +28,12 @@ const { db, close } = connect(url, 1);
 const deps = { config: loadConfig({ NODE_ENV: 'test', DATABASE_URL: url }), db, now: () => new Date(), notifier: new UnconfiguredNotifier(console) };
 
 try {
-  if (command === 'reset-media') {
+  if (command === 'reset-run') {
     const removed = await db.delete(media).where(eq(media.source, 'upload')).returning({ id: media.id });
-    process.stdout.write(`${removed.length}\n`);
+    await db.update(media).set({ variants: null });
+    await db.delete(outbox);
+    const leadsRemoved = await db.delete(leads).returning({ id: leads.id });
+    process.stdout.write(`${removed.length} ${leadsRemoved.length}\n`);
   } else if (command === 'users') {
     const roles = (arg ?? '').split(',').filter(Boolean) as Role[];
     for (const r of roles) if (!ROLES.includes(r)) throw new Error(`unknown role ${r}`);

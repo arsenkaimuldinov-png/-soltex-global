@@ -81,10 +81,18 @@ export async function uploadFile<K extends OperationKey>(key: K, file: Blob, ...
   return request(key, args ?? {}, file);
 }
 
-async function request<K extends OperationKey>(key: K, args: object, file: Blob | undefined): Promise<Op<K>['response']> {
+/**
+ * A file answer (CSV export, Phase K): the body as a Blob plus the file name the API suggests.
+ * Errors are the same ApiError as for `api` (so step-up and the error toast work unchanged).
+ */
+export async function downloadFile<K extends OperationKey>(key: K, ...[args]: {} extends Args<K> ? [Args<K>?] : [Args<K>]): Promise<{ blob: Blob; fileName: string }> {
+  return request(key, args ?? {}, undefined, true) as unknown as Promise<{ blob: Blob; fileName: string }>;
+}
+
+async function request<K extends OperationKey>(key: K, args: object, file: Blob | undefined, asFile = false): Promise<Op<K>['response']> {
   const method = key.slice(0, key.indexOf(' '));
   const a = args as { body?: unknown; query?: Record<string, unknown>; params?: Record<string, string>; headers?: Record<string, string | undefined> };
-  const headers: Record<string, string> = { Accept: 'application/json' };
+  const headers: Record<string, string> = { Accept: asFile ? '*/*' : 'application/json' };
   for (const [k, v] of Object.entries(a.headers ?? {})) if (v !== undefined) headers[k] = v;
   if (method !== 'GET') headers[CSRF_HEADER] = CSRF_VALUE;
   if (file) headers['Content-Type'] = 'application/octet-stream';
@@ -107,6 +115,10 @@ async function request<K extends OperationKey>(key: K, args: object, file: Blob 
 
   const requestId = res.headers.get('x-request-id');
   if (res.ok) {
+    if (asFile) {
+      const name = /filename="([^"]+)"/.exec(res.headers.get('content-disposition') ?? '')?.[1] ?? 'download';
+      return { blob: await res.blob(), fileName: name } as unknown as Op<K>['response'];
+    }
     if (res.status === 204 || res.status === 202) return undefined as Op<K>['response'];
     const text = await res.text();
     return (text ? JSON.parse(text) : undefined) as Op<K>['response'];

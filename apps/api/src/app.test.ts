@@ -46,13 +46,14 @@ test('a protected route without a session → 401, before any database access', 
   assert.equal(res.json().code, 'unauthenticated');
 });
 
-test('every /api/v1 route declares an access rule; only health, login and password reset are public', () => {
+test('every /api/v1 route declares an access rule; only health, login, password reset and the site forms are public', () => {
   const pub = app.routeAccess.filter((r) => r.access.level === 'public').map((r) => `${r.method} ${r.url}`).sort();
   assert.deepEqual(pub, [
     'GET /api/v1/health',
     'POST /api/v1/auth/login',
     'POST /api/v1/auth/password-reset/confirm',
     'POST /api/v1/auth/password-reset/request',
+    'POST /api/v1/public/leads',
   ]);
 });
 

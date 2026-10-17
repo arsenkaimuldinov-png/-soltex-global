@@ -81,7 +81,7 @@ describe('admin (Phase D)', () => {
   test('Owner: sidebar shows exactly the content and administration screens; no later-phase sections', async () => {
     const { page } = profiles.owner;
     const links = await sidebar(page).getByRole('link').allTextContents();
-    assert.deepEqual(links.map((s) => s.trim()), ['Обзор', 'Страницы', 'Проекты', 'Технологии', 'Продукты', 'EPC / EPCM', 'Патенты', 'Видео', 'Медиатека', 'Обзор', 'Все переводы', 'Требуют внимания', 'Проверка SEO', 'Редиректы', 'Обзор', 'Ревизии', 'Релизы', 'Пользователи', 'Журнал действий', 'Система']);
+    assert.deepEqual(links.map((s) => s.trim()), ['Обзор', 'Страницы', 'Проекты', 'Технологии', 'Продукты', 'EPC / EPCM', 'Патенты', 'Видео', 'Медиатека', 'Все заявки', 'Обзор', 'Все переводы', 'Требуют внимания', 'Проверка SEO', 'Редиректы', 'Обзор', 'Ревизии', 'Релизы', 'Пользователи', 'Журнал действий', 'Система']);
   });
 
   test('session cookie is HttpOnly, SameSite=Strict, host-only; no token in storage', async () => {
@@ -288,7 +288,7 @@ describe('admin (Phase D)', () => {
     await page.waitForURL(`${ORIGIN}/`);
     await page.getByRole('heading', { name: 'Обзор' }).waitFor();
     const links = await sidebar(page).getByRole('link').allTextContents();
-    assert.deepEqual(links.map((s) => s.trim()), ['Обзор', 'Страницы', 'Проекты', 'Технологии', 'Продукты', 'EPC / EPCM', 'Патенты', 'Видео', 'Медиатека', 'Обзор', 'Все переводы', 'Требуют внимания', 'Проверка SEO', 'Обзор', 'Ревизии', 'Релизы']);
+    assert.deepEqual(links.map((s) => s.trim()), ['Обзор', 'Страницы', 'Проекты', 'Технологии', 'Продукты', 'EPC / EPCM', 'Патенты', 'Видео', 'Медиатека', 'Все заявки', 'Обзор', 'Все переводы', 'Требуют внимания', 'Проверка SEO', 'Обзор', 'Ревизии', 'Релизы']);
 
     await page.getByRole('button', { name: 'Меню пользователя' }).click();
     await page.getByRole('menuitem', { name: 'Выйти' }).click();

@@ -2,14 +2,14 @@
  * Navigation model (review §X sidebar). One list drives the sidebar, the ⌘K palette and the route
  * guards, so a screen is never visible in one place and hidden in another.
  *
- * Only screens that exist are listed. The sections of later phases (Заявки,
- * Настройки) are added here together with their screens; there are no placeholders.
+ * Only screens that exist are listed. The sections of later phases (Настройки) are added here
+ * together with their screens; there are no placeholders.
  * Visibility is a presentation of the user's permissions (from GET /auth/session); the API
  * enforces every permission on its own.
  */
 import type { Permission } from '@soltex/core/domain';
 import type { LucideIcon } from 'lucide-react';
-import { Activity, AlertTriangle, Award, FileText, FlaskConical, FolderKanban, History, Images, Languages, SearchCheck, Signpost, LayoutDashboard, ListChecks, Package, Rocket, ScrollText, Send, ShieldCheck, Users, Video, Workflow } from 'lucide-react';
+import { Activity, AlertTriangle, Award, FileText, FlaskConical, FolderKanban, History, Images, Inbox, Languages, SearchCheck, Signpost, LayoutDashboard, ListChecks, Package, Rocket, ScrollText, Send, ShieldCheck, Users, Video, Workflow } from 'lucide-react';
 
 export interface NavItem {
   id: string;
@@ -48,6 +48,11 @@ export const NAV: NavSection[] = [
       { id: 'videos', label: 'Видео', to: '/content/videos', icon: Video, permission: 'content.read', keywords: ['ролики'] },
       { id: 'media', label: 'Медиатека', title: 'Медиатека', to: '/media', icon: Images, permission: 'media.read', keywords: ['медиа', 'файлы', 'изображения', 'фото', 'картинки', 'загрузить', 'видео'] },
     ],
+  },
+  {
+    id: 'leads',
+    label: 'Заявки',
+    items: [{ id: 'leads', label: 'Все заявки', title: 'Заявки', to: '/leads', icon: Inbox, permission: 'leads.read', keywords: ['заявки', 'лиды', 'запросы', 'клиенты', 'контакты', 'csv'] }],
   },
   {
     id: 'translations',

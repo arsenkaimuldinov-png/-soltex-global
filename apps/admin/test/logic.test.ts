@@ -42,17 +42,18 @@ test('reset token: from the fragment (preferred) or the query; malformed tokens 
 });
 
 test('navigation per role follows the permission map (no role shortcut)', () => {
-  const nav = (redirects: boolean) => [
-    'Страницы', 'Проекты', 'Технологии', 'Продукты', 'EPC / EPCM', 'Патенты', 'Видео', 'Медиатека', 'Обзор', 'Все переводы', 'Требуют внимания',
+  const nav = (redirects: boolean, leads: boolean) => [
+    'Страницы', 'Проекты', 'Технологии', 'Продукты', 'EPC / EPCM', 'Патенты', 'Видео', 'Медиатека',
+    ...(leads ? ['Все заявки'] : []),
+    'Обзор', 'Все переводы', 'Требуют внимания',
     'Проверка SEO', ...(redirects ? ['Редиректы'] : []), 'Обзор', 'Ревизии', 'Релизы',
   ];
-  const content = nav(true);
-  assert.deepEqual(labels('owner'), ['Обзор', ...content, 'Пользователи', 'Журнал действий', 'Система']);
-  assert.deepEqual(labels('admin'), ['Обзор', ...content, 'Пользователи', 'Журнал действий', 'Система']);
-  assert.deepEqual(labels('content_manager'), ['Обзор', ...content, 'Система']);
-  assert.deepEqual(labels('seo_specialist'), ['Обзор', ...content, 'Система']);
-  assert.deepEqual(labels('editor'), ['Обзор', ...nav(false)]);
-  assert.deepEqual(labels('marketer'), ['Обзор', ...nav(false)]);
+  assert.deepEqual(labels('owner'), ['Обзор', ...nav(true, true), 'Пользователи', 'Журнал действий', 'Система']);
+  assert.deepEqual(labels('admin'), ['Обзор', ...nav(true, true), 'Пользователи', 'Журнал действий', 'Система']);
+  assert.deepEqual(labels('content_manager'), ['Обзор', ...nav(true, false), 'Система']);
+  assert.deepEqual(labels('seo_specialist'), ['Обзор', ...nav(true, false), 'Система']);
+  assert.deepEqual(labels('editor'), ['Обзор', ...nav(false, false)]);
+  assert.deepEqual(labels('marketer'), ['Обзор', ...nav(false, true)]);
   // Every guarded item names a real permission; ids and paths are unique.
   const items = allNavItems(NAV);
   assert.equal(new Set(items.map((i) => i.id)).size, items.length);
@@ -60,10 +61,10 @@ test('navigation per role follows the permission map (no role shortcut)', () => 
   for (const role of ROLES) for (const i of visibleNav(canFor(role)).flatMap((s) => s.items)) assert.ok(!i.permission || canFor(role)(i.permission));
 });
 
-test('no screens of later phases in the navigation (Phase J-1 adds «Контент · Медиатека»)', () => {
+test('no screens of later phases in the navigation (Phase K-1 adds «Заявки»)', () => {
   const all = allNavItems(NAV).map((i) => i.label).join(' ');
-  for (const later of ['Заявки', 'Настройки']) assert.ok(!all.includes(later), later);
-  assert.deepEqual(NAV.map((s) => s.label ?? ''), ['', 'Контент', 'Переводы', 'SEO', 'Публикация', 'Администрирование']);
+  for (const later of ['Настройки']) assert.ok(!all.includes(later), later);
+  assert.deepEqual(NAV.map((s) => s.label ?? ''), ['', 'Контент', 'Заявки', 'Переводы', 'SEO', 'Публикация', 'Администрирование']);
 });
 
 test('⌘K matching: every word, any order, case-insensitive, Russian', () => {
