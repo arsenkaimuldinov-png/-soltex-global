@@ -79,6 +79,10 @@ export function describeSeoIssue(i: SeoIssueView): string {
       return 'Перевод устарел — на сайте остаётся ранее утверждённый текст.';
     case 'og_image_missing':
       return 'Не задано изображение для соцсетей (OG).';
+    case 'image_too_large':
+      return `Изображение весит ${(Number(i.params.bytes) / 1024 / 1024).toFixed(1).replace('.', ',')} МБ, а уменьшенных копий для сайта ещё нет — страница будет грузиться медленно.`;
+    case 'og_image_small':
+      return `Изображение для соцсетей шириной ${p(i, 'width')} px — для чёткого превью нужно от ${p(i, 'min')} px.`;
     case 'noindex_in_navigation':
       return 'Страница скрыта от поисковиков (noindex), хотя она есть в главном меню.';
     case 'title_default':

@@ -106,11 +106,14 @@ describe('nginx fallback (Phase I-2, approved §11.4)', { skip: (!DB_ENABLED && 
     const media = path.join(dir, 'media');
     fs.mkdirSync(path.join(media, 'originals/2026'), { recursive: true });
     fs.writeFileSync(path.join(media, 'originals/2026/0b1c2d3e-0000-4000-8000-000000000001.webp'), 'RIFF....WEBP');
+    fs.mkdirSync(path.join(media, 'variants/0b1c2d3e-0000-4000-8000-000000000001/abcdef012345'), { recursive: true });
+    fs.writeFileSync(path.join(media, 'variants/0b1c2d3e-0000-4000-8000-000000000001/abcdef012345/480.webp'), 'RIFF....WEBP');
     fs.writeFileSync(path.join(media, 'secret.txt'), 'not public');
     site = site
       .replace('root /srv/soltex/current;', `root ${root};`)
       .replace('server 127.0.0.1:3100;', `server 127.0.0.1:${apiPort};`)
-      .replace('alias /srv/soltex/media/originals/;', `alias ${media}/originals/;`);
+      .replace('alias /srv/soltex/media/originals/;', `alias ${media}/originals/;`)
+      .replace('alias /srv/soltex/media/variants/;', `alias ${media}/variants/;`);
     fs.writeFileSync(path.join(dir, 'site.conf'), site);
     const mime = ['/etc/nginx/mime.types', '/usr/local/etc/nginx/mime.types', '/opt/homebrew/etc/nginx/mime.types'].find((p) => fs.existsSync(p));
     fs.writeFileSync(
@@ -174,6 +177,12 @@ describe('nginx fallback (Phase I-2, approved §11.4)', { skip: (!DB_ENABLED && 
     assert.equal(r.headers['content-type'], 'image/webp');
     assert.match(String(r.headers['cache-control']), /immutable/);
     assert.equal(r.headers['x-content-type-options'], 'nosniff');
+    const v = await new Promise<http.IncomingMessage>((resolve, reject) =>
+      http.get({ host: '127.0.0.1', port: webPort, path: '/media/variants/0b1c2d3e-0000-4000-8000-000000000001/abcdef012345/480.webp' }, resolve).on('error', reject)
+    );
+    v.resume();
+    assert.deepEqual([v.statusCode, v.headers['content-type']], [200, 'image/webp']);
+    assert.match(String(v.headers['cache-control']), /immutable/);
     for (const p of ['/media/secret.txt', '/media/originals/2026/missing.webp', '/media/originals/../secret.txt']) {
       const x = await get(webPort, p);
       assert.notEqual(x.status, 200, p);

@@ -10,6 +10,7 @@
  *    commit the database change; any failure switches back, so the previously active release
  *    stays live. Rollback re-activates an existing artifact: no rebuild.
  */
+import { mediaSizes } from '../media/service.ts';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -138,7 +139,7 @@ export async function createRelease(deps: Deps, actor: UserRow, input: { kind: R
       }
       // SEO (Phase I-1): a release candidate with BLOCKING issues is refused before anything is
       // stored; its warnings are recorded. Preview builds are not refused (they show drafts).
-      const seo = runChecks(await seoContext(tx, full), store);
+      const seo = runChecks(await seoContext(tx, full, await mediaSizes(deps, tx)), store);
       if (input.kind === 'release') assertNoBlocking(seo.issues, 'Релиз нельзя создать:');
       if (seo.summary.warning) warnings.push(`seo_warnings:${seo.summary.warning}`);
       const now = deps.now();

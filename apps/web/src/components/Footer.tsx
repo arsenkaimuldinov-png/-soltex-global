@@ -3,6 +3,7 @@ import { topicUi, type InquiryTopic } from '../services/leads/topics';
 import { Link } from '../i18n/Link';
 import { useI18n } from '../i18n/I18nProvider';
 import { useContent } from '../content/useContent';
+import { responsive } from '../content/media';
 
 interface FooterProps {
   onOpenProjectModal: (preselectedTopic?: InquiryTopic) => void;
@@ -22,6 +23,7 @@ export const Footer: React.FC<FooterProps> = ({
       <div className="absolute inset-0 z-0 pointer-events-none select-none">
         <img loading="lazy" decoding="async"
           src={settings.footerBackground.src}
+          {...responsive(settings.footerBackground, '100vw')}
           alt={settings.footerBackgroundAlt}
           referrerPolicy="no-referrer"
           className="w-full h-full object-cover object-center opacity-75 scale-102"

@@ -9,6 +9,7 @@
  * Optionally only `published` entities could be exported for a release; Phase B exports
  * every status, exactly like the seed (the site build filters by status itself).
  */
+import { variantsOf } from '../media/variants.ts';
 import { asc, sql } from 'drizzle-orm';
 import { CONTENT_LOCALES, SOURCE_LOCALE, TRANSLATED_LOCALES, type Locale } from '@soltex/core/domain';
 import {
@@ -166,6 +167,8 @@ export async function exportStore(db: Queryable): Promise<ContentStore> {
       width: m.width,
       height: m.height,
       alt: tr ? text(tr, (r) => r.alt) : null,
+      // Responsive copies (Phase J-2) only when valid for the current file; the seed has none.
+      ...(variantsOf(m).length ? { variants: variantsOf(m) } : {}),
     };
   });
 

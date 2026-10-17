@@ -9,6 +9,7 @@ import { ScrollReveal } from '../components/ScrollReveal';
 import type { Project as ProjectItem } from '../content/types';
 import { useContent, usePage } from '../content/useContent';
 import { useI18n } from '../i18n/I18nProvider';
+import { responsive } from '../content/media';
 
 export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: InquiryTopic) => void }> = ({ onOpenProjectModal }) => {
   const { t, tr } = useI18n();
@@ -76,6 +77,7 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: Inquiry
         <div className="relative aspect-[21/9] sm:aspect-[24/9] w-full min-h-[380px] image-zoom-container">
           <img
             src={project.image.src}
+            {...responsive(project.image, '100vw')}
             alt={project.title}
             className="w-full h-full object-cover opacity-90"
             style={project.imagePosition ? { objectPosition: project.imagePosition } : undefined}
@@ -257,6 +259,7 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: Inquiry
           <div className="relative aspect-[21/9] sm:aspect-[24/9] w-full min-h-[380px] image-zoom-container">
             <img
               src={media('archiveBandImage').src}
+              {...responsive(media('archiveBandImage'), '(min-width: 1024px) 60vw, 100vw')}
               alt={c('archiveImageAlt')}
               className="w-full h-full object-cover opacity-90"
               loading="lazy"
@@ -291,7 +294,7 @@ export const ProjectDetailPage: React.FC<{ onOpenProjectModal?: (topic?: Inquiry
               {project.gallery.map((img, idx) => (
                 <ScrollReveal key={idx} delayMs={idx * 100}>
                   <div className="relative aspect-[16/10] overflow-hidden border border-[#16211B]/15 bg-[#07130E] image-zoom-container">
-                    <img loading="lazy" decoding="async" src={img.src} alt={t('projectDetail.galleryAlt', { title: project.title, n: idx + 1 })} className="w-full h-full object-cover" />
+                    <img loading="lazy" decoding="async" src={img.src} {...responsive(img, '(min-width: 640px) 50vw, 100vw')} alt={t('projectDetail.galleryAlt', { title: project.title, n: idx + 1 })} className="w-full h-full object-cover" />
                   </div>
                 </ScrollReveal>
               ))}

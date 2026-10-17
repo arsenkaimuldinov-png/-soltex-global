@@ -65,7 +65,8 @@ technologies, products and projects.
 - `translation_missing` (not approved, served in English), `translation_outdated`;
 - `og_image_missing` (detail pages);
 - `noindex_in_navigation`;
-- `redirect_chain`.
+- `redirect_chain`;
+- `image_too_large`, `og_image_small` (Phase J-2, [`admin-media.md`](admin-media.md) §10).
 
 **INFO:** `title_default`, `description_default` (the default template is used).
 
@@ -110,7 +111,7 @@ The current content has no noindex page, so the output is unchanged.
 | # | Deviation | Reason / where it goes |
 |---|---|---|
 | I-1 | No `seo_issues` table; reports are computed per request (one export, ≈50 ms) | Always current; the dashboard (L) can use the same endpoint |
-| I-2 | `missing_alt`, `image_too_large` not checked | Alt texts and file sizes belong to the media library (J) |
+| I-2 | ~~`image_too_large` not checked~~ — done in J-2. `missing_alt` is still not checked | The site uses the contextual alt texts of its blocks (admin-media.md J-9) |
 | I-3 | `orphan_page`, `canonical_conflict`, `hreflang_conflict` not in the checker | Canonical and hreflang are generated automatically (no override field exists), and the build validator checks the generated tags; there is no free linking in content yet |
 | I-4 | SEO texts are checked per language but edited in the source editor / translations | Unchanged content model |
 | I-5 | Duplicate checks ignore fallback pages | They canonicalize to English and are not indexed in that language |

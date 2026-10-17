@@ -746,3 +746,56 @@ J-1 … J-7 in [`admin-media.md`](admin-media.md) §8:
 - files stay on disk until the GC (Phase N);
 - animated WebP keeps its first frame;
 - technical keys for non-Latin names.
+
+## Phase J-2: Responsive images and image checks (2026-10-17)
+
+**Base commit:** `a5c930b`. Details: [`admin-media.md`](admin-media.md) §9–§12. This is the first phase since Phase 1 that **intentionally changes the public site**: content images get `srcset` / `sizes` when responsive copies exist (approved §24: "srcset from media variants — J — separate visual check").
+
+### What was done
+
+1. **Core:**
+   - `MediaRecord.variants?` and `MediaVariant`;
+   - `MEDIA_VARIANT_WIDTHS` and `variantWidths`;
+   - checker codes `image_too_large` (needs file sizes from the caller) and `og_image_small`, both WARNING.
+2. **Database:** migration `0008`, `media.variants` (MediaVariantsV1).
+3. **API:**
+   - `generateNextVariants` (WebP 480/960/1600/2400 below the original; row lock with SKIP LOCKED);
+   - the publishing worker makes copies when it has no release to build;
+   - `npm run media:variants` needs no keys;
+   - the export carries valid copies only; replace makes the old copies out of date;
+   - the media views report the state (ready / pending / none / missing);
+   - the SEO report and releases pass file sizes to the checker.
+4. **Serving:**
+   - the preview server and nginx serve `/media/variants/` (tested with the real nginx config);
+   - `validate-site.ts` checks every `srcset` candidate.
+5. **Site** (`apps/web/src`): `buildSrcSet` and `responsive()` in the media layer, applied to the 20 content images with layout-specific `sizes`. Without copies nothing is added, and `MediaAsset.srcSet` is absent rather than null, so serialized content is unchanged.
+6. **Admin:**
+   - «Копии для сайта» on the file page;
+   - Russian texts for the two new SEO codes.
+7. **Tests:**
+
+   | Suite | Added |
+   |---|---|
+   | Core checker | +1 |
+   | API DB (`media.db.test.ts`) | +1: copies made, sizes and format, export, out of date after a replace, renewed |
+   | nginx | `/media/variants/` |
+   | Admin unit | +1 |
+
+### Verification (2026-10-17)
+
+| Check | Result |
+|---|---|
+| `git diff --check` | clean |
+| `npm run lint`, `npm test` | pass; 102 / 102 (core 43, api 20, admin 39) |
+| `npm run test:db` on a freshly provisioned database | 136 tests: 135 pass, 1 skipped (backup role); `seed → DB → export` byte-identical to the seed; the site from the DB export identical to the seed build |
+| `npm run test:e2e:admin` | 77 / 77 pass; no page errors, no CSP violations |
+| Seed build vs `a5c930b` (`qa-regression --base-ref`) | **IDENTICAL** in page data (348 page loads), no-JS / motion / script-fail / 404, interactions, navigation and inquiry topics. dist: all 218 non-bundle files byte-identical once the bundle name is normalized; only the JavaScript bundle changed (the new helper), hence its new hash in every HTML file — intended |
+| Build with copies (`media:variants` on the seed in the DB: 23 images, 2.3 MB, ≈4 s → export → build with `MEDIA_ROOT`) | validates; 239 internal files incl. every `srcset` candidate. Without `MEDIA_ROOT` the build fails and names the missing copies |
+| Visual check: the build with copies (copies served next to it) vs the previous release, `qa-regression --shots` (4 widths × 6 languages × 29 routes) | Done with a deterministic capture: every image loaded and decoded, one page at a time; EN and AR (RTL) at 390 and 1440 px, 29 routes each, 116 pairs. **Same height on every page; no layout change.** The differing pixels (at most 0.82 % per page, on EPCM at 1440 px) lie inside the photographs: the browser shows a pre-scaled WebP copy instead of scaling the original itself. A side-by-side review of the most different areas shows no visible change. The standard `--shots` run (4 workers, 8 s image timeout) was not usable for this: lazy images of the *baseline* were often not loaded in time |
+
+### Deviations (Phase J-2)
+
+J-8 … J-10 in [`admin-media.md`](admin-media.md) §12:
+- WebP only, no `<picture>` / AVIF;
+- alt texts still contextual;
+- `srcset` on content images only.

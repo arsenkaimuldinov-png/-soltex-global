@@ -193,3 +193,25 @@ test('default texts: "{H1} | Soltex Global"; descriptions shortened to whole sen
   assert.equal(summarize(long), `${'A'.repeat(100)}.`);
   assert.equal(summarize('Один. Два。三'), 'Один. Два。三');
 });
+
+test('images (Phase J-2): a large original without copies and a small OG image are WARNINGS', () => {
+  const s = store();
+  const p = s.projects[0];
+  s.media = [
+    { id: 'm-big', kind: 'image', width: 3000, height: 2000 },
+    { id: 'm-copies', kind: 'image', width: 3000, height: 2000, variants: [{ src: '/media/variants/x/480.webp', width: 480, height: 320 }] },
+    { id: 'm-og', kind: 'image', width: 800, height: 420 },
+    ...s.media,
+  ];
+  p.image = { mediaId: 'm-big' };
+  p.seo = { ...p.seo, ogImage: { mediaId: 'm-og' } };
+  const bytes = (k: string) => (k === 'm-og' ? 50_000 : 5 * 1024 * 1024);
+  const c = codes(checkSeo(s, { mediaBytes: bytes }).issues);
+  assert.ok(c.includes(`image_too_large:projects/${p.id}`));
+  assert.ok(c.includes(`og_image_small:projects/${p.id}`));
+  assert.equal(SEO_ISSUE_SEVERITY.image_too_large, 'warning');
+  p.image = { mediaId: 'm-copies' };
+  assert.ok(!codes(checkSeo(s, { mediaBytes: bytes }).issues).includes(`image_too_large:projects/${p.id}`), 'copies exist: the site serves small files');
+  p.image = { mediaId: 'm-big' };
+  assert.ok(!codes(checkSeo(s).issues).includes(`image_too_large:projects/${p.id}`), 'the build does not know sizes');
+});

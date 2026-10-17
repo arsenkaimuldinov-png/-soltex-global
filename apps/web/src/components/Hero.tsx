@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { usePage } from '../content/useContent';
+import { responsive } from '../content/media';
 
 interface HeroProps {
   onOpenProjectModal: () => void;
@@ -17,6 +18,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
           {/* Undistorted High-Resolution Rectangular Industrial Plant Image */}
           <img
             src={heroImage.src}
+            {...responsive(heroImage, '(min-width: 1024px) 66vw, 100vw')}
             alt={c('heroImageAlt')}
             referrerPolicy="no-referrer"
             className="s-seq-settle w-full h-full object-cover object-[72%_center]"
@@ -83,6 +85,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
           <div className="s-seq-fade lg:hidden w-full aspect-[16/10] overflow-hidden border border-[#16211B]/10 mt-6 shadow-sm" style={{ '--seq': '400ms' } as React.CSSProperties}>
             <img
               src={heroImage.src}
+              {...responsive(heroImage, '100vw')}
               alt={c('heroImageAlt')}
               referrerPolicy="no-referrer"
               className="s-seq-settle w-full h-full object-cover object-[72%_center]"

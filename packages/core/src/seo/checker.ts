@@ -11,10 +11,14 @@
  * structurally (only the fields the checks read); ContentStore satisfies it.
  */
 import { CONTENT_LOCALES, type Locale } from '../domain/locales.ts';
+import { MEDIA_LARGE_IMAGE_BYTES } from '../domain/media.ts';
 import { DETAIL_PATH_PREFIX, NAVIGATION_PAGES, PAGE_ROUTES, PAGE_ROUTE_PATHS, type PageRouteKey, type RoutableCollection, SEO_TITLE_HARD_MAX, seoDefaults } from './meta.ts';
 import { SEO_DESCRIPTION_RECOMMENDED_MAX, SEO_DESCRIPTION_RECOMMENDED_MIN, SEO_TITLE_RECOMMENDED_MAX } from './limits.ts';
 import { buildRedirectIndex, expandRedirect, REDIRECT_MAX_HOPS, redirectPathProblem, splitLocale, type RedirectRule } from './redirects.ts';
 import { slugProblem } from './slug.ts';
+
+/** Social networks show sharp previews from 1200 px wide (Open Graph). */
+export const OG_IMAGE_MIN_WIDTH = 1200;
 
 // ---------------------------------------------------------------------------
 // Input (structural)
@@ -51,7 +55,7 @@ export interface SeoCheckStore {
   epcmStages: ReadonlyArray<Base>;
   patents: ReadonlyArray<Base>;
   videos: ReadonlyArray<Base>;
-  media: ReadonlyArray<{ id: string }>;
+  media: ReadonlyArray<{ id: string; kind?: string; width?: number | null; variants?: ReadonlyArray<unknown> }>;
   redirects: ReadonlyArray<RedirectRule>;
 }
 
@@ -62,6 +66,8 @@ export type SeoEntityType = 'pages' | 'projects' | 'technologies' | 'products' |
 export type SeoTranslationState = 'approved' | 'outdated' | 'in_progress' | 'missing';
 
 export interface SeoCheckOptions {
+  /** File size of a media entry (the API knows it; the build does not, and then skips the size check). */
+  mediaBytes?: (mediaKey: string) => number | null;
   /** Translation state of (type, key, language); default: the stored status. */
   translationState?: (type: SeoEntityType, key: string, locale: Exclude<Locale, 'en'>) => SeoTranslationState;
 }
@@ -96,6 +102,8 @@ export const SEO_ISSUE_SEVERITY = {
   translation_outdated: 'warning',
   og_image_missing: 'warning',
   noindex_in_navigation: 'warning',
+  image_too_large: 'warning',
+  og_image_small: 'warning',
   redirect_chain: 'warning',
   title_default: 'info',
   description_default: 'info',
@@ -231,7 +239,7 @@ export function checkSeo(store: SeoCheckStore, options: SeoCheckOptions = {}): S
     if (!liveTech.has(p.relatedTechnologyId)) add('relation_broken', 'products', p.id, null, 'relatedTechnology', { target: p.relatedTechnologyId });
     if (!liveProjects.has(p.relatedProjectId)) add('relation_broken', 'products', p.id, null, 'relatedProject', { target: p.relatedProjectId });
   }
-  const mediaIds = new Set(store.media.map((m) => m.id));
+  const mediaById = new Map(store.media.map((m) => [m.id, m]));
   const collections: Array<[SeoEntityType, ReadonlyArray<Base>]> = [
     ['pages', store.pages],
     ['projects', store.projects],
@@ -245,7 +253,19 @@ export function checkSeo(store: SeoCheckStore, options: SeoCheckOptions = {}): S
     for (const r of published(items)) {
       const refs: Array<{ field: string; id: string }> = [];
       mediaRefs(r, '', refs);
-      for (const ref of refs) if (!mediaIds.has(ref.id)) add('media_missing', type, r.id, null, ref.field.split('.')[0] === 'seo' ? 'ogImage' : ref.field, { media: ref.id });
+      for (const ref of refs) {
+        const field = ref.field.split('.')[0] === 'seo' ? 'ogImage' : ref.field;
+        const m = mediaById.get(ref.id);
+        if (!m) {
+          add('media_missing', type, r.id, null, field, { media: ref.id });
+          continue;
+        }
+        if (m.kind === 'video') continue;
+        // Phase J-2: a large original matters only while the site has no smaller copies to serve.
+        const bytes = options.mediaBytes?.(m.id) ?? null;
+        if (bytes !== null && bytes > MEDIA_LARGE_IMAGE_BYTES && !m.variants?.length) add('image_too_large', type, r.id, null, field, { media: m.id, bytes });
+        if (field === 'ogImage' && m.width && m.width < OG_IMAGE_MIN_WIDTH) add('og_image_small', type, r.id, null, field, { media: m.id, width: m.width, min: OG_IMAGE_MIN_WIDTH });
+      }
     }
 
   // Internal links of pages --------------------------------------------------------------------

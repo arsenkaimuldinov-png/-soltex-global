@@ -9,6 +9,7 @@ import { ScrollReveal } from '../components/ScrollReveal';
 import type { Product as ProductItem } from '../content/types';
 import { useContent, usePage } from '../content/useContent';
 import { useI18n } from '../i18n/I18nProvider';
+import { responsive } from '../content/media';
 
 export const ProductDetailPage: React.FC<{ onOpenProjectModal?: (topic?: InquiryTopic) => void }> = ({ onOpenProjectModal }) => {
   const { t, tr } = useI18n();
@@ -85,6 +86,7 @@ export const ProductDetailPage: React.FC<{ onOpenProjectModal?: (topic?: Inquiry
                 <div className="relative aspect-[16/9] bg-[#07130E] overflow-hidden border border-[#16211B]/15 image-zoom-container">
                   <img
                     src={product.image.src}
+                    {...responsive(product.image, '(min-width: 1024px) 50vw, 100vw')}
                     alt={product.title}
                     className="w-full h-full object-cover"
                   />

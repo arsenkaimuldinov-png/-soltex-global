@@ -31,6 +31,8 @@ export const MEDIA_LARGE_IMAGE_BYTES = 2 * 1024 * 1024;
 export const MEDIA_HERO_MIN_WIDTH = 1600;
 /** Decompression-bomb guard for images. */
 export const MEDIA_MAX_PIXELS = 100_000_000;
+/** Widths of the responsive copies (review §I); only those narrower than the original are made. */
+export const MEDIA_VARIANT_WIDTHS = [480, 960, 1600, 2400] as const;
 /** Bytes `sniffMediaType` needs. */
 export const MEDIA_SNIFF_BYTES = 32;
 
@@ -59,4 +61,10 @@ export function cleanFileName(name: string): string {
   const base = name.split(/[\\/]/).pop() ?? '';
   const clean = base.replace(/[\u0000-\u001f\u007f]/g, '').trim();
   return clean.slice(0, 200) || 'file';
+}
+
+/** Widths to generate for an image `width` px wide: the standard widths below it (none when unknown). */
+export function variantWidths(width: number | null): number[] {
+  if (!width) return [];
+  return MEDIA_VARIANT_WIDTHS.filter((w) => w < width);
 }

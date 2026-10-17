@@ -23,15 +23,18 @@ import { recordsOf, recordTitle } from '../publishing/revisions.ts';
 export interface SeoContext {
   store: ContentStore;
   translationState: (type: TranslatableType, key: string, locale: string) => SeoTranslationState;
+  /** File size per media key (Phase J-2 image checks); absent when unknown. */
+  mediaBytes?: (key: string) => number | null;
 }
 
-export async function seoContext(db: Queryable, store?: ContentStore): Promise<SeoContext> {
+export async function seoContext(db: Queryable, store?: ContentStore, sizes?: (key: string) => number | null): Promise<SeoContext> {
   const states = new Map<string, SeoTranslationState>();
   for (const s of await effectiveStates(db)) states.set(`${s.type}/${s.key}/${s.locale}`, s.state);
-  return { store: store ?? (await exportStore(db)), translationState: (type, key, locale) => states.get(`${type}/${key}/${locale}`) ?? 'missing' };
+  return { store: store ?? (await exportStore(db)), translationState: (type, key, locale) => states.get(`${type}/${key}/${locale}`) ?? 'missing', mediaBytes: sizes };
 }
 
-export const runChecks = (ctx: SeoContext, store: ContentStore = ctx.store): SeoReport => checkSeo(store, { translationState: (t, k, l) => ctx.translationState(t, k, l) });
+export const runChecks = (ctx: SeoContext, store: ContentStore = ctx.store): SeoReport =>
+  checkSeo(store, { translationState: (t, k, l) => ctx.translationState(t, k, l), mediaBytes: ctx.mediaBytes });
 
 /** The store with one record counted as published (a draft checked before publication). */
 export function asPublished(store: ContentStore, type: TranslatableType, key: string): ContentStore {

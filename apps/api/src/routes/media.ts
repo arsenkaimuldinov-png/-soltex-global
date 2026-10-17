@@ -52,6 +52,9 @@ const MediaFile = z
     updatedBy: z.object({ id: Uuid, name: z.string() }).nullable(),
     usageCount: z.number().int(),
     warnings: z.array(z.enum(['large_file', 'hero_too_narrow'])),
+    variants: z
+      .object({ state: z.enum(['ready', 'pending', 'none', 'missing']), widths: z.array(z.number().int()) })
+      .describe('Responsive copies for the site: ready, pending (the worker makes them), none (not needed), missing (source file not found)'),
   })
   .meta({ id: 'MediaFile' });
 

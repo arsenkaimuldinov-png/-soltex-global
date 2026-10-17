@@ -25,6 +25,7 @@ import * as s from '../db/schema.ts';
 import type { Deps } from '../deps.ts';
 import { requireDb } from '../deps.ts';
 import { recordAudit } from '../audit/audit.ts';
+import { generateNextVariants } from '../media/variants.ts';
 import { readCurrent, readTree, releaseDir, removeDir, storeArtifact, type ArtifactTree } from './artifacts.ts';
 import { BuildFailure, type Builder } from './builder.ts';
 import { transition, withAdvisoryLock } from './releases.ts';
@@ -221,7 +222,15 @@ export async function workerLoop(deps: Deps, builder: Builder, signal: AbortSign
     } catch (e) {
       console.error('worker: job error', (e as Error).message);
     }
-    if (r.outcome !== 'done') await new Promise((res) => setTimeout(res, intervalMs));
+    // Phase J-2: with no release to build, make the responsive copies of one waiting image.
+    let media: 'done' | 'idle' = 'idle';
+    if (r.outcome === 'idle')
+      try {
+        media = await generateNextVariants(deps);
+      } catch (e) {
+        console.error('worker: image variants error', (e as Error).message);
+      }
+    if (r.outcome !== 'done' && media !== 'done') await new Promise((res) => setTimeout(res, intervalMs));
   }
 }
 

@@ -156,6 +156,11 @@ export const media = pgTable('media', {
   bytes: bigint('bytes', { mode: 'number' }),
   /** sha256 of the uploaded bytes: duplicate detection. */
   sha256: text('sha256'),
+  /**
+   * MediaVariantsV1 (Phase J-2, migration 0008): `{ source, items: [{ src, width, height }] }`.
+   * Valid only while `source` equals `src` (a replaced file gets new copies). Null = not made yet.
+   */
+  variants: jsonb('variants'),
   ...audit(),
 }, (t) => [
   index('media_sha256').on(t.sha256),

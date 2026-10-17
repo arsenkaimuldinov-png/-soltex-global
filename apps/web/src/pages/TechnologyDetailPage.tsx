@@ -9,6 +9,7 @@ import { ScrollReveal } from '../components/ScrollReveal';
 import type { Technology as TechnologyItem } from '../content/types';
 import { useContent, usePage } from '../content/useContent';
 import { useI18n } from '../i18n/I18nProvider';
+import { responsive } from '../content/media';
 
 export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: InquiryTopic) => void }> = ({ onOpenProjectModal }) => {
   const { t, tr } = useI18n();
@@ -77,6 +78,7 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: Inqu
         <div className="relative aspect-[21/9] sm:aspect-[24/9] w-full min-h-[380px] image-zoom-container">
           <img
             src={tech.image.src}
+            {...responsive(tech.image, '100vw')}
             alt={tech.title}
             className="w-full h-full object-cover opacity-90"
           />
@@ -147,6 +149,7 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: Inqu
                   <div className="relative aspect-[16/9] overflow-hidden">
                     <img
                       src={media('bandImage').src}
+                      {...responsive(media('bandImage'), '(min-width: 1024px) 60vw, 100vw')}
                       alt={c('bandImageAlt')}
                       className="w-full h-full object-cover opacity-90"
                       loading="lazy"
@@ -223,7 +226,7 @@ export const TechnologyDetailPage: React.FC<{ onOpenProjectModal?: (topic?: Inqu
                           className="group bg-white border border-[#16211B]/15 p-5 hover:border-[#0E482C] transition-colors"
                         >
                           <div className="aspect-[16/10] overflow-hidden bg-[#07130E] mb-4 image-zoom-container">
-                            <img loading="lazy" decoding="async" src={p.image.src} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                            <img loading="lazy" decoding="async" src={p.image.src} {...responsive(p.image, '(min-width: 640px) 50vw, 100vw')} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                           </div>
                           <div className="text-[10px] font-mono uppercase text-[#0E482C] font-semibold">{p.country} · {p.years}</div>
                           <h3 className="font-serif text-lg font-bold tracking-normal text-[#121815] group-hover:text-[#0E482C] transition-colors mt-1">{p.title}</h3>

@@ -1,8 +1,8 @@
 # Media library (Phase J)
 
-Status: **Phase J-1** implemented (2026-10-17): upload, library, usages, replace, delete, admin
-previews. **Phase J-2** (next): responsive variants (`srcset`, AVIF/WebP at 480/960/1600/2400 px)
-on the site, alt texts and the image checks of the SEO block. Implements review §I and approved
+Status:
+- **Phase J-1** implemented (2026-10-17): upload, library, usages, replace, delete, admin previews.
+- **Phase J-2** implemented (2026-10-17): responsive copies with `srcset` on the site, and the image checks of the SEO block (§9–§11). Implements review §I and approved
 §4.3 / §12.2 (media outside releases, immutable files).
 
 ## 1. Model
@@ -145,10 +145,73 @@ Refused uploads leave nothing behind in `tmp/`. This is tested.
 
 | # | Deviation | Reason / where it goes |
 |---|---|---|
-| J-1 | No variants and no `srcset` yet; the site uses the stored file | J-2 (a separate, visually verified step, approved §24) |
+| J-1 | ~~No variants and no `srcset` yet~~ | Done in J-2 (§9) |
 | J-2 | Alt texts are not edited in the library; the site uses the alt texts of the blocks | The site never reads the library alt today; J-2 decides it together with the image checks |
 | J-3 | No PDF / documents | There is no document entity in the content model yet |
 | J-4 | Videos: no dimensions, no poster extraction, no transcoding | No ffmpeg on the server; posters are chosen as images |
 | J-5 | Deleted or replaced files stay on disk | Immutable storage + GC after the backup retention (approved §12.2, Phase N) |
 | J-6 | Animated WebP keeps only its first frame | sharp re-encodes the first page; animations are not part of the design |
 | J-7 | Keys of files with non-Latin names fall back to `media-file-…` / the Latin part | Keys are technical; the original name is kept for display |
+
+## 9. Responsive copies and `srcset` (Phase J-2)
+
+**Copies:**
+- WebP (quality 80) at 480 / 960 / 1600 / 2400 px, **only below the original width** (`variantWidths`);
+- EXIF orientation applied;
+- stored under `MEDIA_DIR/variants/<id>/<tag>/<w>.webp`, read-only and immutable;
+- `<tag>` comes from the source path, so a replaced file gets new copies under new names;
+- public as `/media/variants/…` (nginx, one-year `immutable` cache; the preview server serves them too).
+
+**Who makes them:**
+- the publishing worker, in the background, one image per tick, whenever it has no release to build;
+- `npm run media:variants -w @soltex/api` makes all missing copies at once (after deployment or an import). It needs only `DATABASE_URL` and `MEDIA_DIR`;
+- the 23 images of the current site take about 4 s and 2.3 MB.
+
+**Stored state:** `media.variants` (migration `0008`) = MediaVariantsV1 `{ source, items }`.
+- The copies are valid only while `source` equals the row's `src`. A replace makes them out of date at once; the worker renews them.
+- A source file that cannot be read is recorded as `missing`, so it is not retried in a loop.
+
+**Content export:** `MediaRecord.variants` lists the valid copies, and is **absent** when there are none. The seed has none, so `seed → DB → export` stays byte-identical.
+
+**Site** (`apps/web/src/content/media.ts`):
+- `buildSrcSet` makes `srcset` from the copies plus the original at its own width;
+- `responsive(asset, sizes)` adds `srcSet` + `sizes` to the 20 content images;
+- it adds **nothing** when there are no copies, so a build without copies renders exactly the old HTML;
+- `sizes` follows each layout (full-width bands `100vw`; cards `(min-width: 1024px) 34vw, …`). The values are generous on purpose: overestimating costs bytes, never sharpness;
+- WebP only (all current browsers). `<picture>` with AVIF was not used: it would change the DOM structure of every image block;
+- images that are not content records keep their plain `src`: logos, and fixed decorative images of unused components.
+
+**Build:**
+- `validate-site.ts` checks every `srcset` candidate (case-insensitive: React writes `srcSet`) against `dist/` or, for `/media/…`, against `MEDIA_ROOT`;
+- a build referencing missing copies fails.
+
+**Admin:** the file page shows «Копии для сайта»:
+- готовы (widths);
+- готовятся — появятся на сайте со следующим релизом;
+- не нужны;
+- не сделаны: исходный файл не найден.
+
+## 10. SEO image checks (Phase J-2)
+
+Both are WARNINGS, on the record and the field that uses the image (approved §14):
+
+| Code | When |
+|---|---|
+| `image_too_large` | An image used by a published record is larger than 2 MB **and** has no smaller copies. With copies, the site serves the small files. The API knows file sizes; the site build does not and skips this check |
+| `og_image_small` | The OG image is narrower than 1200 px |
+
+The library warning «Больше 2 МБ» follows the same rule: it is shown only while there are no copies.
+
+## 11. Verification of the visual change (Phase J-2)
+
+- **Seed build** (no copies): HTML and page data are **identical** to the previous release. Only the JavaScript bundle changed (the new helper).
+- **Build from the database with copies** (`media:variants` → export → build with `MEDIA_ROOT`): every content image has `srcset` / `sizes`, and the validator checks all 239 files.
+- **Visual check:** `qa-regression --shots` (4 widths × 6 languages × all routes), with the copies served next to the build. Screenshots were compared with the previous release; the result is in the implementation report.
+
+## 12. Deviations (Phase J-2)
+
+| # | Deviation | Reason |
+|---|---|---|
+| J-8 | WebP copies only (no AVIF, no JPEG fallback copies) | `<picture>` would change the markup of every image block; WebP works in every current browser, and the original stays the fallback candidate |
+| J-9 | Alt texts are still not edited in the library | The site uses the contextual alt texts of its blocks (all present); a library alt would change nothing visible |
+| J-10 | `srcset` on content images only | Logos are small; the decorative images of unused components are not content |

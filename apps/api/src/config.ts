@@ -67,6 +67,17 @@ function parseKeys(value: string): Map<string, Buffer> {
   return map;
 }
 
+/**
+ * Media directories alone (also used by `npm run media:variants`, which needs no keys or origins).
+ * Production requires MEDIA_DIR; legacy files default to the active release.
+ */
+export function mediaConfig(source: Record<string, string | undefined>, env: AppEnv, releasesDir: string): ApiConfig['media'] {
+  const dir = path.resolve(source.MEDIA_DIR ?? (env === 'production' ? '' : path.resolve(import.meta.dirname, '../../../.media')));
+  if (env === 'production' && !source.MEDIA_DIR) throw new Error('MEDIA_DIR must be set in production (e.g. /srv/soltex/media)');
+  const legacyDir = path.resolve(source.MEDIA_LEGACY_DIR ?? (env === 'production' ? path.join(releasesDir, 'current') : path.resolve(import.meta.dirname, '../../web/public')));
+  return { dir, legacyDir };
+}
+
 export function loadConfig(source: Record<string, string | undefined> = process.env): ApiConfig {
   const env = (source.NODE_ENV ?? 'development') as AppEnv;
   if (!ENVS.includes(env)) throw new Error(`NODE_ENV must be one of ${ENVS.join(', ')}`);
@@ -111,9 +122,7 @@ export function loadConfig(source: Record<string, string | undefined> = process.
   if (!/^https?:\/\/[^/]+$/.test(publicSiteUrl)) throw new Error('PUBLIC_SITE_URL must be an origin, e.g. https://soltexglobal.co');
   if (env === 'production' && !publicSiteUrl.startsWith('https://')) throw new Error('PUBLIC_SITE_URL must use https in production');
 
-  const mediaDir = path.resolve(source.MEDIA_DIR ?? (env === 'production' ? '' : path.resolve(import.meta.dirname, '../../../.media')));
-  if (env === 'production' && !source.MEDIA_DIR) throw new Error('MEDIA_DIR must be set in production (e.g. /srv/soltex/media)');
-  const legacyDir = path.resolve(source.MEDIA_LEGACY_DIR ?? (env === 'production' ? path.join(releasesDir, 'current') : path.resolve(import.meta.dirname, '../../web/public')));
+  const { dir: mediaDir, legacyDir } = mediaConfig(source, env, releasesDir);
 
   return {
     env,

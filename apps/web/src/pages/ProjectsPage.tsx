@@ -8,6 +8,7 @@ import { CtaSection } from '../components/CtaSection';
 import { ScrollReveal } from '../components/ScrollReveal';
 import type { Project as ProjectItem } from '../content/types';
 import { useI18n } from '../i18n/I18nProvider';
+import { responsive } from '../content/media';
 
 interface ProjectsPageProps {
   onOpenProjectModal?: (topic?: InquiryTopic) => void;
@@ -51,6 +52,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onOpenProjectModal }
                   <div className="relative aspect-[16/10] overflow-hidden bg-[#07130E] image-zoom-container">
                     <img
                       src={project.image.src}
+                      {...responsive(project.image, '(min-width: 1024px) 34vw, (min-width: 768px) 50vw, 100vw')}
                       alt={project.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
                       loading="lazy"

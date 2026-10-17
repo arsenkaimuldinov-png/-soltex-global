@@ -6,6 +6,8 @@
  *
  * Layout under MEDIA_DIR:
  *   originals/<yyyy>/<uuid>.<ext>   uploaded files (EXIF/GPS removed), public as /media/originals/…
+ *   variants/<id>/<tag>/<w>.webp    responsive copies (Phase J-2), public as /media/variants/…;
+ *                                   <tag> is derived from the source path, so a replaced file gets new copies
  *   previews/<id>-v<version>-<w>.webp  admin previews (cache; safe to delete)
  *   tmp/                            uploads in progress
  */
@@ -21,6 +23,8 @@ export interface MediaStorage {
   /** Absolute path of a stored file (relative paths only; never leaves the storage root). */
   resolve(relative: string): string;
   previewPath(id: string, version: number, width: number): string;
+  /** Store a finished temporary file as a responsive copy; returns the relative path. */
+  commitVariant(tempFile: string, id: string, tag: string, width: number): string;
 }
 
 export function localMediaStorage(root: string): MediaStorage {
@@ -44,6 +48,15 @@ export function localMediaStorage(root: string): MediaStorage {
       return rel;
     },
     resolve: inside,
+    commitVariant(tempFile, id, tag, width) {
+      if (!/^[0-9a-f-]{36}$/.test(id) || !/^[0-9a-f]{12}$/.test(tag)) throw new Error('invalid variant path');
+      const rel = `variants/${id}/${tag}/${width}.webp`;
+      const abs = inside(rel);
+      fs.mkdirSync(path.dirname(abs), { recursive: true });
+      fs.renameSync(tempFile, abs);
+      fs.chmodSync(abs, 0o444);
+      return rel;
+    },
     previewPath(id, version, width) {
       const dir = path.join(root, 'previews');
       fs.mkdirSync(dir, { recursive: true });

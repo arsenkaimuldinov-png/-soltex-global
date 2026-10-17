@@ -136,10 +136,11 @@ export function createPreviewServer(deps: Deps, options: PreviewServerOptions = 
       const key = cookie ? await previewTarget(db, cookie, deps.now()) : null;
       if (!key) return send(401, DENIED_HTML, { 'Content-Type': 'text/html; charset=utf-8' });
       // Media library files are not in the release (approved §4.3): served from shared storage.
-      if (pathname.startsWith('/media/originals/')) {
+      const libraryDir = pathname.match(/^\/media\/(originals|variants)\//)?.[1];
+      if (libraryDir) {
         const mediaRoot = path.resolve(deps.config.media.dir);
         const abs = path.resolve(mediaRoot, `.${pathname.slice('/media'.length)}`);
-        if (!abs.startsWith(path.join(mediaRoot, 'originals') + path.sep) || !isFile(abs)) return send(404, 'Not found');
+        if (!abs.startsWith(path.join(mediaRoot, libraryDir) + path.sep) || !isFile(abs)) return send(404, 'Not found');
         const body = fs.readFileSync(abs);
         return send(200, body, { 'Content-Type': TYPES[path.extname(abs)] ?? 'application/octet-stream', 'Content-Length': body.length });
       }

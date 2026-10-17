@@ -2017,6 +2017,8 @@
               "translation_outdated",
               "og_image_missing",
               "noindex_in_navigation",
+              "image_too_large",
+              "og_image_small",
               "redirect_chain",
               "title_default",
               "description_default"
@@ -2129,6 +2131,8 @@
               "translation_outdated",
               "og_image_missing",
               "noindex_in_navigation",
+              "image_too_large",
+              "og_image_small",
               "redirect_chain",
               "title_default",
               "description_default"
@@ -2339,6 +2343,8 @@
               "translation_outdated",
               "og_image_missing",
               "noindex_in_navigation",
+              "image_too_large",
+              "og_image_small",
               "redirect_chain",
               "title_default",
               "description_default"
@@ -2651,6 +2657,33 @@
                 "hero_too_narrow"
               ]
             }
+          },
+          "variants": {
+            "type": "object",
+            "properties": {
+              "state": {
+                "type": "string",
+                "enum": [
+                  "ready",
+                  "pending",
+                  "none",
+                  "missing"
+                ]
+              },
+              "widths": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                }
+              }
+            },
+            "required": [
+              "state",
+              "widths"
+            ],
+            "description": "Responsive copies for the site: ready, pending (the worker makes them), none (not needed), missing (source file not found)"
           }
         },
         "required": [
@@ -2670,7 +2703,8 @@
           "updatedAt",
           "updatedBy",
           "usageCount",
-          "warnings"
+          "warnings",
+          "variants"
         ]
       },
       "MediaUsageInput": {
@@ -2848,6 +2882,33 @@
               ]
             }
           },
+          "variants": {
+            "type": "object",
+            "properties": {
+              "state": {
+                "type": "string",
+                "enum": [
+                  "ready",
+                  "pending",
+                  "none",
+                  "missing"
+                ]
+              },
+              "widths": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                }
+              }
+            },
+            "required": [
+              "state",
+              "widths"
+            ],
+            "description": "Responsive copies for the site: ready, pending (the worker makes them), none (not needed), missing (source file not found)"
+          },
           "usages": {
             "type": "array",
             "items": {
@@ -2876,6 +2937,7 @@
           "updatedBy",
           "usageCount",
           "warnings",
+          "variants",
           "usages",
           "publicUrl"
         ]
@@ -10407,6 +10469,8 @@
               "translation_outdated",
               "og_image_missing",
               "noindex_in_navigation",
+              "image_too_large",
+              "og_image_small",
               "redirect_chain",
               "title_default",
               "description_default"
@@ -10520,6 +10584,8 @@
               "translation_outdated",
               "og_image_missing",
               "noindex_in_navigation",
+              "image_too_large",
+              "og_image_small",
               "redirect_chain",
               "title_default",
               "description_default"
@@ -10733,6 +10799,8 @@
               "translation_outdated",
               "og_image_missing",
               "noindex_in_navigation",
+              "image_too_large",
+              "og_image_small",
               "redirect_chain",
               "title_default",
               "description_default"
@@ -11049,6 +11117,34 @@
                 "hero_too_narrow"
               ]
             }
+          },
+          "variants": {
+            "type": "object",
+            "properties": {
+              "state": {
+                "type": "string",
+                "enum": [
+                  "ready",
+                  "pending",
+                  "none",
+                  "missing"
+                ]
+              },
+              "widths": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                }
+              }
+            },
+            "required": [
+              "state",
+              "widths"
+            ],
+            "additionalProperties": false,
+            "description": "Responsive copies for the site: ready, pending (the worker makes them), none (not needed), missing (source file not found)"
           }
         },
         "required": [
@@ -11068,7 +11164,8 @@
           "updatedAt",
           "updatedBy",
           "usageCount",
-          "warnings"
+          "warnings",
+          "variants"
         ],
         "additionalProperties": false
       },
@@ -11249,6 +11346,34 @@
               ]
             }
           },
+          "variants": {
+            "type": "object",
+            "properties": {
+              "state": {
+                "type": "string",
+                "enum": [
+                  "ready",
+                  "pending",
+                  "none",
+                  "missing"
+                ]
+              },
+              "widths": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                }
+              }
+            },
+            "required": [
+              "state",
+              "widths"
+            ],
+            "additionalProperties": false,
+            "description": "Responsive copies for the site: ready, pending (the worker makes them), none (not needed), missing (source file not found)"
+          },
           "usages": {
             "type": "array",
             "items": {
@@ -11277,6 +11402,7 @@
           "updatedBy",
           "usageCount",
           "warnings",
+          "variants",
           "usages",
           "publicUrl"
         ],

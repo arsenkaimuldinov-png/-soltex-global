@@ -8,6 +8,7 @@ import { CtaSection } from '../components/CtaSection';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { EpcmProcessRail, useEpcmProgress } from '../components/EpcmProcessRail';
 import { useI18n } from '../i18n/I18nProvider';
+import { responsive } from '../content/media';
 
 
 interface EpcmPageProps {
@@ -173,6 +174,7 @@ export const EpcmPage: React.FC<EpcmPageProps> = ({ onOpenProjectModal }) => {
                           <div className="relative aspect-[16/10] overflow-hidden bg-[#07130E] border border-[#16211B]/15 image-zoom-container">
                             <img
                               src={stageImg}
+                              {...responsive(stage.image, '(min-width: 1024px) 60vw, 100vw')}
                               alt={stage.title}
                               className="w-full h-full object-cover opacity-90 hover:opacity-100"
                               loading="lazy"

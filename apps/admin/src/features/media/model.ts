@@ -82,3 +82,11 @@ export function describeUsage(u: UsageView): { section: string; title: string; f
   const field = FIELD_LABELS[u.field] ?? (u.field.endsWith('Image') ? 'изображение блока' : 'список');
   return { section, title, field, to: u.id ? `/content/${u.type}/${u.id}` : null };
 }
+
+/** State of the responsive copies (Phase J-2) in words. */
+export function variantsLabel(v: { state: 'ready' | 'pending' | 'none' | 'missing'; widths: number[] }): string {
+  if (v.state === 'ready') return `готовы: ${v.widths.join(', ')} px (WebP)`;
+  if (v.state === 'missing') return 'не сделаны: исходный файл не найден на сервере';
+  if (v.state === 'pending') return 'готовятся — появятся на сайте со следующим релизом';
+  return 'не нужны — изображение уже небольшое';
+}

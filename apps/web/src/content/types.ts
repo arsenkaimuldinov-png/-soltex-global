@@ -89,6 +89,12 @@ export interface MediaAsset {
   width: number | null;
   height: number | null;
   alt: string | null;
+  /**
+   * `srcset` of the responsive copies plus the original (Phase J-2), or null when the media
+   * library has made none (then the markup is exactly the plain <img src>). Absent rather than
+   * null, so content without copies serializes exactly as before.
+   */
+  srcSet?: string;
 }
 
 // ---------------------------------------------------------------------------

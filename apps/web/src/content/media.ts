@@ -22,3 +22,23 @@ export function resolveMediaUrl(src: string): string {
   const base = readMediaBase();
   return base ? `${base}${src.startsWith('/') ? '' : '/'}${src}` : src;
 }
+
+/**
+ * `srcset` for an image with responsive copies (Phase J-2): every copy plus the original at its
+ * own width, smallest first. Null without copies (or without a known width).
+ */
+export function buildSrcSet(rec: { src: string; width: number | null; variants?: ReadonlyArray<{ src: string; width: number }> }): string | null {
+  if (!rec.variants?.length || !rec.width) return null;
+  const items = [...rec.variants].filter((v) => v.width < rec.width!).sort((a, b) => a.width - b.width);
+  if (!items.length) return null;
+  return [...items.map((v) => `${resolveMediaUrl(v.src)} ${v.width}w`), `${resolveMediaUrl(rec.src)} ${rec.width}w`].join(', ');
+}
+
+/**
+ * Extra <img> attributes for a responsive image: `srcSet` + `sizes` when copies exist, nothing
+ * otherwise, so a site without copies renders byte-for-byte what it did before.
+ * `sizes` describes how wide the image is drawn; overestimating only costs bytes, never sharpness.
+ */
+export function responsive(asset: { srcSet?: string } | null | undefined, sizes: string): { srcSet?: string; sizes?: string } {
+  return asset?.srcSet ? { srcSet: asset.srcSet, sizes } : {};
+}

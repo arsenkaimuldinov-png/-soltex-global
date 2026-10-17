@@ -44,6 +44,7 @@ import { exportStore } from '../content/export.ts';
 import { REVIEW_TABLES, TRANSLATABLE_TYPES } from '../content/review-tables.ts';
 import { recordRefs } from '../seo/report.ts';
 import { localMediaStorage, type MediaStorage } from './storage.ts';
+import { variantsOf, variantState, type VariantState } from './variants.ts';
 
 type MediaRow = typeof s.media.$inferSelect;
 
@@ -130,6 +131,8 @@ export interface MediaView {
   updatedBy: { id: string; name: string } | null;
   usageCount: number;
   warnings: MediaWarning[];
+  /** Responsive copies for the site (Phase J-2). */
+  variants: { state: VariantState; widths: number[] };
 }
 
 const MIME_BY_EXT: Record<string, string> = { '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.avif': 'image/avif', '.mp4': 'video/mp4' };
@@ -168,7 +171,8 @@ async function userNames(db: Queryable, ids: Array<string | null>) {
 function toView(deps: Deps, m: MediaRow, alt: string | null, usages: MediaUsage[], users: Map<string, { id: string; name: string }>): MediaView {
   const bytes = m.bytes ?? legacySize(deps, m);
   const warnings: MediaWarning[] = [];
-  if (m.kind === 'image' && bytes !== null && bytes > MEDIA_LARGE_IMAGE_BYTES) warnings.push('large_file');
+  // A large original is a problem only while the site has no smaller copies to serve.
+  if (m.kind === 'image' && bytes !== null && bytes > MEDIA_LARGE_IMAGE_BYTES && variantState(m) !== 'ready') warnings.push('large_file');
   if (m.kind === 'image' && m.width !== null && m.width < MEDIA_HERO_MIN_WIDTH && usages.some((u) => /hero/i.test(u.field))) warnings.push('hero_too_narrow');
   return {
     id: m.id,
@@ -188,6 +192,7 @@ function toView(deps: Deps, m: MediaRow, alt: string | null, usages: MediaUsage[
     updatedBy: m.updatedBy ? users.get(m.updatedBy) ?? null : null,
     usageCount: usages.length,
     warnings,
+    variants: { state: variantState(m), widths: variantsOf(m).map((v) => v.width) },
   };
 }
 
@@ -470,4 +475,11 @@ export async function previewOf(deps: Deps, id: string, width: (typeof PREVIEW_W
     fs.rmSync(tmp, { force: true });
     return null;
   }
+}
+
+/** File size per media key (uploads from the database, legacy files from the site), for the SEO image checks. */
+export async function mediaSizes(deps: Deps, db: Queryable): Promise<(key: string) => number | null> {
+  const rows = await db.select().from(s.media).where(eq(s.media.kind, 'image'));
+  const sizes = new Map(rows.map((m) => [m.key, m.bytes ?? legacySize(deps, m)]));
+  return (key) => sizes.get(key) ?? null;
 }

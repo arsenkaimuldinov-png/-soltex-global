@@ -7,6 +7,7 @@ import { useI18n } from '../i18n/I18nProvider';
 import { Link } from '../i18n/Link';
 import { useDialog } from '../hooks/useDialog';
 import { usePresence } from '../motion/usePresence';
+import { responsive } from '../content/media';
 
 /**
  * Homepage "Video Materials" block: the two Soltex videos (served from /public/videos) + the
@@ -161,6 +162,7 @@ const VideoCard: React.FC<{ video: CompanyVideo; onPlay: (v: CompanyVideo, trigg
     >
       <img
         src={video.poster.src}
+        {...responsive(video.poster, '(min-width: 1280px) 42vw, 100vw')}
         alt=""
         loading="lazy"
         decoding="async"

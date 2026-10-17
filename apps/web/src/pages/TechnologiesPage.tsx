@@ -8,6 +8,7 @@ import { CtaSection } from '../components/CtaSection';
 import { ScrollReveal } from '../components/ScrollReveal';
 import type { Technology as TechnologyItem } from '../content/types';
 import { useI18n } from '../i18n/I18nProvider';
+import { responsive } from '../content/media';
 
 interface TechnologiesPageProps {
   onOpenProjectModal?: (topic?: InquiryTopic) => void;
@@ -119,6 +120,7 @@ export const TechnologiesPage: React.FC<TechnologiesPageProps> = ({ onOpenProjec
                         <Link to={`/technologies/${tech.slug}`} className="block relative aspect-[16/10] overflow-hidden bg-[#07130E] border border-[#16211B]/15 image-zoom-container group">
                           <img
                             src={tech.image.src}
+                            {...responsive(tech.image, '(min-width: 1024px) 50vw, 100vw')}
                             alt={tech.title}
                             className="w-full h-full object-cover opacity-90 group-hover:opacity-100"
                             loading="lazy"

@@ -7,6 +7,7 @@ import { usePage } from '../content/useContent';
 import { CtaSection } from '../components/CtaSection';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { useI18n } from '../i18n/I18nProvider';
+import { responsive } from '../content/media';
 
 /** Icons of the four capability cards, in content order (presentation is code-owned). */
 const CAPABILITY_ICONS = [Cpu, Factory, Award, Globe2];
@@ -76,6 +77,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenProjectModal }) => {
           <div className="relative aspect-[21/9] sm:aspect-[24/9] w-full min-h-[380px] image-zoom-container">
             <img
               src={media('provenanceImage').src}
+              {...responsive(media('provenanceImage'), '100vw')}
               alt={c('provenanceImageAlt')}
               className="w-full h-full object-cover opacity-90"
               loading="lazy"
@@ -152,6 +154,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenProjectModal }) => {
               <div className="md:col-span-7 relative aspect-[16/10] overflow-hidden bg-[#07130E] image-zoom-container">
                 <img
                   src={media('hygienicImage').src}
+                  {...responsive(media('hygienicImage'), '(min-width: 768px) 60vw, 100vw')}
                   alt={c('hygienicImageAlt')}
                   className="w-full h-full object-cover"
                   loading="lazy"
@@ -225,6 +228,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenProjectModal }) => {
           <div className="relative aspect-[21/9] sm:aspect-[24/9] w-full min-h-[380px] image-zoom-container">
             <img
               src={media('epcmImage').src}
+              {...responsive(media('epcmImage'), '100vw')}
               alt={c('epcmImageAlt')}
               className="w-full h-full object-cover opacity-85"
               loading="lazy"

@@ -266,6 +266,15 @@ const checked = new Set<string>();
 for (const f of htmlPages) {
   const html = read(f);
   const body = html.slice(html.indexOf('<body'));
+  // srcset candidates (Phase J-2) are files like src: "url 480w, url 960w".
+  const srcsetUrls = [...html.matchAll(/\bsrcset="([^"]+)"/gi)].flatMap((m) => unesc(m[1]).split(',').map((c) => c.trim().split(/\s+/)[0]!));
+  for (const raw of srcsetUrls) {
+    if (!raw.startsWith('/') || raw.startsWith('//')) continue;
+    const key = raw.split(/[?#]/)[0];
+    if (checked.has(key)) continue;
+    checked.add(key);
+    if (!assetExists(decodeURI(key))) err(`${f}: missing srcset file ${raw}`);
+  }
   for (const m of html.matchAll(/\b(?:src|href|poster)="([^"]+)"/g)) {
     const raw = unesc(m[1]);
     if (!raw.startsWith('/') || raw.startsWith('//')) continue;

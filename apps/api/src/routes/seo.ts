@@ -17,6 +17,7 @@ import { requireDb } from '../deps.ts';
 import { Problem } from '../http/problem.ts';
 import { REVIEW_TABLES, TRANSLATABLE_TYPES, type TranslatableType } from '../content/review-tables.ts';
 import { absoluteUrl, asPublished, issuesOf, recordRefs, runChecks, seoContext } from '../seo/report.ts';
+import { mediaSizes } from '../media/service.ts';
 import { problems, Uuid } from './schemas.ts';
 
 const Type = z.enum(TRANSLATABLE_TYPES as unknown as [TranslatableType, ...TranslatableType[]]);
@@ -76,7 +77,7 @@ export async function seoRoutes(app: FastifyInstance, deps: Deps) {
     },
     async (req) => {
       const db = requireDb(deps);
-      const ctx = await seoContext(db);
+      const ctx = await seoContext(db, undefined, await mediaSizes(deps, db));
       const report = runChecks(ctx);
       const refs = await recordRefs(db, ctx.store);
       const q = req.query;
@@ -108,7 +109,7 @@ export async function seoRoutes(app: FastifyInstance, deps: Deps) {
         const { rows } = await db.execute(sql`SELECT key FROM ${sql.raw(REVIEW_TABLES[type].entity)} WHERE id = ${req.params.id}`);
         const key = (rows[0] as { key: string } | undefined)?.key;
         if (!key) throw new Problem('not_found');
-        const ctx = await seoContext(db);
+        const ctx = await seoContext(db, undefined, await mediaSizes(deps, db));
         const report = runChecks(ctx, asPublished(ctx.store, type, key));
         const issues = issuesOf(report, type, key);
         const summary = { blocking: 0, warning: 0, info: 0 };

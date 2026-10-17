@@ -341,7 +341,7 @@ export type SeoSummaryInput = {
 };
 
 export type SeoIssueInput = {
-  code: "slug_invalid" | "slug_duplicate" | "relation_broken" | "media_missing" | "link_broken" | "title_missing" | "description_missing" | "title_too_long" | "redirect_invalid" | "redirect_self" | "redirect_duplicate" | "redirect_loop" | "redirect_shadows_page" | "redirect_target_missing" | "title_length" | "description_length" | "title_duplicate" | "description_duplicate" | "translation_missing" | "translation_outdated" | "og_image_missing" | "noindex_in_navigation" | "redirect_chain" | "title_default" | "description_default";
+  code: "slug_invalid" | "slug_duplicate" | "relation_broken" | "media_missing" | "link_broken" | "title_missing" | "description_missing" | "title_too_long" | "redirect_invalid" | "redirect_self" | "redirect_duplicate" | "redirect_loop" | "redirect_shadows_page" | "redirect_target_missing" | "title_length" | "description_length" | "title_duplicate" | "description_duplicate" | "translation_missing" | "translation_outdated" | "og_image_missing" | "noindex_in_navigation" | "image_too_large" | "og_image_small" | "redirect_chain" | "title_default" | "description_default";
   severity: "blocking" | "warning" | "info";
   type: "pages" | "projects" | "technologies" | "products" | "epcm-stages" | "patents" | "videos" | "redirects";
   key: string;
@@ -352,7 +352,7 @@ export type SeoIssueInput = {
 };
 
 export type SeoSiteIssueInput = {
-  code: "slug_invalid" | "slug_duplicate" | "relation_broken" | "media_missing" | "link_broken" | "title_missing" | "description_missing" | "title_too_long" | "redirect_invalid" | "redirect_self" | "redirect_duplicate" | "redirect_loop" | "redirect_shadows_page" | "redirect_target_missing" | "title_length" | "description_length" | "title_duplicate" | "description_duplicate" | "translation_missing" | "translation_outdated" | "og_image_missing" | "noindex_in_navigation" | "redirect_chain" | "title_default" | "description_default";
+  code: "slug_invalid" | "slug_duplicate" | "relation_broken" | "media_missing" | "link_broken" | "title_missing" | "description_missing" | "title_too_long" | "redirect_invalid" | "redirect_self" | "redirect_duplicate" | "redirect_loop" | "redirect_shadows_page" | "redirect_target_missing" | "title_length" | "description_length" | "title_duplicate" | "description_duplicate" | "translation_missing" | "translation_outdated" | "og_image_missing" | "noindex_in_navigation" | "image_too_large" | "og_image_small" | "redirect_chain" | "title_default" | "description_default";
   severity: "blocking" | "warning" | "info";
   type: "pages" | "projects" | "technologies" | "products" | "epcm-stages" | "patents" | "videos" | "redirects";
   key: string;
@@ -382,7 +382,7 @@ export type SeoPageMetaInput = {
 };
 
 export type RedirectIssueInput = {
-  code: "slug_invalid" | "slug_duplicate" | "relation_broken" | "media_missing" | "link_broken" | "title_missing" | "description_missing" | "title_too_long" | "redirect_invalid" | "redirect_self" | "redirect_duplicate" | "redirect_loop" | "redirect_shadows_page" | "redirect_target_missing" | "title_length" | "description_length" | "title_duplicate" | "description_duplicate" | "translation_missing" | "translation_outdated" | "og_image_missing" | "noindex_in_navigation" | "redirect_chain" | "title_default" | "description_default";
+  code: "slug_invalid" | "slug_duplicate" | "relation_broken" | "media_missing" | "link_broken" | "title_missing" | "description_missing" | "title_too_long" | "redirect_invalid" | "redirect_self" | "redirect_duplicate" | "redirect_loop" | "redirect_shadows_page" | "redirect_target_missing" | "title_length" | "description_length" | "title_duplicate" | "description_duplicate" | "translation_missing" | "translation_outdated" | "og_image_missing" | "noindex_in_navigation" | "image_too_large" | "og_image_small" | "redirect_chain" | "title_default" | "description_default";
   severity: "blocking" | "warning" | "info";
   type: string;
   key: string;
@@ -440,6 +440,11 @@ export type MediaFileInput = {
   } | null;
   usageCount: number;
   warnings: Array<"large_file" | "hero_too_narrow">;
+  /** Responsive copies for the site: ready, pending (the worker makes them), none (not needed), missing (source file not found) */
+  variants: {
+    state: "ready" | "pending" | "none" | "missing";
+    widths: Array<number>;
+  };
 };
 
 export type MediaUsageInput = {
@@ -475,6 +480,11 @@ export type MediaDetailInput = {
   } | null;
   usageCount: number;
   warnings: Array<"large_file" | "hero_too_narrow">;
+  /** Responsive copies for the site: ready, pending (the worker makes them), none (not needed), missing (source file not found) */
+  variants: {
+    state: "ready" | "pending" | "none" | "missing";
+    widths: Array<number>;
+  };
   usages: Array<MediaUsageInput>;
   publicUrl: string;
 };
@@ -1830,7 +1840,7 @@ export type SeoSummary = {
 };
 
 export type SeoIssue = {
-  code: "slug_invalid" | "slug_duplicate" | "relation_broken" | "media_missing" | "link_broken" | "title_missing" | "description_missing" | "title_too_long" | "redirect_invalid" | "redirect_self" | "redirect_duplicate" | "redirect_loop" | "redirect_shadows_page" | "redirect_target_missing" | "title_length" | "description_length" | "title_duplicate" | "description_duplicate" | "translation_missing" | "translation_outdated" | "og_image_missing" | "noindex_in_navigation" | "redirect_chain" | "title_default" | "description_default";
+  code: "slug_invalid" | "slug_duplicate" | "relation_broken" | "media_missing" | "link_broken" | "title_missing" | "description_missing" | "title_too_long" | "redirect_invalid" | "redirect_self" | "redirect_duplicate" | "redirect_loop" | "redirect_shadows_page" | "redirect_target_missing" | "title_length" | "description_length" | "title_duplicate" | "description_duplicate" | "translation_missing" | "translation_outdated" | "og_image_missing" | "noindex_in_navigation" | "image_too_large" | "og_image_small" | "redirect_chain" | "title_default" | "description_default";
   severity: "blocking" | "warning" | "info";
   type: "pages" | "projects" | "technologies" | "products" | "epcm-stages" | "patents" | "videos" | "redirects";
   key: string;
@@ -1841,7 +1851,7 @@ export type SeoIssue = {
 };
 
 export type SeoSiteIssue = {
-  code: "slug_invalid" | "slug_duplicate" | "relation_broken" | "media_missing" | "link_broken" | "title_missing" | "description_missing" | "title_too_long" | "redirect_invalid" | "redirect_self" | "redirect_duplicate" | "redirect_loop" | "redirect_shadows_page" | "redirect_target_missing" | "title_length" | "description_length" | "title_duplicate" | "description_duplicate" | "translation_missing" | "translation_outdated" | "og_image_missing" | "noindex_in_navigation" | "redirect_chain" | "title_default" | "description_default";
+  code: "slug_invalid" | "slug_duplicate" | "relation_broken" | "media_missing" | "link_broken" | "title_missing" | "description_missing" | "title_too_long" | "redirect_invalid" | "redirect_self" | "redirect_duplicate" | "redirect_loop" | "redirect_shadows_page" | "redirect_target_missing" | "title_length" | "description_length" | "title_duplicate" | "description_duplicate" | "translation_missing" | "translation_outdated" | "og_image_missing" | "noindex_in_navigation" | "image_too_large" | "og_image_small" | "redirect_chain" | "title_default" | "description_default";
   severity: "blocking" | "warning" | "info";
   type: "pages" | "projects" | "technologies" | "products" | "epcm-stages" | "patents" | "videos" | "redirects";
   key: string;
@@ -1871,7 +1881,7 @@ export type SeoPageMeta = {
 };
 
 export type RedirectIssue = {
-  code: "slug_invalid" | "slug_duplicate" | "relation_broken" | "media_missing" | "link_broken" | "title_missing" | "description_missing" | "title_too_long" | "redirect_invalid" | "redirect_self" | "redirect_duplicate" | "redirect_loop" | "redirect_shadows_page" | "redirect_target_missing" | "title_length" | "description_length" | "title_duplicate" | "description_duplicate" | "translation_missing" | "translation_outdated" | "og_image_missing" | "noindex_in_navigation" | "redirect_chain" | "title_default" | "description_default";
+  code: "slug_invalid" | "slug_duplicate" | "relation_broken" | "media_missing" | "link_broken" | "title_missing" | "description_missing" | "title_too_long" | "redirect_invalid" | "redirect_self" | "redirect_duplicate" | "redirect_loop" | "redirect_shadows_page" | "redirect_target_missing" | "title_length" | "description_length" | "title_duplicate" | "description_duplicate" | "translation_missing" | "translation_outdated" | "og_image_missing" | "noindex_in_navigation" | "image_too_large" | "og_image_small" | "redirect_chain" | "title_default" | "description_default";
   severity: "blocking" | "warning" | "info";
   type: string;
   key: string;
@@ -1929,6 +1939,11 @@ export type MediaFile = {
   } | null;
   usageCount: number;
   warnings: Array<"large_file" | "hero_too_narrow">;
+  /** Responsive copies for the site: ready, pending (the worker makes them), none (not needed), missing (source file not found) */
+  variants: {
+    state: "ready" | "pending" | "none" | "missing";
+    widths: Array<number>;
+  };
 };
 
 export type MediaUsage = {
@@ -1964,6 +1979,11 @@ export type MediaDetail = {
   } | null;
   usageCount: number;
   warnings: Array<"large_file" | "hero_too_narrow">;
+  /** Responsive copies for the site: ready, pending (the worker makes them), none (not needed), missing (source file not found) */
+  variants: {
+    state: "ready" | "pending" | "none" | "missing";
+    widths: Array<number>;
+  };
   usages: Array<MediaUsage>;
   publicUrl: string;
 };

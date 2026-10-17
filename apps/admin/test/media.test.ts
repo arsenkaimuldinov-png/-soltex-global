@@ -4,7 +4,7 @@
  */
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { ACCEPT, describeUsage, formatBytes, MEDIA_ERRORS, precheckFile, previewSrc, WARNING_LABELS } from '../src/features/media/model';
+import { ACCEPT, describeUsage, formatBytes, MEDIA_ERRORS, precheckFile, previewSrc, variantsLabel, WARNING_LABELS } from '../src/features/media/model';
 
 test('sizes in Russian units', () => {
   assert.equal(formatBytes(null), '—');
@@ -41,4 +41,11 @@ test('usages in words, with links to the editors; texts for refusals and warning
   for (const k of ['media_type_rejected', 'media_invalid', 'media_duplicate', 'payload_too_large', 'kind_mismatch', 'unchanged']) assert.ok(/[а-я]/.test(MEDIA_ERRORS[k] ?? ''), k);
   for (const w of ['large_file', 'hero_too_narrow']) assert.ok(WARNING_LABELS[w]);
   assert.equal(previewSrc({ id: 'abc', version: 3 }, 1200), '/api/v1/media/abc/preview?w=1200&v=3');
+});
+
+test('responsive copies (J-2) in words', () => {
+  assert.equal(variantsLabel({ state: 'ready', widths: [480, 960] }), 'готовы: 480, 960 px (WebP)');
+  assert.match(variantsLabel({ state: 'pending', widths: [] }), /следующим релизом/);
+  assert.match(variantsLabel({ state: 'none', widths: [] }), /не нужны/);
+  assert.match(variantsLabel({ state: 'missing', widths: [] }), /не найден/);
 });

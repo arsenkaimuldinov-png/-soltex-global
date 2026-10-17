@@ -13,6 +13,8 @@ import sharp from 'sharp';
 import * as s from '../src/db/schema.ts';
 import { closeTestDb, DB_ENABLED, makeApp, signedIn, type TestApp } from './helpers.ts';
 import { resetToSeed } from './release-helpers.ts';
+import { exportStore } from '../src/content/export.ts';
+import { generateAllVariants } from '../src/media/variants.ts';
 
 type Signed = Awaited<ReturnType<typeof signedIn>>;
 type Json = Record<string, any>;
@@ -167,6 +169,43 @@ describe('Media library (Phase J-1)', { skip: !DB_ENABLED && 'DATABASE_URL not s
     assert.equal(ok.statusCode, 204, ok.body);
     assert.equal((await admin.c.req('GET', `/api/v1/media/${uploaded.id}`)).statusCode, 404);
     assert.ok(fs.existsSync(path.join(mediaDir, r.src.replace('/media/', ''))));
+  });
+
+  test('responsive copies (J-2): WebP below the original width, in the export, renewed after a replace', async () => {
+    const before = (await editor.c.req('GET', '/api/v1/media')).json().items as Json[];
+    assert.ok(before.filter((m: Json) => m.kind === 'image').every((m: Json) => m.variants.state === 'pending' || m.variants.state === 'none'));
+    const handled = await generateAllVariants(t.deps);
+    assert.ok(handled >= 20, `handled ${handled}`);
+    assert.equal(await generateAllVariants(t.deps), 0, 'nothing left');
+
+    const after = (await editor.c.req('GET', '/api/v1/media')).json().items as Json[];
+    const hero = after.find((m: Json) => m.key === 'media-soltex-hero-industrial')!;
+    assert.deepEqual(hero.variants, { state: 'ready', widths: [480, 960, 1600] }, '2117 px wide: three smaller copies');
+    const small = after.find((m: Json) => m.kind === 'image' && m.width && m.width <= 480);
+    if (small) assert.equal(small.variants.state, 'none');
+    const store = await exportStore(t.deps.db!);
+    const rec = store.media.find((m) => m.id === 'media-soltex-hero-industrial')!;
+    assert.deepEqual(rec.variants!.map((v) => v.width), [480, 960, 1600]);
+    for (const v of rec.variants!) {
+      assert.match(v.src, /^\/media\/variants\/[0-9a-f-]{36}\/[0-9a-f]{12}\/\d+\.webp$/);
+      const file = path.join(mediaDir, v.src.replace('/media/', ''));
+      const meta = await sharp(file).metadata();
+      assert.deepEqual([meta.format, meta.width, meta.height], ['webp', v.width, v.height]);
+      assert.equal(Math.round((v.width * 743) / 2117), v.height, 'proportional');
+    }
+    assert.ok(store.media.filter((m) => m.kind === 'video').every((m) => m.variants === undefined));
+
+    // a new upload is pending until the worker runs; a replacement makes its copies out of date
+    const up = (await editor.c.upload('/api/v1/media?name=wide.png', await png(2600, 1000, 77))).json() as Json;
+    assert.equal(up.variants.state, 'pending');
+    await generateAllVariants(t.deps);
+    const ready = (await cm.c.req('GET', `/api/v1/media/${up.id}`)).json() as Json;
+    assert.deepEqual(ready.variants, { state: 'ready', widths: [480, 960, 1600, 2400] });
+    const rep = (await cm.c.upload(`/api/v1/media/${up.id}/replace?name=wide2.png`, await png(1000, 500, 78), { 'if-match': `"${ready.version}"` })).json() as Json;
+    assert.equal(rep.variants.state, 'pending');
+    assert.ok(!(await exportStore(t.deps.db!)).media.find((m) => m.src === rep.src)!.variants, 'out-of-date copies are not exported');
+    await generateAllVariants(t.deps);
+    assert.deepEqual((await cm.c.req('GET', `/api/v1/media/${up.id}`)).json().variants, { state: 'ready', widths: [480, 960] });
   });
 
   test('the database refuses an upload row outside the UUID layout', async () => {

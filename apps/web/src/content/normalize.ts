@@ -23,7 +23,12 @@ import type {
   ResolvedMeta,
   TranslationStatus,
 } from './types';
-import { resolveMediaUrl } from './media';
+import { buildSrcSet, resolveMediaUrl } from './media';
+
+const withSrcSet = (rec: MediaRecord): { srcSet?: string } => {
+  const srcSet = buildSrcSet(rec);
+  return srcSet ? { srcSet } : {};
+};
 
 const isMediaRef = (value: unknown): value is MediaRef =>
   !!value &&
@@ -64,6 +69,7 @@ function resolveMedia(ref: MediaRef, media: Map<string, MediaRecord>, locale: Lo
     width: rec.width,
     height: rec.height,
     alt: rec.alt ? rec.alt[locale] : null,
+    ...withSrcSet(rec),
   };
 }
 

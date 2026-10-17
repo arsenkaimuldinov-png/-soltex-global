@@ -7,6 +7,7 @@ import { useContent, usePage } from '../content/useContent';
 import { CtaSection } from '../components/CtaSection';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { useI18n } from '../i18n/I18nProvider';
+import { responsive } from '../content/media';
 
 
 export const PatentsPage: React.FC<{ onOpenProjectModal?: (topic?: InquiryTopic) => void }> = ({ onOpenProjectModal }) => {
@@ -105,6 +106,7 @@ export const PatentsPage: React.FC<{ onOpenProjectModal?: (topic?: InquiryTopic)
                           <div className="relative aspect-[16/9] overflow-hidden bg-[#07130E] border border-[#16211B]/15 image-zoom-container">
                             <img
                               src={plantPhoto.image}
+                              {...responsive(patent.image, '(min-width: 1024px) 60vw, 100vw')}
                               alt={plantPhoto.caption}
                               className="w-full h-full object-cover opacity-90 hover:opacity-100"
                               loading="lazy"

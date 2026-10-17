@@ -17,7 +17,7 @@ import { ConfirmDialog } from '../../components/ui/Dialog';
 import { Card, Facts, PageHeader } from '../../components/ui/Layout';
 import { LoadingBlock } from '../../components/ui/Spinner';
 import { useToast } from '../../components/ui/Toast';
-import { ACCEPT, describeUsage, formatBytes, KIND_LABELS, mediaDetailKey, precheckFile, previewSrc, SOURCE_LABELS, WARNING_LABELS } from './model';
+import { ACCEPT, variantsLabel, describeUsage, formatBytes, KIND_LABELS, mediaDetailKey, precheckFile, previewSrc, SOURCE_LABELS, WARNING_LABELS } from './model';
 import { uploadErrorMessage } from './upload';
 
 export function MediaDetailPage() {
@@ -184,6 +184,7 @@ export function MediaDetailPage() {
                 { label: 'Объём', value: formatBytes(m.bytes) },
                 { label: 'Формат', value: m.mime ?? '—' },
                 { label: 'Откуда', value: SOURCE_LABELS[m.source] ?? m.source },
+                ...(m.kind === 'image' ? [{ label: 'Копии для сайта', value: variantsLabel(m.variants) }] : []),
                 { label: 'Изменён', value: `${formatDateTime(m.updatedAt)}${m.updatedBy ? ` · ${m.updatedBy.name}` : ''}` },
                 {
                   label: 'Адрес на сайте',

@@ -7,6 +7,7 @@ import { useI18n } from '../i18n/I18nProvider';
 import { useDialog } from '../hooks/useDialog';
 import { usePresence } from '../motion/usePresence';
 import { Link } from '../i18n/Link';
+import { responsive } from '../content/media';
 
 /** A technology direction card of the home page (content list `home.keyDirections`). */
 interface KeyDirection {
@@ -61,6 +62,7 @@ export const KeyDirections: React.FC<KeyDirectionsProps> = ({ onSelectTechnology
               <div data-reveal="image" style={{ '--rv-i': idx } as React.CSSProperties} className="relative aspect-[4/3] w-full overflow-hidden bg-[#EAE7DE]">
                 <img loading="lazy" decoding="async"
                   src={tech.image.src}
+                  {...responsive(tech.image, '(min-width: 1024px) 20vw, (min-width: 768px) 34vw, (min-width: 640px) 50vw, 100vw')}
                   alt={tech.title}
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
