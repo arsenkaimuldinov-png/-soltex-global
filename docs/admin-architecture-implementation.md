@@ -671,3 +671,78 @@ I-7 … I-10 in [`admin-seo.md`](admin-seo.md) §11. In short:
 - the dialog shows the working-copy address;
 - redirects are not in the content history (the audit log covers them);
 - external targets are DEFERRED (§11.3).
+
+## Phase J-1: Media library (2026-10-17)
+
+**Base commit:** `a07d331`. Details: [`admin-media.md`](admin-media.md). Phase J is split: J-1 here; J-2 = responsive variants (`srcset`) on the site, alt texts and the image checks of the SEO block.
+
+### What was done
+
+1. **Core** (`@soltex/core/domain`, `media.ts`):
+   - the upload allowlist (JPEG, PNG, WebP, AVIF, MP4; no SVG);
+   - type from the first bytes;
+   - size limits (20 / 200 MB), pixel limit, file names as kept for people.
+2. **Database:** migration `0007`.
+   - Library metadata on `media`: source, storage path, original name, mime, bytes, sha256.
+   - A CHECK keeps upload rows at UUID paths.
+   - Existing rows become `legacy` with their URLs unchanged.
+3. **API** (tag `media`, API 0.10.0, 168 operations):
+   - streamed raw uploads (no multipart dependency);
+   - sharp: rotation, EXIF/GPS removed, re-encoding;
+   - duplicate detection;
+   - library with usages and warnings;
+   - WebP previews for the admin;
+   - replace (same id, immutable files) and delete (only when unused);
+   - audit `media.upload` / `replace` / `delete`;
+   - config `MEDIA_DIR` / `MEDIA_LEGACY_DIR`;
+   - `sharp` is now a dependency of the API: the same version the site already used, so no new package.
+4. **Releases:**
+   - `validate-site.ts` checks `/media/…` references against `MEDIA_ROOT` (set by the worker), not against `dist/`;
+   - the preview server serves `/media/originals/`;
+   - nginx serves it from shared storage (`deploy/nginx/soltexglobal.conf`).
+5. **Admin:**
+   - «Контент → Медиатека» (library, upload, file page with usages, replace, delete);
+   - previews everywhere through the API, so `VITE_MEDIA_BASE_URL` is no longer needed;
+   - upload inside the media picker;
+   - `uploadFile` in the API client.
+6. **Tests:**
+
+   | Suite | Added |
+   |---|---|
+   | Core (`media.test.ts`) | +3 |
+   | API DB (`media.db.test.ts`) | +6 |
+   | nginx | +1 |
+   | Admin unit (`media.test.ts`, plus nav updates) | +3 |
+   | Admin E2E (`media.e2e.mjs`) | +7 |
+
+   Each E2E run has its own `MEDIA_DIR`; uploads of earlier runs are removed at start (`e2e-seed.ts reset-media`).
+7. **Unchanged:**
+   - `apps/web/src` (only the build validator);
+   - the seed and the content export format;
+   - roles and permissions (the `media.*` permissions already existed).
+
+### Verification (2026-10-17)
+
+| Check | Result |
+|---|---|
+| `git diff --check` | clean |
+| `npm run lint` (typecheck web, admin incl. tests, api, core + check:deps) | pass |
+| `npm test` | 100 / 100 pass (core 42, api 20, admin 38) |
+| `npm run test:db` on a freshly provisioned database | 135 tests: 134 pass, 1 skipped (backup role: no `BACKUP_DATABASE_URL` locally) |
+| `npm run test:e2e:admin` | 77 / 77 pass; no page errors, no CSP violations |
+| `openapi.json`, admin API types | up to date (168 operations) |
+| Drizzle | `drizzle-kit check` OK; `generate` → no schema changes beyond `0007` |
+| Library media in a build | a store referencing `/media/…`: fails without `MEDIA_ROOT` (clear message); builds and validates with it (174 pages) |
+| DB regression | `seed → DB → export` is **byte-identical** to the seed; the site from the DB export is **identical** (230 files, 180 HTML) |
+| `qa-regression --base-ref a07d331` | **IDENTICAL to the baseline** in every step: dist bytes (230 files, 180 HTML), page data of 348 page loads, no-JS / motion / script-fail / 404, interactions, navigation, inquiry topics |
+
+### Deviations (Phase J-1)
+
+J-1 … J-7 in [`admin-media.md`](admin-media.md) §8:
+- no variants or `srcset` yet (J-2);
+- no alt-text editing (J-2);
+- no PDF;
+- no video metadata;
+- files stay on disk until the GC (Phase N);
+- animated WebP keeps its first frame;
+- technical keys for non-Latin names.

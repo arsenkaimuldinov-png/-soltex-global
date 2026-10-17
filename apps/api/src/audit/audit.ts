@@ -23,7 +23,7 @@ export interface AuditInput {
 }
 
 const FORBIDDEN_KEY = /pass(word|phrase)?|token|secret|otp|code|cookie|session|hash(?!ed_email)|e-?mail(?!_hash)|phone|message|key$/i;
-const ALLOWED_KEYS = new Set(['reason', 'method', 'role', 'previous_role', 'new_role', 'status', 'factor', 'count', 'fields', 'permission', 'step_up', 'email_hash', 'target', 'remaining', 'revoked', 'level', 'locale', 'previous_status', 'revision', 'from', 'to', 'slug', 'previous_slug']);
+const ALLOWED_KEYS = new Set(['reason', 'method', 'role', 'previous_role', 'new_role', 'status', 'factor', 'count', 'fields', 'permission', 'step_up', 'email_hash', 'target', 'remaining', 'revoked', 'level', 'locale', 'previous_status', 'revision', 'from', 'to', 'slug', 'previous_slug', 'kind', 'size']);
 
 export class AuditSummaryError extends Error {}
 

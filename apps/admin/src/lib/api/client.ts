@@ -70,12 +70,25 @@ export function buildUrl(key: OperationKey, params?: Record<string, string>, que
 }
 
 export async function api<K extends OperationKey>(key: K, ...[args]: {} extends Args<K> ? [Args<K>?] : [Args<K>]): Promise<Op<K>['response']> {
+  return request(key, args ?? {}, undefined);
+}
+
+/**
+ * Media upload (Phase J): the file itself as the request body (`application/octet-stream`); the
+ * API decides the type from the bytes. Other arguments as for `api`.
+ */
+export async function uploadFile<K extends OperationKey>(key: K, file: Blob, ...[args]: {} extends Args<K> ? [Args<K>?] : [Args<K>]): Promise<Op<K>['response']> {
+  return request(key, args ?? {}, file);
+}
+
+async function request<K extends OperationKey>(key: K, args: object, file: Blob | undefined): Promise<Op<K>['response']> {
   const method = key.slice(0, key.indexOf(' '));
-  const a = (args ?? {}) as { body?: unknown; query?: Record<string, unknown>; params?: Record<string, string>; headers?: Record<string, string | undefined> };
+  const a = args as { body?: unknown; query?: Record<string, unknown>; params?: Record<string, string>; headers?: Record<string, string | undefined> };
   const headers: Record<string, string> = { Accept: 'application/json' };
   for (const [k, v] of Object.entries(a.headers ?? {})) if (v !== undefined) headers[k] = v;
   if (method !== 'GET') headers[CSRF_HEADER] = CSRF_VALUE;
-  if (a.body !== undefined) headers['Content-Type'] = 'application/json';
+  if (file) headers['Content-Type'] = 'application/octet-stream';
+  else if (a.body !== undefined) headers['Content-Type'] = 'application/json';
 
   let res: Response;
   try {
@@ -84,7 +97,7 @@ export async function api<K extends OperationKey>(key: K, ...[args]: {} extends 
       headers,
       credentials: 'same-origin',
       cache: 'no-store',
-      body: a.body === undefined ? undefined : JSON.stringify(a.body),
+      body: file ?? (a.body === undefined ? undefined : JSON.stringify(a.body)),
     });
   } catch {
     const e = new ApiError(0, { title: 'Нет связи с сервером. Проверьте подключение и повторите.' }, null, null);

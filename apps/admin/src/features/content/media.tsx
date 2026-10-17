@@ -1,7 +1,6 @@
 /**
- * Choosing an existing media file (approved §23: the media library with uploads is Phase J).
- * Files are named by their file name, size and alt text; a preview is shown only when the admin
- * build knows where the public site serves files (VITE_MEDIA_BASE_URL, see docs/admin-content.md §6).
+ * Choosing a media file in the editors. Previews come from the API (same origin, Phase J-1), and a
+ * new file can be uploaded right here (media.upload) and picked in one step.
  */
 import { useQuery } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
@@ -11,6 +10,10 @@ import type { MediaItem } from '../../lib/api/schema.gen';
 import { Button } from '../../components/ui/Button';
 import { Dialog } from '../../components/ui/Dialog';
 import { cx } from '../../components/ui/cx';
+import { useCan } from '../../lib/session';
+import { MEDIA_TYPES } from '@soltex/core/domain';
+import { previewSrc } from '../media/model';
+import { UploadList, UploadZone, useMediaUpload } from '../media/upload';
 
 export const MEDIA_KEY = ['content', 'media'] as const;
 
@@ -18,16 +21,10 @@ export function useMedia() {
   return useQuery({ queryKey: MEDIA_KEY, queryFn: () => api('GET /api/v1/content/media'), staleTime: 5 * 60_000 });
 }
 
-const BASE = (import.meta.env.VITE_MEDIA_BASE_URL as string | undefined)?.replace(/\/+$/, '') ?? '';
+/** Preview URL of an image (the API renders a small WebP; cached per version). */
+export const previewUrl = (m: Pick<MediaItem, 'id' | 'version'>): string => previewSrc(m);
 
-/** Preview URL of a media file, or null when previews are not configured. */
-export function previewUrl(m: Pick<MediaItem, 'src'>): string | null {
-  if (!BASE) return null;
-  if (/^https?:\/\//.test(m.src)) return m.src;
-  return `${BASE}${m.src.startsWith('/') ? '' : '/'}${m.src}`;
-}
-
-export const fileName = (m: Pick<MediaItem, 'src'>) => decodeURIComponent(m.src.split('/').pop() ?? m.src);
+export const fileName = (m: Pick<MediaItem, 'fileName'>) => m.fileName;
 
 export function MediaSummary({ item, empty = 'Не выбрано' }: { item: MediaItem | undefined | null; empty?: string }) {
   if (!item) return <span className="text-ink-muted">{empty}</span>;
@@ -67,6 +64,9 @@ export function MediaPicker({
   exclude?: readonly string[];
 }) {
   const media = useMedia();
+  const can = useCan();
+  const up = useMediaUpload();
+  const [kindError, setKindError] = useState<string | null>(null);
   const [q, setQ] = useState('');
   const items = useMemo(() => {
     const needle = q.trim().toLocaleLowerCase('ru');
@@ -80,8 +80,34 @@ export function MediaPicker({
       onOpenChange={onOpenChange}
       size="lg"
       title={kind === 'image' ? 'Выберите изображение' : 'Выберите видео'}
-      description="Файлы из медиатеки сайта. Загрузка новых файлов появится в разделе «Медиатека»."
+      description="Файлы из медиатеки сайта. Новый файл можно загрузить здесь же — он сразу будет выбран."
     >
+      {can('media.upload') ? (
+        <div className="mb-3 space-y-2">
+          <UploadZone
+            compact
+            multiple={false}
+            disabled={up.busy}
+            onFiles={async (files) => {
+              const ext = files[0]!.name.toLowerCase().split('.').pop() ?? '';
+              const fileKind = MEDIA_TYPES.find((t) => t.ext === ext || (ext === 'jpeg' && t.ext === 'jpg'))?.kind;
+              if (fileKind && fileKind !== kind) {
+                setKindError(kind === 'image' ? 'Здесь нужно изображение, а выбран видеофайл.' : 'Здесь нужно видео, а выбрано изображение.');
+                return;
+              }
+              setKindError(null);
+              const [res] = await up.upload(files);
+              if (res?.state === 'done' && res.id) {
+                onPick(res.id);
+                up.clear();
+                onOpenChange(false);
+              }
+            }}
+          />
+          {kindError ? <p className="text-xs font-medium text-danger">{kindError}</p> : null}
+          <UploadList items={up.items} />
+        </div>
+      ) : null}
       <label className="relative mb-3 block">
         <span className="sr-only">Поиск файла</span>
         <Search className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-ink-faint" aria-hidden />

@@ -49,6 +49,7 @@ export const mediaKind = pgEnum('media_kind', ['image', 'video']);
 export const pageKind = pgEnum('page_kind', ['page', 'template']);
 export const patentLegalStatus = pgEnum('patent_legal_status', ['granted', 'application']);
 export const redirectSource = pgEnum('redirect_source', ['manual', 'slug_change', 'import']);
+export const mediaSource = pgEnum('media_source', ['legacy', 'upload']);
 
 // ---------------------------------------------------------------------------
 // Shared column sets
@@ -145,8 +146,25 @@ export const media = pgTable('media', {
   width: integer('width'),
   height: integer('height'),
   version: integer('version').notNull().default(1),
+  /** Phase J (migration 0007): `legacy` = imported as is (/images, /videos); `upload` = media library. */
+  source: mediaSource('source').notNull().default('legacy'),
+  /** Uploaded file, relative to MEDIA_DIR (originals/<yyyy>/<uuid>.<ext>); null for legacy files. */
+  storagePath: text('storage_path'),
+  /** Name of the uploaded file as the user had it (shown only; never used as a path). */
+  originalName: text('original_name'),
+  mime: text('mime'),
+  bytes: bigint('bytes', { mode: 'number' }),
+  /** sha256 of the uploaded bytes: duplicate detection. */
+  sha256: text('sha256'),
   ...audit(),
-});
+}, (t) => [
+  index('media_sha256').on(t.sha256),
+  // An uploaded file lives only at a UUID path under originals/ and is served at /media/<that path>.
+  check(
+    'media_upload_path',
+    sql`${t.source} <> 'upload' OR (${t.storagePath} ~ '^originals/[0-9]{4}/[0-9a-f-]{36}\\.(jpg|png|webp|avif|mp4)$' AND ${t.src} = ('/media/' || ${t.storagePath}))`
+  ),
+]);
 
 export const mediaTranslations = pgTable(
   'media_translations',

@@ -162,9 +162,9 @@ The export requires the same shape in every language: the same list lengths and 
 - **Проверка SEO** (Phase I-1, [`admin-seo.md`](admin-seo.md)): projects, technologies, products and routable pages show the search snippet per language and the record's SEO checks; «Отметить к публикации» stays disabled while there is a blocking SEO error.
 - **История изменений** (Phase G): every editor shows the last 8 versions of the record with author and time; view, compare with the current version (field by field, language by language) and «Восстановить» (a new version; status and slug kept; confirmation). «Вся история» opens `/publishing/revisions/:type/:id`.
 - **Media:**
-  - a picker of existing files (file name, size, alt text);
-  - uploads, crops and variants are Phase J;
-  - previews appear when the admin build sets `VITE_MEDIA_BASE_URL` (the public site origin). The admin CSP `img-src` must then include that origin (admin-ui.md §8).
+  - a picker of the media library with previews (served by the API, same origin);
+  - «Выбрать файл» in the picker uploads a new file and picks it (Phase J-1, [`admin-media.md`](admin-media.md));
+  - variants and `srcset` are Phase J-2.
 - **Mobile:** lists and editors work at 390 px (single column, no horizontal page scroll; E2E-checked).
 
 ---
@@ -203,7 +203,7 @@ The export requires the same shape in every language: the same list lengths and 
 | No preview | H |
 | ~~Slug of published records locked; no redirect dialog; no SEO checker or snippet preview~~ — done in Phase I ([`admin-seo.md`](admin-seo.md)) | I |
 | ~~Translations are not edited; no "outdated" detection~~ — done in Phase F ([`admin-translations.md`](admin-translations.md)) | F |
-| No uploads, crops or variants; previews only with `VITE_MEDIA_BASE_URL` | J |
+| ~~No uploads; previews only with `VITE_MEDIA_BASE_URL`~~ — done in Phase J-1 ([`admin-media.md`](admin-media.md)); variants and `srcset` in J-2; no crops | J |
 | Page list items: texts only (no adding or removing timeline entries etc.) | later, when the page design gets new item templates |
 | Settings, offices, metrics, footer are not editable yet | next content task (review §X «Настройки») |
 | No hard delete; no usages view («используется в 4 проектах») | with the delete flow (Admin-only, review §G) |

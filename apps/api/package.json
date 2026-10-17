@@ -13,7 +13,7 @@
     "db:import": "tsx src/cli/db-import.ts",
     "db:export": "tsx src/cli/db-export.ts",
     "db:generate": "drizzle-kit generate",
-    "test:db": "node --import tsx --test --test-concurrency=1 src/db/db.test.ts test/auth.db.test.ts test/mfa.db.test.ts test/passkeys.db.test.ts test/rbac.db.test.ts test/audit-security.db.test.ts test/bootstrap.db.test.ts test/content.db.test.ts test/translations.db.test.ts test/publishing.db.test.ts test/seo.db.test.ts test/redirects.db.test.ts test/nginx.db.test.ts",
+    "test:db": "node --import tsx --test --test-concurrency=1 src/db/db.test.ts test/auth.db.test.ts test/mfa.db.test.ts test/passkeys.db.test.ts test/rbac.db.test.ts test/audit-security.db.test.ts test/bootstrap.db.test.ts test/content.db.test.ts test/translations.db.test.ts test/publishing.db.test.ts test/seo.db.test.ts test/redirects.db.test.ts test/nginx.db.test.ts test/media.db.test.ts",
     "openapi": "tsx src/cli/openapi.ts",
     "openapi:check": "tsx src/cli/openapi.ts --check",
     "auth:bootstrap-owner": "tsx src/cli/auth-bootstrap-owner.ts",
@@ -33,6 +33,7 @@
     "fastify-type-provider-zod": "^7.0.0",
     "otplib": "^13.5.0",
     "pg": "^8.23.1",
+    "sharp": "^0.35.4",
     "uuid": "^14.0.2",
     "zod": "^4.6.5"
   },

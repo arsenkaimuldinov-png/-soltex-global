@@ -133,6 +133,22 @@ export class Client {
     return res;
   }
 
+  /** Raw file upload (media library): the bytes as `application/octet-stream`. */
+  async upload(url: string, file: Buffer, headers: Record<string, string> = {}): Promise<LightMyRequestResponse> {
+    return this.t.app.inject({
+      method: 'POST',
+      url,
+      remoteAddress: this.ip,
+      headers: {
+        'x-requested-with': 'soltex-admin',
+        'content-type': 'application/octet-stream',
+        ...(this.cookies.size ? { cookie: [...this.cookies].map(([k, v]) => `${k}=${v}`).join('; ') } : {}),
+        ...headers,
+      },
+      payload: file,
+    });
+  }
+
   get sessionToken() {
     return this.cookies.get('__Host-soltex_session');
   }

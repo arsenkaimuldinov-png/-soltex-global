@@ -29,6 +29,8 @@ const ORIGIN = `http://localhost:${WEB_PORT}`;
 const PREVIEW_PORT = Number(process.env.E2E_PREVIEW_PORT ?? 4176);
 const PREVIEW_ORIGIN = `http://localhost:${PREVIEW_PORT}`;
 const RELEASES_DIR = fs.mkdtempSync(path.join(os.tmpdir(), 'soltex-e2e-releases-'));
+// Media library of this run (Phase J); files are read-only by design, so they are made writable before removal.
+const MEDIA_DIR = fs.mkdtempSync(path.join(os.tmpdir(), 'soltex-e2e-media-'));
 const SHOTS = path.join(ROOT, '.qa/admin-e2e');
 
 for (const v of ['DATABASE_URL', 'MIGRATION_DATABASE_URL'])
@@ -62,6 +64,8 @@ const removeReleases = () => {
   // Release directories are read-only by design; make them writable before deleting.
   spawnSync('chmod', ['-R', 'u+w', RELEASES_DIR]);
   fs.rmSync(RELEASES_DIR, { recursive: true, force: true });
+  spawnSync('chmod', ['-R', 'u+w', MEDIA_DIR]);
+  fs.rmSync(MEDIA_DIR, { recursive: true, force: true });
 };
 process.on('exit', () => {
   stop();
@@ -88,7 +92,8 @@ run('npm', ['run', 'db:import']);
 if (!args.includes('--no-build')) run('npm', ['run', 'build:admin']);
 
 // admin.e2e.mjs uses the first user of each role; content, translations, publishing and seo their own.
-const roles = ['owner', 'admin', 'content_manager', 'editor', 'marketer', 'editor', 'editor', 'seo_specialist', 'admin', 'editor', 'content_manager', 'marketer', 'content_manager', 'admin', 'editor', 'seo_specialist', 'content_manager', 'seo_specialist', 'content_manager'];
+const roles = ['owner', 'admin', 'content_manager', 'editor', 'marketer', 'editor', 'editor', 'seo_specialist', 'admin', 'editor', 'content_manager', 'marketer', 'content_manager', 'admin', 'editor', 'seo_specialist', 'content_manager', 'seo_specialist', 'content_manager', 'editor', 'content_manager'];
+run(process.execPath, ['--import', 'tsx', 'apps/api/test/e2e-seed.ts', 'reset-media'], { capture: true });
 const users = JSON.parse(run(process.execPath, ['--import', 'tsx', 'apps/api/test/e2e-seed.ts', 'users', roles.join(',')], { capture: true }));
 
 const key = () => crypto.randomBytes(32).toString('base64');
@@ -104,6 +109,7 @@ const apiEnv = {
   HASH_SECRET: key(),
   API_DOCS: 'authenticated',
   RELEASES_DIR,
+  MEDIA_DIR,
   PREVIEW_ORIGIN,
   PREVIEW_PORT: String(PREVIEW_PORT),
 };

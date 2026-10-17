@@ -37,6 +37,13 @@ export interface ApiConfig {
   };
   /** Public site origin used for redirect `Location` headers (Phase I-2, approved §11.3). */
   publicSiteUrl: string;
+  /** Media library (Phase J, review §I). */
+  media: {
+    /** Uploaded files: originals/<yyyy>/<uuid>.<ext> (served by nginx as /media/originals/…), previews/, tmp/. */
+    dir: string;
+    /** Where files imported "as is" (/images/…, /videos/…) are read for admin previews: the active release. */
+    legacyDir: string;
+  };
 }
 
 const ENVS = ['development', 'test', 'production'] as const;
@@ -104,6 +111,10 @@ export function loadConfig(source: Record<string, string | undefined> = process.
   if (!/^https?:\/\/[^/]+$/.test(publicSiteUrl)) throw new Error('PUBLIC_SITE_URL must be an origin, e.g. https://soltexglobal.co');
   if (env === 'production' && !publicSiteUrl.startsWith('https://')) throw new Error('PUBLIC_SITE_URL must use https in production');
 
+  const mediaDir = path.resolve(source.MEDIA_DIR ?? (env === 'production' ? '' : path.resolve(import.meta.dirname, '../../../.media')));
+  if (env === 'production' && !source.MEDIA_DIR) throw new Error('MEDIA_DIR must be set in production (e.g. /srv/soltex/media)');
+  const legacyDir = path.resolve(source.MEDIA_LEGACY_DIR ?? (env === 'production' ? path.join(releasesDir, 'current') : path.resolve(import.meta.dirname, '../../web/public')));
+
   return {
     env,
     // The API listens on loopback only; nginx is the public entry point (approved architecture §10).
@@ -120,5 +131,6 @@ export function loadConfig(source: Record<string, string | undefined> = process.
     mfaForAllRoles: source.MFA_FOR_ALL_ROLES === 'true',
     publishing: { releasesDir, previewOrigin },
     publicSiteUrl,
+    media: { dir: mediaDir, legacyDir },
   };
 }

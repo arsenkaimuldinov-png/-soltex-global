@@ -36,10 +36,12 @@ test('secrets are required outside tests', () => {
 });
 
 test('production: https origin, API docs off, secure cookies', () => {
-  const prod = { ...keys(), NODE_ENV: 'production', ADMIN_ORIGIN: 'https://admin.example.test', RELEASES_DIR: '/srv/soltex', PREVIEW_ORIGIN: 'https://preview.example.test' };
+  const prod = { ...keys(), NODE_ENV: 'production', ADMIN_ORIGIN: 'https://admin.example.test', RELEASES_DIR: '/srv/soltex', PREVIEW_ORIGIN: 'https://preview.example.test', MEDIA_DIR: '/srv/soltex/media' };
   assert.equal(loadConfig(prod).apiDocs, 'off');
   assert.equal(loadConfig(prod).publishing.releasesDir, '/srv/soltex');
   assert.throws(() => loadConfig({ ...prod, RELEASES_DIR: undefined }), /RELEASES_DIR/);
+  assert.throws(() => loadConfig({ ...prod, MEDIA_DIR: undefined }), /MEDIA_DIR/);
+  assert.deepEqual(loadConfig(prod).media, { dir: '/srv/soltex/media', legacyDir: '/srv/soltex/current' });
   assert.throws(() => loadConfig({ ...prod, PREVIEW_ORIGIN: undefined }), /PREVIEW_ORIGIN/);
   assert.throws(() => loadConfig({ ...prod, PREVIEW_ORIGIN: 'http://preview.example.test' }), /https/);
   assert.throws(() => loadConfig({ ...prod, PREVIEW_ORIGIN: 'https://admin.example.test' }), /differ/);

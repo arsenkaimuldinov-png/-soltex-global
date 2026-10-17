@@ -17,3 +17,4 @@ apps/web/src/content/snapshot/*.json
 
 # Local release root of the publishing worker (Phase G; production: RELEASES_DIR=/srv/soltex)
 .releases/
+.media/

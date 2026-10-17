@@ -15,5 +15,5 @@ const database = connect(config.databaseUrl, 3);
 const controller = new AbortController();
 for (const signal of ['SIGINT', 'SIGTERM'] as const) process.once(signal, () => controller.abort());
 console.log(`worker: building releases into ${config.publishing.releasesDir}`);
-await workerLoop({ config, db: database.db, now: () => new Date(), notifier: new UnconfiguredNotifier(console) }, siteBuilder(), controller.signal);
+await workerLoop({ config, db: database.db, now: () => new Date(), notifier: new UnconfiguredNotifier(console) }, siteBuilder({ mediaDir: config.media.dir }), controller.signal);
 await database.close();

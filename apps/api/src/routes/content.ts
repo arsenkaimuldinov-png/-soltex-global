@@ -16,7 +16,7 @@
  */
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
-import { and, asc, eq, ilike, or } from 'drizzle-orm';
+import { and, asc, desc, eq, ilike, or } from 'drizzle-orm';
 import { z } from 'zod';
 import { EFFECTIVE_TRANSLATION_STATES, SOURCE_LOCALE, TRANSLATED_LOCALES } from '@soltex/core/domain';
 import { SLUG_MAX_LENGTH } from '@soltex/core/seo';
@@ -332,7 +332,7 @@ export async function contentRoutes(app: FastifyInstance, deps: Deps) {
 
   // ---- media for pickers (read-only; uploads are Phase J) -----------------
   const MediaItem = z
-    .object({ id: Uuid, key: z.string(), kind: z.enum(['image', 'video']), src: z.string(), width: z.number().int().nullable(), height: z.number().int().nullable(), alt: z.string().nullable() })
+    .object({ id: Uuid, key: z.string(), kind: z.enum(['image', 'video']), src: z.string(), width: z.number().int().nullable(), height: z.number().int().nullable(), alt: z.string().nullable(), fileName: z.string(), version: z.number().int() })
     .meta({ id: 'MediaItem' });
   r.get(
     '/api/v1/content/media',
@@ -352,9 +352,21 @@ export async function contentRoutes(app: FastifyInstance, deps: Deps) {
         .select({ m: s.media, alt: s.mediaTranslations.alt })
         .from(s.media)
         .leftJoin(s.mediaTranslations, and(eq(s.mediaTranslations.mediaId, s.media.id), eq(s.mediaTranslations.locale, SOURCE_LOCALE)))
-        .where(and(request.query.kind ? eq(s.media.kind, request.query.kind) : undefined, q ? or(ilike(s.media.key, q), ilike(s.media.src, q)) : undefined))
-        .orderBy(asc(s.media.key));
-      return { items: rows.map(({ m, alt }) => ({ id: m.id, key: m.key, kind: m.kind, src: m.src, width: m.width, height: m.height, alt: alt ?? null })) };
+        .where(and(request.query.kind ? eq(s.media.kind, request.query.kind) : undefined, q ? or(ilike(s.media.key, q), ilike(s.media.src, q), ilike(s.media.originalName, q)) : undefined))
+        .orderBy(desc(s.media.createdAt), asc(s.media.key));
+      return {
+        items: rows.map(({ m, alt }) => ({
+          id: m.id,
+          key: m.key,
+          kind: m.kind,
+          src: m.src,
+          width: m.width,
+          height: m.height,
+          alt: alt ?? null,
+          fileName: m.originalName ?? decodeURIComponent(m.src.split('/').pop() ?? m.src),
+          version: m.version,
+        })),
+      };
     }
   );
 }

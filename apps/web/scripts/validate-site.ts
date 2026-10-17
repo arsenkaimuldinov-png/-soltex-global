@@ -44,6 +44,18 @@ const files = listFiles(DIST);
 const rel = (f: string) => '/' + path.relative(DIST, f).split(path.sep).join('/');
 const fileSet = new Set(files.map(rel));
 
+// Media library files (Phase J) are not part of the release: nginx serves /media/originals/… from
+// shared, immutable storage (approved §4.3). The publishing worker passes MEDIA_ROOT so that a
+// reference to an uploaded file is checked against that storage instead of dist/.
+const MEDIA_ROOT = process.env.MEDIA_ROOT ? path.resolve(process.env.MEDIA_ROOT) : null;
+const isLibraryMedia = (p: string) => p.startsWith('/media/');
+function libraryFileExists(p: string): boolean {
+  if (!MEDIA_ROOT) return false;
+  const abs = path.resolve(MEDIA_ROOT, `.${p.slice('/media'.length)}`);
+  return abs.startsWith(MEDIA_ROOT + path.sep) && fs.existsSync(abs);
+}
+const assetExists = (p: string) => (isLibraryMedia(p) ? libraryFileExists(p) : fileSet.has(p));
+
 /** Public URL path → output file (mirrors the server rule $uri → $uri.html → $uri/index.html). */
 function resolveUrlPath(p: string): string | null {
   const clean = decodeURI(p.split(/[?#]/)[0]).replace(/\/+$/, '') || '/';
@@ -137,7 +149,9 @@ JSON.stringify(snapshots, (key, value) => {
   if (key === 'src' && typeof value === 'string') mediaUrls.add(value);
   return value;
 });
-for (const src of mediaUrls) if (src.startsWith('/') && !fileSet.has(decodeURI(src))) err(`content media missing in dist: ${src}`);
+for (const src of mediaUrls)
+  if (src.startsWith('/') && !assetExists(decodeURI(src)))
+    err(isLibraryMedia(src) ? `content media missing in the media library${MEDIA_ROOT ? '' : ' (MEDIA_ROOT not set)'}: ${src}` : `content media missing in dist: ${src}`);
 
 // redirects: loops, chains, shadowing
 const redirects = en.redirects.flatMap((r) =>
@@ -261,7 +275,7 @@ for (const f of htmlPages) {
     const isAnchorTarget = body.includes(`href="${m[1]}"`) && !/\.[a-z0-9]{2,5}$/i.test(key);
     if (isAnchorTarget) {
       if (!resolveUrlPath(key)) err(`${f}: broken internal link ${raw}`);
-    } else if (!fileSet.has(decodeURI(key)) && !resolveUrlPath(key)) {
+    } else if (!assetExists(decodeURI(key)) && !resolveUrlPath(key)) {
       err(`${f}: missing file ${raw}`);
     }
   }

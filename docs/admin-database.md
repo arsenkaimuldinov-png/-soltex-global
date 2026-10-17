@@ -28,7 +28,7 @@
 | Table | Language-independent | Translations (`*_translations`, one row per language) |
 |---|---|---|
 | `locales` | reference data: 6 languages, `en` is the source | — (read-only for the app) |
-| `media` | kind, src (public path), width, height | `alt` (only when an alt text exists) |
+| `media` | kind, src (public path), width, height; library metadata (migration 0007, Phase J-1): source `legacy`/`upload`, storage path, original name, mime, bytes, sha256, version — [`admin-media.md`](admin-media.md) §1 | `alt` (only when an alt text exists) |
 | `technologies` | status, position, category number, image, OG image, noindex | slug, category title, title, subtitle, overview, `patent_info`, `raw_materials`, `process_principles`, `key_advantages`, `applications`, `products_produced`, SEO texts |
 | `technology_projects` | technology → related projects, ordered | — |
 | `projects` | status, position, category number, image, image position, related technology, OG image, noindex | slug, category, title, country, years, capacity, type, overview, `scope`, technology, `results`, `specs`, SEO texts |

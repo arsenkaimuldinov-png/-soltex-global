@@ -102,7 +102,15 @@ describe('nginx fallback (Phase I-2, approved §11.4)', { skip: (!DB_ENABLED && 
     site = site.replace(/# >>> tls[\s\S]*?# <<< tls/, `listen 127.0.0.1:${webPort};`);
     site = site.replace(/# >>> host-redirects[\s\S]*?# <<< host-redirects/, '');
     assert.ok(site.includes('root /srv/soltex/current;') && site.includes('server 127.0.0.1:3100;'), 'markers of the production file');
-    site = site.replace('root /srv/soltex/current;', `root ${root};`).replace('server 127.0.0.1:3100;', `server 127.0.0.1:${apiPort};`);
+    assert.ok(site.includes('alias /srv/soltex/media/originals/;'), 'media location of the production file');
+    const media = path.join(dir, 'media');
+    fs.mkdirSync(path.join(media, 'originals/2026'), { recursive: true });
+    fs.writeFileSync(path.join(media, 'originals/2026/0b1c2d3e-0000-4000-8000-000000000001.webp'), 'RIFF....WEBP');
+    fs.writeFileSync(path.join(media, 'secret.txt'), 'not public');
+    site = site
+      .replace('root /srv/soltex/current;', `root ${root};`)
+      .replace('server 127.0.0.1:3100;', `server 127.0.0.1:${apiPort};`)
+      .replace('alias /srv/soltex/media/originals/;', `alias ${media}/originals/;`);
     fs.writeFileSync(path.join(dir, 'site.conf'), site);
     const mime = ['/etc/nginx/mime.types', '/usr/local/etc/nginx/mime.types', '/opt/homebrew/etc/nginx/mime.types'].find((p) => fs.existsSync(p));
     fs.writeFileSync(
@@ -155,6 +163,22 @@ describe('nginx fallback (Phase I-2, approved §11.4)', { skip: (!DB_ENABLED && 
     }
     const asset = await get(webPort, '/assets/app-abc123.js');
     assert.equal(asset.status, 200);
+  });
+
+  test('media library files: served from shared storage with a long cache; nothing else under /media', async () => {
+    const r = await new Promise<http.IncomingMessage>((resolve, reject) =>
+      http.get({ host: '127.0.0.1', port: webPort, path: '/media/originals/2026/0b1c2d3e-0000-4000-8000-000000000001.webp' }, resolve).on('error', reject)
+    );
+    r.resume();
+    assert.equal(r.statusCode, 200);
+    assert.equal(r.headers['content-type'], 'image/webp');
+    assert.match(String(r.headers['cache-control']), /immutable/);
+    assert.equal(r.headers['x-content-type-options'], 'nosniff');
+    for (const p of ['/media/secret.txt', '/media/originals/2026/missing.webp', '/media/originals/../secret.txt']) {
+      const x = await get(webPort, p);
+      assert.notEqual(x.status, 200, p);
+      assert.ok(!x.body.includes('not public'), p);
+    }
   });
 
   test('known redirects: 301 / 302 with the internal Location, in every language; trailing slash', async () => {

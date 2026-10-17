@@ -27,8 +27,9 @@ import { translationRoutes } from './routes/translations.ts';
 import { publishingRoutes } from './routes/publishing.ts';
 import { seoRoutes } from './routes/seo.ts';
 import { redirectRoutes } from './routes/redirects.ts';
+import { mediaRoutes } from './routes/media.ts';
 
-export const API_VERSION = '0.9.0';
+export const API_VERSION = '0.10.0';
 export const BODY_LIMIT_BYTES = 64 * 1024;
 
 export interface BuildOptions {
@@ -115,6 +116,7 @@ export async function buildApp(opts: BuildOptions): Promise<FastifyInstance> {
         { name: 'translations', description: 'Translation management: states, completeness, translation editor, review' },
         { name: 'publishing', description: 'Revisions, releases, preview, publication and rollback' },
         { name: 'seo', description: 'SEO check (effective titles and descriptions, BLOCKING / WARNING / INFO issues), redirects and address changes' },
+        { name: 'media', description: 'Media library: upload, replace, usages, delete' },
       ],
     },
     transform: (input) => {
@@ -137,6 +139,8 @@ export async function buildApp(opts: BuildOptions): Promise<FastifyInstance> {
     await publishingRoutes(scope, deps);
     await seoRoutes(scope, deps);
     await redirectRoutes(scope, deps);
+    // Own scope: the raw-upload content type parser applies to the media routes only.
+    await scope.register(async (media) => mediaRoutes(media, deps));
   });
 
   return app;

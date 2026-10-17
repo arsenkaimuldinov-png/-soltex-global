@@ -37,6 +37,7 @@ export async function registerSecurity(app: FastifyInstance, deps: Deps) {
 
   app.addHook('onSend', async (request, reply) => {
     reply.header('x-request-id', request.id);
-    if (request.url.startsWith('/api/')) reply.header('cache-control', 'no-store');
+    // Every API answer is no-store, except the few that set their own policy (admin media previews).
+    if (request.url.startsWith('/api/') && !reply.getHeader('cache-control')) reply.header('cache-control', 'no-store');
   });
 }

@@ -117,7 +117,7 @@ function classify(output: string): BuildIssue {
 }
 
 /** The real builder: `npm run build` of the copied apps/web with CONTENT_SOURCE=file. */
-export function siteBuilder(options: { timeoutMs?: number } = {}): Builder {
+export function siteBuilder(options: { timeoutMs?: number; mediaDir?: string } = {}): Builder {
   const timeoutMs = options.timeoutMs ?? 10 * 60_000;
   return {
     async build({ root, key, store, heartbeat }) {
@@ -136,6 +136,8 @@ export function siteBuilder(options: { timeoutMs?: number } = {}): Builder {
         CONTENT_SOURCE: 'file',
         CONTENT_STORE_FILE: path.join(ws, 'store.json'),
         npm_config_update_notifier: 'false',
+        // Media library files (/media/…) are checked against shared storage, not copied (Phase J).
+        ...(options.mediaDir ? { MEDIA_ROOT: options.mediaDir } : {}),
       };
       let log = '';
       const append = (b: Buffer) => {
