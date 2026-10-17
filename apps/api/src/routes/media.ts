@@ -90,6 +90,7 @@ export async function mediaRoutes(app: FastifyInstance, deps: Deps) {
           q: z.string().trim().max(100).optional().describe('Search in the file name, path and key'),
           kind: Kind.optional(),
           usage: z.enum(['used', 'unused']).optional(),
+          attention: z.enum(['true']).optional().describe('Only files with a warning or missing image copies (Phase L: «Обзор» links here)'),
         }),
         response: { 200: z.object({ items: z.array(MediaFile), total: z.number().int() }), ...problems(400, 401, 403) },
       },

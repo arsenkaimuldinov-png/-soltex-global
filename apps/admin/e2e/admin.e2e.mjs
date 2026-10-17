@@ -332,7 +332,7 @@ describe('admin (Phase D)', () => {
     const links = await sidebar(page).getByRole('link').allTextContents();
     assert.deepEqual(links.map((s) => s.trim()), ['Обзор', 'Страницы', 'Проекты', 'Технологии', 'Продукты', 'EPC / EPCM', 'Патенты', 'Видео', 'Медиатека', 'Обзор', 'Все переводы', 'Требуют внимания', 'Проверка SEO', 'Редиректы', 'Обзор', 'Ревизии', 'Релизы', 'Система']);
     await page.goto(`${ORIGIN}/admin/system`);
-    await page.getByText('Работает').waitFor();
+    await page.getByRole('region', { name: 'Сервер админки' }).getByText('Работает').waitFor();
     await shot(page, '10-system');
   });
 

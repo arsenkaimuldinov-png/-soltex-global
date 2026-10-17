@@ -24,6 +24,7 @@ function ts(schema, where) {
   if (!schema || Object.keys(schema).length === 0) return 'unknown';
   if (schema.$ref) return schema.$ref.replace('#/components/schemas/', '');
   if (schema.anyOf) return [...new Set(schema.anyOf.map((s) => ts(s, where)))].join(' | ');
+  if (schema.oneOf) return [...new Set(schema.oneOf.map((s) => ts(s, where)))].join(' | ');
   if (schema.enum) return schema.enum.map((v) => JSON.stringify(v)).join(' | ');
   if ('const' in schema) return JSON.stringify(schema.const);
   if (Array.isArray(schema.type)) return schema.type.map((t) => ts({ ...schema, type: t }, where)).join(' | ');

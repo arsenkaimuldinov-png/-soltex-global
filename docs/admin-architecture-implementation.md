@@ -914,3 +914,46 @@ K-7 … K-9 in [`admin-leads.md`](admin-leads.md) §9:
 - attribution is stored without a consent banner once switched on (legal review decides; the switch stays off);
 - on a release preview the forms behave like the demo service;
 - the three new error texts are to be reviewed with the other translations.
+
+---
+
+## Phase L: Dashboard, system status, content search (2026-10-17)
+
+**Base commit:** `9286d6b`. Details: [`admin-ui.md`](admin-ui.md) §5 (Обзор, Система) and §6 (⌘K). Lifts D-2, D-3 and D-4.
+
+### What was done
+
+1. **API** (0.13.0, 181 operations; no migration):
+   - `GET /api/v1/dashboard` (signed in): leads, SEO, translations, content (drafts per type, unpublished changes, the last five edits), publishing (live release, last build, builds in progress), media. Each block only for a role with its read permission. The numbers come from the same services as the lists they link to (SEO check, translation overview, publishing overview, media list).
+   - `GET /api/v1/system/status` (`system.read`): database (time, version, size), worker (its connection is named `soltex-worker` in `pg_stat_activity`), queues, live release, last successful and failed build, disk space per file system (`statfs`), mail, backups (not configured until Phase N). No paths or connection strings.
+   - `GET /api/v1/search?q=` (signed in, ≥ 2 characters): titles of the seven content types in every language and their keys; media files; lead numbers, names and companies. Up to 5 per type; groups the role may not read are left out; `%` and `_` are escaped.
+   - media list filter `attention=true` (`needsAttention`, shared with the dashboard number).
+   - the worker connects with `application_name = soltex-worker`.
+2. **Admin:**
+   - «Обзор»: the cards of the role, every number a link to the filtered list (`features/overview/model.ts`); «Недавно изменено»; «Безопасность входа» kept; a role without blocks sees its sections;
+   - «Система»: the API check plus database, worker, site builds, disk, mail, backups; refreshed every 30 s;
+   - ⌘K: content search after 200 ms, groups «Материалы», «Медиатека», «Заявки»; results open the record; still no site-changing commands;
+   - «Медиатека»: «Требуют внимания» filter;
+   - `scripts/api-types.mjs` understands `oneOf` (the search result union).
+3. **Tests:** API DB `dashboard.db.test.ts` (+4: blocks per role and agreement with the lists, recent edits, system status and the worker connection, search in two languages, escaping, permissions); admin unit `overview.test.ts` (+3); E2E `dashboard.e2e.mjs` (+6: blocks of a Content Manager, every number opens its list, ⌘K by the Russian title, «Система», mobile, no errors).
+
+### Verification (2026-10-17)
+
+| Check | Result |
+|---|---|
+| `git diff --check` | clean |
+| `npm run lint`, `npm test` | pass; 118 / 118 (core 46, api 21, admin 45, web 6) |
+| `npm run test:db` on a freshly provisioned database | 152 tests: 151 pass, 1 skipped (backup role); export = seed; the site from the DB export identical |
+| `npm run test:e2e:admin` | 97 / 97 pass (91 earlier + 6 dashboard and search) |
+| `openapi.json`, admin API types | up to date (181 operations) |
+| Public site vs `9286d6b` | IDENTICAL: 230 files byte-equal, 348 pages, checks, interactions, navigation and inquiry topics identical |
+
+### Deviations (Phase L)
+
+| # | Deviation | Reason |
+|---|---|---|
+| L-1 | Search uses `ILIKE`, not PostgreSQL full-text search (review §B) | Tens of records in six languages; `ILIKE` finds parts of words in every script (Chinese, Arabic) without dictionaries. FTS when the volume needs it |
+| L-2 | Backups, WAL lag and restore tests show «Не настроены» | They are set up with the server (Phase N, approved §12) |
+| L-3 | «Непрочитанные заявки» (review §X) is shown as «Новые» | There is no per-user read state; the status «Новый» is what the team works from |
+| L-4 | The worker's liveness is its open database connection, not a heartbeat table | No migration; a stuck build is already detected by the release heartbeat (Phase G) |
+| L-5 | The SEO numbers run the full check on every «Обзор» load | The same check as «Проверка SEO» (well under a second on the current content); cached for 30 s in the admin |

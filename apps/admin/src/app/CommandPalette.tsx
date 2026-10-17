@@ -1,12 +1,14 @@
 /**
  * ⌘K / Ctrl+K: search and commands (review §X, approved §16). Only navigation and harmless
  * commands: nothing that changes the site, no publish, no rollback. Arrows/Enter/Esc.
+ * Phase L: from two characters on, the API also searches content titles in every language, media
+ * files and leads (each only for a role that may read them); results open the record.
  */
 import * as RadixDialog from '@radix-ui/react-dialog';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CornerDownLeft, LogOut, Search, User, UserPlus } from 'lucide-react';
+import { CornerDownLeft, FileText, Image, Inbox, LogOut, Search, User, UserPlus } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { api } from '../lib/api/client';
 import { useCan, useLogout } from '../lib/session';
@@ -14,10 +16,14 @@ import { ROLE_LABELS } from '../i18n/ru';
 import { cx } from '../components/ui/cx';
 import { ACCOUNT_ITEM, visibleNav } from './nav';
 import { matches } from './search';
+import { HIT_GROUPS, hitHint, hitPath, type SearchHit } from '../features/overview/model';
+
+const SEARCH_DELAY_MS = 200;
+const HIT_ICONS: Record<SearchHit['kind'], LucideIcon> = { content: FileText, media: Image, lead: Inbox };
 
 export interface Command {
   id: string;
-  group: 'Разделы' | 'Действия' | 'Пользователи';
+  group: 'Разделы' | 'Действия' | 'Пользователи' | (typeof HIT_GROUPS)[keyof typeof HIT_GROUPS];
   label: string;
   hint?: string;
   icon: LucideIcon;
@@ -34,6 +40,17 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
   const listRef = useRef<HTMLUListElement>(null);
   const canUsers = can('users.manage');
   const users = useQuery({ queryKey: ['users'], queryFn: () => api('GET /api/v1/users'), enabled: open && canUsers, staleTime: 60_000 });
+  const [term, setTerm] = useState('');
+  useEffect(() => {
+    const t = setTimeout(() => setTerm(q.trim()), SEARCH_DELAY_MS);
+    return () => clearTimeout(t);
+  }, [q]);
+  const found = useQuery({
+    queryKey: ['search', term],
+    queryFn: () => api('GET /api/v1/search', { query: { q: term } }),
+    enabled: open && term.length >= 2,
+    staleTime: 30_000,
+  });
 
   const commands = useMemo<Command[]>(() => {
     const go = (to: string) => () => {
@@ -62,8 +79,23 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
 
   const results = useMemo(() => {
     const filtered = q.trim() ? commands.filter((c) => matches(c, q)) : commands.filter((c) => c.group !== 'Пользователи');
-    return filtered.slice(0, 30);
-  }, [commands, q]);
+    const local = filtered.slice(0, 30);
+    if (q.trim().length < 2 || term !== q.trim()) return local;
+    const hits: Command[] = (found.data?.items ?? []).map((h) => ({
+      id: `hit:${h.kind}:${h.id}`,
+      group: HIT_GROUPS[h.kind],
+      label: h.title,
+      hint: hitHint(h),
+      icon: HIT_ICONS[h.kind],
+      keywords: '',
+      run: () => {
+        onOpenChange(false);
+        navigate(hitPath(h));
+      },
+    }));
+    return [...local, ...hits];
+  }, [commands, q, term, found.data, navigate, onOpenChange]);
+  const searching = open && q.trim().length >= 2 && (term !== q.trim() || found.isFetching);
 
   useEffect(() => setActive(0), [q, open]);
   useEffect(() => {
@@ -100,7 +132,7 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
               value={q}
               onChange={(e) => setQ(e.target.value)}
               onKeyDown={onKeyDown}
-              placeholder="Найти раздел, действие или пользователя"
+              placeholder="Найти раздел, материал, файл или заявку"
               className="h-12 flex-1 bg-transparent text-sm outline-none placeholder:text-ink-faint"
               role="combobox"
               aria-expanded="true"
@@ -110,7 +142,7 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
             />
           </div>
           <ul id="cmdk-list" ref={listRef} role="listbox" aria-label="Результаты" className="max-h-[50vh] overflow-y-auto py-1">
-            {results.length === 0 ? <li className="px-4 py-6 text-center text-[13px] text-ink-muted">Ничего не найдено</li> : null}
+            {results.length === 0 && !searching ? <li className="px-4 py-6 text-center text-[13px] text-ink-muted">Ничего не найдено</li> : null}
             {results.map((c, i) => {
               const header = c.group !== lastGroup ? c.group : null;
               lastGroup = c.group;
@@ -138,6 +170,9 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
               );
             })}
           </ul>
+          <p className="border-t border-line px-3 py-1.5 text-[11px] text-ink-faint" aria-live="polite">
+            {searching ? 'Ищу в материалах…' : q.trim().length === 1 ? 'Для поиска по материалам введите ещё хотя бы один символ' : '\u00a0'}
+          </p>
         </RadixDialog.Content>
       </RadixDialog.Portal>
     </RadixDialog.Root>

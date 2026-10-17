@@ -35,6 +35,8 @@ export function MediaLibraryPage() {
   const q = params.get('q') ?? '';
   const kind = (params.get('kind') ?? '') as '' | 'image' | 'video';
   const usage = (params.get('usage') ?? '') as '' | 'used' | 'unused';
+  // «Обзор» links here (Phase L): files with a warning or image copies that could not be made.
+  const attention = params.get('attention') === 'true';
   const set = (k: string, v: string) =>
     setParams(
       (p) => {
@@ -47,8 +49,8 @@ export function MediaLibraryPage() {
     );
 
   const list = useQuery({
-    queryKey: [...MEDIA_LIST_KEY, { q, kind, usage }],
-    queryFn: () => api('GET /api/v1/media', { query: { q: q || undefined, kind: kind || undefined, usage: usage || undefined } }),
+    queryKey: [...MEDIA_LIST_KEY, { q, kind, usage, attention }],
+    queryFn: () => api('GET /api/v1/media', { query: { q: q || undefined, kind: kind || undefined, usage: usage || undefined, attention: attention ? 'true' : undefined } }),
     placeholderData: keepPreviousData,
   });
   const up = useMediaUpload();
@@ -102,6 +104,10 @@ export function MediaLibraryPage() {
                 <option value="unused">Не используются</option>
               </Select>
             </label>
+            <label className="flex items-center gap-2 text-[13px]">
+              <input type="checkbox" checked={attention} onChange={(e) => set('attention', e.target.checked ? 'true' : '')} className="size-4 accent-accent" />
+              Требуют внимания
+            </label>
           </div>
           {list.isPending ? (
             <LoadingBlock />
@@ -110,7 +116,7 @@ export function MediaLibraryPage() {
               Не удалось загрузить медиатеку.
             </Alert>
           ) : list.data.items.length === 0 ? (
-            <p className="py-8 text-center text-[13px] text-ink-muted">{q || kind || usage ? 'Файлов с такими условиями нет.' : 'В медиатеке пока нет файлов.'}</p>
+            <p className="py-8 text-center text-[13px] text-ink-muted">{q || kind || usage || attention ? 'Файлов с такими условиями нет.' : 'В медиатеке пока нет файлов.'}</p>
           ) : (
             <>
               <p className="mb-3 text-xs text-ink-muted" aria-live="polite">

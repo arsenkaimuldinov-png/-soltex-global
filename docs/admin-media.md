@@ -118,7 +118,7 @@ Refused uploads leave nothing behind in `tmp/`. This is tested.
   - upload by button or drag and drop: several files, one at a time, each with its own result;
   - an early check by name and size (SVG explained);
   - a grid with preview, name, dimensions, size, «Используется: N» / «Не используется» and warnings;
-  - search and filters (kind, used / unused) kept in the address.
+  - search and filters (kind, used / unused; «Требуют внимания» — a warning or image copies that could not be made, Phase L, `attention=true`, the number on «Обзор») kept in the address.
 - **File page** (`/media/:id`):
   - large preview and the warnings;
   - «Где используется», with links to the editors;

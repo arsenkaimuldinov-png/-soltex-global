@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Soltex Global Admin API",
-    "version": "0.12.0",
+    "version": "0.13.0",
     "description": "Authentication, second factors, users, audit (Phase C) and content management (Phase E). Errors are RFC 9457 Problem Details (application/problem+json) with `request_id`; every response carries `X-Request-ID`. State-changing requests need the header `x-requested-with: soltex-admin`."
   },
   "components": {
@@ -3476,6 +3476,749 @@
           "message",
           "notificationError",
           "events"
+        ]
+      },
+      "DashboardInput": {
+        "type": "object",
+        "properties": {
+          "leads": {
+            "description": "leads.read",
+            "type": "object",
+            "properties": {
+              "byStatus": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string",
+                  "enum": [
+                    "new",
+                    "in_progress",
+                    "qualified",
+                    "won",
+                    "lost",
+                    "spam"
+                  ]
+                },
+                "additionalProperties": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                }
+              },
+              "notifyFailed": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "formsLive": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "byStatus",
+              "notifyFailed",
+              "formsLive"
+            ]
+          },
+          "seo": {
+            "description": "seo.read: the check of the next release",
+            "type": "object",
+            "properties": {
+              "blocking": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "warning": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "info": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "blocking",
+              "warning",
+              "info"
+            ]
+          },
+          "translations": {
+            "description": "content.read",
+            "type": "object",
+            "properties": {
+              "locales": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "locale": {
+                      "type": "string",
+                      "enum": [
+                        "ru",
+                        "zh",
+                        "tr",
+                        "ar",
+                        "es"
+                      ]
+                    },
+                    "total": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "missing": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "inProgress": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "outdated": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "completion": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "locale",
+                    "total",
+                    "missing",
+                    "inProgress",
+                    "outdated",
+                    "completion"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "locales"
+            ]
+          },
+          "content": {
+            "description": "content.read",
+            "type": "object",
+            "properties": {
+              "drafts": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "pages",
+                        "projects",
+                        "technologies",
+                        "products",
+                        "epcm-stages",
+                        "patents",
+                        "videos"
+                      ]
+                    },
+                    "count": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "count"
+                  ]
+                },
+                "description": "Draft records per type (types without drafts are left out)"
+              },
+              "pending": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991,
+                "description": "Records whose current version is not on the live site"
+              },
+              "recent": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "pages",
+                        "projects",
+                        "technologies",
+                        "products",
+                        "epcm-stages",
+                        "patents",
+                        "videos"
+                      ]
+                    },
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "at": {
+                      "type": "string"
+                    },
+                    "by": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "id",
+                    "title",
+                    "at",
+                    "by"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "drafts",
+              "pending",
+              "recent"
+            ]
+          },
+          "publishing": {
+            "description": "content.read",
+            "type": "object",
+            "properties": {
+              "active": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "type": "string"
+                      },
+                      "activatedAt": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "key",
+                      "activatedAt"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "lastBuild": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "type": "string"
+                      },
+                      "ok": {
+                        "type": "boolean"
+                      },
+                      "finishedAt": {
+                        "type": "string"
+                      },
+                      "durationSeconds": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "reason": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "key",
+                      "ok",
+                      "finishedAt",
+                      "durationSeconds",
+                      "reason"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "running": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "active",
+              "lastBuild",
+              "running"
+            ]
+          },
+          "media": {
+            "description": "media.read",
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "attention": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "pendingCopies": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "total",
+              "attention",
+              "pendingCopies"
+            ]
+          }
+        }
+      },
+      "SystemStatusInput": {
+        "type": "object",
+        "properties": {
+          "database": {
+            "type": "object",
+            "properties": {
+              "ok": {
+                "type": "boolean"
+              },
+              "latencyMs": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "version": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "sizeBytes": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "ok",
+              "latencyMs",
+              "version",
+              "sizeBytes"
+            ]
+          },
+          "worker": {
+            "type": "object",
+            "properties": {
+              "running": {
+                "type": "boolean"
+              },
+              "since": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "lastActivity": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "running",
+              "since",
+              "lastActivity"
+            ]
+          },
+          "queue": {
+            "type": "object",
+            "properties": {
+              "builds": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "mail": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "mailFailed": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "imageCopies": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "builds",
+              "mail",
+              "mailFailed",
+              "imageCopies"
+            ]
+          },
+          "site": {
+            "type": "object",
+            "properties": {
+              "active": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "type": "string"
+                      },
+                      "activatedAt": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "key",
+                      "activatedAt"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "lastSuccessfulBuild": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "type": "string"
+                      },
+                      "at": {
+                        "type": "string"
+                      },
+                      "durationSeconds": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "reason": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "key",
+                      "at",
+                      "durationSeconds",
+                      "reason"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "lastFailedBuild": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "type": "string"
+                      },
+                      "at": {
+                        "type": "string"
+                      },
+                      "durationSeconds": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "reason": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "key",
+                      "at",
+                      "durationSeconds",
+                      "reason"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "active",
+              "lastSuccessfulBuild",
+              "lastFailedBuild"
+            ]
+          },
+          "disk": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "totalBytes": {
+                  "type": "number"
+                },
+                "freeBytes": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "label",
+                "totalBytes",
+                "freeBytes"
+              ]
+            }
+          },
+          "mail": {
+            "type": "object",
+            "properties": {
+              "configured": {
+                "type": "boolean"
+              },
+              "recipients": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "configured",
+              "recipients"
+            ]
+          },
+          "backups": {
+            "type": "object",
+            "properties": {
+              "configured": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "configured"
+            ],
+            "description": "Phase N"
+          },
+          "checkedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "database",
+          "worker",
+          "queue",
+          "site",
+          "disk",
+          "mail",
+          "backups",
+          "checkedAt"
+        ]
+      },
+      "SearchResultsInput": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "type": "string",
+                      "const": "content"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "pages",
+                        "projects",
+                        "technologies",
+                        "products",
+                        "epcm-stages",
+                        "patents",
+                        "videos"
+                      ]
+                    },
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "draft",
+                        "published",
+                        "archived"
+                      ]
+                    },
+                    "match": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "type",
+                    "id",
+                    "title",
+                    "status",
+                    "match"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "type": "string",
+                      "const": "media"
+                    },
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "mediaKind": {
+                      "type": "string",
+                      "enum": [
+                        "image",
+                        "video"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "id",
+                    "title",
+                    "mediaKind"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "type": "string",
+                      "const": "lead"
+                    },
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "new",
+                        "in_progress",
+                        "qualified",
+                        "won",
+                        "lost",
+                        "spam"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "id",
+                    "title",
+                    "status"
+                  ]
+                }
+              ]
+            }
+          },
+          "minLength": {
+            "type": "number",
+            "const": 2
+          }
+        },
+        "required": [
+          "items",
+          "minLength"
         ]
       },
       "ContentListItemInput": {
@@ -12497,6 +13240,776 @@
         ],
         "additionalProperties": false
       },
+      "Dashboard": {
+        "type": "object",
+        "properties": {
+          "leads": {
+            "description": "leads.read",
+            "type": "object",
+            "properties": {
+              "byStatus": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string",
+                  "enum": [
+                    "new",
+                    "in_progress",
+                    "qualified",
+                    "won",
+                    "lost",
+                    "spam"
+                  ]
+                },
+                "additionalProperties": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                }
+              },
+              "notifyFailed": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "formsLive": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "byStatus",
+              "notifyFailed",
+              "formsLive"
+            ],
+            "additionalProperties": false
+          },
+          "seo": {
+            "description": "seo.read: the check of the next release",
+            "type": "object",
+            "properties": {
+              "blocking": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "warning": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "info": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "blocking",
+              "warning",
+              "info"
+            ],
+            "additionalProperties": false
+          },
+          "translations": {
+            "description": "content.read",
+            "type": "object",
+            "properties": {
+              "locales": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "locale": {
+                      "type": "string",
+                      "enum": [
+                        "ru",
+                        "zh",
+                        "tr",
+                        "ar",
+                        "es"
+                      ]
+                    },
+                    "total": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "missing": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "inProgress": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "outdated": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "completion": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "locale",
+                    "total",
+                    "missing",
+                    "inProgress",
+                    "outdated",
+                    "completion"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "locales"
+            ],
+            "additionalProperties": false
+          },
+          "content": {
+            "description": "content.read",
+            "type": "object",
+            "properties": {
+              "drafts": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "pages",
+                        "projects",
+                        "technologies",
+                        "products",
+                        "epcm-stages",
+                        "patents",
+                        "videos"
+                      ]
+                    },
+                    "count": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "count"
+                  ],
+                  "additionalProperties": false
+                },
+                "description": "Draft records per type (types without drafts are left out)"
+              },
+              "pending": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991,
+                "description": "Records whose current version is not on the live site"
+              },
+              "recent": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "pages",
+                        "projects",
+                        "technologies",
+                        "products",
+                        "epcm-stages",
+                        "patents",
+                        "videos"
+                      ]
+                    },
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "at": {
+                      "type": "string"
+                    },
+                    "by": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "id",
+                    "title",
+                    "at",
+                    "by"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "drafts",
+              "pending",
+              "recent"
+            ],
+            "additionalProperties": false
+          },
+          "publishing": {
+            "description": "content.read",
+            "type": "object",
+            "properties": {
+              "active": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "type": "string"
+                      },
+                      "activatedAt": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "key",
+                      "activatedAt"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "lastBuild": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "type": "string"
+                      },
+                      "ok": {
+                        "type": "boolean"
+                      },
+                      "finishedAt": {
+                        "type": "string"
+                      },
+                      "durationSeconds": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "reason": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "key",
+                      "ok",
+                      "finishedAt",
+                      "durationSeconds",
+                      "reason"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "running": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "active",
+              "lastBuild",
+              "running"
+            ],
+            "additionalProperties": false
+          },
+          "media": {
+            "description": "media.read",
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "attention": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "pendingCopies": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "total",
+              "attention",
+              "pendingCopies"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "SystemStatus": {
+        "type": "object",
+        "properties": {
+          "database": {
+            "type": "object",
+            "properties": {
+              "ok": {
+                "type": "boolean"
+              },
+              "latencyMs": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "version": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "sizeBytes": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "ok",
+              "latencyMs",
+              "version",
+              "sizeBytes"
+            ],
+            "additionalProperties": false
+          },
+          "worker": {
+            "type": "object",
+            "properties": {
+              "running": {
+                "type": "boolean"
+              },
+              "since": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "lastActivity": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "running",
+              "since",
+              "lastActivity"
+            ],
+            "additionalProperties": false
+          },
+          "queue": {
+            "type": "object",
+            "properties": {
+              "builds": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "mail": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "mailFailed": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "imageCopies": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "builds",
+              "mail",
+              "mailFailed",
+              "imageCopies"
+            ],
+            "additionalProperties": false
+          },
+          "site": {
+            "type": "object",
+            "properties": {
+              "active": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "type": "string"
+                      },
+                      "activatedAt": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "key",
+                      "activatedAt"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "lastSuccessfulBuild": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "type": "string"
+                      },
+                      "at": {
+                        "type": "string"
+                      },
+                      "durationSeconds": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "reason": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "key",
+                      "at",
+                      "durationSeconds",
+                      "reason"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "lastFailedBuild": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "type": "string"
+                      },
+                      "at": {
+                        "type": "string"
+                      },
+                      "durationSeconds": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "reason": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "key",
+                      "at",
+                      "durationSeconds",
+                      "reason"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "active",
+              "lastSuccessfulBuild",
+              "lastFailedBuild"
+            ],
+            "additionalProperties": false
+          },
+          "disk": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "totalBytes": {
+                  "type": "number"
+                },
+                "freeBytes": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "label",
+                "totalBytes",
+                "freeBytes"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "mail": {
+            "type": "object",
+            "properties": {
+              "configured": {
+                "type": "boolean"
+              },
+              "recipients": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "configured",
+              "recipients"
+            ],
+            "additionalProperties": false
+          },
+          "backups": {
+            "type": "object",
+            "properties": {
+              "configured": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "configured"
+            ],
+            "additionalProperties": false,
+            "description": "Phase N"
+          },
+          "checkedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "database",
+          "worker",
+          "queue",
+          "site",
+          "disk",
+          "mail",
+          "backups",
+          "checkedAt"
+        ],
+        "additionalProperties": false
+      },
+      "SearchResults": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "type": "string",
+                      "const": "content"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "pages",
+                        "projects",
+                        "technologies",
+                        "products",
+                        "epcm-stages",
+                        "patents",
+                        "videos"
+                      ]
+                    },
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "draft",
+                        "published",
+                        "archived"
+                      ]
+                    },
+                    "match": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "type",
+                    "id",
+                    "title",
+                    "status",
+                    "match"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "type": "string",
+                      "const": "media"
+                    },
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "mediaKind": {
+                      "type": "string",
+                      "enum": [
+                        "image",
+                        "video"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "id",
+                    "title",
+                    "mediaKind"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "type": "string",
+                      "const": "lead"
+                    },
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "new",
+                        "in_progress",
+                        "qualified",
+                        "won",
+                        "lost",
+                        "spam"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "id",
+                    "title",
+                    "status"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            }
+          },
+          "minLength": {
+            "type": "number",
+            "const": 2
+          }
+        },
+        "required": [
+          "items",
+          "minLength"
+        ],
+        "additionalProperties": false
+      },
       "ContentListItem": {
         "type": "object",
         "properties": {
@@ -18289,6 +19802,153 @@
             }
           },
           "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/dashboard": {
+      "get": {
+        "summary": "Numbers of «Обзор»; each block only for the role that may read it",
+        "tags": [
+          "system"
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dashboard"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/system/status": {
+      "get": {
+        "summary": "State of the database, worker, queues, site builds, disk, mail and backups",
+        "tags": [
+          "system"
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "system.read"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemStatus"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/search": {
+      "get": {
+        "summary": "Content search for ⌘K",
+        "tags": [
+          "system"
+        ],
+        "description": "Titles in every language and keys of the seven content types (content.read), media files (media.read), lead numbers and names (leads.read). Up to 5 per type.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "in": "query",
+            "name": "q",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResults"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
             "description": "Default Response",
             "content": {
               "application/json": {
@@ -35580,6 +37240,18 @@
             "in": "query",
             "name": "usage",
             "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "true"
+              ]
+            },
+            "in": "query",
+            "name": "attention",
+            "required": false,
+            "description": "Only files with a warning or missing image copies (Phase L: «Обзор» links here)"
           }
         ],
         "security": [

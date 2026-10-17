@@ -130,7 +130,7 @@ The export requires the same shape in every language: the same list lengths and 
 
 ## 5. Admin UI
 
-- **Sidebar «Контент»:** Страницы, Проекты, Технологии, Продукты, EPC / EPCM, Патенты, Видео. Visible with `content.read`, which every role has. ⌘K lists these sections, but there is no content search in ⌘K.
+- **Sidebar «Контент»:** Страницы, Проекты, Технологии, Продукты, EPC / EPCM, Патенты, Видео. Visible with `content.read`, which every role has. ⌘K lists these sections and, since Phase L, finds records by title in any language ([`admin-ui.md`](admin-ui.md) §6).
 - **Lists:**
   - a table (title with public address, status, translations, order, last change and by whom);
   - search (`/` focuses it), status filter, sort, pages of 20;
@@ -207,4 +207,4 @@ The export requires the same shape in every language: the same list lengths and 
 | Page list items: texts only (no adding or removing timeline entries etc.) | later, when the page design gets new item templates |
 | Settings, offices, metrics, footer are not editable yet | next content task (review §X «Настройки») |
 | No hard delete; no usages view («используется в 4 проектах») | with the delete flow (Admin-only, review §G) |
-| ⌘K does not search content | when content search is designed (review §B: PostgreSQL FTS) |
+| ~~⌘K does not search content~~ — done in Phase L: titles in every language, keys, media, leads (`ILIKE`; FTS when the volume needs it) | L |

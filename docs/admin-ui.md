@@ -107,12 +107,17 @@ Phase D delivers the admin shell and every screen that the Phase C API already s
 
 ## 5. Screens
 
-**Обзор:**
-- the user's sign-in security (role requirement, passkeys, app, recovery codes left);
-- a warning when no second factor is set or 3 or fewer codes remain;
-- links to the sections the role can open.
+**Обзор** (Phase L, `GET /api/v1/dashboard`; every block only for a role that may read it):
+- **Заявки** (leads.read): new, in progress, failed notices; a note while the site forms are in demo mode;
+- **SEO** (seo.read): errors that block publishing and warnings of the next release — the same check as «Проверка SEO»;
+- **Контент** (content.read): changes not yet on the site, drafts per type;
+- **Публикация сайта**: the live release, the last build (success or failure with the reason, time, duration), builds in progress;
+- **Медиатека** (media.read): files that need attention (a warning or image copies that could not be made), copies being prepared;
+- **Переводы**: per language the share done, missing and outdated translations;
+- **Недавно изменено**: the last five edits with who and when;
+- **Безопасность входа**: role requirement, passkeys, app, recovery codes left; a warning when no second factor is set or 3 or fewer codes remain.
 
-The dashboard numbers of review §X (leads, SEO, translations, builds, backups) come with their phases. No placeholder numbers are shown.
+Every number is a link to the list it counts, with that list's filter in the address (`features/overview/model.ts`, unit-tested): `/leads?status=new`, `/seo?severity=blocking`, `/translations/all?locale=ru&state=outdated`, `/content/projects?status=draft`, `/media?attention=true`, `/publishing`. No charts, no placeholder numbers. A role without any of these blocks sees the list of its sections.
 
 **Профиль и безопасность:**
 - name;
@@ -136,7 +141,15 @@ The dashboard numbers of review §X (leads, SEO, translations, builds, backups) 
 - actions and details in Russian words (`features/audit/describe.ts`); unknown keys are never shown in the main view;
 - each row opens a dialog; technical values (record number, request id, action code, object, raw data) are in «Дополнительно».
 
-**Система:** whether the API answers and how fast, checked every 30 s. Disk, backups and the queue (approved §19) come with Phases L and N; builds and releases are under «Публикация».
+**Система** (`system.read`; Phase L, `GET /api/v1/system/status`, approved §19), refreshed every 30 s:
+- the API (answer and time) and the database (state, time, PostgreSQL version, size);
+- the worker: running or not (its database connection is named `soltex-worker`), since when; queued builds, e-mails (and failed ones) and image copies;
+- the site: the live release, the last successful and the last failed build with the reason;
+- free disk space of the releases and the media library (a warning under 10 %);
+- mail: configured or not, number of lead recipients;
+- backups: «Не настроены» until the server is set up (Phase N).
+
+No paths, connection strings or secrets.
 
 **SEO** (Phase I-1, [`admin-seo.md`](admin-seo.md) §5):
 - «Проверка SEO» (`/seo`): totals by severity, filters, links to the editors;
@@ -164,7 +177,7 @@ The dashboard numbers of review §X (leads, SEO, translations, builds, backups) 
 | Empty state with next step | `EmptyState` |
 | Destructive actions state their consequences | `ConfirmDialog` with a list of consequences (sessions, codes, notifications) |
 | Unsaved changes | `useUnsavedChangesGuard`: in-app navigation asks; closing the tab triggers the browser prompt |
-| ⌘K / Ctrl+K | Sections, harmless actions (add user, sign out) and people (for `users.manage`). **No publishing, rollback or other site-changing commands** (approved §16). Arrows and Enter navigate, Esc closes |
+| ⌘K / Ctrl+K | Sections, harmless actions (add user, sign out) and people (for `users.manage`). From two characters on, also **content search** (Phase L, `GET /api/v1/search`): titles of the seven content types in every language and their keys (the source title names the record; a matching translation is shown as «RU: …»), media files, lead numbers and names — each only for a role that may read them; results open the record. **No publishing, rollback or other site-changing commands** (approved §16). Arrows and Enter navigate, Esc closes |
 | `/` | Focuses the search field of a table |
 | No single-key dangerous shortcuts | — |
 | Devices | Desktop first; the sidebar becomes a drawer below 1024 px; tables scroll horizontally |

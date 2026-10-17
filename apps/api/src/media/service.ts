@@ -209,7 +209,11 @@ export interface MediaListQuery {
   q?: string;
   kind?: 'image' | 'video';
   usage?: 'used' | 'unused';
+  attention?: 'true';
 }
+
+/** A warning, or image copies that could not be made (the «Обзор» number and the list filter agree). */
+export const needsAttention = (v: Pick<MediaView, 'warnings' | 'variants'>) => v.warnings.length > 0 || v.variants.state === 'missing';
 
 export async function listMedia(deps: Deps, q: MediaListQuery): Promise<{ items: MediaView[]; total: number }> {
   const db = requireDb(deps);
@@ -222,7 +226,8 @@ export async function listMedia(deps: Deps, q: MediaListQuery): Promise<{ items:
   const users = await userNames(db, rows.map((r) => r.m.updatedBy));
   const items = rows
     .map((r) => toView(deps, r.m, r.alt ?? null, usages.get(r.m.key) ?? [], users))
-    .filter((v) => !q.usage || (q.usage === 'used' ? v.usageCount > 0 : v.usageCount === 0));
+    .filter((v) => !q.usage || (q.usage === 'used' ? v.usageCount > 0 : v.usageCount === 0))
+    .filter((v) => !q.attention || needsAttention(v));
   return { items, total: items.length };
 }
 

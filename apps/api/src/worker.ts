@@ -8,12 +8,13 @@ import { loadConfig } from './config.ts';
 import { connect } from './db/client.ts';
 import { UnconfiguredNotifier } from './notify/notifier.ts';
 import { siteBuildEnv, siteBuilder } from './publishing/builder.ts';
+import { WORKER_APPLICATION_NAME } from './system/overview.ts';
 import { workerLoop } from './publishing/worker.ts';
 import { emailProviderFor } from './notify/email.ts';
 
 const config = loadConfig();
 if (!config.databaseUrl) throw new Error('worker: DATABASE_URL is not set');
-const database = connect(config.databaseUrl, 3);
+const database = connect(config.databaseUrl, 3, WORKER_APPLICATION_NAME);
 const controller = new AbortController();
 for (const signal of ['SIGINT', 'SIGTERM'] as const) process.once(signal, () => controller.abort());
 console.log(`worker: building releases into ${config.publishing.releasesDir}`);
