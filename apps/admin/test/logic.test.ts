@@ -21,6 +21,8 @@ test('routeFor: every sign-in step has its screen; `from` only after full sign-i
   assert.equal(routeFor(null), '/login');
   assert.equal(routeFor(view('mfa_required'), '/admin/users'), '/login/mfa');
   assert.equal(routeFor(view('mfa_enrollment_required'), '/admin/users'), '/setup-mfa');
+  assert.equal(routeFor(view('password_change_required'), '/admin/users'), '/change-password', 'initial password first (Phase M-1)');
+  assert.equal(routeFor(view('authenticated'), '/change-password'), '/', 'never back to the change page');
   assert.equal(routeFor(view('authenticated')), '/');
   assert.equal(routeFor(view('authenticated'), '/admin/audit?action=auth.login'), '/admin/audit?action=auth.login');
 });

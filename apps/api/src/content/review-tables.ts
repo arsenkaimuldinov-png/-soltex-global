@@ -29,3 +29,9 @@ export const REVIEW_TABLES: Readonly<Record<TranslatableType, ReviewTable>> = {
   patents: { type: 'patents', resourceType: 'patent', storeKey: 'patents', entity: 'patents', tr: 'patent_translations', owner: 'patent_id', title: 't.title' },
   videos: { type: 'videos', resourceType: 'video', storeKey: 'videos', entity: 'videos', tr: 'video_translations', owner: 'video_id', title: 't.title' },
 };
+
+// Guard for the raw SQL identifiers (Phase M-1, scripts/check-sql-raw.mjs): these names are spliced into
+// SQL, so they must stay plain identifiers / a fixed expression of them.
+for (const t of Object.values(REVIEW_TABLES))
+  for (const v of [t.entity, t.tr, t.owner]) if (!/^[a-z_]+$/.test(v)) throw new Error(`review-tables: unsafe identifier ${v}`);
+for (const t of Object.values(REVIEW_TABLES)) if (!/^[a-z_.(), ]+$/.test(t.title)) throw new Error(`review-tables: unsafe title expression ${t.title}`);

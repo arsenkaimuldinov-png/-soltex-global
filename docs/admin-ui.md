@@ -52,6 +52,7 @@ Phase D delivers the admin shell and every screen that the Phase C API already s
 | `/reset-password#token=…` | anyone with a link | New password. The token is in the URL fragment, so it never reaches server logs or Referer. It is removed from history after use |
 | `/login/mfa` | session at the second-factor step | Passkey, authenticator code, or recovery code |
 | `/setup-mfa` | session whose role requirement is not met | Mandatory enrollment: a passkey for Owner and Admin; passkey or app for other roles |
+| `/change-password` | signed in with an initial password (Phase M-1) | «Придумайте свой пароль»: the initial password is replaced before anything else |
 | `/` | signed in | Обзор |
 | `/account` | signed in | Профиль и безопасность |
 | `/admin/users` | `users.manage` | Пользователи |
@@ -129,11 +130,14 @@ Every number is a link to the list it counts, with that list's filter in the add
 
 **Пользователи:**
 - table with search, sorting, role and status;
-- create with a generated initial password: 24 characters, Web Crypto, unbiased;
+- create with a generated initial password: 24 characters, Web Crypto, unbiased. It is temporary (Phase M-1): valid 7 days, replaced at the first sign-in; the list marks «Ещё не сменил начальный пароль»;
+- «Выдать новый начальный пароль» (step-up; not on yourself; Admins not on Owners): for a forgotten or expired one; the user's sessions end, the second factor stays;
 - edit name, role and status;
 - end all sessions; reset the second factor (with the out-of-band identity reminder of approved §7).
 - Options a role may not use are not offered (`canManageUser` from core): an Admin sees no Owner role and cannot change Owners; nobody changes their own role or status or resets their own MFA. The API enforces the same rules.
 - Changing a role or status warns that the user will be signed out everywhere.
+
+**Придумайте свой пароль** (`/change-password`, Phase M-1): after the first sign-in with an initial password (and the second factor), the admin shows only this page: initial password, new password twice; then back to the page asked for. Every API route except the password change answers `password_change_required` meanwhile.
 
 **Журнал действий:**
 - newest first, 50 per page («Показать ещё», `before` cursor);

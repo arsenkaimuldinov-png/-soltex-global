@@ -62,7 +62,7 @@ export function CreateUserDialog({ open, onOpenChange, onCreated }: { open: bool
       open={open}
       onOpenChange={onOpenChange}
       title="Новый пользователь"
-      description="Передайте e-mail и начальный пароль лично или по защищённому каналу. При первом входе пользователь настроит второй фактор, если он нужен для роли."
+      description="Передайте e-mail и начальный пароль лично или по защищённому каналу. Начальный пароль действует 7 дней: при первом входе пользователь настроит второй фактор (если он нужен для роли) и заменит пароль на свой."
       footer={
         <>
           <Button onClick={() => onOpenChange(false)}>Отмена</Button>
@@ -91,7 +91,7 @@ export function CreateUserDialog({ open, onOpenChange, onCreated }: { open: bool
             </Select>
           )}
         </Field>
-        <Field label="Начальный пароль" hint="Не меньше 12 символов. Пользователь может сменить его в профиле." error={errors.password?.message}>
+        <Field label="Начальный пароль" hint="Не меньше 12 символов. Пользователь заменит его при первом входе." error={errors.password?.message}>
           {({ id, describedBy, invalid }) => (
             <div className="flex gap-2">
               <div className="flex-1">
@@ -203,6 +203,72 @@ export function EditUserDialog({ user, onOpenChange, onSaved }: { user: User | n
           <TechValue label="ID пользователя" value={user.id} />
           <TechValue label="Создан" value={formatDateTime(user.createdAt)} />
         </Advanced>
+      </form>
+    </Dialog>
+  );
+}
+
+const initialSchema = z.object({ password: z.string().min(12, 'Не меньше 12 символов.').max(256, 'Не больше 256 символов.') });
+
+/**
+ * A new initial password (Phase M-1): for a forgotten or expired one while there is no e-mail. The
+ * user's sessions end; they replace it at the next sign-in; their second factor stays.
+ */
+export function InitialPasswordDialog({ user, onOpenChange, onDone }: { user: User | null; onOpenChange: (o: boolean) => void; onDone: (u: User) => void }) {
+  const withStepUp = useStepUp();
+  const [error, setError] = useState<string | null>(null);
+  const form = useForm<z.infer<typeof initialSchema>>({ resolver: zodResolver(initialSchema), defaultValues: { password: '' } });
+  useEffect(() => {
+    if (user) {
+      form.reset({ password: '' });
+      setError(null);
+    }
+  }, [user, form]);
+  if (!user) return null;
+
+  const onSubmit = form.handleSubmit(async ({ password }) => {
+    setError(null);
+    try {
+      await withStepUp(() => api('POST /api/v1/users/{id}/initial-password', { params: { id: user.id }, body: { password } }));
+      onDone(user);
+    } catch (e) {
+      const fields = fieldErrorsOf(e);
+      if (fields.password) return form.setError('password', { message: fields.password });
+      const d = describeError(e);
+      if (!d.silent) setError(d.message);
+    }
+  });
+
+  const { errors, isSubmitting } = form.formState;
+  return (
+    <Dialog
+      open
+      onOpenChange={onOpenChange}
+      title={`Новый начальный пароль: ${user.name}`}
+      description="Сначала убедитесь, что просьба исходит от самого пользователя. Все его сеансы будут завершены; новый пароль действует 7 дней, при входе пользователь заменит его на свой. Второй фактор остаётся прежним."
+      footer={
+        <>
+          <Button onClick={() => onOpenChange(false)}>Отмена</Button>
+          <Button variant="primary" type="submit" form="initial-password" loading={isSubmitting}>
+            Выдать пароль
+          </Button>
+        </>
+      }
+    >
+      <form id="initial-password" onSubmit={onSubmit} className="space-y-4" noValidate>
+        <FormError message={error} />
+        <Field label="Начальный пароль" hint="Передайте его лично или по защищённому каналу." error={errors.password?.message}>
+          {({ id, describedBy, invalid }) => (
+            <div className="flex gap-2">
+              <div className="flex-1">
+                <PasswordInput id={id} aria-describedby={describedBy} invalid={invalid} autoComplete="new-password" {...form.register('password')} />
+              </div>
+              <Button size="md" onClick={() => form.setValue('password', generatePassword(), { shouldDirty: true, shouldValidate: true })}>
+                Сгенерировать
+              </Button>
+            </div>
+          )}
+        </Field>
       </form>
     </Dialog>
   );

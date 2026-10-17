@@ -41,7 +41,7 @@ export function SessionsCard() {
   return (
     <Card
       title="Активные сеансы"
-      description="Браузеры, в которых выполнен вход. Сеанс завершается после 8 часов бездействия и не позже чем через 7 дней."
+      description="Браузеры, в которых выполнен вход. Сеанс завершается после 8 часов бездействия и не позже чем через 12 часов после входа."
       actions={
         others > 0 ? (
           <Button size="sm" onClick={() => setEndingOthers(true)}>

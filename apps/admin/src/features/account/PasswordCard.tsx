@@ -20,6 +20,19 @@ const schema = z
   .refine((v) => v.newPassword !== v.currentPassword, { path: ['newPassword'], message: 'Новый пароль совпадает с текущим.' });
 
 export function PasswordCard() {
+  const toast = useToast();
+  return (
+    <Card title="Пароль" description="После смены пароля все остальные сеансы будут завершены.">
+      <PasswordForm submitLabel="Сменить пароль" onDone={() => toast.success('Пароль изменён. Все другие сеансы завершены.')} />
+    </Card>
+  );
+}
+
+/**
+ * Current password, new password twice (Phase M-1: shared with the first-sign-in page, where the
+ * current password is the initial one).
+ */
+export function PasswordForm({ submitLabel, onDone, currentLabel = 'Текущий пароль' }: { submitLabel: string; onDone: () => void; currentLabel?: string }) {
   const qc = useQueryClient();
   const toast = useToast();
   const form = useForm<z.infer<typeof schema>>({ resolver: zodResolver(schema), defaultValues: { currentPassword: '', newPassword: '', repeat: '' } });
@@ -28,9 +41,9 @@ export function PasswordCard() {
     try {
       await api('POST /api/v1/auth/password/change', { body: { currentPassword, newPassword } });
       form.reset();
-      void qc.invalidateQueries({ queryKey: SESSION_KEY });
+      await qc.invalidateQueries({ queryKey: SESSION_KEY });
       void qc.invalidateQueries({ queryKey: ['auth', 'sessions'] });
-      toast.success('Пароль изменён. Все другие сеансы завершены.');
+      onDone();
     } catch (e) {
       if (isApiError(e, 'invalid_credentials')) return form.setError('currentPassword', { message: 'Текущий пароль указан неверно.' });
       const fields = fieldErrorsOf(e);
@@ -41,22 +54,20 @@ export function PasswordCard() {
 
   const { errors, isSubmitting } = form.formState;
   return (
-    <Card title="Пароль" description="После смены пароля все остальные сеансы будут завершены.">
-      <form onSubmit={onSubmit} className="max-w-sm space-y-4" noValidate>
-        <input type="text" name="username" autoComplete="username" hidden readOnly />
-        <Field label="Текущий пароль" error={errors.currentPassword?.message}>
-          {({ id, describedBy, invalid }) => <PasswordInput id={id} aria-describedby={describedBy} invalid={invalid} autoComplete="current-password" {...form.register('currentPassword')} />}
-        </Field>
-        <Field label="Новый пароль" hint="Не меньше 12 символов. Удобно использовать фразу из нескольких слов." error={errors.newPassword?.message}>
-          {({ id, describedBy, invalid }) => <PasswordInput id={id} aria-describedby={describedBy} invalid={invalid} autoComplete="new-password" {...form.register('newPassword')} />}
-        </Field>
-        <Field label="Повторите новый пароль" error={errors.repeat?.message}>
-          {({ id, describedBy, invalid }) => <PasswordInput id={id} aria-describedby={describedBy} invalid={invalid} autoComplete="new-password" {...form.register('repeat')} />}
-        </Field>
-        <Button type="submit" variant="primary" loading={isSubmitting}>
-          Сменить пароль
-        </Button>
-      </form>
-    </Card>
+    <form onSubmit={onSubmit} className="max-w-sm space-y-4" noValidate>
+      <input type="text" name="username" autoComplete="username" hidden readOnly />
+      <Field label={currentLabel} error={errors.currentPassword?.message}>
+        {({ id, describedBy, invalid }) => <PasswordInput id={id} aria-describedby={describedBy} invalid={invalid} autoComplete="current-password" {...form.register('currentPassword')} />}
+      </Field>
+      <Field label="Новый пароль" hint="Не меньше 12 символов. Удобно использовать фразу из нескольких слов." error={errors.newPassword?.message}>
+        {({ id, describedBy, invalid }) => <PasswordInput id={id} aria-describedby={describedBy} invalid={invalid} autoComplete="new-password" {...form.register('newPassword')} />}
+      </Field>
+      <Field label="Повторите новый пароль" error={errors.repeat?.message}>
+        {({ id, describedBy, invalid }) => <PasswordInput id={id} aria-describedby={describedBy} invalid={invalid} autoComplete="new-password" {...form.register('repeat')} />}
+      </Field>
+      <Button type="submit" variant="primary" loading={isSubmitting}>
+        {submitLabel}
+      </Button>
+    </form>
   );
 }

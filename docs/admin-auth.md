@@ -75,7 +75,13 @@ Translations (Phase F) use the same matrix, **no new permission**: reading `cont
 - **Hashing:** Argon2id (`@node-rs/argon2`), m = 19 MiB, t = 2, p = 1 (OWASP minimum).
 - **Unknown e-mail:** the login still verifies against a dummy hash, so response timing does not reveal whether an account exists.
 - **Policy:** 12–256 characters; not on the bundled list of common passwords; must not contain the local part of the account e-mail. There are no composition rules (NIST 800-63B).
-- **Change:** needs the current password and a full session. The session token rotates, and the user's other sessions are revoked.
+- **Change:** needs the current password and a full session; the new password must differ from it (`same_as_current`). The session token rotates, and the user's other sessions are revoked.
+- **Initial passwords** (Phase M-1, ASVS 4.0.3 §2.3.1):
+  - a password an Owner or Admin gives (`POST /users`, `POST /users/:id/initial-password`) is **temporary** (`users.password_temporary`, migration `0010`);
+  - it is valid **7 days** from `password_changed_at`; after that the sign-in answers `401 initial_password_expired` (audited as `auth.login` denied);
+  - at the first sign-in, right after the second factor, `next` is `password_change_required`: every route except the password change answers `403 password_change_required`, and the admin shows «Придумайте свой пароль»;
+  - «Выдать новый начальный пароль» (`users.manage`, step-up, not on yourself, Admins not on Owners): sets a new temporary password, ends the user's sessions, lifts a lock-out; second factors stay. Audited as `user.initial_password` (without the password);
+  - the first Owner (CLI bootstrap) chooses their own password and is not affected.
 - **Reset:**
   - a random token, stored as sha256, valid 30 minutes, single use;
   - the response is the same whether or not the account exists;
@@ -98,7 +104,7 @@ Translations (Phase F) use the same matrix, **no new permission**: reading `cont
 - **Token:** an opaque random token (32 bytes) in the cookie `__Host-soltex_session` (`HttpOnly`, `Secure`, `SameSite=Strict`, `Path=/`). The database stores only its sha256. Nothing is signed, so the API has no session secret.
 - **Lifetime:**
   - idle timeout 8 h;
-  - absolute timeout 7 days;
+  - absolute timeout **12 hours** (ASVS 4.0.3 §3.3.2 level 2; Phase M-1, was 7 days);
   - a session waiting for its second factor expires after 10 minutes.
 - **Assurance level:**
   - `aal = 1` after the password;
@@ -181,11 +187,16 @@ Users who still have to enroll get `mfa_enrollment_required` everywhere except t
 - `auth.session.revoke`, `auth.session.revoke_others`;
 - `mfa.totp.enroll_start`, `mfa.totp.enroll`, `mfa.totp.disable`, `mfa.recovery.regenerate`;
 - `mfa.passkey.register`, `mfa.passkey.remove`;
-- `user.create`, `user.update`, `user.profile_update`, `user.mfa_reset`, `user.sessions_revoke`, `user.bootstrap_owner`;
+- `user.create`, `user.update`, `user.profile_update`, `user.mfa_reset`, `user.sessions_revoke`, `user.bootstrap_owner`, `user.initial_password` (Phase M-1);
 - `access.denied`;
 - content (Phase E): `content.create`, `content.update`, `content.archive`, `content.restore`;
 - translations (Phase F): `translation.update`, `translation.approve`, `translation.reopen`;
 - publishing (Phase G, [`admin-publishing.md`](admin-publishing.md) §6): `content.publish`, `content.unpublish`, `revision.restore`, `release.create`, `release.build`, `preview.build`, `release.activate`, `release.rollback`, `release.retry`, `preview.grant`, `preview.revoke` (summary keys `target`, `status`, `reason`, `count`, `fields`, `revision`; no new keys). Preview tokens and cookies are never logged: only their hashes are stored.
+
+- media (Phase J): `media.upload`, `media.replace`, `media.delete`;
+- leads (Phase K): `lead.view` (Phase M-1: who opened a lead's personal data, ASVS §8.3.5), `lead.update`, `lead.note`, `lead.delete`, `lead.restore`, `lead.export`, `lead.notify_retry`, `lead.anonymize`.
+
+Every action the API writes has Russian wording in «Журнал действий»; `apps/admin/test/audit-actions.test.ts` reads the actions from the API sources and fails on a missing label.
 
 **Reading:** `GET /api/v1/audit` (`audit.read`): newest first, cursor `before`, filters `actorId` and `action`.
 
@@ -238,7 +249,7 @@ npm run auth:bootstrap-owner          # on the server, with the API environment
 - There are no default users or passwords anywhere.
 - The Owner then signs in to the admin and must register a passkey before anything else.
 
-All other users are created by an Owner or Admin in the admin (`POST /api/v1/users`, step-up) with an initial password.
+All other users are created by an Owner or Admin in the admin (`POST /api/v1/users`, step-up) with an initial password, which they replace at the first sign-in (§2).
 
 ---
 
@@ -255,6 +266,8 @@ All other users are created by an Owner or Admin in the admin (`POST /api/v1/use
 | `test/audit-security.db.test.ts` | 10 | audit content, no secrets in audit or logs, request IDs, RFC 9457, validation, 413, CSRF, headers, no CORS, append-only |
 | `test/bootstrap.db.test.ts` | 5 | first Owner, repeat refusal, weak password, CLI exit codes, no password echo |
 | `src/db/db.test.ts` | 9 | Phase B round trip and roles, plus the audit grants and trigger for the app, owner and backup roles |
+| `test/coverage.db.test.ts` (Phase M-1) | 2 | every guarded route × every role (403 exactly without the permission), every state-changing route refuses a missing CSRF header, a foreign Origin and a cross-site fetch; the route list comes from the app |
+| `test/initial-password.db.test.ts` (Phase M-1) | 4 | initial password replaced at the first sign-in (after the second factor), nothing else reachable before, same password refused, 7-day expiry, new initial password by an admin, 12-hour sessions |
 
 Commands:
 - `npm test`: no database needed;

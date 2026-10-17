@@ -182,3 +182,4 @@ Put the three URLs in your local environment (see `.env.example`), then run `npm
 | I | redirect lookup, `seo_issues` |
 | J | media storage paths, variants, sha256, uploads |
 | K | `leads`, `lead_events`, `consent_texts`, outbox |
+| M | **done, migration `0010_temporary_password`** (Phase M-1, additive): `users.password_temporary` — an initial password given by an Owner or Admin is valid 7 days and replaced at the first sign-in. Rollback = drop the column ([`admin-auth.md`](admin-auth.md) §2) |

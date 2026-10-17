@@ -11,13 +11,14 @@ export function routeFor(view: SessionView | null, from?: string): string {
   if (!view) return '/login';
   if (view.next === 'mfa_required') return '/login/mfa';
   if (view.next === 'mfa_enrollment_required') return '/setup-mfa';
+  if (view.next === 'password_change_required') return '/change-password';
   return safeFrom(from) ?? '/';
 }
 
 /** Only internal paths, never `//host` or a scheme: no open redirect through `from`. */
 export function safeFrom(from: string | undefined): string | null {
   if (!from || !from.startsWith('/') || from.startsWith('//') || from.startsWith('/\\')) return null;
-  if (/^\/(login|setup-mfa|forgot-password|reset-password)(\/|$|\?)/.test(from)) return null;
+  if (/^\/(login|setup-mfa|change-password|forgot-password|reset-password)(\/|$|\?)/.test(from)) return null;
   return from;
 }
 

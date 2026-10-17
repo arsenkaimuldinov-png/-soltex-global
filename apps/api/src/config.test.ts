@@ -3,6 +3,7 @@ import crypto from 'node:crypto';
 import { test } from 'node:test';
 import { loadConfig } from './config.ts';
 import { siteBuildEnv } from './publishing/builder.ts';
+import { smtpOptions } from './notify/email.ts';
 
 const keys = () => ({
   DATA_ENCRYPTION_KEYS: `k1:${crypto.randomBytes(32).toString('base64')}`,
@@ -69,4 +70,10 @@ test('site form switches (Phase K-2): off by default; the build gets only the pu
   assert.deepEqual(siteBuildEnv(loadConfig({ ...keys(), SITE_LEADS_ENABLED: 'true' })), { SOLTEX_LEADS_ENDPOINT: 'https://soltexglobal.co/api/v1/public/leads' });
   assert.throws(() => loadConfig({ ...keys(), ATTRIBUTION_ENABLED: 'true' }), /needs SITE_LEADS_ENABLED/);
   assert.throws(() => loadConfig({ ...keys(), SITE_LEADS_ENABLED: 'yes' }), /true or false/);
+});
+
+test('mail transport: STARTTLS required for smtp:// to another host, TLS 1.2+ (Phase M-1)', () => {
+  assert.deepEqual(smtpOptions('smtp://u:p@smtp.example.kz:587'), { url: 'smtp://u:p@smtp.example.kz:587', requireTLS: true, tls: { minVersion: 'TLSv1.2' } });
+  assert.equal(smtpOptions('smtps://u:p@smtp.example.kz:465').requireTLS, false, 'TLS from the start');
+  assert.equal(smtpOptions('smtp://127.0.0.1:25').requireTLS, false, 'a relay on this machine');
 });

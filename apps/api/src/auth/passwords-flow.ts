@@ -33,11 +33,13 @@ export async function changePassword(
     await recordAudit(deps, input.client, { action: 'auth.password.change', result: 'failure', actorId: input.userId, summary: { reason: 'wrong_password' } });
     throw new Problem('invalid_credentials', 'Текущий пароль указан неверно');
   }
-  const problems = checkPasswordPolicy(input.newPassword, user.email);
+  const problems: string[] = checkPasswordPolicy(input.newPassword, user.email);
+  // An initial password must really be replaced (ASVS 2.3.1); a change must change something.
+  if (!problems.length && (await verifyPassword(user.passwordHash, input.newPassword))) problems.push('same_as_current');
   if (problems.length) throw policyProblem(problems);
   const passwordHash = await hashPassword(input.newPassword);
   const revoked = await db.transaction(async (tx) => {
-    await tx.update(users).set({ passwordHash, passwordChangedAt: deps.now(), updatedAt: deps.now(), updatedBy: user.id }).where(eq(users.id, user.id));
+    await tx.update(users).set({ passwordHash, passwordChangedAt: deps.now(), passwordTemporary: false, updatedAt: deps.now(), updatedBy: user.id }).where(eq(users.id, user.id));
     const n = await revokeUserSessions(deps, user.id, 'password_changed', { except: input.keepSessionId }, tx);
     await recordAudit(deps, input.client, { action: 'auth.password.change', result: 'success', actorId: user.id, summary: { revoked: String(n) } }, tx);
     return n;
@@ -95,7 +97,7 @@ export async function confirmPasswordReset(deps: Deps, token: string, newPasswor
     if (!used.length) throw new Problem('bad_request', 'Ссылка для сброса пароля недействительна или устарела');
     await tx
       .update(users)
-      .set({ passwordHash, passwordChangedAt: now, failedLogins: 0, lastFailedLoginAt: null, lockedUntil: null, updatedAt: now })
+      .set({ passwordHash, passwordChangedAt: now, passwordTemporary: false, failedLogins: 0, lastFailedLoginAt: null, lockedUntil: null, updatedAt: now })
       .where(eq(users.id, user.id));
     const n = await revokeUserSessions(deps, user.id, 'password_reset', {}, tx);
     await recordAudit(deps, client, { action: 'auth.password_reset.confirm', result: 'success', actorId: user.id, summary: { revoked: String(n) } }, tx);

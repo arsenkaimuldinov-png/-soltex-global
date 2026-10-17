@@ -19,6 +19,7 @@ import { CONTENT_LOCALES, LEAD_ATTRIBUTION_MAX, LEAD_BODY_MAX_BYTES, LEAD_FORMS,
 import type { Deps } from '../deps.ts';
 import { clientInfo } from '../deps.ts';
 import { authOf } from '../auth/guard.ts';
+import { recordAudit } from '../audit/audit.ts';
 import { etag, parseIfMatch } from '../content/cms/service.ts';
 import { addNote, assignees, createLead, exportLeads, getLead, listLeads, retryNotice, setDeleted, updateLead } from '../leads/service.ts';
 import { byIp } from './rate-limits.ts';
@@ -201,6 +202,8 @@ export async function leadRoutes(app: FastifyInstance, deps: Deps) {
     { config: { access: read }, schema: { tags, summary: 'One lead with its history', params: z.object({ id: Uuid }), response: { 200: LeadDetail, ...problems(401, 403, 404) } } },
     async (req, reply) => {
       const v = await getLead(deps, req.params.id);
+      // ASVS 4.0.3 §8.3.5 (Phase M-1): who opened which lead's personal data — without the data.
+      await recordAudit(deps, clientInfo(deps, req), { action: 'lead.view', result: 'success', actorId: authOf(req).user.id, resourceType: 'lead', resourceId: v.id });
       reply.header('etag', etag(v.version));
       return v;
     }

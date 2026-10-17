@@ -114,7 +114,9 @@ Apache's `ErrorDocument` is global. Serving the *language-specific* 404 page nee
 - Compression: gzip or brotli for HTML, JS, CSS, JSON, XML and SVG. Do not compress JPEG, PNG or MP4.
 - **Videos** (`/videos/*.mp4`, 56–77 MB) need HTTP **Range requests** (`Accept-Ranges: bytes`). Every standard server supports this; confirm that the Host.KZ plan does not proxy or limit large files. Moving the videos to dedicated video hosting is a separate, later task.
 
-## Security headers (recommended for production)
+## Security headers
+
+Since Phase M-1 the nginx site block (`deploy/nginx/soltexglobal.conf`) sends them:
 
 ```
 Strict-Transport-Security: max-age=31536000; includeSubDomains
@@ -122,16 +124,27 @@ X-Content-Type-Options: nosniff
 Referrer-Policy: strict-origin-when-cross-origin
 Permissions-Policy: camera=(), microphone=(), geolocation=()
 X-Frame-Options: SAMEORIGIN
-Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-FxjS9LAg+aftdgj8JMq5VioItakbndiIAdl0ujkCkNc='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'
+Content-Security-Policy: <SITE_CSP>
 ```
 
-The `sha256-…` value is the hash of the small inline "motion boot" script in `index.html`. Recompute it whenever that script changes:
+`SITE_CSP` is defined once in `packages/core/src/domain/site-security.ts`:
+- the same text is in the nginx file, and the preview server sends it for release files;
+- the policy allows the one inline script (the motion boot script of `apps/web/index.html`) by its `sha256-…` hash;
+- `npm run lint` (`scripts/check-site-csp.mjs`) fails when the script, the nginx line and `SITE_CSP` disagree. Update both texts together.
 
-```
-python3 -c "import re,hashlib,base64;s=open('index.html').read();m=re.search(r'<script>(.*?)</script>',s,re.S);print(base64.b64encode(hashlib.sha256(m.group(1).encode()).digest()).decode())"
-```
+What the policy allows:
+- `style-src 'unsafe-inline'`: React inline `style` attributes;
+- fonts from Google Fonts;
+- `connect-src 'self'`: the lead form posts to the same origin.
 
-Add `connect-src` / `form-action` for the future lead endpoint, and `media-src` for a future video host. `style-src 'unsafe-inline'` is needed for React inline `style` attributes.
+**TLS:** TLS 1.2 and 1.3 only, the Mozilla "intermediate" settings, in the `# >>> tls` block.
+
+**Still to set on the server (Phase N, `docs/admin-security-asvs.md` §4):**
+- the admin host's own nginx block, with the admin CSP of `apps/admin/vite.config.ts` and HSTS;
+- an access-log format without query strings (`$uri` instead of `$request_uri`) on the admin host. An exact e-mail or phone search in «Заявки» is in the query string;
+- time synchronisation;
+- separate system users;
+- an external TLS test of the real certificate.
 
 ## HTTPS and DNS (to be finalized with Host.KZ)
 

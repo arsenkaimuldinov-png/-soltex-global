@@ -957,3 +957,61 @@ K-7 … K-9 in [`admin-leads.md`](admin-leads.md) §9:
 | L-3 | «Непрочитанные заявки» (review §X) is shown as «Новые» | There is no per-user read state; the status «Новый» is what the team works from |
 | L-4 | The worker's liveness is its open database connection, not a heartbeat table | No migration; a stuck build is already detected by the release heartbeat (Phase G) |
 | L-5 | The SEO numbers run the full check on every «Обзор» load | The same check as «Проверка SEO» (well under a second on the current content); cached for 30 s in the admin |
+
+---
+
+## Phase M-1: Security review, OWASP ASVS L2 and ZAP (2026-10-17)
+
+**Base commit:** `12e6091`. Details: [`admin-security-asvs.md`](admin-security-asvs.md) (checklist, scan, open points). Phase M is split:
+- **M-1** (here): security;
+- **M-2**: synchronising the documentation with the code.
+
+### What was done
+
+1. **Checklist:** OWASP ASVS 4.0.3 Level 2, chapter by chapter, with the evidence (code, test, scan) and the status of every requirement. Server items are marked for Phase N.
+2. **Fixes found by the review** (decided with the client: 12-hour sessions, temporary initial passwords):
+   - **Sessions:** the absolute lifetime is 12 hours (was 7 days; §3.3.2).
+   - **Initial passwords** (§2.3.1; migration `0010`, `users.password_temporary`):
+     - valid 7 days and replaced at the first sign-in, after the second factor; until then every route answers `password_change_required`, and the admin shows «Придумайте свой пароль»;
+     - `POST /users/:id/initial-password` with «Выдать новый начальный пароль» in «Пользователи»;
+     - a new password must differ from the current one.
+   - **Leads:** `lead.view` is audited (§8.3.5).
+   - **Audit log wording:** every audit action has Russian wording (media and lead actions had none); `apps/admin/test/audit-actions.test.ts` reads them from the API sources.
+   - **Site CSP** (§14.4.3):
+     - `SITE_CSP` in core, the same text in nginx, compared by `scripts/check-site-csp.mjs` in `npm run lint`;
+     - the inline script is allowed by its hash;
+     - the E2E site server sends the nginx headers;
+     - `site-csp.e2e.mjs` loads every English page and every home page without a violation.
+   - **Preview server:** CSP on every answer (the site policy for release files), `X-Frame-Options: DENY`.
+   - **nginx:** TLS 1.2/1.3, Mozilla intermediate (§9.1).
+   - **SMTP:** STARTTLS required for `smtp://` to another host, TLS 1.2+ (§9.2).
+   - **Dependencies:** `sharp` 0.35.5 and `source-map-js` 1.2.2. `npm audit --omit=dev` reports 0; the 9 moderate advisories left are in development tools only.
+3. **New guards:**
+   - `test/coverage.db.test.ts`: every guarded route × every role (403 exactly without the permission); every state-changing route refuses a missing CSRF header, a foreign Origin and a cross-site fetch. The route list comes from the app.
+   - `scripts/check-sql-raw.mjs` in `npm run lint`: every `sql.raw` use is reviewed (code constants only). The identifiers of `REVIEW_TABLES` are checked when the module loads.
+4. **Dynamic scan:** `scripts/security-scan.mjs` runs OWASP ZAP 2.16 against the stack wired as in production:
+   - imports the OpenAPI document, spiders, runs the passive rules and an authenticated active scan;
+   - stays under the rate limits;
+   - needs a database whose name ends in `_scan`;
+   - writes `.qa/zap/report.html`.
+
+### Verification (2026-10-17)
+
+| Check | Result |
+|---|---|
+| `git diff --check` | clean |
+| `npm run lint` (with `check-sql-raw`, `check-site-csp`), `npm test` | pass; 120 / 120 (core 46, api 22, admin 46, web 6) |
+| `npm run test:db` on a freshly provisioned database | 159 tests: 158 pass, 1 skipped (backup role); export = seed; the site from the DB export identical |
+| `npm run test:e2e:admin` | 102 / 102 pass (97 earlier + 2 initial password + 3 site CSP) |
+| OWASP ZAP (`security-scan.mjs`) | no High; Medium only `style-src 'unsafe-inline'` (admin, site, preview: accepted, M-3); one Low false positive (script text inside a JSON field); the scanner's session lasted to the end |
+| `openapi.json`, admin API types | up to date (182 operations) |
+| Public site vs `12e6091` | IDENTICAL: 230 files byte-equal, 348 pages, checks, interactions, navigation and inquiry topics identical (only the nginx headers changed, not the build) |
+
+### Deviations (Phase M-1)
+
+| # | Deviation | Reason |
+|---|---|---|
+| M-1 | No antivirus scan of uploads (ASVS 12.4.2) | Images are decoded and re-encoded; videos come only from signed-in staff with `media.upload`. ClamAV on the server if the client wants it (Phase N) |
+| M-2 | No breach-corpus lookup for passwords (2.1.7) | The API makes no third-party calls (review §Q A10); the bundled list of common passwords stays |
+| M-3 | Admin `style-src 'unsafe-inline'` (ZAP 10055) | Radix positions popovers with inline styles (deviation D-5); scripts stay `'self'` only |
+| M-4 | ZAP runs on loopback in development mode, not against the production host | Phase N repeats the baseline scan on the real host with TLS |

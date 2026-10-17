@@ -2,7 +2,7 @@
  * Server-side sessions (approved §7).
  *  - The cookie holds a 256-bit random opaque token; the database stores only its SHA-256.
  *  - Assurance level 1 = password only, 2 = password + second factor.
- *  - Timeouts: idle 8 h, absolute 7 days; a password-only session of a user who has a second
+ *  - Timeouts: idle 8 h, absolute 12 h (ASVS L2, Phase M-1); a password-only session of a user who has a second
  *    factor lives at most 10 minutes (it can only complete the second factor).
  *  - The token is rotated on login, on every second-factor verification and on privilege change.
  */
@@ -14,7 +14,8 @@ import { requireDb } from '../deps.ts';
 import { randomToken, sha256 } from './crypto.ts';
 
 export const IDLE_TIMEOUT_MS = 8 * 60 * 60 * 1000;
-export const ABSOLUTE_TIMEOUT_MS = 7 * 24 * 60 * 60 * 1000;
+/** ASVS 4.0.3 §3.3.2 level 2: re-authentication at least every 12 hours (Phase M-1; was 7 days). */
+export const ABSOLUTE_TIMEOUT_MS = 12 * 60 * 60 * 1000;
 export const PENDING_MFA_TIMEOUT_MS = 10 * 60 * 1000;
 export const STEP_UP_WINDOW_MS = 10 * 60 * 1000;
 export const MAX_MFA_FAILURES = 5;

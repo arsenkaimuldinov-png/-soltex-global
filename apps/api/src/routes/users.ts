@@ -9,7 +9,7 @@ import { z } from 'zod';
 import type { Deps } from '../deps.ts';
 import { clientInfo } from '../deps.ts';
 import { authOf } from '../auth/guard.ts';
-import { createUser, listUsers, resetUserMfa, revokeSessionsOf, updateUser } from '../users/users.ts';
+import { createUser, listUsers, resetUserMfa, revokeSessionsOf, setInitialPassword, updateUser } from '../users/users.ts';
 import { Email, NewPassword, NoContent, problems, PublicUserSchema, RoleSchema, Uuid } from './schemas.ts';
 
 export async function userRoutes(app: FastifyInstance, deps: Deps) {
@@ -30,7 +30,7 @@ export async function userRoutes(app: FastifyInstance, deps: Deps) {
       schema: {
         tags: ['users'],
         summary: 'Create a user (step-up required)',
-        description: 'Only an Owner can create an Owner. The initial password is given to the user out of band; they must enroll MFA at first sign-in when their role requires it.',
+        description: 'Only an Owner can create an Owner. The initial password is given to the user out of band; it is valid 7 days and must be replaced at the first sign-in (after the second factor, when the role requires one).',
         body: z.object({ email: Email, name: z.string().trim().min(1).max(120), role: RoleSchema, password: NewPassword }).strict(),
         response: { 201: PublicUserSchema, ...problems(400, 401, 403, 409, 422) },
       },
@@ -73,6 +73,25 @@ export async function userRoutes(app: FastifyInstance, deps: Deps) {
     },
     async (request, reply) => {
       await resetUserMfa(deps, authOf(request).user, request.params.id, clientInfo(deps, request));
+      return reply.code(204).send(null);
+    }
+  );
+
+  r.post(
+    '/api/v1/users/:id/initial-password',
+    {
+      config: { access: manageStepUp },
+      schema: {
+        tags: ['users'],
+        summary: 'Give a user a new initial password (step-up required)',
+        description: 'For a forgotten or expired initial password while there is no e-mail: valid 7 days, replaced at the next sign-in. Signs the user out everywhere and lifts a lock-out; second factors stay. Not on yourself.',
+        params: z.object({ id: Uuid }),
+        body: z.object({ password: NewPassword }).strict(),
+        response: { 204: NoContent, ...problems(400, 401, 403, 404, 422) },
+      },
+    },
+    async (request, reply) => {
+      await setInitialPassword(deps, authOf(request).user, request.params.id, request.body.password, clientInfo(deps, request));
       return reply.code(204).send(null);
     }
   );

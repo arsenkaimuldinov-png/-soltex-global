@@ -168,6 +168,18 @@ describe('nginx fallback (Phase I-2, approved §11.4)', { skip: (!DB_ENABLED && 
     assert.equal(asset.status, 200);
   });
 
+  test('security headers on pages (Phase M-1): CSP with the inline script hash, nosniff, frame and referrer policy', async () => {
+    const r = await new Promise<http.IncomingMessage>((resolve, reject) => http.get({ host: '127.0.0.1', port: webPort, path: '/company' }, resolve).on('error', reject));
+    r.resume();
+    const csp = String(r.headers['content-security-policy']);
+    for (const d of ["default-src 'self'", "script-src 'self' 'sha256-", "object-src 'none'", "frame-ancestors 'self'", "connect-src 'self'"]) assert.ok(csp.includes(d), d);
+    assert.ok(!/script-src[^;]*'unsafe-inline'/.test(csp), 'no unsafe-inline scripts');
+    assert.equal(r.headers['x-content-type-options'], 'nosniff');
+    assert.equal(r.headers['x-frame-options'], 'SAMEORIGIN');
+    assert.equal(r.headers['referrer-policy'], 'strict-origin-when-cross-origin');
+    assert.equal(r.headers.server, 'nginx', 'no version (server_tokens off)');
+  });
+
   test('media library files: served from shared storage with a long cache; nothing else under /media', async () => {
     const r = await new Promise<http.IncomingMessage>((resolve, reject) =>
       http.get({ host: '127.0.0.1', port: webPort, path: '/media/originals/2026/0b1c2d3e-0000-4000-8000-000000000001.webp' }, resolve).on('error', reject)

@@ -18,6 +18,8 @@ export const PROBLEM_CODES = {
   forbidden: { status: 403, title: 'Недостаточно прав' },
   csrf_rejected: { status: 403, title: 'Запрос отклонён (защита от подделки запросов)' },
   mfa_enrollment_required: { status: 403, title: 'Необходимо настроить второй фактор входа' },
+  password_change_required: { status: 403, title: 'Смените начальный пароль, чтобы продолжить' },
+  initial_password_expired: { status: 401, title: 'Срок действия начального пароля истёк. Попросите администратора выдать новый' },
   step_up_required: { status: 403, title: 'Подтвердите действие вторым фактором' },
   not_found: { status: 404, title: 'Не найдено' },
   conflict: { status: 409, title: 'Конфликт с текущим состоянием' },

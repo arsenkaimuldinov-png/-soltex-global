@@ -33,6 +33,8 @@ const EXPECTED = new Set([
   'step_up_required',
   'forbidden',
   'not_found',
+  'initial_password_expired',
+  'password_change_required',
 ]);
 
 export function retryText(seconds: number | null): string {

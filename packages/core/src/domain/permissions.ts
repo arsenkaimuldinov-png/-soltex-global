@@ -134,7 +134,7 @@ export function mfaRequirement(role: Role, opts: { mfaForAllRoles?: boolean } = 
 // User management rules (§7 "privilege escalation", §8.2 "Admin cannot touch Owners")
 // ---------------------------------------------------------------------------
 
-export type UserChange = 'create' | 'update_profile' | 'change_role' | 'change_status' | 'reset_mfa' | 'revoke_sessions';
+export type UserChange = 'create' | 'update_profile' | 'change_role' | 'change_status' | 'reset_mfa' | 'revoke_sessions' | 'set_initial_password';
 
 /**
  * May `actor` perform `change` on a user whose role is `targetRole` (and, for create/role

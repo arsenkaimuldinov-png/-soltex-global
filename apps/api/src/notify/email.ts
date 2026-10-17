@@ -35,6 +35,17 @@ export class UnconfiguredEmailProvider implements EmailProvider {
   }
 }
 
+/**
+ * Transport options (Phase M-1, ASVS 4.0.3 §9.2.1): smtps:// is TLS from the start; for smtp:// to
+ * any host but this machine, STARTTLS is required, so mail never leaves in plain text. TLS 1.2+,
+ * certificates are verified (nodemailer's default).
+ */
+export function smtpOptions(url: string): { url: string; requireTLS: boolean; tls: { minVersion: 'TLSv1.2' } } {
+  const host = new URL(url).hostname;
+  const local = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
+  return { url, requireTLS: url.startsWith('smtp://') && !local, tls: { minVersion: 'TLSv1.2' } };
+}
+
 export class SmtpEmailProvider implements EmailProvider {
   readonly configured = true;
   private readonly transport;
@@ -43,7 +54,7 @@ export class SmtpEmailProvider implements EmailProvider {
     private readonly from: string
   ) {
     // nodemailer logs nothing unless asked (no logger option): addresses and content never reach the logs.
-    this.transport = nodemailer.createTransport(url);
+    this.transport = nodemailer.createTransport(smtpOptions(url));
   }
   async send(m: EmailMessage): Promise<void> {
     if (!m.to.length) throw new EmailError('no_recipients');

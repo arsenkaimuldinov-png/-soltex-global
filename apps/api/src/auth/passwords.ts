@@ -26,7 +26,7 @@ function commonPasswords(): Set<string> {
   return common;
 }
 
-export type PasswordProblem = 'too_short' | 'too_long' | 'too_common' | 'contains_email';
+export type PasswordProblem = 'too_short' | 'too_long' | 'too_common' | 'contains_email' | 'same_as_current';
 
 /** Validate a new password. Returns the reasons it is refused (empty = accepted). */
 export function checkPasswordPolicy(password: string, email?: string): PasswordProblem[] {

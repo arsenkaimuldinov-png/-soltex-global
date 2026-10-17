@@ -13,7 +13,7 @@ export const PermissionSchema = z.enum(PERMISSIONS);
 export const TotpCode = z.string().regex(/^\d{6}$/, 'six digits');
 export const RecoveryCode = z.string().min(32).max(64);
 
-export const NextStep = z.enum(['authenticated', 'mfa_required', 'mfa_enrollment_required']);
+export const NextStep = z.enum(['authenticated', 'mfa_required', 'mfa_enrollment_required', 'password_change_required']);
 
 export const SessionView = z
   .object({
@@ -45,6 +45,7 @@ export const PublicUserSchema = z
     status: z.enum(['active', 'disabled']),
     lastLoginAt: z.string().nullable(),
     createdAt: z.string(),
+    passwordTemporary: z.boolean().describe('Still on the initial password (it must be replaced at the next sign-in)'),
   })
   .meta({ id: 'User' });
 

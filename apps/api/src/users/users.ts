@@ -23,6 +23,8 @@ export interface PublicUser {
   status: 'active' | 'disabled';
   lastLoginAt: string | null;
   createdAt: string;
+  /** Still on the initial password given by an Owner or Admin (Phase M-1). */
+  passwordTemporary: boolean;
 }
 
 export const toPublicUser = (u: UserRow): PublicUser => ({
@@ -33,6 +35,7 @@ export const toPublicUser = (u: UserRow): PublicUser => ({
   status: u.status,
   lastLoginAt: u.lastLoginAt?.toISOString() ?? null,
   createdAt: u.createdAt.toISOString(),
+  passwordTemporary: u.passwordTemporary,
 });
 
 function assertAllowed(actor: UserRow, target: UserRow | null, change: UserChange, newRole?: Role | null) {
@@ -54,7 +57,7 @@ async function getUser(deps: Deps, id: string): Promise<UserRow> {
 /** Insert a user (no permission checks: used by the bootstrap CLI and by createUser). */
 export async function insertUser(
   deps: Deps,
-  input: { email: string; name: string; role: Role; password: string; createdBy: string | null },
+  input: { email: string; name: string; role: Role; password: string; createdBy: string | null; /** An initial password to be replaced at the first sign-in (ASVS 2.3.1). */ temporary?: boolean },
   db: Queryable = requireDb(deps)
 ): Promise<UserRow> {
   const email = normaliseEmail(input.email);
@@ -71,6 +74,7 @@ export async function insertUser(
       role: input.role,
       passwordHash: await hashPassword(input.password),
       passwordChangedAt: now,
+      passwordTemporary: input.temporary ?? false,
       createdAt: now,
       updatedAt: now,
       createdBy: input.createdBy,
@@ -87,7 +91,7 @@ export async function createUser(
   client: ClientInfo
 ): Promise<PublicUser> {
   assertAllowed(actor, null, 'create', input.role);
-  const user = await insertUser(deps, { ...input, createdBy: actor.id });
+  const user = await insertUser(deps, { ...input, createdBy: actor.id, temporary: true });
   await recordAudit(deps, client, { action: 'user.create', result: 'success', actorId: actor.id, resourceType: 'user', resourceId: user.id, summary: { role: user.role } });
   return toPublicUser(user);
 }
@@ -160,6 +164,29 @@ export async function resetUserMfa(deps: Deps, actor: UserRow, id: string, clien
     await recordAudit(deps, client, { action: 'user.mfa_reset', result: 'success', actorId: actor.id, resourceType: 'user', resourceId: id, summary: { revoked: String(revoked) } }, tx);
   });
   await deps.notifier.securityAlert(target, 'mfa_reset_by_admin');
+}
+
+/**
+ * A new initial password for a user (Phase M-1): the out-of-band way back in while there is no
+ * e-mail, and the answer to an expired initial password. Valid INITIAL_PASSWORD_TTL_MS, replaced at
+ * the next sign-in; the user's sessions end and a lock-out is lifted. Second factors stay.
+ */
+export async function setInitialPassword(deps: Deps, actor: UserRow, id: string, password: string, client: ClientInfo): Promise<void> {
+  const target = await getUser(deps, id);
+  assertAllowed(actor, target, 'set_initial_password');
+  const problems = checkPasswordPolicy(password, target.email);
+  if (problems.length) throw new Problem('password_rejected', undefined, { errors: problems.map((p) => ({ field: 'password', message: p })) });
+  const passwordHash = await hashPassword(password);
+  const now = deps.now();
+  await requireDb(deps).transaction(async (tx) => {
+    await tx
+      .update(users)
+      .set({ passwordHash, passwordChangedAt: now, passwordTemporary: true, failedLogins: 0, lastFailedLoginAt: null, lockedUntil: null, updatedAt: now, updatedBy: actor.id, version: target.version + 1 })
+      .where(eq(users.id, id));
+    const revoked = await revokeUserSessions(deps, id, 'password_reset', {}, tx);
+    await recordAudit(deps, client, { action: 'user.initial_password', result: 'success', actorId: actor.id, resourceType: 'user', resourceId: id, summary: { revoked: String(revoked) } }, tx);
+  });
+  await deps.notifier.securityAlert(target, 'password_changed');
 }
 
 export async function revokeSessionsOf(deps: Deps, actor: UserRow, id: string, client: ClientInfo): Promise<number> {

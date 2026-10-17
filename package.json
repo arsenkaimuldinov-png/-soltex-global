@@ -23,7 +23,7 @@
     "serve:dist": "npm run serve:dist -w @soltex/web",
     "preview": "npm run preview -w @soltex/web",
     "typecheck": "npm run lint -w @soltex/web && npm run typecheck -w @soltex/admin -w @soltex/api -w @soltex/core",
-    "check:deps": "node scripts/check-deps.mjs",
+    "check:deps": "node scripts/check-deps.mjs && node scripts/check-sql-raw.mjs && node scripts/check-site-csp.mjs",
     "lint": "npm run typecheck && npm run check:deps",
     "test": "npm run test -w @soltex/core -w @soltex/api -w @soltex/admin -w @soltex/web",
     "test:db": "npm run test:db -w @soltex/api",

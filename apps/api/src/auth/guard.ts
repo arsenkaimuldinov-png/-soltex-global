@@ -29,7 +29,7 @@ export type Access =
   | { level: 'public' }
   | { level: 'pending' }
   | { level: 'enrollment'; stepUpIfEnrolled?: boolean }
-  | { level: 'full'; permission?: Permission | readonly Permission[]; stepUp?: boolean };
+  | { level: 'full'; permission?: Permission | readonly Permission[]; stepUp?: boolean; /** Reachable before the initial password is replaced (Phase M-1). */ temporaryPasswordOk?: boolean };
 
 export interface AuthContext {
   session: SessionRow;
@@ -86,6 +86,7 @@ export function registerAccessControl(app: FastifyInstance, deps: Deps) {
     }
 
     if (!factors.requirementMet) throw new Problem('mfa_enrollment_required');
+    if (user.passwordTemporary && !access.temporaryPasswordOk) throw new Problem('password_change_required');
     const required = access.permission === undefined ? [] : ([] as Permission[]).concat(access.permission);
     if (required.length && !required.some((p) => hasPermission(user.role, p))) {
       await recordAudit(deps, clientInfo(deps, request), {

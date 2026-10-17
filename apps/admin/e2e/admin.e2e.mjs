@@ -25,6 +25,9 @@ const EDITOR = user('editor');
 const MARKETER = user('marketer');
 
 const profiles = {};
+const created = { email: '', password: '' };
+// Unique per run: the users of earlier runs stay in the test database.
+const NEW_NAME = `Новый Редактор ${Date.now().toString(36)}`;
 const allProblems = () => Object.entries(profiles).flatMap(([k, p]) => p.problems.map((x) => `${k}: ${x}`));
 
 describe('admin (Phase D)', () => {
@@ -130,14 +133,17 @@ describe('admin (Phase D)', () => {
     const options = await dialog.getByLabel('Роль', { exact: true }).locator('option').allTextContents();
     assert.deepEqual(options, ['Владелец', 'Администратор', 'Контент-менеджер', 'Редактор', 'SEO-специалист', 'Маркетолог']);
     const email = `e2e.created.${Date.now()}@soltex.test`;
-    await dialog.getByLabel('Имя').fill('Новый Редактор');
+    await dialog.getByLabel('Имя').fill(NEW_NAME);
     await dialog.getByLabel('E-mail').fill(email);
     await dialog.getByLabel('Роль', { exact: true }).selectOption({ label: 'Редактор' });
     await dialog.getByRole('button', { name: 'Сгенерировать' }).click();
+    created.password = await dialog.getByLabel('Начальный пароль').inputValue();
+    created.email = email;
     await shot(page, '05-create-user');
     await dialog.getByRole('button', { name: 'Создать' }).click();
-    await page.getByText('Пользователь Новый Редактор создан').first().waitFor();
+    await page.getByText(`Пользователь ${NEW_NAME} создан`).first().waitFor();
     await page.getByRole('cell', { name: new RegExp(email.replace(/\./g, '\\.')) }).waitFor();
+    await page.getByRole('row').filter({ hasText: email }).getByText('Ещё не сменил начальный пароль').waitFor();
 
     // Duplicate e-mail → message at the field.
     await page.getByRole('button', { name: 'Добавить пользователя' }).click();
@@ -148,6 +154,51 @@ describe('admin (Phase D)', () => {
     await dialog.getByText('Пользователь с таким e-mail уже есть.').waitFor();
     await dialog.getByRole('button', { name: 'Отмена' }).click();
     await shot(page, '06-users');
+  });
+
+  test('first sign-in with the initial password: it must be replaced before anything else (Phase M-1)', async () => {
+    const p = await profile({ ip: '198.51.100.61' });
+    try {
+      await signInWithPassword(p.page, { email: created.email, password: created.password });
+      await p.page.waitForURL(`${ORIGIN}/change-password`);
+      await p.page.getByRole('heading', { name: 'Придумайте свой пароль' }).waitFor();
+      await p.page.goto(`${ORIGIN}/content/projects`);
+      await p.page.waitForURL(`${ORIGIN}/change-password`);
+      await p.page.getByLabel('Начальный пароль').fill(created.password);
+      await p.page.getByLabel('Новый пароль', { exact: true }).fill(created.password);
+      await p.page.getByLabel('Повторите новый пароль').fill(created.password);
+      await p.page.getByRole('button', { name: 'Сохранить и продолжить' }).click();
+      await p.page.getByText('Новый пароль совпадает с текущим.').waitFor();
+      const mine = `Мой-собственный-пароль-${Date.now()}`;
+      await p.page.getByLabel('Новый пароль', { exact: true }).fill(mine);
+      await p.page.getByLabel('Повторите новый пароль').fill(mine);
+      await shot(p.page, '05b-change-initial-password');
+      await p.page.getByRole('button', { name: 'Сохранить и продолжить' }).click();
+      // Back to the page asked for before the change.
+      await p.page.waitForURL(`${ORIGIN}/content/projects`);
+      await p.page.getByRole('heading', { name: 'Проекты', level: 1 }).waitFor();
+      assert.deepEqual(p.problems, []);
+    } finally {
+      await p.close();
+    }
+    const { page } = profiles.owner;
+    await page.reload();
+    assert.equal(await page.getByRole('row').filter({ hasText: created.email }).getByText('Ещё не сменил начальный пароль').count(), 0);
+  });
+
+  test('a new initial password for a user (owner, step-up) — the user must replace it again', async () => {
+    const { page } = profiles.owner;
+    await page.getByRole('button', { name: `Действия: ${NEW_NAME}` }).click();
+    await page.getByRole('menuitem', { name: 'Выдать новый начальный пароль' }).click();
+    const dialog = page.getByRole('dialog', { name: `Новый начальный пароль: ${NEW_NAME}` });
+    await dialog.getByRole('button', { name: 'Сгенерировать' }).click();
+    await dialog.getByRole('button', { name: 'Выдать пароль' }).click();
+    const done = page.getByText(`Новый начальный пароль выдан: ${NEW_NAME}`).first();
+    const stepUp = page.getByRole('dialog', { name: 'Подтвердите действие' });
+    await done.or(stepUp).waitFor();
+    if (await stepUp.count()) await stepUp.getByRole('button', { name: 'Подтвердить ключом доступа' }).click();
+    await done.waitFor();
+    await page.getByRole('row').filter({ hasText: created.email }).getByText('Ещё не сменил начальный пароль').waitFor();
   });
 
   test('step-up: after 10 minutes a sensitive action asks for the second factor, then runs', async () => {

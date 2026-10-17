@@ -501,6 +501,10 @@ describe('publishing: revisions, releases, preview', { skip: !DB_ENABLED && 'DAT
       assert.equal(page.headers['x-robots-tag'], 'noindex, nofollow, noarchive');
       assert.equal(page.headers['cache-control'], 'no-store');
       assert.equal(page.headers['referrer-policy'], 'no-referrer');
+      // Phase M-1: the site's own policy for release files, no framing; a plain policy everywhere else.
+      assert.match(String(page.headers['content-security-policy']), /script-src 'self' 'sha256-.*frame-ancestors 'none'/);
+      assert.equal(page.headers['x-frame-options'], 'DENY');
+      assert.match(String((await call('GET', '/')).headers['content-security-policy']), /^default-src 'none'/, 'the 401 page too');
       assert.equal((await call('GET', '/nope', { cookie })).status, 404);
       assert.equal((await call('GET', '/release.json', { cookie })).status, 404);
       // Expiry (30 min) and revocation.

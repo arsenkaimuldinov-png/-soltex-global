@@ -80,7 +80,8 @@
             "enum": [
               "authenticated",
               "mfa_required",
-              "mfa_enrollment_required"
+              "mfa_enrollment_required",
+              "password_change_required"
             ]
           },
           "user": {
@@ -279,6 +280,10 @@
           },
           "createdAt": {
             "type": "string"
+          },
+          "passwordTemporary": {
+            "type": "boolean",
+            "description": "Still on the initial password (it must be replaced at the next sign-in)"
           }
         },
         "required": [
@@ -288,7 +293,8 @@
           "role",
           "status",
           "lastLoginAt",
-          "createdAt"
+          "createdAt",
+          "passwordTemporary"
         ]
       },
       "TranslationValueInput": {
@@ -9780,7 +9786,8 @@
             "enum": [
               "authenticated",
               "mfa_required",
-              "mfa_enrollment_required"
+              "mfa_enrollment_required",
+              "password_change_required"
             ]
           },
           "user": {
@@ -9984,6 +9991,10 @@
           },
           "createdAt": {
             "type": "string"
+          },
+          "passwordTemporary": {
+            "type": "boolean",
+            "description": "Still on the initial password (it must be replaced at the next sign-in)"
           }
         },
         "required": [
@@ -9993,7 +10004,8 @@
           "role",
           "status",
           "lastLoginAt",
-          "createdAt"
+          "createdAt",
+          "passwordTemporary"
         ],
         "additionalProperties": false
       },
@@ -20399,7 +20411,8 @@
           }
         ],
         "x-soltex-access": {
-          "level": "full"
+          "level": "full",
+          "temporaryPasswordOk": true
         },
         "responses": {
           "204": {
@@ -20999,7 +21012,8 @@
                       "enum": [
                         "authenticated",
                         "mfa_required",
-                        "mfa_enrollment_required"
+                        "mfa_enrollment_required",
+                        "password_change_required"
                       ]
                     },
                     "user": {
@@ -21463,7 +21477,8 @@
                       "enum": [
                         "authenticated",
                         "mfa_required",
-                        "mfa_enrollment_required"
+                        "mfa_enrollment_required",
+                        "password_change_required"
                       ]
                     },
                     "user": {
@@ -22074,7 +22089,7 @@
         "tags": [
           "users"
         ],
-        "description": "Only an Owner can create an Owner. The initial password is given to the user out of band; they must enroll MFA at first sign-in when their role requires it.",
+        "description": "Only an Owner can create an Owner. The initial password is given to the user out of band; it is valid 7 days and must be replaced at the first sign-in (after the second factor, when the role requires one).",
         "requestBody": {
           "required": true,
           "content": {
@@ -22373,6 +22388,115 @@
             }
           },
           "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/{id}/initial-password": {
+      "post": {
+        "summary": "Give a user a new initial password (step-up required)",
+        "tags": [
+          "users"
+        ],
+        "description": "For a forgotten or expired initial password while there is no e-mail: valid 7 days, replaced at the next sign-in. Signs the user out everywhere and lifts a lock-out; second factors stay. Not on yourself.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "password": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1024,
+                    "description": "12–256 characters, not a common password"
+                  }
+                },
+                "required": [
+                  "password"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "session": [],
+            "csrf": []
+          }
+        ],
+        "x-soltex-access": {
+          "level": "full",
+          "permission": "users.manage",
+          "stepUp": true
+        },
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "422": {
             "description": "Default Response",
             "content": {
               "application/json": {

@@ -18,6 +18,7 @@ import { LoginPage } from './features/auth/LoginPage';
 import { MfaPage } from './features/auth/MfaPage';
 import { ForgotPasswordPage, ResetPasswordPage } from './features/auth/PasswordResetPages';
 import { SetupMfaPage } from './features/auth/SetupMfaPage';
+import { ChangeInitialPasswordPage } from './features/auth/ChangeInitialPasswordPage';
 import { OverviewPage } from './features/overview/OverviewPage';
 
 export function createQueryClient() {
@@ -64,6 +65,7 @@ export const routes = [
       { path: '/reset-password', element: <ResetPasswordPage /> },
       { path: '/login/mfa', element: <StepRoute step="mfa_required" render={(view) => <MfaPage view={view} />} /> },
       { path: '/setup-mfa', element: <StepRoute step="mfa_enrollment_required" render={(view) => <SetupMfaPage view={view} />} /> },
+      { path: '/change-password', element: <StepRoute step="password_change_required" render={(view) => <ChangeInitialPasswordPage view={view} />} /> },
       {
         path: '/',
         element: (

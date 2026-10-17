@@ -676,6 +676,11 @@ export const users = pgTable(
     /** Argon2id PHC string. Never logged, never returned by the API. */
     passwordHash: text('password_hash').notNull(),
     passwordChangedAt: timestamp('password_changed_at', { withTimezone: true }).notNull().defaultNow(),
+    /**
+     * Initial password given by an Owner or Admin (Phase M-1, ASVS 2.3.1): valid for
+     * INITIAL_PASSWORD_TTL_MS from password_changed_at and must be replaced at the first sign-in.
+     */
+    passwordTemporary: boolean('password_temporary').notNull().default(false),
     failedLogins: integer('failed_logins').notNull().default(0),
     lastFailedLoginAt: timestamp('last_failed_login_at', { withTimezone: true }),
     lockedUntil: timestamp('locked_until', { withTimezone: true }),

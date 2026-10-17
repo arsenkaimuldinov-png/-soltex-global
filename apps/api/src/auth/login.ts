@@ -28,7 +28,10 @@ export const KNOWN_DEVICE_TTL_MS = 180 * 24 * 60 * 60 * 1000;
 
 export const normaliseEmail = (email: string) => email.trim().toLowerCase();
 
-export type LoginNext = 'authenticated' | 'mfa_required' | 'mfa_enrollment_required';
+export type LoginNext = 'authenticated' | 'mfa_required' | 'mfa_enrollment_required' | 'password_change_required';
+
+/** An initial password given by an Owner or Admin is valid this long (ASVS 2.3.1, Phase M-1). */
+export const INITIAL_PASSWORD_TTL_MS = 7 * 24 * 60 * 60 * 1000;
 
 export interface LoginResult {
   issued: IssuedSession;
@@ -37,9 +40,11 @@ export interface LoginResult {
   next: LoginNext;
 }
 
-export function nextStep(factors: FactorState, aal: number): LoginNext {
+export function nextStep(factors: FactorState, aal: number, passwordTemporary = false): LoginNext {
   if (factors.enrolled && aal < 2) return 'mfa_required';
   if (!factors.requirementMet) return 'mfa_enrollment_required';
+  // The initial password is replaced right after the second factor (ASVS 2.3.1).
+  if (passwordTemporary) return 'password_change_required';
   return 'authenticated';
 }
 
@@ -113,11 +118,15 @@ export async function loginWithPassword(
     }
     throw await fail('wrong_password', user.id);
   }
+  if (user.passwordTemporary && now.getTime() > user.passwordChangedAt.getTime() + INITIAL_PASSWORD_TTL_MS) {
+    await recordAudit(deps, input.client, { action: 'auth.login', result: 'denied', actorId: user.id, summary: { reason: 'initial_password_expired' } });
+    throw new Problem('initial_password_expired');
+  }
 
   await db.update(users).set({ failedLogins: 0, lastFailedLoginAt: null, lockedUntil: null, lastLoginAt: now }).where(eq(users.id, user.id));
   const factors = await factorState(deps, user);
   const issued = await createSession(deps, user.id, { aal: 1, pendingMfa: factors.enrolled, client: input.client });
-  const next = nextStep(factors, 1);
+  const next = nextStep(factors, 1, user.passwordTemporary);
   await recordAudit(deps, input.client, {
     action: 'auth.login',
     result: 'success',

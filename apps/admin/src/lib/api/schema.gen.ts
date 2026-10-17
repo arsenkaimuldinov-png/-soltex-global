@@ -16,7 +16,7 @@ export type ProblemInput = {
 };
 
 export type SessionViewInput = {
-  next: "authenticated" | "mfa_required" | "mfa_enrollment_required";
+  next: "authenticated" | "mfa_required" | "mfa_enrollment_required" | "password_change_required";
   user: {
     id: string;
     email: string;
@@ -53,6 +53,8 @@ export type UserInput = {
   status: "active" | "disabled";
   lastLoginAt: string | null;
   createdAt: string;
+  /** Still on the initial password (it must be replaced at the next sign-in) */
+  passwordTemporary: boolean;
 };
 
 export type TranslationValueInput = string | Array<string> | Array<{
@@ -1753,7 +1755,7 @@ export type Problem = {
 };
 
 export type SessionView = {
-  next: "authenticated" | "mfa_required" | "mfa_enrollment_required";
+  next: "authenticated" | "mfa_required" | "mfa_enrollment_required" | "password_change_required";
   user: {
     id: string;
     email: string;
@@ -1790,6 +1792,8 @@ export type User = {
   status: "active" | "disabled";
   lastLoginAt: string | null;
   createdAt: string;
+  /** Still on the initial password (it must be replaced at the next sign-in) */
+  passwordTemporary: boolean;
 };
 
 export type TranslationValue = string | Array<string> | Array<{
@@ -3684,7 +3688,7 @@ export interface Operations {
     params: never;
     headers: never;
     response: {
-      next: "authenticated" | "mfa_required" | "mfa_enrollment_required";
+      next: "authenticated" | "mfa_required" | "mfa_enrollment_required" | "password_change_required";
       user: {
         id: string;
         email: string;
@@ -3751,7 +3755,7 @@ export interface Operations {
     params: never;
     headers: never;
     response: {
-      next: "authenticated" | "mfa_required" | "mfa_enrollment_required";
+      next: "authenticated" | "mfa_required" | "mfa_enrollment_required" | "password_change_required";
       user: {
         id: string;
         email: string;
@@ -3867,6 +3871,17 @@ export interface Operations {
   };
   "POST /api/v1/users/{id}/mfa-reset": {
     body: never;
+    query: never;
+    params: { id: string; };
+    headers: never;
+    response: void;
+    status: 204;
+  };
+  "POST /api/v1/users/{id}/initial-password": {
+    body: {
+      /** 12–256 characters, not a common password */
+      password: string;
+    };
     query: never;
     params: { id: string; };
     headers: never;

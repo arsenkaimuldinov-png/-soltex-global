@@ -23,7 +23,7 @@ import { byIp, bySessionOrIp } from './rate-limits.ts';
 export function sessionView(deps: Deps, auth: AuthContext): z.infer<typeof SessionView> {
   const { user, session, factors } = auth;
   return {
-    next: nextStep(factors, session.aal),
+    next: nextStep(factors, session.aal, user.passwordTemporary),
     user: { id: user.id, email: user.email, name: user.name, role: user.role },
     permissions: permissionsOf(user.role),
     session: {
@@ -163,7 +163,7 @@ export async function authRoutes(app: FastifyInstance, deps: Deps) {
   r.post(
     '/api/v1/auth/password/change',
     {
-      config: { access: { level: 'full' }, rateLimit: bySessionOrIp(deps, 10, 15 * 60_000) },
+      config: { access: { level: 'full', temporaryPasswordOk: true }, rateLimit: bySessionOrIp(deps, 10, 15 * 60_000) },
       schema: {
         tags: ['auth'],
         summary: 'Change my password',

@@ -61,6 +61,18 @@ export const AUDIT_ACTION_LABELS: Record<string, string> = {
   'redirect.create': 'Создан редирект',
   'redirect.update': 'Изменён редирект',
   'redirect.delete': 'Удалён редирект',
+  'media.upload': 'Загружен файл в медиатеку',
+  'media.replace': 'Заменён файл в медиатеке',
+  'media.delete': 'Удалён файл из медиатеки',
+  'lead.view': 'Просмотр заявки',
+  'lead.update': 'Изменена заявка',
+  'lead.note': 'Добавлена заметка к заявке',
+  'lead.delete': 'Заявка перенесена в корзину',
+  'lead.restore': 'Заявка восстановлена из корзины',
+  'lead.export': 'Выгрузка заявок в CSV',
+  'lead.notify_retry': 'Повторная отправка уведомления о заявке',
+  'lead.anonymize': 'Заявки обезличены',
+  'user.initial_password': 'Выдан новый начальный пароль',
 };
 export const auditActionLabel = (action: string) => AUDIT_ACTION_LABELS[action] ?? 'Действие в системе';
 
@@ -73,6 +85,8 @@ export const AUDIT_DETAIL_LABELS: Record<string, string> = {
   invalid_token: 'ссылка недействительна или устарела',
   mfa_required: 'ожидает второй фактор',
   mfa_enrollment_required: 'ожидает настройки второго фактора',
+  password_change_required: 'ожидает смены начального пароля',
+  initial_password_expired: 'начальный пароль истёк',
   authenticated: 'вход выполнен',
   throttled: 'слишком частые попытки',
   password: 'пароль',
@@ -124,6 +138,7 @@ export const PASSWORD_PROBLEMS: Record<string, string> = {
   too_long: 'Пароль слишком длинный: не больше 256 символов.',
   too_common: 'Этот пароль слишком распространён. Выберите другой.',
   contains_email: 'Пароль не должен содержать ваш e-mail.',
+  same_as_current: 'Новый пароль совпадает с текущим.',
 };
 
 export const GENERIC_ERROR = 'Не удалось выполнить действие. Повторите попытку.';

@@ -3,7 +3,10 @@
  * The public site for admin E2E (Phase K-2): serves the release that `RELEASES_DIR/current` points
  * to, resolving $uri → $uri.html → $uri/index.html like nginx (deploy/nginx/soltexglobal.conf), and
  * proxies the one API path nginx exposes on the site host, POST /api/v1/public/leads, to the API.
- * Every other /api/ path answers 404, as on the real site. Test use only.
+ * Every other /api/ path answers 404, as on the real site. The fixed security headers of the
+ * nginx site block (CSP, nosniff, frame and referrer policy; Phase M-1) are sent too, read from
+ * deploy/nginx/soltexglobal.conf, so the E2E runs and the security scan see the production policy.
+ * Test use only.
  *
  *   node scripts/e2e-site-server.mjs <releasesDir> <port> <apiPort>
  */
@@ -12,6 +15,11 @@ import http from 'node:http';
 import path from 'node:path';
 
 const [releasesDir, port, apiPort] = process.argv.slice(2);
+const conf = fs.readFileSync(path.join(import.meta.dirname, '../deploy/nginx/soltexglobal.conf'), 'utf8');
+const siteBlock = conf.slice(conf.indexOf('server_name soltexglobal.co;'));
+const HEADERS = Object.fromEntries(
+  [...siteBlock.slice(0, siteBlock.indexOf('\n}')).matchAll(/^\s*add_header ([A-Za-z-]+) "([^"$]*)" always;/gm)].filter((m) => m[1] !== 'Strict-Transport-Security').map((m) => [m[1].toLowerCase(), m[2]])
+);
 const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.xml': 'application/xml', '.txt': 'text/plain; charset=utf-8', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.woff2': 'font/woff2' };
 const isFile = (p) => {
   try {
@@ -51,7 +59,7 @@ http
     }
     const base = path.join(root, decodeURIComponent(url.pathname));
     const file = [base, `${base}.html`, path.join(base, 'index.html')].find(isFile) ?? path.join(root, '404.html');
-    res.writeHead(file.endsWith('404.html') && !base.endsWith('404.html') ? 404 : 200, { 'content-type': TYPES[path.extname(file)] ?? 'application/octet-stream' });
+    res.writeHead(file.endsWith('404.html') && !base.endsWith('404.html') ? 404 : 200, { ...HEADERS, 'content-type': TYPES[path.extname(file)] ?? 'application/octet-stream' });
     fs.createReadStream(file).pipe(res);
   })
   .listen(Number(port), '127.0.0.1', () => console.log(`e2e site: http://localhost:${port} → ${releasesDir}/current`));

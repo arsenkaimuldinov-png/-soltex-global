@@ -18,7 +18,7 @@ import { PageHeader } from '../../components/ui/Layout';
 import { LoadingBlock, Spinner } from '../../components/ui/Spinner';
 import { Badge, Status } from '../../components/ui/Status';
 import { useToast } from '../../components/ui/Toast';
-import { CreateUserDialog, EditUserDialog } from './UserDialogs';
+import { CreateUserDialog, EditUserDialog, InitialPasswordDialog } from './UserDialogs';
 
 export const USERS_KEY = ['users'] as const;
 const col = columnHelper<User>();
@@ -32,6 +32,7 @@ export function UsersPage() {
   const users = useQuery({ queryKey: USERS_KEY, queryFn: () => api('GET /api/v1/users') });
   const [confirm, setConfirm] = useState<{ kind: 'mfa' | 'sessions'; user: User } | null>(null);
   const [busy, setBusy] = useState(false);
+  const [initialFor, setInitialFor] = useState<User | null>(null);
 
   const creating = params.get('new') === '1';
   const editingId = params.get('user');
@@ -51,7 +52,7 @@ export function UsersPage() {
     if (editingId && users.data && !editing) setParam('user', null);
   }, [editingId, users.data, editing]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const may = (u: User, change: 'reset_mfa' | 'revoke_sessions' | 'update_profile') =>
+  const may = (u: User, change: 'reset_mfa' | 'revoke_sessions' | 'update_profile' | 'set_initial_password') =>
     canManageUser({ actorRole: actor.role, actorId: actor.id, targetId: u.id, targetRole: u.role, change });
 
   const columns = useMemo(
@@ -72,7 +73,12 @@ export function UsersPage() {
       col.accessor((u) => ROLE_LABELS[u.role], { id: 'role', header: 'Роль', sortFn: 'text', cell: (c) => <Badge>{c.getValue()}</Badge> }),
       col.accessor('status', {
         header: 'Статус',
-        cell: (c) => <Status tone={c.getValue() === 'active' ? 'ok' : 'neutral'}>{USER_STATUS_LABELS[c.getValue()]}</Status>,
+        cell: (c) => (
+          <span>
+            <Status tone={c.getValue() === 'active' ? 'ok' : 'neutral'}>{USER_STATUS_LABELS[c.getValue()]}</Status>
+            {c.row.original.passwordTemporary ? <span className="block text-xs text-warn">Ещё не сменил начальный пароль</span> : null}
+          </span>
+        ),
       }),
       col.accessor((u) => u.lastLoginAt ?? '', { id: 'lastLogin', header: 'Последний вход', sortFn: 'alphanumeric', cell: (c) => formatDateTime(c.row.original.lastLoginAt) }),
       col.display({
@@ -93,6 +99,11 @@ export function UsersPage() {
                   {may(u, 'revoke_sessions') ? (
                     <Menu.Item onSelect={() => setConfirm({ kind: 'sessions', user: u })} className="cursor-pointer rounded px-2 py-1.5 text-[13px] outline-none data-[highlighted]:bg-subtle">
                       Завершить все сеансы
+                    </Menu.Item>
+                  ) : null}
+                  {may(u, 'set_initial_password') ? (
+                    <Menu.Item onSelect={() => setInitialFor(u)} className="cursor-pointer rounded px-2 py-1.5 text-[13px] outline-none data-[highlighted]:bg-subtle">
+                      Выдать новый начальный пароль
                     </Menu.Item>
                   ) : null}
                   {may(u, 'reset_mfa') ? (
@@ -179,6 +190,15 @@ export function UsersPage() {
           setParam('user', null);
           void qc.invalidateQueries({ queryKey: USERS_KEY });
           toast.success(`Изменения сохранены: ${u.name}`);
+        }}
+      />
+      <InitialPasswordDialog
+        user={initialFor}
+        onOpenChange={(o) => !o && setInitialFor(null)}
+        onDone={(u) => {
+          setInitialFor(null);
+          void qc.invalidateQueries({ queryKey: USERS_KEY });
+          toast.success(`Новый начальный пароль выдан: ${u.name}. Передайте его защищённым способом.`);
         }}
       />
       <ConfirmDialog

@@ -19,6 +19,7 @@
 import fs from 'node:fs';
 import http from 'node:http';
 import path from 'node:path';
+import { PLAIN_PAGE_CSP, SITE_CSP } from '@soltex/core/domain';
 import type { Deps } from '../deps.ts';
 import { requireDb } from '../deps.ts';
 import { releaseDir } from '../publishing/artifacts.ts';
@@ -49,7 +50,12 @@ const BASE_HEADERS = {
   'X-Robots-Tag': 'noindex, nofollow, noarchive',
   'Referrer-Policy': 'no-referrer',
   'X-Content-Type-Options': 'nosniff',
+  'X-Frame-Options': 'DENY',
+  // Phase M-1: every answer has a policy; release files get the site's own (below).
+  'Content-Security-Policy': PLAIN_PAGE_CSP,
 };
+/** The site's policy, and no framing of a preview. */
+const RELEASE_CSP = SITE_CSP.replace("frame-ancestors 'self'", "frame-ancestors 'none'");
 
 const START_HTML = `<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow, noarchive"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Предпросмотр</title><script src="/__preview/start.js" defer></script></head><body style="font-family:system-ui,sans-serif;padding:2rem"><p id="m">Открываем предпросмотр…</p></body></html>`;
 const START_JS = `(function(){var h=new URLSearchParams(location.hash.slice(1));var t=h.get('t');var p=h.get('p')||'/';history.replaceState(null,'',location.pathname);var m=document.getElementById('m');if(!t){m.textContent='Ссылка предпросмотра неполная. Откройте предпросмотр из админки заново.';return;}fetch('/__preview/session',{method:'POST',headers:{'Content-Type':'application/json','X-Requested-With':'soltex-preview'},body:JSON.stringify({token:t}),credentials:'same-origin'}).then(function(r){if(!r.ok)throw 0;location.replace(/^\\/[A-Za-z0-9\\/_-]*$/.test(p)?p:'/');}).catch(function(){m.textContent='Ссылка предпросмотра недействительна или уже использована. Откройте предпросмотр из админки заново.';});})();`;
@@ -157,7 +163,7 @@ export function createPreviewServer(deps: Deps, options: PreviewServerOptions = 
       }
       if (path.basename(file) === 'release.json') return send(404, 'Not found');
       const body = fs.readFileSync(file);
-      return send(status, body, { 'Content-Type': TYPES[path.extname(file)] ?? 'application/octet-stream', 'Content-Length': body.length });
+      return send(status, body, { 'Content-Type': TYPES[path.extname(file)] ?? 'application/octet-stream', 'Content-Length': body.length, 'Content-Security-Policy': RELEASE_CSP });
     };
     handle().catch(() => {
       if (!res.headersSent) send(500, 'Internal error');
