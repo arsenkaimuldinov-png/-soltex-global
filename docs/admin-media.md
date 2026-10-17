@@ -89,11 +89,11 @@ Refused uploads leave nothing behind in `tmp/`. This is tested.
   - the foreign keys (RESTRICT) are the backstop;
   - audit `media.delete`.
 
-## 5. API (API 0.10.0)
+## 5. API (introduced in API 0.10.0, now 0.13.0)
 
 | Method | Path | Permission |
 |---|---|---|
-| GET | `/api/v1/media?q&kind&usage` | media.read |
+| GET | `/api/v1/media?q&kind&usage&attention` (`attention=true`: Phase L) | media.read |
 | GET | `/api/v1/media/{id}` (ETag; usages, public URL) | media.read |
 | GET | `/api/v1/media/{id}/preview?w=480\|1200&v=` (WebP, `private, max-age=86400`) | media.read |
 | POST | `/api/v1/media?name=` | media.upload |

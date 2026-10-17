@@ -7,7 +7,7 @@
 - admin: `apps/admin/src/features/content/`;
 - core: `@soltex/core/content` `PAGE_REGISTRY`, `@soltex/core/seo` slug rules and SEO guidance.
 
-Phase E lets the team edit the existing content through the admin: 7 pages and templates of fixed structure plus six collections. It adds **no database migration** and changes nothing in the public site.
+Phase E lets the team edit the existing content through the admin: 11 pages and 3 detail-page templates of fixed structure, plus six collections. It adds **no database migration** and changes nothing in the public site.
 
 ---
 
@@ -44,6 +44,7 @@ All routes are under `/api/v1`, declared in OpenAPI 3.1 (`apps/api/openapi.json`
 | `PATCH /content/{collection}/{id}` | `content.edit` **or** `seo.edit`, then per field | only changed fields; **`If-Match` required** |
 | `POST /content/{collection}/{id}/archive` | `content.edit` | draft → archived; `If-Match` |
 | `POST /content/{collection}/{id}/restore` | `content.edit` | archived → draft; `If-Match` |
+| `POST /content/{collection}/{id}/slug` | `redirects.manage` | address of a published project, technology or product; optional 301 from the old address; `If-Match` (Phase I-2, [`admin-seo.md`](admin-seo.md) §9) |
 | `GET /content/pages` | `content.read` | 14 fixed pages and templates |
 | `GET /content/pages/{id}` | `content.read` | header, copy slots, list item texts, images, body, SEO |
 | `PATCH /content/pages/{id}` | `content.edit` or `seo.edit`, then per field | `If-Match` required |
@@ -164,7 +165,7 @@ The export requires the same shape in every language: the same list lengths and 
 - **Media:**
   - a picker of the media library with previews (served by the API, same origin);
   - «Выбрать файл» in the picker uploads a new file and picks it (Phase J-1, [`admin-media.md`](admin-media.md));
-  - variants and `srcset` are Phase J-2.
+  - responsive copies and `srcset` are made automatically (Phase J-2, [`admin-media.md`](admin-media.md) §9).
 - **Mobile:** lists and editors work at 390 px (single column, no horizontal page scroll; E2E-checked).
 
 ---
@@ -178,7 +179,7 @@ The export requires the same shape in every language: the same list lengths and 
 | **Slugs** | `@soltex/core/seo`: lowercase Latin letters, digits, single hyphens, ≤ 80 characters; `technology/patents` reserved (`/technologies/patents` is a page); unique per type (database constraint + check → 409 `slug_taken`); one slug for all languages (localized slugs are DEFERRED). **The slug of a published record** is not changed with PATCH (`locked_published`); it changes with «Изменить адрес» (`POST …/{id}/slug`), which creates the 301 from the old address (Phase I-2, [`admin-seo.md`](admin-seo.md) §9) |
 | **References** | Images must be images (videos videos); relations must exist and not be archived; galleries and related lists without duplicates |
 | **Working copy** | Edits change the content tables (the working copy) and write one revision each (Phase G). The public site changes only when a release (a snapshot of the published records) is built and published; a database export reflects the working copy |
-| **Audit** | `content.create`, `content.update` (summary `fields`: the changed field names), `content.archive`, `content.restore`; denied field changes as `content.update` / `denied`. Resource type `page`, `project`, `technology`, `product`, `epcm_stage`, `patent`, `video` and the record id; request id and IP hash as in Phase C. No content text is copied into the audit log |
+| **Audit** | `content.create`, `content.update` (summary `fields`: the changed field names), `content.archive`, `content.restore`; `content.publish` / `content.unpublish` (Phase G); `content.slug_change` (Phase I-2); denied field changes as `content.update` / `denied`. Resource type `page`, `project`, `technology`, `product`, `epcm_stage`, `patent`, `video` and the record id; request id and IP hash as in Phase C. No content text is copied into the audit log |
 
 ---
 
@@ -199,11 +200,11 @@ The export requires the same shape in every language: the same list lengths and 
 
 | Limitation | Phase |
 |---|---|
-| No publish / unpublish, no revisions or history tab, no «Есть неопубликованные изменения» state | G |
-| No preview | H |
+| ~~No publish / unpublish, no revisions or history tab, no «Есть неопубликованные изменения» state~~ — done in Phase G ([`admin-publishing.md`](admin-publishing.md)) | G |
+| ~~No preview~~ — done: preview builds with one-time links ([`admin-publishing.md`](admin-publishing.md)) | H |
 | ~~Slug of published records locked; no redirect dialog; no SEO checker or snippet preview~~ — done in Phase I ([`admin-seo.md`](admin-seo.md)) | I |
 | ~~Translations are not edited; no "outdated" detection~~ — done in Phase F ([`admin-translations.md`](admin-translations.md)) | F |
-| ~~No uploads; previews only with `VITE_MEDIA_BASE_URL`~~ — done in Phase J-1 ([`admin-media.md`](admin-media.md)); variants and `srcset` in J-2; no crops | J |
+| ~~No uploads; previews only with `VITE_MEDIA_BASE_URL`~~ — done in Phases J-1 and J-2 ([`admin-media.md`](admin-media.md)); no crops | J |
 | Page list items: texts only (no adding or removing timeline entries etc.) | later, when the page design gets new item templates |
 | Settings, offices, metrics, footer are not editable yet | next content task (review §X «Настройки») |
 | No hard delete; no usages view («используется в 4 проектах») | with the delete flow (Admin-only, review §G) |

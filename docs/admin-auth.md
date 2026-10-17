@@ -8,7 +8,7 @@
 
 **API description:** [`apps/api/openapi.json`](../apps/api/openapi.json) (OpenAPI 3.1, generated from the route schemas).
 
-The admin UI does not exist yet. Phase C delivers the server side only.
+Phase C delivered the server side. The admin UI came in Phase D and later phases; see [`admin-ui.md`](admin-ui.md).
 
 ---
 
@@ -42,7 +42,7 @@ Six fixed roles. Permissions are an explicit list per role. There is no wildcard
 - the SEO Specialist may change only SEO fields (slug, meta texts, OG image, noindex, canonical, alt text);
 - the Editor may change content fields but not SEO fields.
 
-The content API (Phase E) will enforce these rules. The test suite already covers them.
+The content and translation APIs enforce these rules (since Phases E and F). The test suite covers them.
 
 **Publishing** (Phase G): no new permission or role. `content.publish` marks records for publication, creates releases and publishes ready ones; `system.rollback` (Owner, Admin) re-activates a previous release and always requires step-up; `system.deploy` rebuilds a failed release; `system.read` sees artifact details; previews need `content.edit`, `seo.edit` or `content.publish` to build and `content.read` to open. Restoring a revision needs `content.edit` and, field by field, the same SEO rule as an edit.
 
@@ -59,7 +59,7 @@ The content API (Phase E) will enforce these rules. The test suite already cover
 
 | Access level | Requires |
 |---|---|
-| `public` | nothing: `GET /health`, `POST /auth/login`, `POST /auth/password-reset/request`, `POST /auth/password-reset/confirm` |
+| `public` | nothing: `GET /health`, `POST /auth/login`, `POST /auth/password-reset/request`, `POST /auth/password-reset/confirm`, `POST /public/leads` (site forms, Phase K-2) |
 | `pending` | a live session, even before the second factor (session info, logout, MFA verification) |
 | `enrollment` | the second factor, if one is enrolled; the role requirement may still be unmet (enrolling a factor). Adding a further factor needs step-up |
 | `full` | the second factor and the role requirement met; optionally a `permission` (one, or a list meaning "any of", Phase E) and `stepUp` |
@@ -86,7 +86,7 @@ Translations (Phase F) use the same matrix, **no new permission**: reading `cont
   - a random token, stored as sha256, valid 30 minutes, single use;
   - the response is the same whether or not the account exists;
   - confirming sets the new password, revokes every session and does **not** sign the user in;
-  - e-mail delivery arrives in Phase K. Until then the `Notifier` only logs that a reset was requested: never the token, never the address.
+  - reset e-mails are not sent yet. Phase K added e-mail for lead notices only (`notify/email.ts`). The `Notifier` still only logs that a reset was requested: never the token, never the address.
 
 **Brute-force protection:**
 
@@ -94,8 +94,9 @@ Translations (Phase F) use the same matrix, **no new permission**: reading `cont
 |---|---|
 | Progressive delay per account | after 5 consecutive failures: 2^(n−5) s, at most 300 s (`429 login_throttled` + `Retry-After`) |
 | Account lock-out | 20 consecutive failures → locked for 15 minutes for **unknown devices**. A browser that has signed in successfully before (`__Host-soltex_device` cookie, stored hashed, 180 days) can still sign in, so an attacker cannot lock out the real user |
-| Per IP | login 30 / 15 min; reset request 5 / h; reset confirm 10 / 15 min; MFA verify 10 / 5 min; passkey options 20 / 5 min; password change 10 / 15 min; global 600 / min |
-| On lock-out | audit `auth.lockout` and a security alert to the user (delivered from Phase K) |
+| Per IP | login 30 / 15 min; reset request 5 / h; reset confirm 10 / 15 min; site form 5 / 10 min |
+| Per session (per IP without a session) | MFA verify 10 / 5 min; passkey options 20 / 5 min; password change 10 / 15 min; global 600 / min |
+| On lock-out | audit `auth.lockout` and a security alert to the user (logged only: e-mail delivery of alerts is not connected yet) |
 
 ---
 
@@ -110,7 +111,7 @@ Translations (Phase F) use the same matrix, **no new permission**: reading `cont
   - `aal = 1` after the password;
   - `aal = 2` after a passkey, TOTP or recovery code;
   - the token rotates at every level change and at every password change (session fixation).
-- **Step-up:** sensitive actions need a second factor verified within the last 10 minutes. These actions are user management, removing a factor, regenerating recovery codes, and adding a factor once one exists.
+- **Step-up:** sensitive actions need a second factor verified within the last 10 minutes. These actions are user management, removing a factor, regenerating recovery codes, adding a factor once one exists, release rollback (Phase G) and the lead CSV export (Phase K-1).
 - **Failed second factors:** after 5 failed checks the session is revoked.
 - **Endpoints:**
   - list own sessions;
@@ -193,6 +194,7 @@ Users who still have to enroll get `mfa_enrollment_required` everywhere except t
 - translations (Phase F): `translation.update`, `translation.approve`, `translation.reopen`;
 - publishing (Phase G, [`admin-publishing.md`](admin-publishing.md) §6): `content.publish`, `content.unpublish`, `revision.restore`, `release.create`, `release.build`, `preview.build`, `release.activate`, `release.rollback`, `release.retry`, `preview.grant`, `preview.revoke` (summary keys `target`, `status`, `reason`, `count`, `fields`, `revision`; no new keys). Preview tokens and cookies are never logged: only their hashes are stored.
 
+- SEO (Phase I-2): `redirect.create`, `redirect.update`, `redirect.delete`, `content.slug_change`;
 - media (Phase J): `media.upload`, `media.replace`, `media.delete`;
 - leads (Phase K): `lead.view` (Phase M-1: who opened a lead's personal data, ASVS §8.3.5), `lead.update`, `lead.note`, `lead.delete`, `lead.restore`, `lead.export`, `lead.notify_retry`, `lead.anonymize`.
 
@@ -208,10 +210,10 @@ Every action the API writes has Russian wording in «Журнал действи
 |---|---|
 | Errors | RFC 9457 `application/problem+json`: `{type: "urn:soltex:problem:<code>", title (Russian), status, code, detail?, errors?, request_id}`. No stack traces; internal errors are logged with the request ID only |
 | Request ID | `X-Request-ID` from nginx is accepted only if it is a UUID; otherwise a UUIDv7 is generated. Returned on every response, in every problem and in every audit row |
-| CSRF | state-changing requests need `X-Requested-With: soltex-admin`. When present, `Origin` must equal `ADMIN_ORIGIN` and `Sec-Fetch-Site` must be `same-origin` or `none`. Cookies are `SameSite=Strict` |
+| CSRF | state-changing requests need `X-Requested-With: soltex-admin`. When present, `Origin` must equal `ADMIN_ORIGIN` and `Sec-Fetch-Site` must be `same-origin` or `none`. Cookies are `SameSite=Strict`. The site form (`POST /public/leads`) sends `X-Requested-With: soltex-site` instead |
 | CORS | none: the admin and the API share one origin |
 | Headers | `@fastify/helmet`: CSP `default-src 'none'; frame-ancestors 'none'`, `nosniff`, `Referrer-Policy: no-referrer`, HSTS in production; `Cache-Control: no-store` on `/api` |
-| Input | Zod 4 schemas on every body, query and parameter; unknown fields rejected; body limit 64 KB (`413`); JSON only (`415`) |
+| Input | Zod 4 schemas on every body, query and parameter; unknown fields rejected; body limit 64 KB, 20 KB for site forms (`413`); JSON only (`415`), except media uploads (raw file, up to 20 / 200 MB, [`admin-media.md`](admin-media.md)) |
 | Rate limits | `@fastify/rate-limit`, in memory (one API process, approved §10); `429` as a problem with `Retry-After` |
 | OpenAPI | 3.1.0, generated; each operation lists its security (session cookie, CSRF header) and `x-soltex-access`. `GET /api/v1/docs/openapi.json` needs `system.read` and is **off in production**. CI fails when `apps/api/openapi.json` is out of date |
 
@@ -219,7 +221,7 @@ Every action the API writes has Russian wording in «Журнал действи
 
 ## 7. Configuration
 
-All values come from environment variables; see the root `.env.example`.
+All values come from environment variables; see the root `.env.example`. This table lists the security variables only; mail, media, release and lead settings are in `.env.example` and the phase docs.
 
 | Variable | Purpose |
 |---|---|
@@ -258,7 +260,7 @@ All other users are created by an Owner or Admin in the admin (`POST /api/v1/use
 | Suite | Tests | Covers |
 |---|---|---|
 | `packages/core/test/permissions.test.ts` | 6 | full role × permission matrix, no wildcard, MFA requirement, field-level, user-management rules |
-| `apps/api/src/*.test.ts`, `src/auth/auth.unit.test.ts` | 20 | config, health, request IDs, problems, headers, access rule enforcement, OpenAPI coverage and drift, AES-GCM, Argon2id, password policy, throttle curve |
+| `apps/api/src/*.test.ts`, `src/auth/auth.unit.test.ts` | 22 | config, health, request IDs, problems, headers, access rule enforcement, OpenAPI coverage and drift, AES-GCM, Argon2id, password policy, throttle curve, site-form switches (Phase K-2), SMTP TLS (Phase M-1) |
 | `test/auth.db.test.ts` | 11 | login, cookie flags, logout, expiry, rotation, revoke / revoke-all, brute force and lock-out, known device, password change and reset |
 | `test/mfa.db.test.ts` | 10 | TOTP enroll / verify / replay / encryption at rest, recovery codes, step-up, MFA failure limit |
 | `test/passkeys.db.test.ts` | 10 | registration, sign-in, counter, challenge lifecycle (replay, expiry, session, purpose), origin, RP ID, user verification, ownership, last passkey |

@@ -1,7 +1,7 @@
 # Content database (PostgreSQL 17)
 
 **Source of truth for the architecture:** [`admin-architecture-approved.md`](admin-architecture-approved.md) §17 and review §C.
-**Implemented in:** Phase B (content), Phase C (users, sessions, second factors, audit log; see [`admin-auth.md`](admin-auth.md)).
+**Implemented in:** Phase B (content), Phase C (users, sessions, second factors, audit log; see [`admin-auth.md`](admin-auth.md)); later phases added migrations 0004–0010 (§7).
 **Code:**
 - `apps/api/src/db/schema.ts` (Drizzle);
 - `apps/api/drizzle/` (committed SQL migrations);
@@ -28,7 +28,7 @@
 | Table | Language-independent | Translations (`*_translations`, one row per language) |
 |---|---|---|
 | `locales` | reference data: 6 languages, `en` is the source | — (read-only for the app) |
-| `media` | kind, src (public path), width, height; library metadata (migration 0007, Phase J-1): source `legacy`/`upload`, storage path, original name, mime, bytes, sha256, version — [`admin-media.md`](admin-media.md) §1 | `alt` (only when an alt text exists) |
+| `media` | kind, src (public path), width, height; library metadata (migration 0007, Phase J-1): source `legacy`/`upload`, storage path, original name, mime, bytes, sha256, version — [`admin-media.md`](admin-media.md) §1; responsive copies `variants` (migration 0008, Phase J-2) | `alt` (only when an alt text exists) |
 | `technologies` | status, position, category number, image, OG image, noindex | slug, category title, title, subtitle, overview, `patent_info`, `raw_materials`, `process_principles`, `key_advantages`, `applications`, `products_produced`, SEO texts |
 | `technology_projects` | technology → related projects, ordered | — |
 | `projects` | status, position, category number, image, image position, related technology, OG image, noindex | slug, category, title, country, years, capacity, type, overview, `scope`, technology, `results`, `specs`, SEO texts |
@@ -61,7 +61,7 @@
 
 | Table | Contents |
 |---|---|
-| `users` | e-mail (unique, stored normalized: a CHECK enforces lower case and trimmed), name, `role` (enum of the 6 roles), `status` (`active`/`disabled`), Argon2id `password_hash`, failure counter, lock-out, `version`, audit columns |
+| `users` | e-mail (unique, stored normalized: a CHECK enforces lower case and trimmed), name, `role` (enum of the 6 roles), `status` (`active`/`disabled`), Argon2id `password_hash`, `password_temporary` (migration 0010, Phase M-1), failure counter, lock-out, `version`, audit columns |
 | `sessions` | sha256 of the token (never the token), user, `aal` 1/2, `mfa_verified_at`, `mfa_failures`, created / last seen / expires, IP hash, User-Agent, `revoked_at` + reason |
 | `known_devices` | sha256 of the device cookie, user, expiry (lock-out bypass for browsers that signed in before) |
 | `webauthn_credentials` | credential ID (unique), public key (`bytea`), sign counter, transports, device type, backup flags, name, last used |
@@ -179,7 +179,7 @@ Put the three URLs in your local environment (see `.env.example`), then run `npm
 | E | **done, no migration:** optimistic locking (`version` + `If-Match`) and the locale-safe write rules in the API ([`admin-content.md`](admin-content.md) §4) |
 | F | **done, migration `0004_translation_review`** (additive): `source_revision` on the seven admin-managed entities; `version`, `approved_source_revision`, `approved_by` (FK users, RESTRICT), `edited_source_revision` on their `*_translations`. `db:migrate` and `db:import` then link existing approvals to the revision through the seed hash (`content/reconcile.ts`). Rollback = drop these columns ([`admin-translations.md`](admin-translations.md) §2) |
 | G | **done, migration `0005_publishing`** (additive): `content_revisions` (append-only, full record per version, `json`), `content_snapshots` (append-only), `releases` (state machine, one active per kind, immutable columns), `release_events` (append-only), `preview_grants` (hashes only); enums `revision_kind`, `release_status`, `release_kind`. `db:migrate` / `db:import` write baseline revisions. Rollback = drop these tables and enums ([`admin-publishing.md`](admin-publishing.md)) |
-| I | redirect lookup, `seo_issues` |
-| J | media storage paths, variants, sha256, uploads |
-| K | `leads`, `lead_events`, `consent_texts`, outbox |
+| I | **done, migration `0006_redirects_version`** (additive): `redirects.version`. The redirect lookup is served by the API; there is no `seo_issues` table, because SEO checks are computed on request ([`admin-seo.md`](admin-seo.md)) |
+| J | **done, migrations `0007_media_library`, `0008_media_variants`** (additive): source, storage path, original name, mime, bytes and sha256 on `media`; `variants` ([`admin-media.md`](admin-media.md)) |
+| K | **done, migration `0009_leads`**: `leads`, `lead_events`, `outbox`; consent is recorded on the lead (no `consent_texts` table) ([`admin-leads.md`](admin-leads.md)) |
 | M | **done, migration `0010_temporary_password`** (Phase M-1, additive): `users.password_temporary` — an initial password given by an Owner or Admin is valid 7 days and replaced at the first sign-in. Rollback = drop the column ([`admin-auth.md`](admin-auth.md) §2) |

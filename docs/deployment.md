@@ -1,11 +1,11 @@
 # Deployment
 
-The site is a **static, prerendered build** with no runtime dependency on any hosting provider, CMS or backend. Any web server that can serve files over HTTPS can host it.
+The site is a **static, prerendered build** with no runtime dependency on any hosting provider or CMS. Its pages never depend on the backend. Two features use the API at runtime: redirects of old addresses (nginx `@lookup`) and the lead form (`POST /api/v1/public/leads`). When the API is down, unknown addresses get the 404 page, and the forms are off unless `SITE_LEADS_ENABLED` is on.
 
 | Environment | Flow | Status |
 |---|---|---|
 | **DEMO / client preview** | GitHub → Netlify (`netlify.toml`) | **Temporary.** Used only to present the site to Soltex and get approval |
-| **PRODUCTION** | `npm run build` → `dist/` → **Host.KZ** → `soltexglobal.co` | Final target. Server details **to be finalized after the exact Host.KZ hosting plan is confirmed** |
+| **PRODUCTION** | Admin «Создать релиз» → the worker builds the release → «Опубликовать» switches `RELEASES_DIR/current` → nginx on **Host.KZ** → `soltexglobal.co` ([`admin-publishing.md`](admin-publishing.md)) | Final target. Server setup (Phase N) **to be finalized after the exact Host.KZ hosting plan is confirmed** |
 
 Netlify is not part of the application architecture. The only Netlify-specific file is `netlify.toml`, which holds the build command, the publish directory and the localized 404 rules. There are no Netlify Functions, Blobs, Forms, Identity or build hooks.
 
@@ -13,10 +13,10 @@ Netlify is not part of the application architecture. The only Netlify-specific f
 
 | | |
 |---|---|
-| Runtime | Node.js ≥ 20.11 (developed with Node 22 LTS) |
+| Runtime | Node.js 22 (`.nvmrc`; Vite 8 needs ≥ 22.12 or ^20.19) |
 | Install | `npm ci` |
-| Build | `npm run build`. This runs four steps: content snapshots + validation, `vite build`, prerender (`scripts/prerender.ts`) and site validation (`scripts/validate-site.ts`) |
-| Output | `dist/` (upload the **contents** of this folder to the web root) |
+| Build | `npm run build` (repository root). This runs four steps: content snapshots + validation, `vite build`, prerender (`apps/web/scripts/prerender.ts`) and site validation (`apps/web/scripts/validate-site.ts`) |
+| Output | `apps/web/dist`. In production the worker builds each release into `RELEASES_DIR/releases/<key>`; nothing is uploaded by hand |
 | Local check | `npm run serve:dist` (http://localhost:4173). It behaves like the production server rules below, including real 404s |
 
 The build **fails** if content is invalid or if any SEO, link, image or portability check fails. A failed build never produces a half-valid site.
@@ -26,12 +26,14 @@ The build **fails** if content is invalid or if any SEO, link, image or portabil
 | Variable | Default | Purpose |
 |---|---|---|
 | `VITE_SITE_URL` | `https://soltexglobal.co` | Origin used for canonical, hreflang, OG and sitemap URLs. On the demo it can stay at the production origin, which keeps demo URLs out of the canonical tags |
-| `CONTENT_SOURCE` | `seed` | Content source for the build. `seed` is the JSON in `src/content/seed`. A custom-admin source is added later |
+| `CONTENT_SOURCE` | `seed` | Content source for the build. `seed` is the JSON in `apps/web/src/content/seed`. `file` is a database export; the publishing worker always uses it |
+| `CONTENT_STORE_FILE` | *(none)* | With `CONTENT_SOURCE=file`: path of the content store JSON (`npm run db:export -- --file <store.json>`) |
+| `MEDIA_ROOT` | *(none)* | Media library directory. `validate-site` checks `/media/…` references against it; without it such a reference fails the build. The worker sets it to `MEDIA_DIR` |
 | `MEDIA_BASE_URL` | *(empty)* | Prefix for media files if they move to object storage or a CDN later. Empty means the files are served from the site |
 | `SOLTEX_LEADS_ENDPOINT` | *(empty)* | Phase K-2. Absolute URL of `POST /api/v1/public/leads`. Empty: the forms use the demo service and nothing is sent. Set by the publishing builder from the API's `SITE_LEADS_ENABLED` |
 | `SOLTEX_ATTRIBUTION` | *(empty)* | Phase K-2. `true`: UTM attribution is recorded and sent with leads (needs the endpoint). Set from `ATTRIBUTION_ENABLED`. Off: no attribution code in the bundle |
 
-No secrets exist in Phase 1. Future secrets (admin API token, lead endpoint keys) must only ever be **build-time or server-side** variables. They must never use the `VITE_` prefix, because those values are embedded in the browser bundle. `validate-site` fails the build if secret-looking values appear in `dist/`.
+The site build gets no secrets: the worker runs it with a minimal environment. Server secrets (`DATABASE_URL`, `DATA_ENCRYPTION_KEYS`, `HASH_SECRET`, `SMTP_URL`, …; see `.env.example`) exist only in the environment of the API and the worker. Secrets must never be site build variables. They must never use the `VITE_` prefix, because those values are embedded in the browser bundle. `validate-site` fails the build if secret-looking values appear in `dist/`.
 
 ## Output layout and routing
 
@@ -78,7 +80,7 @@ Installation notes:
 - The file also contains the `http → https` and `www → apex` redirects.
 - Certificate paths assume Let's Encrypt; adjust them to the Host.KZ setup.
 - Cache headers follow the next section.
-- The CSP header (below) is added once the final inline-script hash is fixed.
+- Security headers, including the CSP, are in the file (see "Security headers" below).
 
 ### Apache `.htaccess` (example — to be finalized after the Host.KZ plan is confirmed)
 
@@ -152,16 +154,15 @@ What the policy allows:
 - A TLS certificate (Let's Encrypt or Host.KZ-provided) with automatic renewal.
 - Before switching DNS, crawl the **currently live** soltexglobal.co and map its old URLs to the new ones with 301 redirects. Enter them in «SEO → Редиректы», or import them through `redirects.json` (source `import`). nginx needs no change: the rules are served by the lookup endpoint from the active release.
 
-## Future backend and database requirements (not implemented)
+## Server requirements (Phase N, not set up yet)
 
-When the custom admin is built (see `docs/custom-admin-architecture.md`), the production host needs:
+The admin, API and database are implemented (approved architecture: `docs/admin-architecture-approved.md`). The production host needs:
 
-- a server-side runtime for the admin API and lead endpoint (Node.js or PHP, depending on the Host.KZ plan);
-- a database (PostgreSQL preferred, MySQL acceptable) with automated backups;
-- storage for uploaded media (local disk with backups, or S3-compatible object storage);
-- a way to **rebuild the static site after publishing**. Either:
-  - a build on the server (`npm ci && npm run build` with `CONTENT_SOURCE=admin`), or
-  - a CI job that builds and uploads `dist/`.
-
-  Either way, the public site stays static and keeps working if the admin or database is down.
+- Node.js 22 and the repository checkout (the worker runs the site build);
+- PostgreSQL 17 with the three roles of `apps/api/db/provision.sql` (`soltex_app`, `soltex_migrate`, `soltex_backup`); `npm run db:migrate` applies migrations `0000`–`0010`; automated backups;
+- three processes of the same codebase (systemd units), all on loopback: the API (`npm run start -w @soltex/api`, `API_PORT` 3100), the worker (`npm run worker -w @soltex/api`) and the preview server (`npm run preview-server -w @soltex/api`, `PREVIEW_PORT` 3102);
+- `RELEASES_DIR` (e.g. `/srv/soltex`) and `MEDIA_DIR` (e.g. `/srv/soltex/media`) on one local filesystem, backed up;
+- nginx with `deploy/nginx/soltexglobal.conf`, plus server blocks for the admin and preview hosts;
 - outgoing e-mail (SMTP) with SPF/DKIM/DMARC for lead notifications.
+
+The public site stays static and keeps working if the admin, API or database is down.

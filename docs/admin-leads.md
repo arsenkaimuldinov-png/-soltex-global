@@ -120,7 +120,7 @@ Implements approved §13 and §19 (e-mail), and review §K.
 - every cell is formula-safe (a leading `= + - @` gets a quote) and quoted when needed;
 - audited as `lead.export` (count and filter), and the Owners are notified.
 
-**Audit actions:** `lead.update`, `lead.note`, `lead.delete`, `lead.restore`, `lead.export`, `lead.notify_retry`, `lead.anonymize`.
+**Audit actions:** `lead.view` (opening a lead page; Phase M-1), `lead.update`, `lead.note`, `lead.delete`, `lead.restore`, `lead.export`, `lead.notify_retry`, `lead.anonymize`.
 
 ## 5. Bin, anonymization, retention (approved §13.1)
 
@@ -142,7 +142,7 @@ Implements approved §13 and §19 (e-mail), and review §K.
 
 | Variable | Meaning |
 |---|---|
-| `SMTP_URL`, `MAIL_FROM` | SMTP for all e-mail (`smtp://` or `smtps://`); both or neither |
+| `SMTP_URL`, `MAIL_FROM` | SMTP for all e-mail (`smtp://` or `smtps://`); both or neither. `smtp://` to a non-local host must offer STARTTLS; TLS 1.2 or newer (Phase M-1) |
 | `LEAD_NOTIFY_TO` | Comma-separated recipients of new-lead notices |
 | `LEAD_RETENTION_MONTHS` | 1–120, default 24 |
 | `PRIVACY_NOTICE_VERSION` | Version of the privacy notice the forms display; stored with each lead |

@@ -2,24 +2,26 @@
 
 Shared domain layer of the Soltex Global platform. Source of truth for the architecture: [`docs/admin-architecture-approved.md`](../../docs/admin-architecture-approved.md) (§18).
 
-**Status (Phase B):**
-- `domain`: content languages (`CONTENT_LOCALES`, `SOURCE_LOCALE`).
+**Status (Phase M-1):**
+- `domain`: content languages, roles and the permission matrix, release and translation state machines, media types and limits, lead rules (spam verdict, references), `SITE_CSP`.
+- `seo`: slug rules, effective meta texts, the SEO checker, redirect paths and chain collapsing.
 - `content`:
-  - the stored content types (moved from `apps/web`);
+  - the stored content types and content store format;
   - `Localized` helpers (`isLocalized`, `projectLocale`, `mergeLocales`, `splitText`/`joinText`);
+  - the page-slot registry;
   - Zod schemas of the database JSONB columns.
-- `validation`, `seo`: still empty.
+- `validation`: still empty.
 
 Tests: `npm test -w @soltex/core`.
 
 ## Layers
 
-| Subpath | Contents (from Phase B on) | May import |
+| Subpath | Contents | May import |
 |---|---|---|
-| `@soltex/core/domain` | domain types, locales, permission map, roles, publication/translation state machines, IDs | nothing else in core |
-| `@soltex/core/validation` | shared Zod primitives, entity input schemas | `domain` |
-| `@soltex/core/seo` | slug rules, SEO checker, canonical/hreflang algorithm, redirect graph | `domain`, `validation` |
-| `@soltex/core/content` | content store format, page-slot registry, JSONB schemas, `normalize` | `domain`, `validation` |
+| `@soltex/core/domain` | domain types, locales, permission map, roles, publication/translation state machines, media and lead rules, site CSP | nothing else in core |
+| `@soltex/core/validation` | shared Zod primitives, entity input schemas (empty so far) | `domain` |
+| `@soltex/core/seo` | slug rules, SEO checker, meta texts, redirect rules | `domain`, `validation` |
+| `@soltex/core/content` | content store format, page-slot registry, JSONB schemas (`normalize` is still in `apps/web`) | `domain`, `validation` |
 
 `seo` and `content` do not import each other. If one ever needs the other, the shared part moves down into `domain`.
 

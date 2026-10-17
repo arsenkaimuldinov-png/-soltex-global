@@ -143,7 +143,9 @@ artifact checksum/size once set. Releases and preview grants cannot be deleted b
   heartbeat (crashed worker) is marked `failed` (`worker_lost`) by the next worker run;
 - at start the worker reconciles the database with the `current` symlink (the symlink is the truth
   of what is served);
-- the workspace is always removed.
+- the workspace is always removed;
+- when there is no release to build, the same worker makes image copies, sends outbox e-mail and
+  anonymizes old leads ([`admin-media.md`](admin-media.md) §9, [`admin-leads.md`](admin-leads.md) §3, §5).
 
 ### Checks
 
@@ -214,7 +216,9 @@ release with the same snapshot.
   idle timeout or a disabled user end it. `POST /api/v1/preview/revoke` closes every preview of the
   user; `/__preview/close` closes the current one.
 - Every response: `X-Robots-Tag: noindex, nofollow, noarchive`, `Cache-Control: no-store`,
-  `Referrer-Policy: no-referrer`; `/robots.txt` disallows everything; `release.json` is hidden.
+  `Referrer-Policy: no-referrer`, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY` and a
+  `Content-Security-Policy` (release files get the site policy `SITE_CSP`; Phase M-1);
+  `/robots.txt` disallows everything; `release.json` is hidden.
 - All six languages are served with the public routing rules (and localized 404s).
 - The preview server logs method, path and status only — never tokens or cookies.
 
@@ -237,8 +241,8 @@ release with the same snapshot.
 | POST | `/api/v1/releases/{id}/preview` | content.read |
 | POST | `/api/v1/preview/revoke` | content.read |
 
-Zod schemas, RFC 9457 problems, CSRF on every change; OpenAPI (`apps/api/openapi.json`, 0.7.0) and
-the admin types are generated.
+Zod schemas, RFC 9457 problems, CSRF on every change; OpenAPI (`apps/api/openapi.json`; these routes
+since 0.7.0, now 0.13.0) and the admin types are generated and checked in CI.
 
 ## 6. Authorization and audit
 
@@ -259,7 +263,8 @@ reason), `release.retry`, `preview.grant`, `preview.revoke`. Summaries use white
   checks (errors apart from warnings), translations per language, events, technical details
   under «Дополнительно»; actions «Открыть предпросмотр», «Опубликовать», «Вернуть на сайт»
   (step-up), «Собрать заново» — each with a confirmation stating the consequences.
-- ⌘K lists the screens only: there are no publish, rollback or restore commands.
+- ⌘K lists the screens and finds records (Phase L); there are no publish, rollback or restore
+  commands.
 
 ## 8. Deployment assumptions
 

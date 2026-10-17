@@ -4,7 +4,7 @@
 **API contract:** [`admin-auth.md`](admin-auth.md), [`apps/api/openapi.json`](../apps/api/openapi.json).
 **Code:** `apps/admin`.
 
-Phase D delivers the admin shell and every screen that the Phase C API already serves. Content, media, translations, leads, SEO, settings, publishing and preview arrive with their own phases. Until then they do not appear in the interface: there are no placeholders and no empty sections.
+Phase D delivered the admin shell and every screen that the Phase C API served. Later phases added content (E), translations (F), publishing and preview (G), SEO and redirects (I), media (J), leads (K) and the overview, system status and content search (L). Settings is not built yet, and it does not appear in the interface: there are no placeholders and no empty sections.
 
 ---
 
@@ -23,7 +23,7 @@ Phase D delivers the admin shell and every screen that the Phase C API already s
 | Icons | lucide-react (already used by the site) |
 
 **Notes:**
-- TipTap (restricted rich text) belongs to Phase E and is not installed.
+- TipTap is not installed: the content is plain text, so no rich-text editor is needed ([`admin-content.md`](admin-content.md) §3).
 - Fonts are system fonts, so the admin makes no external font requests.
 
 ---
@@ -166,7 +166,7 @@ No paths, connection strings or secrets.
 - Обзор, Ревизии, Релизы in the sidebar section «Публикация»; a section overview is highlighted only on its own address (`hasChildRoute` in `nav.ts`);
 - every action that changes the live site (publish, rollback) or the working copy (restore, mark for publication) asks for confirmation and states the consequences; rollback also asks for a fresh second factor (step-up);
 - build progress is polled while a release builds; the preview opens in a new tab on the preview origin with a one-time link;
-- ⌘K offers the screens only — no publish, rollback or restore commands.
+- ⌘K offers screens and finds records (Phase L, §6), but has no publish, rollback or restore commands.
 
 **«Дополнительно»** (approved §16): technical details are collapsed and rendered only for Owner and Admin. The main UI shows no ids, codes, enum values or JSON.
 
@@ -222,8 +222,8 @@ X-Frame-Options: DENY
 
 | Suite | Command | Covers |
 |---|---|---|
-| Unit (11 → 25 with Phases E–F) | `npm run test -w @soltex/admin` | `routeFor` / `safeFrom` (open redirect), reset token parsing, navigation per role from the core permission map, no later-phase sections, ⌘K matching, API client (CSRF header, cookies only, URL encoding, problems, network and proxy errors), error texts and when a request id is shown, audit wording and labels for every API action, plurals and devices, generated password; content editors (`test/content.test.ts`, Phase E); translation editor model, RTL, validation and permissions (`test/translations.test.ts`, Phase F) |
-| E2E (23 → 45 with Phases E–F) | `npm run test:e2e:admin` (`scripts/admin-e2e.mjs`) | Built admin under its CSP + real API + PostgreSQL + Chromium with a virtual WebAuthn authenticator. Files: `admin.e2e.mjs` (shell, 23), `content.e2e.mjs` (Phase E, 12), `translations.e2e.mjs` (Phase F, 10) |
+| Unit (46) | `npm run test -w @soltex/admin` | `test/logic.test.ts` (11): `routeFor` / `safeFrom` (open redirect), reset token parsing, navigation per role from the core permission map, no later-phase sections, ⌘K matching, API client (CSRF header, cookies only, URL encoding, problems, network and proxy errors), error texts and when a request id is shown, audit wording, plurals and devices, generated password; `audit-actions.test.ts` (1): a label for every audit action in the API sources; `content.test.ts` (8, Phase E); `translations.test.ts` (6, Phase F: editor model, RTL, validation, permissions); `publishing.test.ts` (6, Phase G); `seo.test.ts` (4, Phase I); `media.test.ts` (4, Phase J); `leads.test.ts` (3, Phase K); `overview.test.ts` (3, Phase L) |
+| E2E (102) | `npm run test:e2e:admin` (`scripts/admin-e2e.mjs`, runs every `apps/admin/e2e/*.e2e.mjs`) | Built admin under its CSP + real API + PostgreSQL + Chromium with a virtual WebAuthn authenticator. Files: `admin.e2e.mjs` (shell, 25), `content.e2e.mjs` (12), `publishing.e2e.mjs` (11), `translations.e2e.mjs` (10), `leads.e2e.mjs` (7), `media.e2e.mjs` (7), `redirects.e2e.mjs` (7), `seo.e2e.mjs` (7), `site-forms.e2e.mjs` (7), `dashboard.e2e.mjs` (6), `site-csp.e2e.mjs` (3) |
 
 **What the E2E suite does:**
 - **Sign-in and session:**
@@ -233,6 +233,7 @@ X-Frame-Options: DENY
   - sign-out and passkey sign-in; return to the page asked for.
 - **Users and step-up:**
   - user creation with allowed roles only, duplicate e-mail;
+  - initial password replaced at the first sign-in; a new initial password from an admin (Phase M-1);
   - step-up after 10 minutes (session aged in the database), and step-up cancelled;
   - own role and status locked, «Дополнительно».
 - **Roles:**
