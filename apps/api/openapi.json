@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Soltex Global Admin API",
-    "version": "0.11.0",
+    "version": "0.12.0",
     "description": "Authentication, second factors, users, audit (Phase C) and content management (Phase E). Errors are RFC 9457 Problem Details (application/problem+json) with `request_id`; every response carries `X-Request-ID`. State-changing requests need the header `x-requested-with: soltex-admin`."
   },
   "components": {
@@ -2942,6 +2942,77 @@
           "publicUrl"
         ]
       },
+      "LeadTouchInput": {
+        "type": "object",
+        "properties": {
+          "at": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "landing": {
+            "type": "string",
+            "maxLength": 200,
+            "pattern": "^\\/[^\\s?#]*$",
+            "description": "Landing path, no query"
+          },
+          "referrer": {
+            "description": "Referrer origin only",
+            "type": "string",
+            "maxLength": 200,
+            "pattern": "^https?:\\/\\/[^/\\s?#]+$"
+          },
+          "direct": {
+            "type": "boolean",
+            "const": true
+          },
+          "utm_source": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "utm_medium": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "utm_campaign": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "utm_term": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "utm_content": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "gclid": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "fbclid": {
+            "type": "string",
+            "maxLength": 200
+          }
+        },
+        "required": [
+          "at",
+          "landing"
+        ],
+        "additionalProperties": false
+      },
+      "LeadAttributionInput": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/components/schemas/LeadTouchInput"
+          },
+          "last": {
+            "$ref": "#/components/schemas/LeadTouchInput"
+          }
+        },
+        "additionalProperties": false
+      },
       "LeadItemInput": {
         "type": "object",
         "properties": {
@@ -3059,6 +3130,16 @@
               "null"
             ]
           },
+          "attribution": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LeadAttributionInput"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "notification": {
             "type": "string",
             "enum": [
@@ -3115,6 +3196,7 @@
           "spamReasons",
           "consentBasis",
           "privacyNoticeVersion",
+          "attribution",
           "notification",
           "duplicates",
           "version",
@@ -3239,6 +3321,16 @@
             "type": [
               "string",
               "null"
+            ]
+          },
+          "attribution": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LeadAttributionInput"
+              },
+              {
+                "type": "null"
+              }
             ]
           },
           "notification": {
@@ -3373,6 +3465,7 @@
           "spamReasons",
           "consentBasis",
           "privacyNoticeVersion",
+          "attribution",
           "notification",
           "duplicates",
           "version",
@@ -11862,6 +11955,77 @@
         ],
         "additionalProperties": false
       },
+      "LeadTouch": {
+        "type": "object",
+        "properties": {
+          "at": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "landing": {
+            "type": "string",
+            "maxLength": 200,
+            "pattern": "^\\/[^\\s?#]*$",
+            "description": "Landing path, no query"
+          },
+          "referrer": {
+            "description": "Referrer origin only",
+            "type": "string",
+            "maxLength": 200,
+            "pattern": "^https?:\\/\\/[^/\\s?#]+$"
+          },
+          "direct": {
+            "type": "boolean",
+            "const": true
+          },
+          "utm_source": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "utm_medium": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "utm_campaign": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "utm_term": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "utm_content": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "gclid": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "fbclid": {
+            "type": "string",
+            "maxLength": 200
+          }
+        },
+        "required": [
+          "at",
+          "landing"
+        ],
+        "additionalProperties": false
+      },
+      "LeadAttribution": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/components/schemas/LeadTouch"
+          },
+          "last": {
+            "$ref": "#/components/schemas/LeadTouch"
+          }
+        },
+        "additionalProperties": false
+      },
       "LeadItem": {
         "type": "object",
         "properties": {
@@ -11980,6 +12144,16 @@
               "null"
             ]
           },
+          "attribution": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LeadAttribution"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "notification": {
             "type": "string",
             "enum": [
@@ -12036,6 +12210,7 @@
           "spamReasons",
           "consentBasis",
           "privacyNoticeVersion",
+          "attribution",
           "notification",
           "duplicates",
           "version",
@@ -12162,6 +12337,16 @@
             "type": [
               "string",
               "null"
+            ]
+          },
+          "attribution": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LeadAttribution"
+              },
+              {
+                "type": "null"
+              }
             ]
           },
           "notification": {
@@ -12298,6 +12483,7 @@
           "spamReasons",
           "consentBasis",
           "privacyNoticeVersion",
+          "attribution",
           "notification",
           "duplicates",
           "version",
@@ -36075,6 +36261,9 @@
                     "type": "integer",
                     "minimum": 0,
                     "maximum": 86400000
+                  },
+                  "attribution": {
+                    "$ref": "#/components/schemas/LeadAttributionInput"
                   }
                 },
                 "required": [
@@ -36309,12 +36498,30 @@
                         "minimum": -9007199254740991,
                         "maximum": 9007199254740991
                       }
+                    },
+                    "site": {
+                      "type": "object",
+                      "properties": {
+                        "formsLive": {
+                          "type": "boolean"
+                        },
+                        "attribution": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "formsLive",
+                        "attribution"
+                      ],
+                      "additionalProperties": false,
+                      "description": "Switches of the site forms (SITE_LEADS_ENABLED, ATTRIBUTION_ENABLED); applied by the next site build"
                     }
                   },
                   "required": [
                     "items",
                     "total",
-                    "byStatus"
+                    "byStatus",
+                    "site"
                   ],
                   "additionalProperties": false
                 }

@@ -28,6 +28,8 @@ The build **fails** if content is invalid or if any SEO, link, image or portabil
 | `VITE_SITE_URL` | `https://soltexglobal.co` | Origin used for canonical, hreflang, OG and sitemap URLs. On the demo it can stay at the production origin, which keeps demo URLs out of the canonical tags |
 | `CONTENT_SOURCE` | `seed` | Content source for the build. `seed` is the JSON in `src/content/seed`. A custom-admin source is added later |
 | `MEDIA_BASE_URL` | *(empty)* | Prefix for media files if they move to object storage or a CDN later. Empty means the files are served from the site |
+| `SOLTEX_LEADS_ENDPOINT` | *(empty)* | Phase K-2. Absolute URL of `POST /api/v1/public/leads`. Empty: the forms use the demo service and nothing is sent. Set by the publishing builder from the API's `SITE_LEADS_ENABLED` |
+| `SOLTEX_ATTRIBUTION` | *(empty)* | Phase K-2. `true`: UTM attribution is recorded and sent with leads (needs the endpoint). Set from `ATTRIBUTION_ENABLED`. Off: no attribution code in the bundle |
 
 No secrets exist in Phase 1. Future secrets (admin API token, lead endpoint keys) must only ever be **build-time or server-side** variables. They must never use the `VITE_` prefix, because those values are embedded in the browser bundle. `validate-site` fails the build if secret-looking values appear in `dist/`.
 
@@ -71,6 +73,7 @@ Installation notes:
 - The API listens on `127.0.0.1:3100` (`API_PORT`).
 - Set `PUBLIC_SITE_URL=https://soltexglobal.co` for the API.
 - Leads (Phase K): set `SMTP_URL`, `MAIL_FROM`, `LEAD_NOTIFY_TO`, `LEAD_RETENTION_MONTHS` (and `PRIVACY_NOTICE_VERSION` once the text exists) for the API and the worker. On the site host nginx proxies only `POST /api/v1/public/leads` to the API. See [`admin-leads.md`](admin-leads.md).
+- Site forms (Phase K-2): `SITE_LEADS_ENABLED` and `ATTRIBUTION_ENABLED` for the worker (and the API, which reports them in «Заявки»). Both `false` until the client approves the privacy texts. A change applies from the next published release.
 - Media library (Phase J): `MEDIA_DIR=/srv/soltex/media` for the API and the worker. nginx serves `MEDIA_DIR/originals/` and `MEDIA_DIR/variants/` (responsive copies, J-2) as `/media/…` (immutable, one-year cache). After the first deployment, run `npm run media:variants -w @soltex/api` once (the worker keeps them up to date afterwards). The files are not copied into releases; back them up with restic (approved §12). See [`admin-media.md`](admin-media.md).
 - The file also contains the `http → https` and `www → apex` redirects.
 - Certificate paths assume Let's Encrypt; adjust them to the Host.KZ setup.

@@ -1,8 +1,8 @@
 /**
  * DEMO / PREVIEW implementation — reproduces the approved front-end behaviour exactly:
  * a short "processing" state, then success with a reference number. NOTHING IS SENT OR
- * STORED. Replace with a real implementation (see docs/custom-admin-architecture.md,
- * "Lead API contract") before production launch.
+ * STORED. Used when the build has no SOLTEX_LEADS_ENDPOINT (./flags.ts), and by the real
+ * service on any origin other than the site's own (release previews).
  */
 import type { LeadPayload, LeadSubmissionResult, LeadSubmissionService } from './types';
 

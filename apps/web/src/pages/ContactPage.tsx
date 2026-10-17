@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle2, Clock, ShieldCheck, ArrowRight } from 'lucide-react';
 import { PageHeader, pageHeaderProps } from '../components/PageHeader';
 import { useContent, usePage } from '../content/useContent';
-import { leadService } from '../services/leads';
+import { LeadErrorMessage, LeadTrap, useLeadSubmission } from '../components/LeadFormGuard';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { useI18n } from '../i18n/I18nProvider';
 
@@ -13,7 +13,7 @@ export const ContactPage: React.FC = () => {
   const hq = settings.headquarters;
   const formId = React.useId();
   const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { submit, submitting: isSubmitting, error, trapRef } = useLeadSubmission();
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -26,25 +26,21 @@ export const ContactPage: React.FC = () => {
     e.preventDefault();
     if (!formData.name || !formData.phone || !formData.email) return;
 
-    setIsSubmitting(true);
-    void leadService
-      .submitLead({
-        formType: 'contact_page',
-        fields: {
-          name: formData.name,
-          phone: formData.phone,
-          email: formData.email,
-          company: formData.company,
-          message: formData.description,
-        },
-        topic: null,
-        locale,
-        pagePath: path,
-      })
-      .then((result) => {
-        setIsSubmitting(false);
-        if (result.ok) setSubmitted(true);
-      });
+    void submit({
+      formType: 'contact_page',
+      fields: {
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        company: formData.company,
+        message: formData.description,
+      },
+      topic: null,
+      locale,
+      pagePath: path,
+    }).then((result) => {
+      if (result.ok) setSubmitted(true);
+    });
   };
 
   return (
@@ -109,6 +105,7 @@ export const ContactPage: React.FC = () => {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  <LeadTrap trapRef={trapRef} />
                   {/* Name + Phone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
@@ -184,6 +181,8 @@ export const ContactPage: React.FC = () => {
                       className="w-full px-4 py-3 bg-[#FBFBF8] border border-[#16211B]/20 text-sm focus:outline-hidden focus:border-[#0E482C] text-[#121815]"
                     />
                   </div>
+
+                  <LeadErrorMessage error={error} tone="light" />
 
                   <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div className="flex items-center gap-2 text-xs font-mono text-[#334439]/70">

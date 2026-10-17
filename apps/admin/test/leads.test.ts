@@ -5,7 +5,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { LEAD_FORMS, LEAD_STATUSES } from '@soltex/core/domain';
-import { describeLeadEvent, LEAD_FORM_LABELS, LEAD_STATUS_LABELS, NOTIFICATION_LABELS, notifyErrorText, SPAM_REASON_LABELS, telHref } from '../src/features/leads/model';
+import { describeLeadEvent, describeTouch, LEAD_FORM_LABELS, LEAD_STATUS_LABELS, NOTIFICATION_LABELS, notifyErrorText, SPAM_REASON_LABELS, telHref } from '../src/features/leads/model';
 
 test('labels for statuses, forms, notifications, errors and spam reasons', () => {
   for (const s of LEAD_STATUSES) assert.ok(/[А-Я]/.test(LEAD_STATUS_LABELS[s]), s);
@@ -25,4 +25,14 @@ test('history entries in words', () => {
   assert.match(e('notify_failed', { code: 'mail_not_configured' }), /SMTP/);
   assert.match(e('anonymized', { reason: 'retention' }), /срок хранения/);
   for (const k of ['created', 'note', 'notified', 'deleted', 'restored']) assert.ok(/[А-Яа-я]/.test(e(k)), k);
+});
+
+test('attribution in words (Phase K-2)', () => {
+  const date = (iso: string) => iso.slice(0, 10);
+  const t = describeTouch({ at: '2026-10-01T10:00:00Z', landing: '/ru/projects', referrer: 'https://www.google.com', utm_source: 'google', utm_medium: 'cpc', utm_campaign: 'pectin', utm_term: 'pectin plant' }, date);
+  assert.equal(t.source, 'google / cpc / pectin');
+  assert.equal(t.details, 'страница входа /ru/projects · 2026-10-01 · ключевое слово: pectin plant · переход с https://www.google.com');
+  assert.equal(describeTouch({ at: '2026-10-01T10:00:00Z', landing: '/', direct: true }, date).source, 'прямой заход');
+  assert.equal(describeTouch({ at: '2026-10-01T10:00:00Z', landing: '/', referrer: 'https://linkedin.com' }, date).source, 'https://linkedin.com');
+  assert.equal(describeTouch({ at: '2026-10-01T10:00:00Z', landing: '/', gclid: 'x' }, date).source, 'Google Ads');
 });

@@ -7,9 +7,15 @@ import { loadBundle } from './i18n/bundles';
 import { localeFromLocation } from './i18n/paths';
 import { readStoredLocale } from './i18n/I18nProvider';
 import { applyMotionClasses, markHydrated } from './motion/prefs';
+import { ATTRIBUTION_ENABLED } from './services/leads/flags';
+import { browserStores, recordVisit } from './services/leads/attribution';
 
 // Motion system flags on <html> (also set before first paint by the inline boot script in index.html).
 applyMotionClasses();
+
+// UTM attribution (Phase K-2, approved §13.3): only in builds with SOLTEX_ATTRIBUTION; otherwise
+// this branch and the attribution module are removed from the bundle.
+if (ATTRIBUTION_ENABLED) recordVisit(browserStores(), window.location.href, document.referrer);
 
 // Returning visitors who explicitly chose a language land on it when they open the site root.
 // Only the bare root is redirected — every other URL (including all English URLs) is served as-is.

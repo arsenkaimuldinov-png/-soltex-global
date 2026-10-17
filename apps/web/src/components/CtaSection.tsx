@@ -3,7 +3,7 @@ import { ArrowRight, Phone, Mail, ShieldCheck, CheckCircle2 } from 'lucide-react
 import { Link } from '../i18n/Link';
 import { useI18n } from '../i18n/I18nProvider';
 import { useContent } from '../content/useContent';
-import { leadService } from '../services/leads';
+import { LeadErrorMessage, LeadTrap, useLeadSubmission } from './LeadFormGuard';
 
 /** Texts come from the page's content (already in the visitor's language). */
 interface CtaSectionProps {
@@ -19,19 +19,15 @@ export const CtaSection: React.FC<CtaSectionProps> = ({ badge, title, descriptio
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
+  const { submit, submitting, error, trapRef } = useLeadSubmission();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !phone.trim()) return;
 
-    setSubmitting(true);
-    void leadService
-      .submitLead({ formType: 'cta_section', fields: { name, phone }, topic: null, locale, pagePath: path })
-      .then((result) => {
-        setSubmitting(false);
-        if (result.ok) setSubmitted(true);
-      });
+    void submit({ formType: 'cta_section', fields: { name, phone }, topic: null, locale, pagePath: path }).then((result) => {
+      if (result.ok) setSubmitted(true);
+    });
   };
 
   return (
@@ -111,6 +107,7 @@ export const CtaSection: React.FC<CtaSectionProps> = ({ badge, title, descriptio
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
+                <LeadTrap trapRef={trapRef} />
                 <div>
                   <label htmlFor={`${formId}-0`} className="block font-tech text-[10.5px] uppercase tracking-wider text-[#FBFBF8]/80 font-bold mb-1.5">
                     {t('leadForm.yourName')}
@@ -139,6 +136,7 @@ export const CtaSection: React.FC<CtaSectionProps> = ({ badge, title, descriptio
                   />
                 </div>
 
+                <LeadErrorMessage error={error} tone="dark" />
                 <button
                   type="submit"
                   disabled={submitting}

@@ -2,7 +2,7 @@
  * Leads in the admin (Phase K-1, docs/admin-leads.md): Russian wording of statuses, forms,
  * notification states and history entries. Pure functions (unit-tested in node).
  */
-import { LEAD_STATUSES, type LeadForm, type LeadStatus } from '@soltex/core/domain';
+import { LEAD_STATUSES, touchSummary, type LeadForm, type LeadStatus, type LeadTouch } from '@soltex/core/domain';
 
 export const LEADS_KEY = ['leads'] as const;
 
@@ -87,6 +87,22 @@ export function describeLeadEvent(e: LeadEventView, nameOf: (id: string | null) 
     default:
       return e.kind;
   }
+}
+
+/**
+ * One attribution touch in words (Phase K-2): the source line, then where the visitor landed and
+ * when, the referrer when campaign parameters name the source, and the remaining parameters.
+ */
+export function describeTouch(t: LeadTouch, formatDate: (iso: string) => string): { source: string; details: string } {
+  const utm = t.utm_source || t.utm_medium || t.utm_campaign;
+  const extra = [
+    t.utm_term && `ключевое слово: ${t.utm_term}`,
+    t.utm_content && `объявление: ${t.utm_content}`,
+    t.gclid && 'метка Google Ads',
+    t.fbclid && 'метка Facebook',
+    utm && t.referrer && `переход с ${t.referrer}`,
+  ].filter(Boolean);
+  return { source: touchSummary(t), details: [`страница входа ${t.landing}`, formatDate(t.at), ...extra].join(' · ') };
 }
 
 /** «tel:» link value: digits and a leading plus only. */

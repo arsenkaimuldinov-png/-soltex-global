@@ -1,19 +1,21 @@
 # Leads (Phase K)
 
-Status: **Phase K-1** implemented (2026-10-17): the server intake, protection, notifications, the
-«Заявки» section, export and anonymization. **Phase K-2** (next): the forms of the site send to the
-server instead of the demo service, and UTM attribution. Both are behind flags that stay **off**
-until the client confirms the legal texts. Implements approved §13 and §19 (e-mail), and review §K.
+Status:
+- **Phase K-1** implemented (2026-10-17): the server intake, protection, notifications, the «Заявки» section, export and anonymization.
+- **Phase K-2** implemented (2026-10-17): the forms of the site send to the server, and UTM attribution (§10). Both are behind switches that stay **off** until the client confirms the legal texts; with them off the site behaves exactly as before.
+
+Implements approved §13 and §19 (e-mail), and review §K.
 
 **Client decisions still open** (approved §21–§22), handled with safe defaults:
 
 | Decision | Until it is made |
 |---|---|
 | B3 privacy policy / consent text | `consent_basis = notice_only`, `consent_at` empty; `PRIVACY_NOTICE_VERSION` unset |
-| B4 consent checkbox in the forms | The forms are not changed |
+| B4 consent checkbox in the forms | No checkbox is added; the forms' fields are unchanged |
+| B3 + B4 sending from the site at all | `SITE_LEADS_ENABLED=false`: the forms use the demo service, nothing is sent |
 | B5 SMTP sender and recipients | `SMTP_URL` / `LEAD_NOTIFY_TO` unset: notices wait in the outbox (nothing is lost) and the admin says why |
 | §22.4 retention period | `LEAD_RETENTION_MONTHS=24` (the architecture's proposal) |
-| §22.6 attribution | Not collected (K-2, `ATTRIBUTION_ENABLED=false`) |
+| §22.6 attribution | Not collected (`ATTRIBUTION_ENABLED=false`): no attribution code in the site bundle |
 
 ## 1. Data model (migration `0009`)
 
@@ -27,7 +29,7 @@ until the client confirms the legal texts. Implements approved §13 and §19 (e-
 - `ip_hash`: keyed hash only;
 - status, assignee, spam score and reasons;
 - consent record (`consent_basis`, `privacy_notice_version`, `consent_text_version`, `consent_at`);
-- `attribution` (K-2);
+- `attribution`: first and last touch (K-2, §10), only while `ATTRIBUTION_ENABLED`;
 - `notified_at`, `version`, bin (`deleted_at` / `deleted_by`), `anonymized_at`.
 
 **`lead_events`** — the history:
@@ -52,7 +54,8 @@ until the client confirms the legal texts. Implements approved §13 and §19 (e-
 - body ≤ 20 KB (413);
 - 5 forms per 10 minutes per IP (429);
 - field lengths of `LEAD_LIMITS`;
-- unknown properties are refused.
+- unknown properties are refused;
+- `attribution` (K-2): `first` / `last`, each with `at`, `landing` (path, no query), `referrer` (origin only), `direct`, and only the allowlisted parameters, each ≤ 200 characters. Stored only while `ATTRIBUTION_ENABLED`; otherwise ignored.
 
 **Validation:**
 - required fields per form: CTA and inquiry need name + phone; contact needs name + phone + e-mail;
@@ -98,20 +101,22 @@ until the client confirms the legal texts. Implements approved §13 and §19 (e-
 - status chips with counts, and «Корзина»;
 - search: name, company or number; or an **exact** e-mail / phone, through the blind index (no partial search in encrypted fields);
 - filters: form, assignee, period. All filters are kept in the address;
-- the table shows the number + date, contact with phone / e-mail and a duplicate hint, form + topic, status, assignee, and a failed-notice mark.
+- the table shows the number + date, contact with phone / e-mail and a duplicate hint, form + topic + first-touch source, status, assignee, and a failed-notice mark;
+- while `SITE_LEADS_ENABLED` is off, a notice says the site forms are in demo mode and leads from the site do not arrive.
 
 **Lead page:**
 - contacts with `tel:` / `mailto:` and copy;
 - the message;
 - status and assignee (leads.manage; If-Match; the assignee must be a user who may read leads);
 - encrypted notes and the history in words;
-- «Откуда»: form, topic, page, language, notification and the consent record;
+- «Откуда»: form, topic, page, language, notification, the consent record and, with attribution, «Первый визит» / «Последний источник» (source, landing page, date, keyword, referrer);
 - «В корзину» / «Восстановить»;
 - spam reasons.
 
 **«Выгрузить CSV»** (leads.export):
 - needs a fresh second factor (step-up), and uses the list's filters;
 - `;`-separated, UTF-8 with BOM, CRLF;
+- the last two columns are the source of the first visit and of the last one, in words;
 - every cell is formula-safe (a leading `= + - @` gets a quote) and quoted when needed;
 - audited as `lead.export` (count and filter), and the Owners are notified.
 
@@ -141,25 +146,54 @@ until the client confirms the legal texts. Implements approved §13 and §19 (e-
 | `LEAD_NOTIFY_TO` | Comma-separated recipients of new-lead notices |
 | `LEAD_RETENTION_MONTHS` | 1–120, default 24 |
 | `PRIVACY_NOTICE_VERSION` | Version of the privacy notice the forms display; stored with each lead |
-| `PUBLIC_SITE_URL` | The only origin allowed to send forms |
+| `PUBLIC_SITE_URL` | The only origin allowed to send forms; the forms send to `<PUBLIC_SITE_URL>/api/v1/public/leads` |
+| `SITE_LEADS_ENABLED` | `false` (default): the site forms use the demo service. `true`: they send to the API. Applied by the next site build |
+| `ATTRIBUTION_ENABLED` | `false` (default). `true`: UTM attribution on the site and stored with leads. Needs `SITE_LEADS_ENABLED` |
 
 ## 8. Tests
 
 | Suite | What |
 |---|---|
 | `packages/core/test/leads.test.ts` | spam verdict, normalization, references, CSV cells |
-| `apps/api/test/leads.db.test.ts` | intake: encryption, blind index, consent record, outbox; origin / header / validation / size / rate limits; spam; outbox with and without SMTP, retry; admin list / search / detail; status / assignee / notes with audit and If-Match; export with step-up, formula escaping, BOM, audit and Owner notice; bin and anonymization (deleted and retention); the canary test |
+| `apps/web/test/leads.test.ts` | switches; the HTTP service (header, body, answers, network error, no sending on another origin); attribution (allowlist, referrer origin, landing path, 200-character limit, first touch once for 90 days, last non-direct touch, clearing, blocked storage) |
+| `apps/api/src/config.test.ts` | the switches are off by default; the build gets only the public endpoint; attribution needs the forms |
+| `apps/api/test/leads.db.test.ts` | attribution: validation, stored only while switched on, in the detail, CSV and anonymization; intake: encryption, blind index, consent record, outbox; origin / header / validation / size / rate limits; spam; outbox with and without SMTP, retry; admin list / search / detail; status / assignee / notes with audit and If-Match; export with step-up, formula escaping, BOM, audit and Owner notice; bin and anonymization (deleted and retention); the canary test |
 | `apps/api/test/nginx.db.test.ts` | the form reaches the API through nginx; no other API path on the site host |
 | `apps/admin/test/leads.test.ts` | Russian wording |
 | `apps/admin/e2e/leads.e2e.mjs` | a sent lead in the list; work on it; notice waiting for SMTP; CSV download; bin and restore; editor without access; mobile |
+| `apps/admin/e2e/site-forms.e2e.mjs` | the published release with live forms: hidden honeypot; attribution from a campaign visit; an error keeps the values; CTA, inquiry dialog (server reference) and contact form; the three leads with their source in «Заявки» |
 
 ## 9. Deviations (Phase K-1)
 
 | # | Deviation | Reason |
 |---|---|---|
-| K-1 | The site forms still use the demo service | K-2, behind a flag, after the client confirms the privacy texts (B3) |
+| K-1 | The site forms use the demo service until `SITE_LEADS_ENABLED=true` | The client confirms the privacy texts first (B3) |
 | K-2 | Outbox delivered by the existing worker, not pg-boss | Same pattern as releases and image copies; one process, SKIP LOCKED |
 | K-3 | Security e-mails (password reset, alerts) still use the unconfigured notifier | They move to the same outbox once SMTP (B5) is known; password-reset tokens must not be stored in the outbox in plain text |
 | K-4 | Recipients come from the environment, not from a settings screen | «Настройки» is a later screen; recipients are few and change rarely |
 | K-5 | No CAPTCHA | Review §K: only if spam gets through the honeypot / timing / rate limits |
 | K-6 | The list shows up to 200 leads per filter | Volume is small; filters narrow it down. Server paging exists in the API (`limit` / `offset`) |
+| K-7 | Attribution is stored in the browser without a consent banner once switched on | Approved §13.3 leaves this to legal review; the switch stays off until then. If consent is required, recording waits for it (one call in `main.tsx`) |
+| K-8 | On a release preview the forms behave like the demo service | A preview must never create leads; the real service sends only on the site's own origin |
+| K-9 | The three error texts of the forms are new UI strings in six languages | Written to the i18n terminology; to be reviewed with the other translations |
+
+## 10. Site forms and attribution (Phase K-2)
+
+**Switches.** The API's `SITE_LEADS_ENABLED` and `ATTRIBUTION_ENABLED` reach the site build through the publishing builder (`siteBuildEnv`) as `SOLTEX_LEADS_ENDPOINT=<PUBLIC_SITE_URL>/api/v1/public/leads` and `SOLTEX_ATTRIBUTION=true`, public values only. `vite.config.ts` inlines them as constants; prerender reads the same environment, so the HTML and the hydrated page agree. They apply from the next published release.
+
+**Switched off** (default): the forms use the demo service exactly as before. No honeypot, no error message, no attribution code in the bundle. A build without the switches has byte-identical HTML and CSS to the previous release; only the JavaScript changes (renamed identifiers and the three new UI strings).
+
+**Forms** (`components/LeadFormGuard.tsx`, shared by the CTA block, the inquiry dialog and the contact page; fields unchanged):
+- a honeypot field: invisible, out of the tab order, hidden from assistive technology;
+- the fill time from showing the form (the dialog: from opening it) to sending it;
+- on failure a message in the visitor's language, and the entered values stay: «could not be sent» (network, server), «too many requests» (429), «check phone and e-mail» (400);
+- success shows the server's reference (`SOL-2026-000123`) in the dialog.
+
+**HTTP service** (`services/leads/http.ts`): `POST` with `X-Requested-With: soltex-site`, no cookies, 15-second timeout; empty optional fields are left out. On any origin other than the endpoint's (a release preview, a local copy) it behaves like the demo service.
+
+**Attribution** (`services/leads/attribution.ts`, approved §13.3):
+- recorded once per page load: allowlisted parameters (`utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, `utm_content`, `gclid`, `fbclid`), landing path, referrer origin; each value ≤ 200 characters;
+- first touch: `localStorage`, set once, kept 90 days; a visit without parameters or external referrer is recorded as `direct` only when nothing is stored;
+- last touch: `sessionStorage`, replaced only by campaign parameters or an external referrer;
+- both are sent with a lead and cleared after it is accepted;
+- no cookies; blocked storage only means no attribution.

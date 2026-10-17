@@ -30,7 +30,7 @@ import { redirectRoutes } from './routes/redirects.ts';
 import { mediaRoutes } from './routes/media.ts';
 import { leadRoutes } from './routes/leads.ts';
 
-export const API_VERSION = '0.11.0';
+export const API_VERSION = '0.12.0';
 export const BODY_LIMIT_BYTES = 64 * 1024;
 
 export interface BuildOptions {

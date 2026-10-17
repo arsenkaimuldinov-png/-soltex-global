@@ -3,7 +3,8 @@
  * validation by field name, size and rate limits, spam), encryption at rest and the blind index,
  * the outbox and its e-mail, the admin (list, search, status, assignee, notes, duplicates, bin,
  * export with step-up and formula-safe CSV), anonymization, and the canary test: personal data of
- * a lead never reaches the logs, the audit log, the outbox or lead events in plain text.
+ * a lead never reaches the logs, the audit log, the outbox or lead events in plain text. Phase K-2:
+ * attribution (validated, stored only while switched on, shown in the detail and CSV, anonymized).
  */
 import assert from 'node:assert/strict';
 import { after, before, describe, test } from 'node:test';
@@ -122,6 +123,39 @@ describe('Leads (Phase K-1)', { skip: !DB_ENABLED && 'DATABASE_URL not set' }, (
     assert.equal((queued.rows[0] as { n: number }).n, 0);
   });
 
+  test('attribution (Phase K-2): validated; stored only while ATTRIBUTION_ENABLED; in the detail and the CSV', async () => {
+    const touch = { at: '2026-10-01T10:00:00.000Z', landing: '/ru/projects', referrer: 'https://www.google.com', utm_source: 'google', utm_medium: 'cpc', utm_campaign: 'canary-campaign-Qx7' };
+    const attribution = { first: { at: '2026-09-20T08:00:00.000Z', landing: '/', direct: true }, last: touch };
+    const site = t.deps.config.site;
+    assert.deepEqual((await marketer.c.req('GET', '/api/v1/leads?limit=1')).json().site, { formsLive: false, attribution: false });
+    const off = await submit(contact({ phone: '+77015550001' }, { attribution }));
+    assert.equal(off.statusCode, 201, off.body);
+    assert.equal((await leadRow(off.json().reference)).attribution, null, 'switched off: ignored');
+    for (const bad of [
+      { last: { ...touch, email: 'x@y.z' } },
+      { last: { ...touch, referrer: 'https://www.google.com/search?q=x' } },
+      { last: { ...touch, landing: '/ru?utm_source=x' } },
+      { last: { ...touch, utm_term: 'x'.repeat(201) } },
+      { middle: touch },
+    ])
+      assert.equal((await submit(contact({ phone: '+77015550002' }, { attribution: bad }))).json().code, 'validation_failed', JSON.stringify(bad).slice(0, 80));
+    site.leadsEnabled = true;
+    site.attributionEnabled = true;
+    try {
+      assert.deepEqual((await marketer.c.req('GET', '/api/v1/leads?limit=1')).json().site, { formsLive: true, attribution: true });
+      const on = await submit(contact({ phone: '+77015550003' }, { attribution }));
+      assert.equal(on.statusCode, 201, on.body);
+      const row = await leadRow(on.json().reference);
+      assert.deepEqual(row.attribution, attribution);
+      const detail = (await marketer.c.req('GET', `/api/v1/leads/${row.id}`)).json();
+      assert.deepEqual(detail.attribution, attribution);
+      assert.equal((await submit(contact({ phone: '+77015550004' }, { attribution: {} }))).statusCode, 201, 'an empty object is accepted and stored as nothing');
+    } finally {
+      site.leadsEnabled = false;
+      site.attributionEnabled = false;
+    }
+  });
+
   test('outbox: the notice is sent with the decrypted lead; without SMTP it waits and is retried', async () => {
     email.failWith = 'mail_not_configured';
     while ((await processNextOutbox(t.deps, email)) === 'done');
@@ -193,6 +227,8 @@ describe('Leads (Phase K-1)', { skip: !DB_ENABLED && 'DATABASE_URL not set' }, (
     assert.match(String(res.headers['content-type']), /^text\/csv/);
     assert.match(String(res.headers['content-disposition']), /attachment; filename="soltex-leads-\d{4}-\d{2}-\d{2}\.csv"/);
     assert.ok(res.body.startsWith('﻿Номер;Дата (UTC);Статус'));
+    assert.ok(res.body.split('\r\n')[0]!.endsWith(';Ответственный;Источник: первый визит;Источник: последний'));
+    assert.ok(res.body.includes(';прямой заход;google / cpc / canary-campaign-Qx7'), 'attribution in words');
     assert.ok(res.body.includes(`"'=HYPERLINK(""http://evil"")"`), 'formula neutralised');
     assert.ok(res.body.includes("'+77012223344"), 'phone starting with + is not a formula');
     assert.ok(!res.body.includes(';Спам;'), 'filtered: status new only');
@@ -227,8 +263,9 @@ describe('Leads (Phase K-1)', { skip: !DB_ENABLED && 'DATABASE_URL not set' }, (
     t.clock.advance(24 * 31 * 86_400_000);
     const n = await anonymizeDue(t.deps);
     assert.ok(n >= 7, `retention: ${n}`);
-    const [{ left }] = (await t.deps.db!.execute(sql`SELECT count(*)::int AS left FROM leads WHERE anonymized_at IS NULL`)).rows as [{ left: number }];
+    const [{ left, attributed }] = (await t.deps.db!.execute(sql`SELECT count(*) FILTER (WHERE anonymized_at IS NULL)::int AS left, count(*) FILTER (WHERE attribution IS NOT NULL)::int AS attributed FROM leads`)).rows as [{ left: number; attributed: number }];
     assert.equal(left, 0);
+    assert.equal(attributed, 0, 'attribution is removed with the personal data');
   });
 
   test('canary: no personal value of a lead in the logs, audit log, outbox or lead events', async () => {
@@ -242,5 +279,6 @@ describe('Leads (Phase K-1)', { skip: !DB_ENABLED && 'DATABASE_URL not set' }, (
              (SELECT coalesce(string_agg(data::text, ' '), '') FROM lead_events) AS events`);
     const row = tables.rows[0] as { audit: string; outbox: string; events: string };
     for (const [where, text] of Object.entries(row)) assert.ok(!/qx7|canary/i.test(text), `${where} contains a canary`);
+    assert.ok(!all.includes('canary-campaign'), 'attribution values are not logged either');
   });
 });

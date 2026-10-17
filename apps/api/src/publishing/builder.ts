@@ -18,6 +18,7 @@ import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import type { ContentStore } from '@soltex/core/content';
+import type { ApiConfig } from '../config.ts';
 import { buildDir, removeDir } from './artifacts.ts';
 
 export interface BuildIssue {
@@ -117,7 +118,19 @@ function classify(output: string): BuildIssue {
 }
 
 /** The real builder: `npm run build` of the copied apps/web with CONTENT_SOURCE=file. */
-export function siteBuilder(options: { timeoutMs?: number; mediaDir?: string } = {}): Builder {
+/**
+ * Public switches the site build reads (Phase K-2, apps/web/src/services/leads/flags.ts). Only
+ * public values: the form endpoint on the site's own origin, and whether attribution is on.
+ */
+export function siteBuildEnv(config: Pick<ApiConfig, 'publicSiteUrl' | 'site'>): Record<string, string> {
+  if (!config.site.leadsEnabled) return {};
+  return {
+    SOLTEX_LEADS_ENDPOINT: `${config.publicSiteUrl}/api/v1/public/leads`,
+    ...(config.site.attributionEnabled ? { SOLTEX_ATTRIBUTION: 'true' } : {}),
+  };
+}
+
+export function siteBuilder(options: { timeoutMs?: number; mediaDir?: string; siteEnv?: Record<string, string> } = {}): Builder {
   const timeoutMs = options.timeoutMs ?? 10 * 60_000;
   return {
     async build({ root, key, store, heartbeat }) {
@@ -138,6 +151,8 @@ export function siteBuilder(options: { timeoutMs?: number; mediaDir?: string } =
         npm_config_update_notifier: 'false',
         // Media library files (/media/…) are checked against shared storage, not copied (Phase J).
         ...(options.mediaDir ? { MEDIA_ROOT: options.mediaDir } : {}),
+        // Form switches (Phase K-2): public values only.
+        ...(options.siteEnv ?? {}),
       };
       let log = '';
       const append = (b: Buffer) => {

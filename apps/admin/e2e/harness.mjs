@@ -21,7 +21,8 @@ export const user = (role, n = 0) => {
 
 let browser;
 export async function launch() {
-  browser ??= await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
+  // site.e2e.test: the public site of the run (scripts/e2e-site-server.mjs, Phase K-2).
+  browser ??= await chromium.launch({ args: ['--host-resolver-rules=MAP site.e2e.test 127.0.0.1'], ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}) });
   return browser;
 }
 export async function closeBrowser() {

@@ -24,6 +24,8 @@ import {
   normalizeEmail,
   normalizePhone,
   spamVerdict,
+  touchSummary,
+  type LeadAttribution,
   type LeadForm,
   type LeadStatus,
   type Locale,
@@ -65,6 +67,7 @@ export interface LeadInput {
   pagePath: string;
   hp?: string;
   fillMs?: number;
+  attribution?: LeadAttribution;
 }
 
 export async function createLead(deps: Deps, input: LeadInput, ipHash: string): Promise<{ reference: string; spam: boolean }> {
@@ -104,6 +107,8 @@ export async function createLead(deps: Deps, input: LeadInput, ipHash: string): 
       spamReasons: verdict.reasons,
       consentBasis: 'notice_only',
       privacyNoticeVersion: deps.config.leads.privacyNoticeVersion,
+      // Approved §13.3: kept only while attribution is switched on; otherwise ignored.
+      attribution: deps.config.site.attributionEnabled && (input.attribution?.first || input.attribution?.last) ? input.attribution : null,
       createdAt: now,
       updatedAt: now,
     });
@@ -172,6 +177,7 @@ export interface LeadView {
   spamReasons: string[];
   consentBasis: 'notice_only' | 'checkbox';
   privacyNoticeVersion: string | null;
+  attribution: LeadAttribution | null;
   notification: 'sent' | 'pending' | 'failed' | 'not_needed';
   duplicates: number;
   version: number;
@@ -221,6 +227,7 @@ function toView(deps: Deps, r: LeadRow, u: Map<string, { id: string; name: strin
     spamReasons: r.spamReasons,
     consentBasis: r.consentBasis,
     privacyNoticeVersion: r.privacyNoticeVersion,
+    attribution: (r.attribution as LeadAttribution | null) ?? null,
     notification: r.notifiedAt || state?.sent ? 'sent' : !state ? 'not_needed' : state.error ? 'failed' : 'pending',
     duplicates: dup.get(r.id) ?? 0,
     version: r.version,
@@ -242,7 +249,13 @@ export async function listLeads(deps: Deps, q: LeadListQuery) {
     .from(s.leads)
     .where(isNull(s.leads.deletedAt))
     .groupBy(s.leads.status);
-  return { items: rows.map((r) => toView(deps, r, u, n, dup)), total: Number(total), byStatus: Object.fromEntries(counts.map((c) => [c.status, Number(c.n)])) };
+  return {
+    items: rows.map((r) => toView(deps, r, u, n, dup)),
+    total: Number(total),
+    byStatus: Object.fromEntries(counts.map((c) => [c.status, Number(c.n)])),
+    // Phase K-2: whether the site's forms send here (applies from the next site build).
+    site: { formsLive: deps.config.site.leadsEnabled, attribution: deps.config.site.attributionEnabled },
+  };
 }
 
 export interface LeadEventView {
@@ -368,7 +381,7 @@ export async function exportLeads(deps: Deps, actor: UserRow, q: Omit<LeadListQu
   const db = requireDb(deps);
   const rows = await db.select().from(s.leads).where(whereOf(deps, { ...q, deleted: false })).orderBy(desc(s.leads.createdAt)).limit(50_000);
   const u = await users(db, rows.map((r) => r.assigneeId));
-  const header = ['Номер', 'Дата (UTC)', 'Статус', 'Форма', 'Язык', 'Страница', 'Тема', 'Имя', 'Компания', 'Телефон', 'E-mail', 'Сообщение', 'Ответственный'];
+  const header = ['Номер', 'Дата (UTC)', 'Статус', 'Форма', 'Язык', 'Страница', 'Тема', 'Имя', 'Компания', 'Телефон', 'E-mail', 'Сообщение', 'Ответственный', 'Источник: первый визит', 'Источник: последний'];
   const lines = [header.map(csvCell).join(';')];
   for (const r of rows)
     lines.push(
@@ -386,6 +399,8 @@ export async function exportLeads(deps: Deps, actor: UserRow, q: Omit<LeadListQu
         dec(deps, r.id, 'email', r.emailEnc),
         dec(deps, r.id, 'message', r.messageEnc),
         r.assigneeId ? u.get(r.assigneeId)?.name ?? '' : '',
+        touchSummary((r.attribution as LeadAttribution | null)?.first),
+        touchSummary((r.attribution as LeadAttribution | null)?.last),
       ]
         .map(csvCell)
         .join(';')

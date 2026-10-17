@@ -3,7 +3,7 @@ import { X, CheckCircle2, ArrowRight, ShieldCheck } from 'lucide-react';
 import { useI18n } from '../i18n/I18nProvider';
 import { useDialog } from '../hooks/useDialog';
 import { usePresence } from '../motion/usePresence';
-import { leadService } from '../services/leads';
+import { LeadErrorMessage, LeadTrap, useLeadSubmission } from './LeadFormGuard';
 import { resolveInquiryTopic, type InquiryTopic } from '../services/leads/topics';
 
 interface ProjectInquiryModalProps {
@@ -24,7 +24,7 @@ export const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { submit, submitting: isSubmitting, error, trapRef } = useLeadSubmission(isOpen);
   const [reference, setReference] = useState('');
   useDialog(isOpen, onClose);
   const presence = usePresence(isOpen || null, 220);
@@ -35,23 +35,13 @@ export const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({
     e.preventDefault();
     if (!name.trim() || !phone.trim()) return;
 
-    setIsSubmitting(true);
-    void leadService
-      .submitLead({
-        formType: 'inquiry_modal',
-        fields: { name, phone },
-        topic: topicText,
-        locale,
-        pagePath: path,
-      })
-      .then((result) => {
-        setIsSubmitting(false);
-        if (result.ok) {
-          // The reference is created when the inquiry is submitted, never during rendering.
-          setReference(result.reference);
-          setSubmitted(true);
-        }
-      });
+    void submit({ formType: 'inquiry_modal', fields: { name, phone }, topic: topicText, locale, pagePath: path }).then((result) => {
+      if (result.ok) {
+        // The reference is created when the inquiry is submitted, never during rendering.
+        setReference(result.reference);
+        setSubmitted(true);
+      }
+    });
   };
 
   const handleReset = () => {
@@ -126,6 +116,7 @@ export const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-5">
+            <LeadTrap trapRef={trapRef} />
             <div>
               <h3 className="text-2xl font-bold text-[#121815] tracking-tight mb-1.5 font-serif">
                 {t('inquiry.title')}
@@ -174,6 +165,8 @@ export const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({
               <ShieldCheck className="w-3.5 h-3.5 text-[#0E482C] shrink-0" />
               <span>{t('inquiry.privacyNote')}</span>
             </div>
+
+            <LeadErrorMessage error={error} tone="light" />
 
             {/* Submit Button */}
             <button

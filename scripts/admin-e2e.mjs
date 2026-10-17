@@ -8,7 +8,8 @@
  * Steps: migrate → import the seed content → build the admin → create test users with unique e-mails (apps/api/test/e2e-seed.ts)
  * → start the API (random keys, loopback port), the publishing worker and the preview server
  * (Phase G; releases go to a fresh temporary RELEASES_DIR, never to the repository's .releases or
- * a real site) and vite preview → run apps/admin/e2e/*.e2e.mjs with node:test → stop everything
+ * a real site), the public site of the published release with live forms (Phase K-2,
+ * scripts/e2e-site-server.mjs) and vite preview → run apps/admin/e2e/*.e2e.mjs with node:test → stop everything
  * and delete the temporary releases. Nothing is deleted from the database, so use a test database.
  *
  * Needs Playwright + Chromium (not a project dependency), like scripts/qa-regression.mjs:
@@ -28,6 +29,11 @@ const WEB_PORT = Number(process.env.E2E_ADMIN_PORT ?? 4175);
 const ORIGIN = `http://localhost:${WEB_PORT}`;
 const PREVIEW_PORT = Number(process.env.E2E_PREVIEW_PORT ?? 4176);
 const PREVIEW_ORIGIN = `http://localhost:${PREVIEW_PORT}`;
+// The public site (Phase K-2): serves the published release; its forms send to the API. A name, not
+// localhost: the release check refuses loopback URLs in a site build. Chromium maps it to 127.0.0.1
+// (apps/admin/e2e/harness.mjs).
+const SITE_PORT = Number(process.env.E2E_SITE_PORT ?? 4177);
+const SITE_ORIGIN = `http://site.e2e.test:${SITE_PORT}`;
 const RELEASES_DIR = fs.mkdtempSync(path.join(os.tmpdir(), 'soltex-e2e-releases-'));
 // Media library of this run (Phase J); files are read-only by design, so they are made writable before removal.
 const MEDIA_DIR = fs.mkdtempSync(path.join(os.tmpdir(), 'soltex-e2e-media-'));
@@ -92,7 +98,7 @@ run('npm', ['run', 'db:import']);
 if (!args.includes('--no-build')) run('npm', ['run', 'build:admin']);
 
 // admin.e2e.mjs uses the first user of each role; content, translations, publishing and seo their own.
-const roles = ['owner', 'admin', 'content_manager', 'editor', 'marketer', 'editor', 'editor', 'seo_specialist', 'admin', 'editor', 'content_manager', 'marketer', 'content_manager', 'admin', 'editor', 'seo_specialist', 'content_manager', 'seo_specialist', 'content_manager', 'editor', 'content_manager', 'marketer'];
+const roles = ['owner', 'admin', 'content_manager', 'editor', 'marketer', 'editor', 'editor', 'seo_specialist', 'admin', 'editor', 'content_manager', 'marketer', 'content_manager', 'admin', 'editor', 'seo_specialist', 'content_manager', 'seo_specialist', 'content_manager', 'editor', 'content_manager', 'marketer', 'marketer'];
 run(process.execPath, ['--import', 'tsx', 'apps/api/test/e2e-seed.ts', 'reset-run'], { capture: true });
 const users = JSON.parse(run(process.execPath, ['--import', 'tsx', 'apps/api/test/e2e-seed.ts', 'users', roles.join(',')], { capture: true }));
 
@@ -112,6 +118,10 @@ const apiEnv = {
   MEDIA_DIR,
   PREVIEW_ORIGIN,
   PREVIEW_PORT: String(PREVIEW_PORT),
+  // Phase K-2: releases built in this run have live forms with attribution, sent to SITE_ORIGIN.
+  PUBLIC_SITE_URL: SITE_ORIGIN,
+  SITE_LEADS_ENABLED: 'true',
+  ATTRIBUTION_ENABLED: 'true',
 };
 const api = spawn(process.execPath, ['--import', 'tsx', 'apps/api/src/server.ts'], { cwd: ROOT, env: { ...process.env, ...apiEnv }, stdio: ['ignore', 'inherit', 'inherit'] });
 children.push(api);
@@ -119,6 +129,8 @@ const worker = spawn(process.execPath, ['--import', 'tsx', 'apps/api/src/worker.
 children.push(worker);
 const previewServer = spawn(process.execPath, ['--import', 'tsx', 'apps/api/src/preview-server.ts'], { cwd: ROOT, env: { ...process.env, ...apiEnv }, stdio: ['ignore', 'inherit', 'inherit'] });
 children.push(previewServer);
+const siteServer = spawn(process.execPath, ['scripts/e2e-site-server.mjs', RELEASES_DIR, String(SITE_PORT), String(API_PORT)], { cwd: ROOT, stdio: ['ignore', 'ignore', 'inherit'] });
+children.push(siteServer);
 const preview = spawn('npx', ['vite', 'preview', '--port', String(WEB_PORT), '--strictPort'], {
   cwd: path.join(ROOT, 'apps/admin'),
   env: { ...process.env, ADMIN_API_PROXY: `http://127.0.0.1:${API_PORT}` },
@@ -147,6 +159,7 @@ const result = spawnSync(process.execPath, ['--test', '--test-concurrency=1', ..
     E2E_USERS: JSON.stringify(users),
     E2E_RELEASES_DIR: RELEASES_DIR,
     E2E_PREVIEW_ORIGIN: PREVIEW_ORIGIN,
+    E2E_SITE_ORIGIN: SITE_ORIGIN,
     E2E_SHOTS: args.includes('--shots') ? SHOTS : '',
   },
 });

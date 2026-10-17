@@ -8,7 +8,7 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { AlertTriangle, Download, Search } from 'lucide-react';
-import { LEAD_FORMS, LEAD_STATUSES, type LeadForm, type LeadStatus } from '@soltex/core/domain';
+import { LEAD_FORMS, LEAD_STATUSES, touchSummary, type LeadForm, type LeadStatus } from '@soltex/core/domain';
 import { api, downloadFile } from '../../lib/api/client';
 import type { LeadItem } from '../../lib/api/schema.gen';
 import { formatDateTime, plural } from '../../lib/format';
@@ -118,6 +118,7 @@ export function LeadsListPage() {
           <span className="block min-w-36 text-xs">
             {LEAD_FORM_LABELS[c.getValue()]}
             {c.row.original.topic ? <span className="block text-ink-muted">{c.row.original.topic}</span> : null}
+            {c.row.original.attribution?.first ? <span className="block text-ink-muted">Источник: {touchSummary(c.row.original.attribution.first)}</span> : null}
           </span>
         ),
       }),
@@ -155,6 +156,12 @@ export function LeadsListPage() {
         }
       />
       <div className="space-y-4">
+        {list.data && !list.data.site.formsLive ? (
+          <Alert tone="info">
+            Формы сайта пока работают в демонстрационном режиме: заявки с сайта сюда не приходят. Их включают после утверждения текстов о персональных
+            данных (настройка сервера SITE_LEADS_ENABLED); изменение действует со следующей публикации сайта.
+          </Alert>
+        ) : null}
         <div role="group" aria-label="Статус" className="flex flex-wrap gap-1.5" data-status-filter>
           <button
             type="button"

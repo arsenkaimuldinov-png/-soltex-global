@@ -15,7 +15,7 @@
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
-import { CONTENT_LOCALES, LEAD_BODY_MAX_BYTES, LEAD_FORMS, LEAD_LIMITS, LEAD_STATUSES } from '@soltex/core/domain';
+import { CONTENT_LOCALES, LEAD_ATTRIBUTION_MAX, LEAD_BODY_MAX_BYTES, LEAD_FORMS, LEAD_LIMITS, LEAD_STATUSES } from '@soltex/core/domain';
 import type { Deps } from '../deps.ts';
 import { clientInfo } from '../deps.ts';
 import { authOf } from '../auth/guard.ts';
@@ -28,6 +28,26 @@ const Form = z.enum(LEAD_FORMS);
 const Status = z.enum(LEAD_STATUSES);
 const IfMatch = z.object({ 'if-match': z.string().optional().describe('Required. Version the change is based on (the ETag of GET), e.g. "3"') });
 const Day = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
+
+/** One visit (Phase K-2, approved §13.3): allowlisted parameters only, each ≤ 200 characters. */
+const Value = z.string().max(LEAD_ATTRIBUTION_MAX);
+const Touch = z
+  .object({
+    at: z.iso.datetime(),
+    landing: Value.regex(/^\/[^\s?#]*$/).describe('Landing path, no query'),
+    referrer: Value.regex(/^https?:\/\/[^/\s?#]+$/).optional().describe('Referrer origin only'),
+    direct: z.literal(true).optional(),
+    utm_source: Value.optional(),
+    utm_medium: Value.optional(),
+    utm_campaign: Value.optional(),
+    utm_term: Value.optional(),
+    utm_content: Value.optional(),
+    gclid: Value.optional(),
+    fbclid: Value.optional(),
+  })
+  .strict()
+  .meta({ id: 'LeadTouch' });
+const Attribution = z.object({ first: Touch.optional(), last: Touch.optional() }).strict().meta({ id: 'LeadAttribution' });
 
 const LeadInput = z
   .object({
@@ -48,6 +68,8 @@ const LeadInput = z
     hp: z.string().max(500).optional(),
     /** Milliseconds from showing the form to sending it. */
     fillMs: z.number().int().min(0).max(86_400_000).optional(),
+    /** First and last touch (Phase K-2); stored only while ATTRIBUTION_ENABLED. */
+    attribution: Attribution.optional(),
   })
   .strict();
 
@@ -70,6 +92,7 @@ const LeadItem = z
     spamReasons: z.array(z.string()),
     consentBasis: z.enum(['notice_only', 'checkbox']),
     privacyNoticeVersion: z.string().nullable(),
+    attribution: Attribution.nullable(),
     notification: z.enum(['sent', 'pending', 'failed', 'not_needed']),
     duplicates: z.number().int().describe('Other leads with the same e-mail or phone'),
     version: z.number().int(),
@@ -134,7 +157,15 @@ export async function leadRoutes(app: FastifyInstance, deps: Deps) {
         tags,
         summary: 'List leads',
         querystring: ListQuery.extend({ limit: z.coerce.number().int().min(1).max(200).default(50), offset: z.coerce.number().int().min(0).default(0) }),
-        response: { 200: z.object({ items: z.array(LeadItem), total: z.number().int(), byStatus: z.record(z.string(), z.number().int()) }), ...problems(400, 401, 403) },
+        response: {
+          200: z.object({
+            items: z.array(LeadItem),
+            total: z.number().int(),
+            byStatus: z.record(z.string(), z.number().int()),
+            site: z.object({ formsLive: z.boolean(), attribution: z.boolean() }).describe('Switches of the site forms (SITE_LEADS_ENABLED, ATTRIBUTION_ENABLED); applied by the next site build'),
+          }),
+          ...problems(400, 401, 403),
+        },
       },
     },
     async (req) => listLeads(deps, req.query)

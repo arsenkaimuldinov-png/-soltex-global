@@ -1,9 +1,9 @@
 /**
  * Lead submission contract.
  *
- * Forms only know this interface. Where a lead ends up (a future custom backend endpoint,
- * a PHP handler on the production host, a CRM, e-mail…) is an implementation detail of the
- * service selected in ./index.ts — page components never change when the backend changes.
+ * Forms only know this interface. Where a lead ends up (the demo service, or the site API —
+ * POST /api/v1/public/leads, Phase K-2) is an implementation detail of the service selected in
+ * ./index.ts — page components never change when the backend changes.
  */
 import type { Locale } from '../../i18n/config';
 
@@ -26,6 +26,10 @@ export interface LeadPayload {
   locale: Locale;
   /** Page the form was submitted from (path without origin). */
   pagePath: string;
+  /** Hidden honeypot field; must stay empty (sent only by the real service, Phase K-2). */
+  hp?: string;
+  /** Milliseconds from showing the form to sending it (spam check, Phase K-2). */
+  fillMs?: number;
 }
 
 export type LeadSubmissionResult =

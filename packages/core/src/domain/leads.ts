@@ -88,3 +88,29 @@ export function csvCell(value: string | number | null | undefined): string {
   if (/^[=+\-@\t\r]/.test(s)) s = `'${s}`;
   return /[",\n\r;]/.test(s) || s !== s.trim() ? `"${s.replace(/"/g, '""')}"` : s;
 }
+
+/**
+ * UTM attribution (Phase K-2, approved §13.3): the only parameters recorded, the value limit, and
+ * how long the first touch is kept. The site records them, the API validates them, the admin shows
+ * them.
+ */
+export const LEAD_ATTRIBUTION_PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'] as const;
+export type LeadAttributionParam = (typeof LEAD_ATTRIBUTION_PARAMS)[number];
+export const LEAD_ATTRIBUTION_MAX = 200;
+export const LEAD_FIRST_TOUCH_DAYS = 90;
+
+/** One visit: when, landing path (no query), referrer origin, allowlisted parameters; `direct` = none of them. */
+export type LeadTouch = { at: string; landing: string; referrer?: string; direct?: true } & Partial<Record<LeadAttributionParam, string>>;
+export interface LeadAttribution {
+  first?: LeadTouch;
+  last?: LeadTouch;
+}
+
+/** "google / cpc / spring-2026", the referrer origin, «прямой заход» or «—»: one line for lists and CSV. */
+export function touchSummary(t: LeadTouch | null | undefined): string {
+  if (!t) return '';
+  if (t.direct) return 'прямой заход';
+  const utm = [t.utm_source, t.utm_medium, t.utm_campaign].filter(Boolean).join(' / ');
+  const click = t.gclid ? 'Google Ads' : t.fbclid ? 'Facebook / Instagram' : '';
+  return utm || click || t.referrer || '—';
+}

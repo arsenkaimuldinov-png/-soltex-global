@@ -871,3 +871,46 @@ K-1 … K-6 in [`admin-leads.md`](admin-leads.md) §9:
 - recipients come from the environment;
 - no CAPTCHA;
 - the list shows up to 200 leads per filter.
+
+---
+
+## Phase K-2: Site forms and UTM attribution (2026-10-17)
+
+**Base commit:** `bf1ff7d`. Details: [`admin-leads.md`](admin-leads.md) §10. Both switches (`SITE_LEADS_ENABLED`, `ATTRIBUTION_ENABLED`) stay **off** until the client approves the privacy texts; with them off the public site is unchanged.
+
+### What was done
+
+1. **Core:** the attribution vocabulary (`LEAD_ATTRIBUTION_PARAMS`, limit, 90 days, `LeadTouch`) and `touchSummary`, shared by the site, the API and the admin.
+2. **Site** (`apps/web`):
+   - build switches `SOLTEX_LEADS_ENDPOINT` / `SOLTEX_ATTRIBUTION` (`services/leads/flags.ts`), inlined by Vite; code behind an off switch is removed;
+   - `createHttpLeadService`: `POST` to the site's own origin with the site header; answers mapped to the existing result type; demo behaviour on any other origin (release previews);
+   - `LeadFormGuard.tsx`: one hook and two components for the three forms (honeypot, fill time, error message that keeps the values); the forms' fields are unchanged;
+   - attribution (`attribution.ts`): first touch 90 days in `localStorage`, last non-direct touch in `sessionStorage`, allowlist, referrer origin, cleared after a lead;
+   - three new UI strings in six languages;
+   - unit tests (`apps/web/test`, now part of `npm test`).
+3. **API** (0.12.0):
+   - config `SITE_LEADS_ENABLED`, `ATTRIBUTION_ENABLED` (attribution needs the forms);
+   - the publishing builder passes them to the site build as public values (`siteBuildEnv`);
+   - intake validates `attribution` strictly and stores it only while switched on;
+   - lead list / detail return it; the list reports the switches; CSV gains two source columns.
+4. **Admin:** the demo-mode notice in «Заявки»; the first-touch source in the list; «Первый визит» / «Последний источник» on the lead page.
+5. **E2E:** the run serves the published release as the public site (`scripts/e2e-site-server.mjs`, the nginx rules including the single API path) on `site.e2e.test`, mapped to 127.0.0.1 in Chromium: the release check refuses loopback URLs in a site build, and this run's releases contain the form endpoint. `site-forms.e2e.mjs` sends all three forms from a campaign visit and finds them with their source in «Заявки».
+
+### Verification (2026-10-17)
+
+| Check | Result |
+|---|---|
+| `git diff --check` | clean |
+| `npm run lint`, `npm test` | pass; 115 / 115 (core 46, api 21, admin 42, web 6) |
+| `npm run test:db` on a freshly provisioned database | 148 tests: 147 pass, 1 skipped (backup role); export = seed; the site from the DB export identical |
+| `npm run test:e2e:admin` | 91 / 91 pass (84 earlier + 7 site forms) |
+| `openapi.json`, admin API types | up to date (178 operations) |
+| Site build with the switches off vs `bf1ff7d` | HTML and CSS byte-identical (218 files, asset names normalized); JavaScript: renamed identifiers and the three new UI strings |
+| Public site vs `bf1ff7d` (regression) | page data of 348 pages, no-JS / motion / 404 checks, dialogs, forms, navigation and inquiry topics IDENTICAL; byte comparison differs only in the 6 JavaScript files (main bundle and 5 language bundles) and the asset names inside the 180 HTML files |
+
+### Deviations (Phase K-2)
+
+K-7 … K-9 in [`admin-leads.md`](admin-leads.md) §9:
+- attribution is stored without a consent banner once switched on (legal review decides; the switch stays off);
+- on a release preview the forms behave like the demo service;
+- the three new error texts are to be reviewed with the other translations.

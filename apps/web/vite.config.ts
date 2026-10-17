@@ -2,10 +2,18 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import {defineConfig} from 'vite';
+import {leadFlagsFromEnv} from './src/services/leads/flags';
 
 export default defineConfig(() => {
+  // Lead form switches (Phase K-2, src/services/leads/flags.ts), inlined as constants so that code
+  // behind an off switch is removed from the bundle.
+  const leads = leadFlagsFromEnv(process.env);
   return {
     plugins: [react(), tailwindcss()],
+    define: {
+      __SOLTEX_LEADS_ENDPOINT__: JSON.stringify(leads.endpoint),
+      __SOLTEX_ATTRIBUTION__: JSON.stringify(leads.attribution),
+    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

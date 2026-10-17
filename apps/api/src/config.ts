@@ -48,6 +48,16 @@ export interface ApiConfig {
   };
   /** SMTP for all e-mail; null = not configured (mail waits in the outbox, nothing is lost). */
   mail: { smtpUrl: string; from: string } | null;
+  /**
+   * Switches of the public site's forms (Phase K-2), applied by the next site build. Both stay off
+   * until the client approves the privacy texts (approved §13.2–§13.3, client decisions B3 / §22.6).
+   */
+  site: {
+    /** The forms send leads to POST /api/v1/public/leads on PUBLIC_SITE_URL; off = demo service. */
+    leadsEnabled: boolean;
+    /** UTM attribution is recorded on the site and stored with leads; needs leadsEnabled. */
+    attributionEnabled: boolean;
+  };
   /** Media library (Phase J, review §I). */
   media: {
     /** Uploaded files: originals/<yyyy>/<uuid>.<ext> (served by nginx as /media/originals/…), previews/, tmp/. */
@@ -142,6 +152,15 @@ export function loadConfig(source: Record<string, string | undefined> = process.
   const smtpUrl = source.SMTP_URL ?? '';
   if (smtpUrl && !/^smtps?:\/\/[^\s]+$/.test(smtpUrl)) throw new Error('SMTP_URL must be smtp://… or smtps://…');
   if (smtpUrl && !source.MAIL_FROM) throw new Error('MAIL_FROM must be set together with SMTP_URL');
+  const flag = (name: string) => {
+    const v = source[name];
+    if (v === undefined || v === '' || v === 'false') return false;
+    if (v === 'true') return true;
+    throw new Error(`${name} must be true or false`);
+  };
+  const leadsEnabled = flag('SITE_LEADS_ENABLED');
+  const attributionEnabled = flag('ATTRIBUTION_ENABLED');
+  if (attributionEnabled && !leadsEnabled) throw new Error('ATTRIBUTION_ENABLED needs SITE_LEADS_ENABLED=true (attribution is sent with leads)');
 
   return {
     env,
@@ -162,5 +181,6 @@ export function loadConfig(source: Record<string, string | undefined> = process.
     media: { dir: mediaDir, legacyDir },
     leads: { notifyTo, retentionMonths, privacyNoticeVersion: source.PRIVACY_NOTICE_VERSION?.trim() || null },
     mail: smtpUrl ? { smtpUrl, from: source.MAIL_FROM! } : null,
+    site: { leadsEnabled, attributionEnabled },
   };
 }

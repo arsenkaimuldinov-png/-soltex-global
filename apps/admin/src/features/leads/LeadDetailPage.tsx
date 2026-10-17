@@ -22,6 +22,7 @@ import { Status } from '../../components/ui/Status';
 import { useToast } from '../../components/ui/Toast';
 import {
   describeLeadEvent,
+  describeTouch,
   LEAD_FORM_LABELS,
   LEAD_STATUS_LABELS,
   LEAD_STATUS_TONES,
@@ -242,6 +243,22 @@ export function LeadDetailPage() {
                   { label: 'Страница', value: l.pagePath ? <span className="font-mono text-xs break-all" dir="ltr">{l.pagePath}</span> : '—' },
                   { label: 'Язык сайта', value: LOCALE_LABELS[l.locale] ?? l.locale },
                   { label: 'Уведомление', value: NOTIFICATION_LABELS[l.notification] ?? l.notification },
+                  ...(['first', 'last'] as const).flatMap((k) => {
+                    const t = l.attribution?.[k];
+                    if (!t) return [];
+                    const d = describeTouch(t, formatDateTime);
+                    return [
+                      {
+                        label: k === 'first' ? 'Первый визит' : 'Последний источник',
+                        value: (
+                          <span data-attribution={k}>
+                            <span className="font-medium">{d.source}</span>
+                            <span className="block text-xs text-ink-muted break-words">{d.details}</span>
+                          </span>
+                        ),
+                      },
+                    ];
+                  }),
                   {
                     label: 'Согласие',
                     value:

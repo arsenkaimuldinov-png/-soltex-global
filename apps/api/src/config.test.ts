@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import { test } from 'node:test';
 import { loadConfig } from './config.ts';
+import { siteBuildEnv } from './publishing/builder.ts';
 
 const keys = () => ({
   DATA_ENCRYPTION_KEYS: `k1:${crypto.randomBytes(32).toString('base64')}`,
@@ -57,4 +58,15 @@ test('invalid values are rejected', () => {
   assert.throws(() => loadConfig({ ...keys(), API_LOG_LEVEL: 'verbose' }));
   assert.throws(() => loadConfig({ ...keys(), ADMIN_ORIGIN: 'https://admin.example.test/path' }));
   assert.throws(() => loadConfig({ ...keys(), ADMIN_ORIGIN: 'https://admin.example.test', WEBAUTHN_RP_ID: 'other.test' }));
+});
+
+test('site form switches (Phase K-2): off by default; the build gets only the public endpoint', () => {
+  const off = loadConfig(keys());
+  assert.deepEqual(off.site, { leadsEnabled: false, attributionEnabled: false });
+  assert.deepEqual(siteBuildEnv(off), {});
+  const on = loadConfig({ ...keys(), PUBLIC_SITE_URL: 'https://soltexglobal.co', SITE_LEADS_ENABLED: 'true', ATTRIBUTION_ENABLED: 'true' });
+  assert.deepEqual(siteBuildEnv(on), { SOLTEX_LEADS_ENDPOINT: 'https://soltexglobal.co/api/v1/public/leads', SOLTEX_ATTRIBUTION: 'true' });
+  assert.deepEqual(siteBuildEnv(loadConfig({ ...keys(), SITE_LEADS_ENABLED: 'true' })), { SOLTEX_LEADS_ENDPOINT: 'https://soltexglobal.co/api/v1/public/leads' });
+  assert.throws(() => loadConfig({ ...keys(), ATTRIBUTION_ENABLED: 'true' }), /needs SITE_LEADS_ENABLED/);
+  assert.throws(() => loadConfig({ ...keys(), SITE_LEADS_ENABLED: 'yes' }), /true or false/);
 });
