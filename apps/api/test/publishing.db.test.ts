@@ -253,9 +253,9 @@ describe('publishing: revisions, releases, preview', { skip: !DB_ENABLED && 'DAT
     r1 = rel.id;
     assert.equal(rel.status, 'queued');
     assert.match(rel.key, /^R-\d{8}-\d{6}-[0-9a-f]{6}$/);
-    assert.equal(rel.snapshot.counts.pages, 12, 'draft pages (privacy, terms) are not in a release');
+    assert.equal(rel.snapshot.counts.pages, 14, 'every page of the seed is published (privacy and terms since Phase N-0)');
     assert.equal(rel.snapshot.counts['epcm-stages'], 8, 'the unpublished E2E stage is not in the release');
-    assert.equal(rel.snapshot.records, 12 + 8 + 6 + 6 + 8 + 6 + 2);
+    assert.equal(rel.snapshot.records, 14 + 8 + 6 + 6 + 8 + 6 + 2);
     // Translation policy is recorded: after the restore every ningbo translation is outdated (older approved text shown).
     const ningbo = rel.translations.attention.filter((a: Json) => a.key === 'project-solbar-ningbo');
     assert.deepEqual(ningbo.map((a: Json) => `${a.locale}:${a.state}`).sort(), ['ar:outdated', 'es:outdated', 'ru:outdated', 'tr:outdated', 'zh:outdated']);
@@ -548,8 +548,8 @@ describe('publishing: revisions, releases, preview', { skip: !DB_ENABLED && 'DAT
     assert.equal(res.outcome, 'done');
     const row = await releaseRow(rel);
     assert.equal(row.status, 'ready', JSON.stringify(row.failure));
-    assert.equal(row.artifactFiles, 232); // the public build: 229 files + robots.txt + og-default.png (Phase N-0) + the homepage hero image (soltex-hero-industrial.webp)
-    assert.equal(row.artifactPages, 180);
+    assert.equal(row.artifactFiles, 245); // the public build (Phase N-0: + robots.txt, og-default.png, the privacy and terms pages in six languages) + the homepage hero image (soltex-hero-plant-dawn.webp)
+    assert.equal(row.artifactPages, 192);
     const d = await get(cm, `/api/v1/releases/${rel}`);
     assert.equal((await post(cm, `/api/v1/releases/${rel}/activate`, undefined, d.etag)).statusCode, 200);
     assert.ok(fs.readFileSync(path.join(currentLink(root), 'ar.html'), 'utf8').includes('dir="rtl"'));

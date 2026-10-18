@@ -93,7 +93,7 @@ The editor shows:
 - **Тексты страницы:** slots grouped by their first word, with Russian labels generated from the slot keys;
 - the **texts of list items:** same number and order of items;
 - **images**;
-- the **legal body** as paragraphs;
+- the **legal body** as paragraphs; a paragraph that starts with `## ` is shown as a section heading (Phase N-0), the only formatting;
 - **SEO**.
 
 The API refuses:

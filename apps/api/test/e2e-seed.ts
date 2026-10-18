@@ -6,17 +6,19 @@
  *        live sessions dated 11 minutes back, so the next sensitive action needs step-up
  *   node --import tsx apps/api/test/e2e-seed.ts reset-run             → remove what earlier runs left that
  *        cannot work in this one: media uploads and image copies (their files lived in that run's
- *        MEDIA_DIR) and leads (encrypted with that run's random keys); run after the seed import
+ *        MEDIA_DIR) and leads (encrypted with that run's random keys); run after the seed import.
+ *        Also sets the translations of the two legal pages back to «missing» (the seed has them
+ *        translated since Phase N-0; translations.e2e.mjs needs untranslated records)
  *
  * Users get unique e-mails (`e2e.<role>.<random>@soltex.test`) and random passwords, so runs never
  * collide and nothing has to be deleted. Uses DATABASE_URL (role soltex_app).
  */
 import crypto from 'node:crypto';
-import { and, eq, isNull } from 'drizzle-orm';
+import { and, eq, inArray, isNull, ne } from 'drizzle-orm';
 import { ROLES, type Role } from '@soltex/core/domain';
 import { loadConfig } from '../src/config.ts';
 import { connect } from '../src/db/client.ts';
-import { leads, media, outbox, sessions } from '../src/db/schema.ts';
+import { leads, media, outbox, pages, pageTranslations, sessions } from '../src/db/schema.ts';
 import { UnconfiguredNotifier } from '../src/notify/notifier.ts';
 import { insertUser } from '../src/users/users.ts';
 import { STEP_UP_WINDOW_MS } from '../src/auth/sessions.ts';
@@ -33,6 +35,12 @@ try {
     await db.update(media).set({ variants: null });
     await db.delete(outbox);
     const leadsRemoved = await db.delete(leads).returning({ id: leads.id });
+    const legal = await db.select({ id: pages.id }).from(pages).where(inArray(pages.key, ['page-privacy', 'page-terms']));
+    if (legal.length)
+      await db
+        .update(pageTranslations)
+        .set({ trStatus: 'missing', approvedSourceHash: null, approvedAt: null, approvedSourceRevision: null })
+        .where(and(inArray(pageTranslations.pageId, legal.map((x) => x.id)), ne(pageTranslations.locale, 'en')));
     process.stdout.write(`${removed.length} ${leadsRemoved.length}\n`);
   } else if (command === 'users') {
     const roles = (arg ?? '').split(',').filter(Boolean) as Role[];

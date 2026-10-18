@@ -91,7 +91,7 @@ All endpoints are under `/api/v1` and follow the Phase C/E conventions:
 - session + second factor, CSRF header, RBAC (route and field level);
 - Zod validation, RFC 9457 problems with `request_id`, `X-Request-ID`;
 - audit in the transaction;
-- OpenAPI tag `translations`; API version 0.14.0 (`apps/api/openapi.json`).
+- OpenAPI tag `translations`; API version 0.15.0 (`apps/api/openapi.json`).
 
 | Method and path | Access | Notes |
 |---|---|---|

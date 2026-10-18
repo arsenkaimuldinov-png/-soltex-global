@@ -64,18 +64,19 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onOpenProjectModal }
                       {project.category}
                     </div>
 
-                    {/* Location badge */}
-                    <div className="absolute bottom-3 start-3 flex items-center gap-1.5 text-white text-xs font-mono">
-                      <MapPin className="w-3.5 h-3.5 text-[#BA9B60]" />
-                      <span className="font-semibold">{project.country}</span>
-                      <span className="text-white/60">· {project.years}</span>
-                    </div>
-
-                    {project.capacity && (
-                      <div className="absolute bottom-3 end-3 bg-[#0E482C] px-2.5 py-0.5 text-[10px] font-mono tracking-wider text-white font-bold">
-                        {project.capacity}
+                    {/* Capacity and location: stacked, so a long capacity never covers the location */}
+                    <div className="absolute bottom-3 start-3 end-3 flex flex-col items-start gap-1.5">
+                      {project.capacity && (
+                        <div className="max-w-full bg-[#0E482C] px-2.5 py-0.5 text-[10px] leading-snug font-mono tracking-wider text-white font-bold">
+                          {project.capacity}
+                        </div>
+                      )}
+                      <div className="flex min-w-0 max-w-full items-center gap-1.5 text-white text-xs font-mono">
+                        <MapPin className="w-3.5 h-3.5 shrink-0 text-[#BA9B60]" />
+                        <span className="font-semibold truncate">{project.country}</span>
+                        <span className="shrink-0 text-white/60">· {project.years}</span>
                       </div>
-                    )}
+                    </div>
                   </div>
 
                   {/* Content Section with Clear Hierarchy */}

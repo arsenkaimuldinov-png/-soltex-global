@@ -16,6 +16,8 @@
   "common.logoAlt": "Soltex Global",
   "common.startYourProject": "PROJENİZİ BAŞLATIN",
   "common.viewTechnologyDossier": "Teknoloji dosyasını görüntüle",
+  "consent.label": "Kişisel verilerimin {link} uyarınca işlenmesini kabul ediyorum.",
+  "consent.link": "Gizlilik Politikası",
   "contactForm.company": "ŞİRKET",
   "contactForm.companyPlaceholder": "AgriTech Agro Holding",
   "contactForm.confirmation": "{email} için bir onay kaydı oluşturuldu.",

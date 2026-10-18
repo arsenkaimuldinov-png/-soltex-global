@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle2, Clock, ShieldCheck, ArrowRight } from 'lucide-react';
 import { PageHeader, pageHeaderProps } from '../components/PageHeader';
 import { useContent, usePage } from '../content/useContent';
-import { LeadErrorMessage, LeadTrap, useLeadSubmission } from '../components/LeadFormGuard';
+import { LeadConsent, LeadErrorMessage, LeadTrap, useLeadSubmission } from '../components/LeadFormGuard';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { useI18n } from '../i18n/I18nProvider';
 
@@ -185,10 +185,15 @@ export const ContactPage: React.FC = () => {
                   <LeadErrorMessage error={error} tone="light" />
 
                   <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div className="flex items-center gap-2 text-xs font-mono text-[#334439]/70">
-                      <ShieldCheck className="w-4 h-4 text-[#0E482C]" />
-                      <span>{t('contactForm.privacyNote')}</span>
-                    </div>
+                    <LeadConsent
+                      tone="light"
+                      fallback={
+                        <div className="flex items-center gap-2 text-xs font-mono text-[#334439]/70">
+                          <ShieldCheck className="w-4 h-4 text-[#0E482C]" />
+                          <span>{t('contactForm.privacyNote')}</span>
+                        </div>
+                      }
+                    />
 
                     {/* Submit button: SEND INQUIRY */}
                     <button

@@ -3,7 +3,7 @@ import { ArrowRight, Phone, Mail, ShieldCheck, CheckCircle2 } from 'lucide-react
 import { Link } from '../i18n/Link';
 import { useI18n } from '../i18n/I18nProvider';
 import { useContent } from '../content/useContent';
-import { LeadErrorMessage, LeadTrap, useLeadSubmission } from './LeadFormGuard';
+import { LeadConsent, LeadErrorMessage, LeadTrap, useLeadSubmission } from './LeadFormGuard';
 
 /** Texts come from the page's content (already in the visitor's language). */
 interface CtaSectionProps {
@@ -136,6 +136,7 @@ export const CtaSection: React.FC<CtaSectionProps> = ({ badge, title, descriptio
                   />
                 </div>
 
+                <LeadConsent tone="dark" />
                 <LeadErrorMessage error={error} tone="dark" />
                 <button
                   type="submit"

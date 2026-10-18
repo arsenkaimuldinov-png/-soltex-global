@@ -29,6 +29,8 @@ for(const l of ['en','ru','zh','tr','ar','es']){
   const cta=await p.$('header button.s-btn, nav button.s-btn');
   if(cta){ await cta.click(); out.push(['inquiry', await dialogText(p)]);
     await p.fill('[role="dialog"] input[type="text"]','Test Name'); await p.fill('[role="dialog"] input[type="tel"]','+7 777 000 00 00');
+    // Phase N-0: the required consent box (only when the Privacy Policy is published)
+    if(await p.$('[role="dialog"] input[name="consent"]')) await p.check('[role="dialog"] input[name="consent"]');
     await p.click('[role="dialog"] button[type="submit"]'); await p.waitForTimeout(900); out.push(['inquiry-submitted', await dialogText(p)]); await closeAll(p); }
   // footer privacy
   const priv=await p.$$('footer button'); if(priv[0]){ await priv[0].click(); out.push(['footer-privacy', await dialogText(p)]); await closeAll(p); }
@@ -44,6 +46,7 @@ for(const l of ['en','ru','zh','tr','ar','es']){
   for(const x of ib){ const t=norm(await x.innerText()); if(t && !/request|inquire for plant/i.test(t) && x!==ib[0]){ await x.scrollIntoViewIfNeeded(); await x.click(); out.push(['epcm-stage-inquiry', await dialogText(p)]); await closeAll(p); break; } }
   await p.goto(BASE+(l==='en'?'':'/'+l)+'/contact',{waitUntil:'networkidle'});
   await p.fill('main input[type="text"] >> nth=0','Jane'); await p.fill('main input[type="tel"]','+1 555'); await p.fill('main input[type="email"]','a@b.co');
+  if(await p.$('main form input[name="consent"]')) await p.check('main form input[name="consent"] >> nth=0');
   await p.click('main button[type="submit"]'); await p.waitForTimeout(900);
   out.push(['contact-submitted', norm(await p.evaluate(()=>document.querySelector('main').innerText)).slice(0,900)]);
   res[l]={out,errs};

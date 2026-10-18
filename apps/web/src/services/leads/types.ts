@@ -30,6 +30,8 @@ export interface LeadPayload {
   hp?: string;
   /** Milliseconds from showing the form to sending it (spam check, Phase K-2). */
   fillMs?: number;
+  /** The visitor ticked the consent box (Phase N-0; sent only when the Privacy Policy is published). */
+  consent?: true;
 }
 
 export type LeadSubmissionResult =

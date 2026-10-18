@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Soltex Global Admin API",
-    "version": "0.14.0",
+    "version": "0.15.0",
     "description": "Authentication, second factors, users, audit (Phase C) and content management (Phase E). Errors are RFC 9457 Problem Details (application/problem+json) with `request_id`; every response carries `X-Request-ID`. State-changing requests need the header `x-requested-with: soltex-admin`."
   },
   "components": {
@@ -38836,6 +38836,12 @@
                   },
                   "attribution": {
                     "$ref": "#/components/schemas/LeadAttributionInput"
+                  },
+                  "consent": {
+                    "type": "boolean",
+                    "enum": [
+                      true
+                    ]
                   }
                 },
                 "required": [

@@ -2,7 +2,7 @@
 
 API, background worker and preview server of Soltex Global (Fastify 5, Drizzle, PostgreSQL 17; modular monolith). Architecture: [`docs/admin-architecture-approved.md`](../../docs/admin-architecture-approved.md).
 
-**Status (Phase N-0):** `/api/v1` 0.14.0, 184 operations; migrations `0000`–`0010`.
+**Status (Phase N-0):** `/api/v1` 0.15.0, 184 operations; migrations `0000`–`0010`.
 - Authentication ([`docs/admin-auth.md`](../../docs/admin-auth.md)):
   - users with 6 fixed roles; explicit permission matrix in `@soltex/core/domain` (no wildcard);
   - Argon2id passwords, progressive delay and lock-out, password change and reset;

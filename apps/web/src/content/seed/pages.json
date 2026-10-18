@@ -56,28 +56,28 @@
         "es": "NUESTRO ENFOQUE EPC / EPCM"
       },
       "heroHeadlineLine1": {
-        "en": "TURNKEY PLANTS",
-        "ru": "ЗАВОДЫ ГЛУБОКОЙ",
-        "zh": "植物原料深加工",
-        "tr": "ANAHTAR TESLİM",
-        "ar": "مصانع المعالجة العميقة",
-        "es": "PLANTAS DE"
+        "en": "TURNKEY DESIGN AND CONSTRUCTION",
+        "ru": "ПРОЕКТИРОВАНИЕ И СТРОИТЕЛЬСТВО ЗАВОДОВ",
+        "zh": "植物原料深加工工厂",
+        "tr": "BİTKİSEL HAMMADDE DERİN İŞLEME",
+        "ar": "تصميم وإنشاء مصانع",
+        "es": "DISEÑO Y CONSTRUCCIÓN LLAVE EN MANO"
       },
       "heroHeadlineLine2": {
-        "en": "FOR ADVANCED",
-        "ru": "ПЕРЕРАБОТКИ РАСТИТЕЛЬНОГО",
-        "zh": "交钥匙工厂",
-        "tr": "BİTKİSEL HAMMADDE",
-        "ar": "للمواد الخام النباتية",
-        "es": "PROCESAMIENTO VEGETAL"
+        "en": "OF DEEP PLANT PROCESSING PLANTS",
+        "ru": "ГЛУБОКОЙ ПЕРЕРАБОТКИ РАСТИТЕЛЬНОГО СЫРЬЯ",
+        "zh": "交钥匙设计与建设",
+        "tr": "TESİSLERİNİN ANAHTAR TESLİM TASARIMI VE İNŞASI",
+        "ar": "المعالجة العميقة للمواد النباتية بنظام تسليم المفتاح",
+        "es": "DE PLANTAS DE PROCESAMIENTO PROFUNDO DE MATERIAS PRIMAS VEGETALES"
       },
       "heroHeadlineLine3": {
-        "en": "PLANT PROCESSING",
-        "ru": "СЫРЬЯ ПОД КЛЮЧ",
-        "zh": "设计与建设",
-        "tr": "İŞLEME TESİSLERİ",
-        "ar": "بنظام تسليم المفتاح",
-        "es": "LLAVE EN MANO"
+        "en": "— EPCM",
+        "ru": "«ПОД КЛЮЧ» — EPCM",
+        "zh": "— EPCM",
+        "tr": "— EPCM",
+        "ar": "— EPCM",
+        "es": "— EPCM"
       },
       "heroImageAlt": {
         "en": "Soltex Global Turnkey Industrial Processing Plant Facility",
@@ -152,20 +152,20 @@
         "es": "GRUPO INTERNACIONAL DE INGENIERÍA EPC / EPCM"
       },
       "heroDescription": {
-        "en": "EPCM design and construction for the production of pectin, dietary fiber, soy protein isolate, inulin and other high-value ingredients.",
-        "ru": "Проектирование и строительство по модели EPCM для производства пектина, пищевых волокон, изолята соевого белка, инулина и других ингредиентов с высокой добавленной стоимостью.",
-        "zh": "以 EPCM 模式提供工程设计与建设，用于生产果胶、膳食纤维、大豆分离蛋白、菊粉等高附加值配料。",
-        "tr": "Pektin, diyet lifi, soya protein izolatı, inülin ve diğer yüksek katma değerli bileşenlerin üretimi için EPCM modeliyle tasarım ve inşaat.",
-        "ar": "تصميم وإنشاء وفق نموذج EPCM لإنتاج البكتين والألياف الغذائية وبروتين الصويا المعزول والإينولين وغيرها من المكونات عالية القيمة المضافة.",
-        "es": "Diseño y construcción bajo el modelo EPCM para producir pectina, fibra dietética, aislado de proteína de soja, inulina y otros ingredientes de alto valor añadido."
+        "en": "Pectin, dietary fibers, isolated soy protein, inulin and other ingredients with high added value",
+        "ru": "Пектин, пищевые волокна, изолированный соевый белок, инулин и другие ингредиенты с высокой добавленной стоимостью",
+        "zh": "果胶、膳食纤维、分离大豆蛋白、菊粉及其他高附加值配料",
+        "tr": "Pektin, diyet lifleri, izole soya proteini, inülin ve diğer yüksek katma değerli bileşenler",
+        "ar": "البكتين والألياف الغذائية وبروتين الصويا المعزول والإينولين وغيرها من المكونات عالية القيمة المضافة",
+        "es": "Pectina, fibras dietéticas, proteína aislada de soja, inulina y otros ingredientes de alto valor añadido"
       },
       "heroUsp": {
-        "en": "Unique alcohol-free technologies proven in industrial operation",
-        "ru": "Уникальные бесспиртовые технологии, подтверждённые промышленной эксплуатацией",
-        "zh": "独有的无醇工艺，已获工业化生产验证",
-        "tr": "Endüstriyel işletmede kanıtlanmış, alkolsüz özgün teknolojiler",
-        "ar": "تقنيات فريدة خالية من الكحول، مثبتة بالتشغيل الصناعي",
-        "es": "Tecnologías únicas sin alcohol, probadas en operación industrial"
+        "en": "Unique alcohol-free technologies with proven industrial operation",
+        "ru": "Уникальные бесспиртовые технологии с подтверждённой промышленной эксплуатацией",
+        "zh": "独特的无醇工艺，已获工业化运行验证",
+        "tr": "Endüstriyel işletmede kanıtlanmış, alkolsüz benzersiz teknolojiler",
+        "ar": "تقنيات فريدة خالية من الكحول أثبتت كفاءتها في التشغيل الصناعي",
+        "es": "Tecnologías exclusivas sin alcohol con operación industrial comprobada"
       }
     },
     "lists": {
@@ -868,7 +868,7 @@
     },
     "media": {
       "heroImage": {
-        "mediaId": "media-soltex-hero-industrial"
+        "mediaId": "media-soltex-hero-plant-dawn"
       }
     },
     "body": null,
@@ -895,28 +895,28 @@
     "translationStatus": {
       "ru": {
         "status": "approved",
-        "approvedSourceHash": "d70db74b5b08c8da",
-        "approvedAt": "2026-10-16"
+        "approvedSourceHash": "ae86146cfc2c0e76",
+        "approvedAt": "2026-10-18"
       },
       "zh": {
         "status": "approved",
-        "approvedSourceHash": "d70db74b5b08c8da",
-        "approvedAt": "2026-10-16"
+        "approvedSourceHash": "ae86146cfc2c0e76",
+        "approvedAt": "2026-10-18"
       },
       "tr": {
         "status": "approved",
-        "approvedSourceHash": "d70db74b5b08c8da",
-        "approvedAt": "2026-10-16"
+        "approvedSourceHash": "ae86146cfc2c0e76",
+        "approvedAt": "2026-10-18"
       },
       "ar": {
         "status": "approved",
-        "approvedSourceHash": "d70db74b5b08c8da",
-        "approvedAt": "2026-10-16"
+        "approvedSourceHash": "ae86146cfc2c0e76",
+        "approvedAt": "2026-10-18"
       },
       "es": {
         "status": "approved",
-        "approvedSourceHash": "d70db74b5b08c8da",
-        "approvedAt": "2026-10-16"
+        "approvedSourceHash": "ae86146cfc2c0e76",
+        "approvedAt": "2026-10-18"
       }
     }
   },
@@ -3450,7 +3450,7 @@
   },
   {
     "id": "page-privacy",
-    "status": "draft",
+    "status": "published",
     "order": 10,
     "key": "privacy",
     "kind": "page",
@@ -3473,14 +3473,334 @@
         "es": "Política de privacidad"
       },
       "subtitle": null,
-      "description": null,
+      "description": {
+        "en": "How Soltex Global collects, uses and protects personal data when you visit soltexglobal.co or contact us through the website.",
+        "ru": "Как Soltex Global собирает, использует и защищает персональные данные, когда вы посещаете soltexglobal.co или обращаетесь к нам через сайт.",
+        "zh": "说明 Soltex Global 在您访问 soltexglobal.co 或通过本网站与我们联系时如何收集、使用和保护个人数据。",
+        "tr": "Soltex Global’in, soltexglobal.co adresini ziyaret ettiğinizde veya web sitesi üzerinden bizimle iletişime geçtiğinizde kişisel verileri nasıl topladığı, kullandığı ve koruduğu.",
+        "ar": "كيف تجمع Soltex Global البيانات الشخصية وتستخدمها وتحميها عند زيارتك soltexglobal.co أو تواصلك معنا عبر الموقع الإلكتروني.",
+        "es": "Cómo Soltex Global recopila, utiliza y protege los datos personales cuando usted visita soltexglobal.co o se pone en contacto con nosotros a través del sitio web."
+      },
       "meta": [],
       "actionLabel": null
     },
     "copy": {},
     "lists": {},
     "media": {},
-    "body": null,
+    "body": [
+      {
+        "en": "Last updated: 19 October 2026",
+        "ru": "Последнее обновление: 19 октября 2026 г.",
+        "zh": "最后更新：2026年10月19日",
+        "tr": "Son güncelleme: 19 Ekim 2026",
+        "ar": "آخر تحديث: 19 أكتوبر 2026",
+        "es": "Última actualización: 19 de octubre de 2026"
+      },
+      {
+        "en": "This Privacy Policy explains what personal data Soltex Global collects when you visit soltexglobal.co (the “website”) or send us an inquiry through it, why we use it, how long we keep it and what rights you have.",
+        "ru": "Настоящая Политика конфиденциальности объясняет, какие персональные данные Soltex Global получает, когда вы посещаете сайт soltexglobal.co (далее — «сайт») или отправляете через него запрос, для чего мы их используем, как долго храним и какие у вас есть права.",
+        "zh": "本隐私政策说明，当您访问 soltexglobal.co（“本网站”）或通过本网站向我们发送咨询时，Soltex Global 收集哪些个人数据、使用这些数据的原因、保存期限以及您享有的权利。",
+        "tr": "Bu Gizlilik Politikası, soltexglobal.co adresini (“web sitesi”) ziyaret ettiğinizde veya web sitesi üzerinden bize bir talep gönderdiğinizde Soltex Global’in hangi kişisel verileri topladığını, bunları neden kullandığını, ne kadar süreyle sakladığını ve hangi haklara sahip olduğunuzu açıklar.",
+        "ar": "توضح سياسة الخصوصية هذه ما تجمعه Soltex Global من بيانات شخصية عند زيارتك soltexglobal.co («الموقع الإلكتروني») أو إرسالك استفسارًا إلينا من خلاله، وأسباب استخدامنا لها، ومدة احتفاظنا بها، والحقوق التي تتمتع بها.",
+        "es": "La presente Política de privacidad explica qué datos personales recopila Soltex Global cuando usted visita soltexglobal.co (el «sitio web») o nos envía una consulta a través de él, por qué los utilizamos, durante cuánto tiempo los conservamos y qué derechos le asisten."
+      },
+      {
+        "en": "## 1. Who we are",
+        "ru": "## 1. Кто мы",
+        "zh": "## 1. 我们是谁",
+        "tr": "## 1. Biz kimiz",
+        "ar": "## 1. من نحن",
+        "es": "## 1. Quiénes somos"
+      },
+      {
+        "en": "The website is operated by Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah, United Arab Emirates (“Soltex Global”, “we”, “us”). We are responsible for the personal data described in this policy. Our regional offices are listed on the Contact page. For any question about this policy or your personal data, write to info@soltexglobal.co.",
+        "ru": "Сайт принадлежит компании Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah, Объединённые Арабские Эмираты (далее — «Soltex Global», «мы»). Мы отвечаем за обработку персональных данных, описанную в этой политике. Наши региональные офисы указаны на странице «Контакты». По любым вопросам об этой политике и ваших персональных данных пишите на info@soltexglobal.co.",
+        "zh": "本网站由 Soltex Global FZC（地址：Sharjah Media City (Shams), Al Messaned, Sharjah，阿拉伯联合酋长国）（“Soltex Global”或“我们”）运营。我们对本政策所述的个人数据负责。我们的地区办事处列于“联系我们”页面。如对本政策或您的个人数据有任何疑问，请发送电子邮件至 info@soltexglobal.co。",
+        "tr": "Web sitesi, Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah, Birleşik Arap Emirlikleri (“Soltex Global”, “biz”) tarafından işletilmektedir. Bu politikada açıklanan kişisel verilerden biz sorumluyuz. Bölge ofislerimiz İletişim sayfasında listelenmiştir. Bu politika veya kişisel verilerinizle ilgili her türlü soru için info@soltexglobal.co adresine yazabilirsiniz.",
+        "ar": "تتولى تشغيل الموقع الإلكتروني شركة Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah، الإمارات العربية المتحدة («Soltex Global» أو «نحن»). ونحن المسؤولون عن البيانات الشخصية الموضحة في هذه السياسة. وترد مكاتبنا الإقليمية في صفحة «اتصل بنا». ولأي سؤال بشأن هذه السياسة أو بياناتك الشخصية، يُرجى مراسلتنا على info@soltexglobal.co.",
+        "es": "El sitio web es gestionado por Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah, Emiratos Árabes Unidos («Soltex Global» o «nosotros»). Somos responsables de los datos personales descritos en esta política. Nuestras oficinas regionales figuran en la página de Contacto. Para cualquier pregunta sobre esta política o sobre sus datos personales, escriba a info@soltexglobal.co."
+      },
+      {
+        "en": "## 2. What data we collect",
+        "ru": "## 2. Какие данные мы получаем",
+        "zh": "## 2. 我们收集哪些数据",
+        "tr": "## 2. Hangi verileri topluyoruz",
+        "ar": "## 2. البيانات التي نجمعها",
+        "es": "## 2. Qué datos recopilamos"
+      },
+      {
+        "en": "Inquiries. When you send an inquiry through a form on the website, we receive your name and phone number, your e-mail address where the form asks for it, your company name and message if you provide them, the topic of the inquiry, and the page and language from which you sent it.",
+        "ru": "Запросы. Когда вы отправляете запрос через форму на сайте, мы получаем ваше имя и номер телефона, адрес электронной почты (если форма его запрашивает), название компании и сообщение (если вы их указали), тему запроса, а также страницу и язык, с которых он отправлен.",
+        "zh": "咨询。当您通过本网站上的表单发送咨询时，我们会收到您的姓名和电话号码、表单要求填写时提供的电子邮件地址、您提供的公司名称和留言、咨询主题，以及您发送咨询时所在的页面和所用的语言。",
+        "tr": "Talepler. Web sitesindeki bir form aracılığıyla talep gönderdiğinizde adınızı ve telefon numaranızı, formun istediği durumlarda e-posta adresinizi, sağlamanız hâlinde şirket adınızı ve mesajınızı, talebin konusunu ve talebi gönderdiğiniz sayfa ile dili alırız.",
+        "ar": "الاستفسارات. عندما ترسل استفسارًا من خلال نموذج على الموقع الإلكتروني، نتلقى اسمك ورقم هاتفك، وعنوان بريدك الإلكتروني إذا طلبه النموذج، واسم شركتك ورسالتك إذا قدمتهما، وموضوع الاستفسار، والصفحة واللغة اللتين أرسلته منهما.",
+        "es": "Consultas. Cuando usted envía una consulta mediante un formulario del sitio web, recibimos su nombre y número de teléfono, su dirección de correo electrónico cuando el formulario la solicita, el nombre de su empresa y su mensaje si los proporciona, el tema de la consulta, así como la página y el idioma desde los que la envió."
+      },
+      {
+        "en": "Protection against spam. To protect the forms against spam and abuse, we record a keyed one-way hash of your IP address (the address itself is not stored with the inquiry), the time taken to fill in the form and the value of a hidden anti-spam field.",
+        "ru": "Защита от спама. Чтобы защитить формы от спама и злоупотреблений, мы сохраняем необратимый хеш вашего IP-адреса с секретным ключом (сам адрес вместе с запросом не хранится), время заполнения формы и значение скрытого поля для защиты от спама.",
+        "zh": "防范垃圾信息。为保护表单免受垃圾信息和滥用的侵害，我们会记录您 IP 地址的带密钥单向哈希值（IP 地址本身不会与咨询一同存储）、填写表单所用的时间以及一个隐藏的反垃圾信息字段的值。",
+        "tr": "Spam’e karşı koruma. Formları spam ve kötüye kullanıma karşı korumak amacıyla IP adresinizin anahtarlı tek yönlü özetini (adresin kendisi taleple birlikte saklanmaz), formu doldurmak için harcanan süreyi ve gizli bir spam önleme alanının değerini kaydederiz.",
+        "ar": "الحماية من الرسائل غير المرغوب فيها. لحماية النماذج من الرسائل غير المرغوب فيها وإساءة الاستخدام، نسجّل قيمة تجزئة أحادية الاتجاه مقترنة بمفتاح لعنوان IP الخاص بك (ولا يُخزَّن العنوان نفسه مع الاستفسار)، والوقت المستغرق في ملء النموذج، وقيمة حقل مخفي لمكافحة الرسائل غير المرغوب فيها.",
+        "es": "Protección contra el spam. Para proteger los formularios contra el spam y el uso abusivo, registramos un hash unidireccional con clave de su dirección IP (la dirección en sí no se almacena con la consulta), el tiempo empleado en rellenar el formulario y el valor de un campo antispam oculto."
+      },
+      {
+        "en": "Source of your visit. Where campaign attribution is enabled, an inquiry also contains where your visit came from: the campaign parameters of the link you followed (utm_source, utm_medium, utm_campaign, utm_term, utm_content, gclid, fbclid), the domain of the referring website (not the full address) and the first page you opened.",
+        "ru": "Источник визита. Если включён учёт рекламных кампаний, запрос также содержит, откуда вы пришли на сайт: параметры кампании из ссылки, по которой вы перешли (utm_source, utm_medium, utm_campaign, utm_term, utm_content, gclid, fbclid), домен сайта, с которого был переход (без полного адреса), и первую открытую страницу.",
+        "zh": "访问来源。在启用营销活动归因功能的情况下，咨询还会包含您的访问来源：您所点击链接中的营销活动参数（utm_source、utm_medium、utm_campaign、utm_term、utm_content、gclid、fbclid）、引荐网站的域名（而非完整地址）以及您打开的第一个页面。",
+        "tr": "Ziyaretinizin kaynağı. Kampanya ilişkilendirmesinin etkin olduğu durumlarda talep, ziyaretinizin nereden geldiğini de içerir: tıkladığınız bağlantının kampanya parametreleri (utm_source, utm_medium, utm_campaign, utm_term, utm_content, gclid, fbclid), yönlendiren web sitesinin alan adı (tam adresi değil) ve açtığınız ilk sayfa.",
+        "ar": "مصدر زيارتك. عند تفعيل خاصية إسناد الحملات، يتضمن الاستفسار أيضًا مصدر زيارتك: معلمات الحملة في الرابط الذي اتبعته (utm_source, utm_medium, utm_campaign, utm_term, utm_content, gclid, fbclid)، ونطاق الموقع الإلكتروني المُحيل (وليس العنوان الكامل)، وأول صفحة فتحتها.",
+        "es": "Origen de su visita. Cuando la atribución de campañas está activada, la consulta también contiene la procedencia de su visita: los parámetros de campaña del enlace que siguió (utm_source, utm_medium, utm_campaign, utm_term, utm_content, gclid, fbclid), el dominio del sitio web de referencia (no la dirección completa) y la primera página que abrió."
+      },
+      {
+        "en": "Visiting the website. Like any web server, our server records technical access logs: IP address, date and time, the requested page and the browser type. We do not use analytics or advertising cookies, and we do not track you across other websites.",
+        "ru": "Посещение сайта. Как и любой веб-сервер, наш сервер ведёт технические журналы обращений: IP-адрес, дата и время, запрошенная страница и тип браузера. Мы не используем аналитические и рекламные cookie и не отслеживаем вас на других сайтах.",
+        "zh": "访问本网站。与任何网络服务器一样，我们的服务器会记录技术访问日志：IP 地址、日期和时间、所请求的页面以及浏览器类型。我们不使用分析类或广告类 Cookie，也不会在其他网站上跟踪您。",
+        "tr": "Web sitesinin ziyaret edilmesi. Her web sunucusu gibi sunucumuz da teknik erişim kayıtları tutar: IP adresi, tarih ve saat, istenen sayfa ve tarayıcı türü. Analiz veya reklam çerezleri kullanmayız ve sizi diğer web sitelerinde takip etmeyiz.",
+        "ar": "زيارة الموقع الإلكتروني. كأي خادم ويب، يسجّل خادمنا سجلات وصول تقنية: عنوان IP، والتاريخ والوقت، والصفحة المطلوبة، ونوع المتصفح. ولا نستخدم ملفات تعريف الارتباط التحليلية أو الإعلانية، ولا نتتبعك عبر المواقع الإلكترونية الأخرى.",
+        "es": "Visitas al sitio web. Como cualquier servidor web, nuestro servidor registra los accesos técnicos: dirección IP, fecha y hora, la página solicitada y el tipo de navegador. No utilizamos cookies analíticas ni publicitarias, y no le hacemos seguimiento en otros sitios web."
+      },
+      {
+        "en": "## 3. Why we use your data and on what basis",
+        "ru": "## 3. Для чего мы используем данные и на каком основании",
+        "zh": "## 3. 我们使用您的数据的目的及法律依据",
+        "tr": "## 3. Verilerinizi neden ve hangi hukuki sebebe dayanarak kullanıyoruz",
+        "ar": "## 3. لماذا نستخدم بياناتك وعلى أي أساس",
+        "es": "## 3. Para qué utilizamos sus datos y con qué base jurídica"
+      },
+      {
+        "en": "To answer your inquiry, discuss your project and prepare a proposal: on the basis of your consent, which you give by ticking the consent box when sending a form, and to take steps at your request before entering into a contract.",
+        "ru": "Чтобы ответить на ваш запрос, обсудить проект и подготовить предложение — на основании вашего согласия, которое вы даёте, отмечая поле согласия при отправке формы, а также для действий по вашему запросу до заключения договора.",
+        "zh": "为答复您的咨询、讨论您的项目并编制方案：依据是您的同意（您在发送表单时勾选同意框即表示同意），以及应您的要求在订立合同之前采取相关步骤。",
+        "tr": "Talebinize yanıt vermek, projenizi görüşmek ve bir teklif hazırlamak için: bir form gönderirken onay kutusunu işaretleyerek verdiğiniz rızanıza ve bir sözleşmenin kurulmasından önce talebiniz üzerine gerekli adımların atılmasına dayanarak.",
+        "ar": "للرد على استفسارك ومناقشة مشروعك وإعداد عرض: استنادًا إلى موافقتك التي تمنحها بوضع علامة في خانة الموافقة عند إرسال النموذج، ولاتخاذ خطوات بناءً على طلبك قبل إبرام عقد.",
+        "es": "Para responder a su consulta, analizar su proyecto y preparar una propuesta: sobre la base de su consentimiento, que usted otorga al marcar la casilla de consentimiento al enviar un formulario, y para aplicar, a petición suya, medidas previas a la celebración de un contrato."
+      },
+      {
+        "en": "To keep the website and its forms secure and to prevent spam and abuse: on the basis of our legitimate interest in a secure website and, where the law that applies to you requires it, your consent.",
+        "ru": "Чтобы обеспечить безопасность сайта и форм и предотвращать спам и злоупотребления — на основании нашего законного интереса в защищённом сайте, а если этого требует применимое к вам право — на основании вашего согласия.",
+        "zh": "为保障本网站及其表单的安全并防范垃圾信息和滥用：依据是我们在网站安全方面的合法利益，以及在适用于您的法律有此要求时您的同意。",
+        "tr": "Web sitesinin ve formlarının güvenliğini sağlamak ve spam ile kötüye kullanımı önlemek için: güvenli bir web sitesine ilişkin meşru menfaatimize ve size uygulanan hukukun gerektirdiği durumlarda rızanıza dayanarak.",
+        "ar": "للحفاظ على أمن الموقع الإلكتروني ونماذجه ومنع الرسائل غير المرغوب فيها وإساءة الاستخدام: استنادًا إلى مصلحتنا المشروعة في موقع إلكتروني آمن، وإلى موافقتك متى اقتضى ذلك القانون المطبق عليك.",
+        "es": "Para mantener la seguridad del sitio web y de sus formularios y prevenir el spam y el uso abusivo: sobre la base de nuestro interés legítimo en disponer de un sitio web seguro y, cuando la ley que le sea aplicable lo exija, de su consentimiento."
+      },
+      {
+        "en": "To understand which campaigns bring inquiries (only where campaign attribution is enabled): on the basis of your consent.",
+        "ru": "Чтобы понимать, какие рекламные кампании приводят запросы (только если включён учёт кампаний), — на основании вашего согласия.",
+        "zh": "为了解哪些营销活动带来了咨询（仅在启用营销活动归因功能时）：依据是您的同意。",
+        "tr": "Hangi kampanyaların talep getirdiğini anlamak için (yalnızca kampanya ilişkilendirmesinin etkin olduğu durumlarda): rızanıza dayanarak.",
+        "ar": "لمعرفة الحملات التي تجلب الاستفسارات (فقط عند تفعيل خاصية إسناد الحملات): استنادًا إلى موافقتك.",
+        "es": "Para saber qué campañas generan consultas (solo cuando la atribución de campañas está activada): sobre la base de su consentimiento."
+      },
+      {
+        "en": "To comply with legal obligations that apply to us.",
+        "ru": "Чтобы выполнять обязанности, установленные законом.",
+        "zh": "为履行适用于我们的法律义务。",
+        "tr": "Tabi olduğumuz yasal yükümlülükleri yerine getirmek için.",
+        "ar": "للامتثال للالتزامات القانونية المفروضة علينا.",
+        "es": "Para cumplir las obligaciones legales que nos son aplicables."
+      },
+      {
+        "en": "We do not sell personal data and do not use it for automated decision-making or profiling.",
+        "ru": "Мы не продаём персональные данные и не используем их для автоматизированного принятия решений или профилирования.",
+        "zh": "我们不出售个人数据，也不将其用于自动化决策或用户画像。",
+        "tr": "Kişisel verileri satmayız ve bunları otomatik karar alma veya profil oluşturma amacıyla kullanmayız.",
+        "ar": "لا نبيع البيانات الشخصية ولا نستخدمها في اتخاذ القرارات الآلية أو التنميط.",
+        "es": "No vendemos datos personales ni los utilizamos para la toma de decisiones automatizadas ni para la elaboración de perfiles."
+      },
+      {
+        "en": "## 4. Who receives your data",
+        "ru": "## 4. Кто получает ваши данные",
+        "zh": "## 4. 谁会接收您的数据",
+        "tr": "## 4. Verilerinizi kimler alır",
+        "ar": "## 4. من يتلقى بياناتك",
+        "es": "## 4. Quién recibe sus datos"
+      },
+      {
+        "en": "Inquiries are handled by Soltex Global staff and by the regional representatives responsible for your request. Access in our system is limited by role, protected by two-factor authentication, and every view or export of an inquiry is logged.",
+        "ru": "Запросы обрабатывают сотрудники Soltex Global и региональные представители, отвечающие за ваш запрос. Доступ в нашей системе ограничен ролями и защищён двухфакторной аутентификацией, а каждый просмотр и выгрузка запроса записываются в журнал.",
+        "zh": "咨询由 Soltex Global 员工以及负责处理您请求的地区代表处理。我们系统中的访问权限按角色加以限制，并受双重身份验证保护，每一次查看或导出咨询的操作均会被记录。",
+        "tr": "Talepler, Soltex Global personeli ve talebinizden sorumlu bölge temsilcileri tarafından ele alınır. Sistemimizdeki erişim rollere göre sınırlandırılmıştır ve iki faktörlü kimlik doğrulama ile korunur; bir talebin her görüntülenmesi veya dışa aktarılması kayıt altına alınır.",
+        "ar": "يتولى التعامل مع الاستفسارات موظفو Soltex Global والممثلون الإقليميون المسؤولون عن طلبك. والوصول في نظامنا مقيَّد حسب الدور ومحمي بالمصادقة الثنائية، ويُسجَّل كل اطلاع على استفسار أو تصدير له.",
+        "es": "Las consultas son tramitadas por el personal de Soltex Global y por los representantes regionales responsables de su solicitud. El acceso en nuestro sistema está limitado según el rol y protegido mediante autenticación de dos factores, y cada visualización o exportación de una consulta queda registrada."
+      },
+      {
+        "en": "We use service providers that process data on our behalf and under our instructions: the provider hosting the website and its database (servers in the Republic of Kazakhstan) and the e-mail service that delivers notifications about new inquiries to our staff.",
+        "ru": "Мы пользуемся услугами поставщиков, которые обрабатывают данные по нашему поручению и по нашим указаниям: хостинг-провайдера сайта и базы данных (серверы в Республике Казахстан) и почтового сервиса, который доставляет нашим сотрудникам уведомления о новых запросах.",
+        "zh": "我们使用代表我们并按照我们的指示处理数据的服务提供商：托管本网站及其数据库的提供商（服务器位于哈萨克斯坦共和国），以及向我们员工发送新咨询通知的电子邮件服务。",
+        "tr": "Verileri bizim adımıza ve talimatlarımız doğrultusunda işleyen hizmet sağlayıcılardan yararlanırız: web sitesini ve veritabanını barındıran sağlayıcı (sunucular Kazakistan Cumhuriyeti’nde) ve yeni taleplere ilişkin bildirimleri personelimize ileten e-posta hizmeti.",
+        "ar": "نستعين بمزودي خدمات يعالجون البيانات نيابةً عنا ووفقًا لتعليماتنا: مزود استضافة الموقع الإلكتروني وقاعدة بياناته (الخوادم في جمهورية كازاخستان)، وخدمة البريد الإلكتروني التي توصل إلى موظفينا الإشعارات المتعلقة بالاستفسارات الجديدة.",
+        "es": "Recurrimos a proveedores de servicios que tratan los datos por cuenta nuestra y siguiendo nuestras instrucciones: el proveedor que aloja el sitio web y su base de datos (servidores en la República de Kazajistán) y el servicio de correo electrónico que entrega a nuestro personal las notificaciones sobre nuevas consultas."
+      },
+      {
+        "en": "The website loads fonts from Google Fonts (Google LLC). When a page opens, your browser connects to Google’s servers, which receive your IP address and browser information.",
+        "ru": "Сайт загружает шрифты с Google Fonts (Google LLC). При открытии страницы ваш браузер обращается к серверам Google, которые получают ваш IP-адрес и сведения о браузере.",
+        "zh": "本网站从 Google Fonts（Google LLC）加载字体。打开页面时，您的浏览器会连接到 Google 的服务器，该服务器会接收您的 IP 地址和浏览器信息。",
+        "tr": "Web sitesi yazı tiplerini Google Fonts’tan (Google LLC) yükler. Bir sayfa açıldığında tarayıcınız Google’ın sunucularına bağlanır ve bu sunucular IP adresinizi ve tarayıcı bilgilerinizi alır.",
+        "ar": "يحمّل الموقع الإلكتروني الخطوط من Google Fonts (Google LLC). وعند فتح أي صفحة، يتصل متصفحك بخوادم Google التي تتلقى عنوان IP الخاص بك ومعلومات متصفحك.",
+        "es": "El sitio web carga fuentes tipográficas desde Google Fonts (Google LLC). Al abrirse una página, su navegador se conecta a los servidores de Google, que reciben su dirección IP y la información de su navegador."
+      },
+      {
+        "en": "We may disclose data when required by law or by a competent authority.",
+        "ru": "Мы можем раскрыть данные, если этого требует закон или уполномоченный государственный орган.",
+        "zh": "在法律或主管机关要求时，我们可能会披露数据。",
+        "tr": "Kanunen veya yetkili bir makam tarafından gerekli kılındığında verileri açıklayabiliriz.",
+        "ar": "يجوز لنا الإفصاح عن البيانات متى اقتضى ذلك القانون أو طلبته سلطة مختصة.",
+        "es": "Podemos divulgar datos cuando así lo exija la ley o una autoridad competente."
+      },
+      {
+        "en": "## 5. International transfers",
+        "ru": "## 5. Трансграничная передача",
+        "zh": "## 5. 国际传输",
+        "tr": "## 5. Uluslararası aktarımlar",
+        "ar": "## 5. عمليات النقل الدولية",
+        "es": "## 5. Transferencias internacionales"
+      },
+      {
+        "en": "The website and its database are hosted in the Republic of Kazakhstan. Because Soltex Global works internationally, your inquiry may be accessed from other countries where our staff and regional offices are located, including the United Arab Emirates, Bulgaria, Israel and China. Where data is transferred to a country that does not provide an adequate level of protection, we rely on your consent or on other safeguards permitted by applicable law.",
+        "ru": "Сайт и его база данных размещены в Республике Казахстан. Поскольку Soltex Global работает в разных странах, к вашему запросу могут обращаться из других стран, где находятся наши сотрудники и региональные офисы, в том числе из Объединённых Арабских Эмиратов, Болгарии, Израиля и Китая. Если данные передаются в страну, которая не обеспечивает надлежащий уровень защиты, мы опираемся на ваше согласие или на другие гарантии, допускаемые применимым правом.",
+        "zh": "本网站及其数据库托管于哈萨克斯坦共和国。由于 Soltex Global 开展国际业务，您的咨询可能会在我们员工和地区办事处所在的其他国家被访问，包括阿拉伯联合酋长国、保加利亚、以色列和中国。如数据被传输至未提供充分保护水平的国家，我们将依据您的同意或适用法律允许的其他保障措施。",
+        "tr": "Web sitesi ve veritabanı Kazakistan Cumhuriyeti’nde barındırılmaktadır. Soltex Global uluslararası düzeyde faaliyet gösterdiğinden, talebinize personelimizin ve bölge ofislerimizin bulunduğu Birleşik Arap Emirlikleri, Bulgaristan, İsrail ve Çin dâhil diğer ülkelerden erişilebilir. Verilerin yeterli düzeyde koruma sağlamayan bir ülkeye aktarıldığı durumlarda rızanıza veya yürürlükteki hukukun izin verdiği diğer güvencelere dayanırız.",
+        "ar": "يُستضاف الموقع الإلكتروني وقاعدة بياناته في جمهورية كازاخستان. ونظرًا إلى أن Soltex Global تعمل على المستوى الدولي، فقد يُطَّلع على استفسارك من دول أخرى يوجد فيها موظفونا ومكاتبنا الإقليمية، بما في ذلك الإمارات العربية المتحدة وبلغاريا وإسرائيل والصين. وعند نقل البيانات إلى دولة لا توفر مستوى ملائمًا من الحماية، نعتمد على موافقتك أو على ضمانات أخرى يجيزها القانون المعمول به.",
+        "es": "El sitio web y su base de datos están alojados en la República de Kazajistán. Dado que Soltex Global trabaja a escala internacional, es posible que se acceda a su consulta desde otros países en los que se encuentran nuestro personal y nuestras oficinas regionales, entre ellos los Emiratos Árabes Unidos, Bulgaria, Israel y China. Cuando los datos se transfieren a un país que no ofrece un nivel de protección adecuado, nos basamos en su consentimiento o en otras garantías permitidas por la legislación aplicable."
+      },
+      {
+        "en": "## 6. How long we keep your data",
+        "ru": "## 6. Сколько мы храним данные",
+        "zh": "## 6. 我们保存您的数据的期限",
+        "tr": "## 6. Verilerinizi ne kadar süre saklıyoruz",
+        "ar": "## 6. مدة احتفاظنا ببياناتك",
+        "es": "## 6. Durante cuánto tiempo conservamos sus datos"
+      },
+      {
+        "en": "Inquiries are kept for up to 24 months after they are received and are then anonymised automatically: the name, company, contact details, message, IP hash and source of the visit are erased, and only non-personal statistics remain. An inquiry that we delete earlier is anonymised 30 days after deletion.",
+        "ru": "Запросы хранятся до 24 месяцев с момента получения, после чего автоматически обезличиваются: имя, компания, контактные данные, сообщение, хеш IP-адреса и источник визита удаляются, остаётся только неперсональная статистика. Запрос, удалённый нами раньше, обезличивается через 30 дней после удаления.",
+        "zh": "咨询自收到之日起最多保存 24 个月，之后将自动匿名化：姓名、公司、联系方式、留言、IP 哈希值和访问来源将被删除，仅保留非个人性质的统计数据。我们提前删除的咨询将在删除 30 天后予以匿名化。",
+        "tr": "Talepler, alındıktan sonra en fazla 24 ay süreyle saklanır ve ardından otomatik olarak anonim hâle getirilir: ad, şirket, iletişim bilgileri, mesaj, IP özeti ve ziyaret kaynağı silinir; yalnızca kişisel nitelik taşımayan istatistikler kalır. Bu süreden önce sildiğimiz bir talep, silinmesinden 30 gün sonra anonim hâle getirilir.",
+        "ar": "يُحتفظ بالاستفسارات لمدة أقصاها 24 شهرًا من تاريخ استلامها، ثم تُجعل مجهولة الهوية تلقائيًا: إذ يُمحى الاسم والشركة وبيانات الاتصال والرسالة وقيمة تجزئة عنوان IP ومصدر الزيارة، ولا يتبقى سوى إحصاءات غير شخصية. أما الاستفسار الذي نحذفه قبل ذلك، فيُجعل مجهول الهوية بعد 30 يومًا من حذفه.",
+        "es": "Las consultas se conservan durante un máximo de 24 meses desde su recepción y, a continuación, se anonimizan automáticamente: se eliminan el nombre, la empresa, los datos de contacto, el mensaje, el hash de la IP y el origen de la visita, y solo se mantienen estadísticas no personales. Una consulta que eliminemos antes se anonimiza 30 días después de su eliminación."
+      },
+      {
+        "en": "Server access logs are kept for no longer than 30 days for security purposes. Backups that may contain inquiries are kept for no longer than 14 days.",
+        "ru": "Журналы обращений к серверу хранятся не дольше 30 дней в целях безопасности. Резервные копии, которые могут содержать запросы, хранятся не дольше 14 дней.",
+        "zh": "出于安全目的，服务器访问日志的保存期限不超过 30 天。可能包含咨询的备份的保存期限不超过 14 天。",
+        "tr": "Sunucu erişim kayıtları güvenlik amacıyla en fazla 30 gün saklanır. Talepleri içerebilecek yedekler en fazla 14 gün saklanır.",
+        "ar": "يُحتفظ بسجلات الوصول إلى الخادم لمدة لا تتجاوز 30 يومًا لأغراض أمنية. ويُحتفظ بالنسخ الاحتياطية التي قد تتضمن استفسارات لمدة لا تتجاوز 14 يومًا.",
+        "es": "Los registros de acceso al servidor se conservan durante un máximo de 30 días con fines de seguridad. Las copias de seguridad que puedan contener consultas se conservan durante un máximo de 14 días."
+      },
+      {
+        "en": "## 7. How we protect your data",
+        "ru": "## 7. Как мы защищаем данные",
+        "zh": "## 7. 我们如何保护您的数据",
+        "tr": "## 7. Verilerinizi nasıl koruyoruz",
+        "ar": "## 7. كيف نحمي بياناتك",
+        "es": "## 7. Cómo protegemos sus datos"
+      },
+      {
+        "en": "The website is available only over an encrypted connection (HTTPS). Phone numbers, e-mail addresses and messages are stored encrypted in the database. Only authorised staff with two-factor authentication can access inquiries, and their actions are recorded. Data is backed up every night.",
+        "ru": "Сайт работает только по зашифрованному соединению (HTTPS). Номера телефонов, адреса электронной почты и сообщения хранятся в базе данных в зашифрованном виде. Доступ к запросам есть только у уполномоченных сотрудников с двухфакторной аутентификацией, их действия записываются. Данные ежедневно резервируются.",
+        "zh": "本网站仅可通过加密连接（HTTPS）访问。电话号码、电子邮件地址和留言以加密形式存储在数据库中。只有启用双重身份验证的授权员工才能访问咨询，其操作均会被记录。数据每晚进行备份。",
+        "tr": "Web sitesine yalnızca şifreli bir bağlantı (HTTPS) üzerinden erişilebilir. Telefon numaraları, e-posta adresleri ve mesajlar veritabanında şifrelenmiş olarak saklanır. Taleplere yalnızca iki faktörlü kimlik doğrulama kullanan yetkili personel erişebilir ve bu personelin işlemleri kayıt altına alınır. Veriler her gece yedeklenir.",
+        "ar": "لا يتاح الموقع الإلكتروني إلا عبر اتصال مشفّر (HTTPS). وتُخزَّن أرقام الهواتف وعناوين البريد الإلكتروني والرسائل مشفّرةً في قاعدة البيانات. ولا يمكن الوصول إلى الاستفسارات إلا للموظفين المخوَّلين الذين يستخدمون المصادقة الثنائية، وتُسجَّل الإجراءات التي يتخذونها. ويُجرى نسخ احتياطي للبيانات كل ليلة.",
+        "es": "El sitio web solo está disponible mediante una conexión cifrada (HTTPS). Los números de teléfono, las direcciones de correo electrónico y los mensajes se almacenan cifrados en la base de datos. Solo el personal autorizado que utiliza autenticación de dos factores puede acceder a las consultas, y sus acciones quedan registradas. Se realiza una copia de seguridad de los datos todas las noches."
+      },
+      {
+        "en": "## 8. Data stored in your browser",
+        "ru": "## 8. Данные в вашем браузере",
+        "zh": "## 8. 存储在您浏览器中的数据",
+        "tr": "## 8. Tarayıcınızda saklanan veriler",
+        "ar": "## 8. البيانات المخزنة في متصفحك",
+        "es": "## 8. Datos almacenados en su navegador"
+      },
+      {
+        "en": "The website does not set cookies. It stores in your browser’s local storage your language choice and, where campaign attribution is enabled, the source of your first visit (kept for 90 days) and of your current visit (until you close the browser tab). This information stays in your browser and is sent to us only together with an inquiry. You can delete it at any time by clearing the website data in your browser settings.",
+        "ru": "Сайт не устанавливает cookie. В локальном хранилище вашего браузера сохраняются выбранный язык и, если включён учёт кампаний, источник вашего первого визита (хранится 90 дней) и текущего визита (до закрытия вкладки). Эти сведения остаются в вашем браузере и передаются нам только вместе с запросом. Удалить их можно в любой момент, очистив данные сайта в настройках браузера.",
+        "zh": "本网站不设置 Cookie。本网站会在您浏览器的本地存储中保存您选择的语言，并在启用营销活动归因功能时，保存您首次访问的来源（保存 90 天）和本次访问的来源（保存至您关闭浏览器标签页为止）。这些信息保留在您的浏览器中，仅在您发送咨询时随咨询一并发送给我们。您可以随时通过在浏览器设置中清除本网站数据来删除这些信息。",
+        "tr": "Web sitesi çerez yerleştirmez. Tarayıcınızın yerel depolama alanında dil tercihinizi ve kampanya ilişkilendirmesinin etkin olduğu durumlarda ilk ziyaretinizin kaynağını (90 gün süreyle) ve mevcut ziyaretinizin kaynağını (tarayıcı sekmesini kapatana kadar) saklar. Bu bilgiler tarayıcınızda kalır ve bize yalnızca bir taleple birlikte gönderilir. Bu bilgileri, tarayıcı ayarlarınızdan web sitesi verilerini temizleyerek dilediğiniz zaman silebilirsiniz.",
+        "ar": "لا يضع الموقع الإلكتروني ملفات تعريف الارتباط. ويخزّن في وحدة التخزين المحلية لمتصفحك اللغة التي اخترتها، وعند تفعيل خاصية إسناد الحملات، مصدر زيارتك الأولى (ويُحتفظ به لمدة 90 يومًا) ومصدر زيارتك الحالية (إلى أن تغلق علامة تبويب المتصفح). وتبقى هذه المعلومات في متصفحك ولا تُرسل إلينا إلا مع الاستفسار. ويمكنك حذفها في أي وقت بمسح بيانات الموقع الإلكتروني من إعدادات متصفحك.",
+        "es": "El sitio web no instala cookies. Guarda en el almacenamiento local de su navegador el idioma que ha elegido y, cuando la atribución de campañas está activada, el origen de su primera visita (durante 90 días) y el de su visita actual (hasta que cierre la pestaña del navegador). Esta información permanece en su navegador y solo se nos envía junto con una consulta. Puede eliminarla en cualquier momento borrando los datos del sitio web en la configuración de su navegador."
+      },
+      {
+        "en": "## 9. Your rights",
+        "ru": "## 9. Ваши права",
+        "zh": "## 9. 您的权利",
+        "tr": "## 9. Haklarınız",
+        "ar": "## 9. حقوقك",
+        "es": "## 9. Sus derechos"
+      },
+      {
+        "en": "Depending on the law that applies to you, you have the right to: know whether we process your personal data and obtain a copy of it; have inaccurate data corrected; have your data deleted; restrict or object to processing; receive your data in a portable format; and withdraw your consent at any time. Withdrawing consent does not affect processing carried out before it was withdrawn.",
+        "ru": "В зависимости от применимого к вам права вы можете: узнать, обрабатываем ли мы ваши персональные данные, и получить их копию; исправить неточные данные; потребовать удаления данных; ограничить обработку или возразить против неё; получить данные в переносимом формате; отозвать согласие в любой момент. Отзыв согласия не влияет на обработку, выполненную до отзыва.",
+        "zh": "根据适用于您的法律，您有权：了解我们是否处理您的个人数据并获取其副本；要求更正不准确的数据；要求删除您的数据；限制处理或反对处理；以可携带的格式接收您的数据；以及随时撤回您的同意。撤回同意不影响撤回之前已进行的处理。",
+        "tr": "Size uygulanan hukuka bağlı olarak şu haklara sahipsiniz: kişisel verilerinizi işleyip işlemediğimizi öğrenmek ve bunların bir kopyasını almak; yanlış verilerin düzeltilmesini istemek; verilerinizin silinmesini istemek; işlemenin kısıtlanmasını istemek veya işlemeye itiraz etmek; verilerinizi taşınabilir bir biçimde almak ve rızanızı dilediğiniz zaman geri almak. Rızanın geri alınması, geri alınmadan önce gerçekleştirilen işlemeyi etkilemez.",
+        "ar": "وفقًا للقانون المطبق عليك، يحق لك: معرفة ما إذا كنا نعالج بياناتك الشخصية والحصول على نسخة منها؛ وتصحيح البيانات غير الدقيقة؛ وحذف بياناتك؛ وتقييد المعالجة أو الاعتراض عليها؛ وتلقي بياناتك بصيغة قابلة للنقل؛ وسحب موافقتك في أي وقت. ولا يؤثر سحب الموافقة في المعالجة التي جرت قبل سحبها.",
+        "es": "En función de la ley que le sea aplicable, usted tiene derecho a: saber si tratamos sus datos personales y obtener una copia de ellos; obtener la rectificación de los datos inexactos; obtener la supresión de sus datos; limitar el tratamiento u oponerse a él; recibir sus datos en un formato portable; y retirar su consentimiento en cualquier momento. La retirada del consentimiento no afecta al tratamiento realizado antes de dicha retirada."
+      },
+      {
+        "en": "To exercise these rights, write to info@soltexglobal.co. We will answer within the time limits set by applicable law and in any case within 30 days. After you withdraw your consent, we stop processing your data within the period required by law.",
+        "ru": "Чтобы воспользоваться этими правами, напишите на info@soltexglobal.co. Мы ответим в сроки, установленные применимым правом, и в любом случае не позднее 30 дней. После отзыва согласия мы прекращаем обработку ваших данных в срок, установленный законом.",
+        "zh": "如需行使上述权利，请发送电子邮件至 info@soltexglobal.co。我们将在适用法律规定的期限内答复，且无论如何不晚于 30 天。在您撤回同意后，我们将在法律规定的期限内停止处理您的数据。",
+        "tr": "Bu hakları kullanmak için info@soltexglobal.co adresine yazın. Yürürlükteki hukukun belirlediği süreler içinde ve her hâlükârda 30 gün içinde yanıt veririz. Rızanızı geri almanızın ardından, verilerinizi işlemeyi kanunun öngördüğü süre içinde durdururuz.",
+        "ar": "لممارسة هذه الحقوق، يُرجى مراسلتنا على info@soltexglobal.co. وسنرد خلال المهل التي يحددها القانون المعمول به، وفي جميع الأحوال خلال 30 يومًا. وبعد سحب موافقتك، نتوقف عن معالجة بياناتك خلال المدة التي يقتضيها القانون.",
+        "es": "Para ejercer estos derechos, escriba a info@soltexglobal.co. Le responderemos dentro de los plazos establecidos por la legislación aplicable y, en todo caso, en un plazo de 30 días. Una vez retirado su consentimiento, dejaremos de tratar sus datos dentro del plazo que exija la ley."
+      },
+      {
+        "en": "You also have the right to lodge a complaint with a data protection authority: in the United Arab Emirates, the UAE Data Office; in the Republic of Kazakhstan, the authorised body for personal data protection; in the European Union, the supervisory authority of your country (in Bulgaria, the Commission for Personal Data Protection).",
+        "ru": "Вы также вправе подать жалобу в орган по защите персональных данных: в Объединённых Арабских Эмиратах — в UAE Data Office; в Республике Казахстан — в уполномоченный орган в сфере защиты персональных данных; в Европейском союзе — в надзорный орган вашей страны (в Болгарии — Комиссия по защите персональных данных).",
+        "zh": "您还有权向数据保护机构投诉：在阿拉伯联合酋长国，向阿联酋数据办公室投诉；在哈萨克斯坦共和国，向个人数据保护授权机关投诉；在欧盟，向您所在国家的监管机构投诉（在保加利亚为个人数据保护委员会）。",
+        "tr": "Ayrıca bir veri koruma makamına şikâyette bulunma hakkına da sahipsiniz: Birleşik Arap Emirlikleri’nde BAE Veri Ofisi’ne; Kazakistan Cumhuriyeti’nde kişisel verilerin korunması konusunda yetkili kuruma; Avrupa Birliği’nde ülkenizin denetim makamına (Bulgaristan’da Kişisel Verilerin Korunması Komisyonu’na).",
+        "ar": "يحق لك أيضًا تقديم شكوى إلى سلطة حماية البيانات: في الإمارات العربية المتحدة، إلى مكتب الإمارات للبيانات؛ وفي جمهورية كازاخستان، إلى الجهة المخوَّلة بحماية البيانات الشخصية؛ وفي الاتحاد الأوروبي، إلى السلطة الرقابية في بلدك (وفي بلغاريا، لجنة حماية البيانات الشخصية).",
+        "es": "También tiene derecho a presentar una reclamación ante una autoridad de protección de datos: en los Emiratos Árabes Unidos, ante la Oficina de Datos de los Emiratos Árabes Unidos; en la República de Kazajistán, ante el organismo autorizado en materia de protección de datos personales; en la Unión Europea, ante la autoridad de control de su país (en Bulgaria, la Comisión de Protección de Datos Personales)."
+      },
+      {
+        "en": "## 10. Children",
+        "ru": "## 10. Дети",
+        "zh": "## 10. 儿童",
+        "tr": "## 10. Çocuklar",
+        "ar": "## 10. الأطفال",
+        "es": "## 10. Menores"
+      },
+      {
+        "en": "The website is intended for businesses and is not directed at persons under 18. We do not knowingly collect personal data of children.",
+        "ru": "Сайт предназначен для компаний и не рассчитан на лиц младше 18 лет. Мы сознательно не собираем персональные данные детей.",
+        "zh": "本网站面向企业，并非针对 18 岁以下人士。我们不会在知情的情况下收集儿童的个人数据。",
+        "tr": "Web sitesi işletmelere yöneliktir ve 18 yaşından küçük kişilere yönelik değildir. Çocuklara ait kişisel verileri bilerek toplamayız.",
+        "ar": "الموقع الإلكتروني مخصص للشركات وغير موجّه إلى الأشخاص الذين تقل أعمارهم عن 18 عامًا. ولا نجمع عن علم بيانات شخصية للأطفال.",
+        "es": "El sitio web está destinado a empresas y no está dirigido a personas menores de 18 años. No recopilamos a sabiendas datos personales de menores."
+      },
+      {
+        "en": "## 11. Changes to this policy",
+        "ru": "## 11. Изменения политики",
+        "zh": "## 11. 本政策的变更",
+        "tr": "## 11. Bu politikadaki değişiklikler",
+        "ar": "## 11. التغييرات على هذه السياسة",
+        "es": "## 11. Cambios en esta política"
+      },
+      {
+        "en": "We may update this policy when our website or the law changes. The date at the top shows when it was last updated. The version in force is always published on this page.",
+        "ru": "Мы можем обновлять эту политику при изменении сайта или законодательства. Дата вверху показывает, когда она обновлялась в последний раз. Действующая редакция всегда опубликована на этой странице.",
+        "zh": "当我们的网站或法律发生变化时，我们可能会更新本政策。页面顶部的日期显示本政策的最后更新时间。现行有效版本始终在本页面发布。",
+        "tr": "Web sitemiz veya mevzuat değiştiğinde bu politikayı güncelleyebiliriz. Sayfanın üst kısmındaki tarih, politikanın en son ne zaman güncellendiğini gösterir. Yürürlükteki sürüm her zaman bu sayfada yayımlanır.",
+        "ar": "يجوز لنا تحديث هذه السياسة عند تغيّر موقعنا الإلكتروني أو القانون. ويبيّن التاريخ الوارد في أعلى الصفحة موعد آخر تحديث لها. وتُنشر النسخة السارية دائمًا على هذه الصفحة.",
+        "es": "Podemos actualizar esta política cuando cambien nuestro sitio web o la legislación. La fecha que figura al principio indica cuándo se actualizó por última vez. La versión vigente se publica siempre en esta página."
+      },
+      {
+        "en": "## 12. Contact",
+        "ru": "## 12. Контакты",
+        "zh": "## 12. 联系方式",
+        "tr": "## 12. İletişim",
+        "ar": "## 12. التواصل",
+        "es": "## 12. Contacto"
+      },
+      {
+        "en": "Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah, United Arab Emirates. E-mail: info@soltexglobal.co.",
+        "ru": "Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah, Объединённые Арабские Эмираты. Электронная почта: info@soltexglobal.co.",
+        "zh": "Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah，阿拉伯联合酋长国。电子邮件：info@soltexglobal.co。",
+        "tr": "Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah, Birleşik Arap Emirlikleri. E-posta: info@soltexglobal.co.",
+        "ar": "Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah، الإمارات العربية المتحدة. البريد الإلكتروني: info@soltexglobal.co.",
+        "es": "Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah, Emiratos Árabes Unidos. Correo electrónico: info@soltexglobal.co."
+      }
+    ],
     "seo": {
       "metaTitle": null,
       "metaDescription": null,
@@ -3489,35 +3809,35 @@
     },
     "translationStatus": {
       "ru": {
-        "status": "missing",
-        "approvedSourceHash": null,
-        "approvedAt": null
+        "status": "approved",
+        "approvedSourceHash": "4fe41c8c442f1abe",
+        "approvedAt": "2026-10-18"
       },
       "zh": {
-        "status": "missing",
-        "approvedSourceHash": null,
-        "approvedAt": null
+        "status": "approved",
+        "approvedSourceHash": "4fe41c8c442f1abe",
+        "approvedAt": "2026-10-18"
       },
       "tr": {
-        "status": "missing",
-        "approvedSourceHash": null,
-        "approvedAt": null
+        "status": "approved",
+        "approvedSourceHash": "4fe41c8c442f1abe",
+        "approvedAt": "2026-10-18"
       },
       "ar": {
-        "status": "missing",
-        "approvedSourceHash": null,
-        "approvedAt": null
+        "status": "approved",
+        "approvedSourceHash": "4fe41c8c442f1abe",
+        "approvedAt": "2026-10-18"
       },
       "es": {
-        "status": "missing",
-        "approvedSourceHash": null,
-        "approvedAt": null
+        "status": "approved",
+        "approvedSourceHash": "4fe41c8c442f1abe",
+        "approvedAt": "2026-10-18"
       }
     }
   },
   {
     "id": "page-terms",
-    "status": "draft",
+    "status": "published",
     "order": 11,
     "key": "terms",
     "kind": "page",
@@ -3540,14 +3860,214 @@
         "es": "Condiciones de uso"
       },
       "subtitle": null,
-      "description": null,
+      "description": {
+        "en": "The conditions for using the soltexglobal.co website and the information published on it.",
+        "ru": "Условия использования сайта soltexglobal.co и опубликованной на нём информации.",
+        "zh": "使用 soltexglobal.co 网站及其所发布信息的条件。",
+        "tr": "soltexglobal.co web sitesinin ve sitede yayımlanan bilgilerin kullanım koşulları.",
+        "ar": "شروط استخدام الموقع الإلكتروني soltexglobal.co والمعلومات المنشورة عليه.",
+        "es": "Condiciones de uso del sitio web soltexglobal.co y de la información publicada en él."
+      },
       "meta": [],
       "actionLabel": null
     },
     "copy": {},
     "lists": {},
     "media": {},
-    "body": null,
+    "body": [
+      {
+        "en": "Last updated: 19 October 2026",
+        "ru": "Последнее обновление: 19 октября 2026 г.",
+        "zh": "最后更新：2026年10月19日",
+        "tr": "Son güncelleme: 19 Ekim 2026",
+        "ar": "آخر تحديث: 19 أكتوبر 2026",
+        "es": "Última actualización: 19 de octubre de 2026"
+      },
+      {
+        "en": "These Terms of Use apply to the website soltexglobal.co (the “website”) operated by Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah, United Arab Emirates (“Soltex Global”, “we”, “us”). By using the website you accept these terms. If you do not accept them, please do not use the website.",
+        "ru": "Настоящие Условия использования применяются к сайту soltexglobal.co (далее — «сайт»), который принадлежит компании Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah, Объединённые Арабские Эмираты (далее — «Soltex Global», «мы»). Пользуясь сайтом, вы принимаете эти условия. Если вы с ними не согласны, пожалуйста, не пользуйтесь сайтом.",
+        "zh": "本使用条款适用于由 Soltex Global FZC（地址：Sharjah Media City (Shams), Al Messaned, Sharjah，阿拉伯联合酋长国）（“Soltex Global”或“我们”）运营的 soltexglobal.co 网站（“本网站”）。使用本网站即表示您接受本条款。如您不接受本条款，请勿使用本网站。",
+        "tr": "Bu Kullanım Koşulları, Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah, Birleşik Arap Emirlikleri (“Soltex Global”, “biz”) tarafından işletilen soltexglobal.co web sitesi (“web sitesi”) için geçerlidir. Web sitesini kullanarak bu koşulları kabul etmiş olursunuz. Bu koşulları kabul etmiyorsanız lütfen web sitesini kullanmayın.",
+        "ar": "تسري شروط الاستخدام هذه على الموقع الإلكتروني soltexglobal.co («الموقع الإلكتروني») الذي تشغّله شركة Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah، الإمارات العربية المتحدة («Soltex Global» أو «نحن»). وباستخدامك الموقع الإلكتروني، فإنك توافق على هذه الشروط. وإذا كنت لا توافق عليها، فيُرجى عدم استخدام الموقع الإلكتروني.",
+        "es": "Las presentes Condiciones de uso se aplican al sitio web soltexglobal.co (el «sitio web»), gestionado por Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah, Emiratos Árabes Unidos («Soltex Global» o «nosotros»). Al utilizar el sitio web, usted acepta estas condiciones. Si no las acepta, le rogamos que no utilice el sitio web."
+      },
+      {
+        "en": "## 1. Information on the website",
+        "ru": "## 1. Информация на сайте",
+        "zh": "## 1. 本网站上的信息",
+        "tr": "## 1. Web sitesindeki bilgiler",
+        "ar": "## 1. المعلومات الواردة على الموقع الإلكتروني",
+        "es": "## 1. Información del sitio web"
+      },
+      {
+        "en": "The website provides general information about Soltex Global, its technologies, products, services and projects. It is not an offer to enter into a contract. Technical data, capacities, results and timelines depend on the specific project and raw materials and are confirmed only in a commercial proposal or a signed contract.",
+        "ru": "Сайт содержит общую информацию о Soltex Global, её технологиях, продуктах, услугах и проектах. Она не является предложением заключить договор. Технические данные, мощности, результаты и сроки зависят от конкретного проекта и сырья и подтверждаются только в коммерческом предложении или подписанном договоре.",
+        "zh": "本网站提供有关 Soltex Global 及其技术、产品、服务和项目的一般性信息，不构成订立合同的要约。技术数据、产能、结果和时间安排取决于具体项目和原材料，仅在商务建议书或已签署的合同中予以确认。",
+        "tr": "Web sitesi; Soltex Global ile şirketin teknolojileri, ürünleri, hizmetleri ve projeleri hakkında genel bilgi sunar. Bu bilgiler, sözleşme kurulmasına yönelik bir teklif niteliği taşımaz. Teknik veriler, kapasiteler, sonuçlar ve süreler ilgili projeye ve hammaddelere bağlıdır ve yalnızca bir ticari teklifte veya imzalı bir sözleşmede teyit edilir.",
+        "ar": "يقدم الموقع الإلكتروني معلومات عامة عن Soltex Global وتقنياتها ومنتجاتها وخدماتها ومشاريعها. ولا يُعد ذلك عرضًا لإبرام عقد. وتتوقف البيانات التقنية والطاقات الإنتاجية والنتائج والجداول الزمنية على المشروع المحدد والمواد الخام، ولا تُؤكَّد إلا في عرض تجاري أو عقد موقَّع.",
+        "es": "El sitio web ofrece información general sobre Soltex Global, sus tecnologías, productos, servicios y proyectos. No constituye una oferta para celebrar un contrato. Los datos técnicos, las capacidades, los resultados y los plazos dependen del proyecto concreto y de las materias primas, y solo se confirman en una propuesta comercial o en un contrato firmado."
+      },
+      {
+        "en": "We take care to keep the information accurate and up to date, but we do not guarantee that it is complete or error-free, and we may change it at any time without notice.",
+        "ru": "Мы стараемся поддерживать информацию точной и актуальной, но не гарантируем её полноту и отсутствие ошибок и можем изменить её в любое время без уведомления.",
+        "zh": "我们会尽力确保信息准确并及时更新，但不保证信息完整或无误，并可随时更改信息而不另行通知。",
+        "tr": "Bilgilerin doğru ve güncel olmasına özen gösteririz; ancak bilgilerin eksiksiz veya hatasız olduğunu garanti etmeyiz ve bunları herhangi bir zamanda önceden bildirimde bulunmaksızın değiştirebiliriz.",
+        "ar": "نحرص على أن تكون المعلومات دقيقة ومحدّثة، إلا أننا لا نضمن اكتمالها أو خلوها من الأخطاء، ويجوز لنا تغييرها في أي وقت دون إشعار.",
+        "es": "Procuramos que la información sea exacta y esté actualizada, pero no garantizamos que sea completa ni que esté libre de errores, y podemos modificarla en cualquier momento sin previo aviso."
+      },
+      {
+        "en": "## 2. Intellectual property",
+        "ru": "## 2. Интеллектуальная собственность",
+        "zh": "## 2. 知识产权",
+        "tr": "## 2. Fikri mülkiyet",
+        "ar": "## 2. الملكية الفكرية",
+        "es": "## 2. Propiedad intelectual"
+      },
+      {
+        "en": "The texts, images, drawings, videos, design, the Soltex Global name and logo, and other materials on the website belong to Soltex Global or its licensors and are protected by law. Technologies described on the website may be protected by patents.",
+        "ru": "Тексты, изображения, чертежи, видео, дизайн, название и логотип Soltex Global и другие материалы сайта принадлежат Soltex Global или её лицензиарам и охраняются законом. Технологии, описанные на сайте, могут быть защищены патентами.",
+        "zh": "本网站上的文字、图片、图纸、视频、设计、Soltex Global 名称和标志以及其他材料归 Soltex Global 或其许可方所有，并受法律保护。本网站所述技术可能受专利保护。",
+        "tr": "Web sitesindeki metinler, görseller, çizimler, videolar, tasarım, Soltex Global adı ve logosu ile diğer materyaller Soltex Global’e veya lisans verenlerine aittir ve yasalarla korunmaktadır. Web sitesinde açıklanan teknolojiler patentlerle korunuyor olabilir.",
+        "ar": "النصوص والصور والرسومات ومقاطع الفيديو والتصميم واسم Soltex Global وشعارها وغيرها من المواد الواردة على الموقع الإلكتروني مملوكة لـ Soltex Global أو للجهات المرخِّصة لها، وهي محمية بموجب القانون. وقد تكون التقنيات الموصوفة على الموقع الإلكتروني محمية ببراءات اختراع.",
+        "es": "Los textos, las imágenes, los planos, los vídeos, el diseño, el nombre y el logotipo de Soltex Global y demás materiales del sitio web pertenecen a Soltex Global o a sus licenciantes y están protegidos por la ley. Las tecnologías descritas en el sitio web pueden estar protegidas por patentes."
+      },
+      {
+        "en": "You may view the website and print or save pages for your own information or to evaluate cooperation with Soltex Global. Any other copying, distribution, modification or commercial use requires our prior written permission.",
+        "ru": "Вы можете просматривать сайт, распечатывать и сохранять страницы для собственного ознакомления или для оценки сотрудничества с Soltex Global. Любое другое копирование, распространение, изменение или коммерческое использование допускается только с нашего предварительного письменного разрешения.",
+        "zh": "您可以浏览本网站，并可打印或保存页面，供您自行了解信息或评估与 Soltex Global 的合作之用。任何其他复制、传播、修改或商业使用均须事先获得我们的书面许可。",
+        "tr": "Web sitesini görüntüleyebilir ve sayfaları kendi bilginiz için veya Soltex Global ile iş birliğini değerlendirmek amacıyla yazdırabilir ya da kaydedebilirsiniz. Diğer her türlü kopyalama, dağıtma, değiştirme veya ticari kullanım için önceden yazılı iznimiz gerekir.",
+        "ar": "يجوز لك تصفح الموقع الإلكتروني وطباعة صفحاته أو حفظها لاطلاعك الخاص أو لتقييم التعاون مع Soltex Global. ويستلزم أي نسخ أو توزيع أو تعديل أو استخدام تجاري آخر الحصول على إذن كتابي مسبق منا.",
+        "es": "Usted puede consultar el sitio web e imprimir o guardar páginas para su propia información o para evaluar una colaboración con Soltex Global. Cualquier otra copia, distribución, modificación o uso comercial requiere nuestra autorización previa por escrito."
+      },
+      {
+        "en": "## 3. Inquiries",
+        "ru": "## 3. Запросы",
+        "zh": "## 3. 咨询",
+        "tr": "## 3. Talepler",
+        "ar": "## 3. الاستفسارات",
+        "es": "## 3. Consultas"
+      },
+      {
+        "en": "Information you send through the website must be accurate and must not violate the rights of others. Sending an inquiry does not create a contract or any obligation for either party; agreements arise only from a signed contract.",
+        "ru": "Сведения, которые вы отправляете через сайт, должны быть достоверными и не нарушать права других лиц. Отправка запроса не создаёт договора и обязательств ни для одной из сторон; договорённости возникают только из подписанного договора.",
+        "zh": "您通过本网站发送的信息必须准确，且不得侵犯他人的权利。发送咨询不构成合同，也不对任何一方产生任何义务；协议仅依据已签署的合同成立。",
+        "tr": "Web sitesi aracılığıyla gönderdiğiniz bilgiler doğru olmalı ve başkalarının haklarını ihlal etmemelidir. Bir talep gönderilmesi, taraflardan herhangi biri için bir sözleşme veya herhangi bir yükümlülük doğurmaz; anlaşmalar yalnızca imzalı bir sözleşmeyle kurulur.",
+        "ar": "يجب أن تكون المعلومات التي ترسلها عبر الموقع الإلكتروني دقيقة وألا تنتهك حقوق الآخرين. ولا يُنشئ إرسال الاستفسار عقدًا أو أي التزام على أي من الطرفين؛ ولا تنشأ الاتفاقات إلا بموجب عقد موقَّع.",
+        "es": "La información que envíe a través del sitio web debe ser exacta y no debe vulnerar los derechos de terceros. El envío de una consulta no genera un contrato ni obligación alguna para ninguna de las partes; los acuerdos nacen únicamente de un contrato firmado."
+      },
+      {
+        "en": "Please do not send confidential technical documents or trade secrets through the website forms. When a project requires the exchange of confidential information, we agree a non-disclosure agreement with you first.",
+        "ru": "Пожалуйста, не отправляйте через формы сайта конфиденциальную техническую документацию и коммерческую тайну. Если для проекта нужен обмен конфиденциальной информацией, мы сначала заключаем с вами соглашение о неразглашении.",
+        "zh": "请勿通过本网站表单发送保密技术文件或商业秘密。如项目需要交换保密信息，我们将首先与您商定保密协议。",
+        "tr": "Lütfen web sitesi formları aracılığıyla gizli teknik belgeler veya ticari sırlar göndermeyin. Bir proje gizli bilgi alışverişini gerektirdiğinde önce sizinle bir gizlilik sözleşmesi üzerinde anlaşırız.",
+        "ar": "يُرجى عدم إرسال مستندات تقنية سرية أو أسرار تجارية عبر نماذج الموقع الإلكتروني. وعندما يتطلب مشروع ما تبادل معلومات سرية، نتفق معك أولًا على اتفاقية عدم إفصاح.",
+        "es": "Le rogamos que no envíe documentos técnicos confidenciales ni secretos comerciales a través de los formularios del sitio web. Cuando un proyecto requiera el intercambio de información confidencial, primero pactaremos con usted un acuerdo de confidencialidad."
+      },
+      {
+        "en": "We process the personal data contained in inquiries as described in our Privacy Policy.",
+        "ru": "Персональные данные из запросов мы обрабатываем в соответствии с нашей Политикой конфиденциальности.",
+        "zh": "我们按照我们的隐私政策所述处理咨询中包含的个人数据。",
+        "tr": "Taleplerde yer alan kişisel verileri Gizlilik Politikamızda açıklandığı şekilde işleriz.",
+        "ar": "نعالج البيانات الشخصية الواردة في الاستفسارات على النحو الموضح في سياسة الخصوصية الخاصة بنا.",
+        "es": "Tratamos los datos personales contenidos en las consultas tal como se describe en nuestra Política de privacidad."
+      },
+      {
+        "en": "## 4. Acceptable use",
+        "ru": "## 4. Допустимое использование",
+        "zh": "## 4. 可接受的使用",
+        "tr": "## 4. Kabul edilebilir kullanım",
+        "ar": "## 4. الاستخدام المقبول",
+        "es": "## 4. Uso aceptable"
+      },
+      {
+        "en": "You must not use the website in a way that disrupts its operation or security, including attempts to gain unauthorised access, to test its vulnerabilities without our permission, to send spam or to make automated mass requests.",
+        "ru": "Запрещается использовать сайт так, чтобы это нарушало его работу или безопасность, в том числе пытаться получить несанкционированный доступ, проверять его уязвимости без нашего разрешения, рассылать спам или отправлять автоматические массовые запросы.",
+        "zh": "您不得以干扰本网站运行或安全的方式使用本网站，包括试图未经授权访问、未经我们许可测试其漏洞、发送垃圾信息或进行自动化批量请求。",
+        "tr": "Web sitesini, işleyişini veya güvenliğini bozacak şekilde kullanamazsınız; buna yetkisiz erişim sağlama, iznimiz olmadan güvenlik açıklarını test etme, spam gönderme veya otomatik toplu istekte bulunma girişimleri dâhildir.",
+        "ar": "يجب ألا تستخدم الموقع الإلكتروني بطريقة تخل بتشغيله أو أمنه، بما في ذلك محاولات الوصول غير المصرح به، أو اختبار ثغراته الأمنية دون إذن منا، أو إرسال رسائل غير مرغوب فيها، أو إرسال طلبات جماعية آلية.",
+        "es": "No debe utilizar el sitio web de forma que perturbe su funcionamiento o su seguridad, lo que incluye los intentos de obtener acceso no autorizado, de probar sus vulnerabilidades sin nuestro permiso, de enviar spam o de realizar solicitudes masivas automatizadas."
+      },
+      {
+        "en": "## 5. Links to other websites",
+        "ru": "## 5. Ссылки на другие сайты",
+        "zh": "## 5. 指向其他网站的链接",
+        "tr": "## 5. Diğer web sitelerine bağlantılar",
+        "ar": "## 5. الروابط إلى مواقع إلكترونية أخرى",
+        "es": "## 5. Enlaces a otros sitios web"
+      },
+      {
+        "en": "The website may contain links to websites operated by others. We are not responsible for their content or their handling of personal data.",
+        "ru": "Сайт может содержать ссылки на сайты других лиц. Мы не отвечаем за их содержание и за то, как они обрабатывают персональные данные.",
+        "zh": "本网站可能包含指向由他人运营的网站的链接。我们对这些网站的内容或其对个人数据的处理不承担责任。",
+        "tr": "Web sitesi, başkaları tarafından işletilen web sitelerine bağlantılar içerebilir. Bu sitelerin içeriğinden veya kişisel verileri işleme biçimlerinden sorumlu değiliz.",
+        "ar": "قد يتضمن الموقع الإلكتروني روابط إلى مواقع إلكترونية يشغّلها آخرون. ولسنا مسؤولين عن محتواها أو عن طريقة تعاملها مع البيانات الشخصية.",
+        "es": "El sitio web puede contener enlaces a sitios web gestionados por terceros. No somos responsables de su contenido ni del tratamiento que hagan de los datos personales."
+      },
+      {
+        "en": "## 6. Liability",
+        "ru": "## 6. Ответственность",
+        "zh": "## 6. 责任",
+        "tr": "## 6. Sorumluluk",
+        "ar": "## 6. المسؤولية",
+        "es": "## 6. Responsabilidad"
+      },
+      {
+        "en": "The website is provided “as is”. To the extent permitted by applicable law, Soltex Global is not liable for any indirect or consequential loss arising from the use of the website or from reliance on the information published on it, or for temporary unavailability of the website.",
+        "ru": "Сайт предоставляется «как есть». В пределах, допускаемых применимым правом, Soltex Global не несёт ответственности за косвенные убытки, возникшие в результате использования сайта или опоры на опубликованную на нём информацию, а также за временную недоступность сайта.",
+        "zh": "本网站按“现状”提供。在适用法律允许的范围内，对于因使用本网站或依赖本网站所发布信息而产生的任何间接或后果性损失，或本网站的暂时不可用，Soltex Global 不承担责任。",
+        "tr": "Web sitesi “olduğu gibi” sunulmaktadır. Yürürlükteki hukukun izin verdiği ölçüde Soltex Global, web sitesinin kullanımından veya sitede yayımlanan bilgilere güvenilmesinden kaynaklanan dolaylı ya da sonuç niteliğindeki herhangi bir zarardan veya web sitesinin geçici olarak kullanılamamasından sorumlu değildir.",
+        "ar": "يُقدَّم الموقع الإلكتروني «كما هو». وإلى الحد الذي يسمح به القانون المعمول به، لا تتحمل Soltex Global المسؤولية عن أي خسارة غير مباشرة أو تبعية تنشأ عن استخدام الموقع الإلكتروني أو عن الاعتماد على المعلومات المنشورة عليه، ولا عن تعذّر الوصول إلى الموقع الإلكتروني مؤقتًا.",
+        "es": "El sitio web se ofrece «tal cual». En la medida permitida por la legislación aplicable, Soltex Global no será responsable de ninguna pérdida indirecta o consecuente derivada del uso del sitio web o de la confianza depositada en la información publicada en él, ni de la indisponibilidad temporal del sitio web."
+      },
+      {
+        "en": "## 7. Governing law",
+        "ru": "## 7. Применимое право",
+        "zh": "## 7. 适用法律",
+        "tr": "## 7. Uygulanacak hukuk",
+        "ar": "## 7. القانون الواجب التطبيق",
+        "es": "## 7. Legislación aplicable"
+      },
+      {
+        "en": "These terms are governed by the laws of the United Arab Emirates as applied in the Emirate of Sharjah, unless mandatory law of your country provides otherwise.",
+        "ru": "Эти условия регулируются законодательством Объединённых Арабских Эмиратов в том виде, в каком оно применяется в эмирате Шарджа, если иное не предусмотрено императивными нормами права вашей страны.",
+        "zh": "本条款受 沙迦酋长国所适用的阿拉伯联合酋长国法律管辖，但您所在国家的强制性法律另有规定的除外。",
+        "tr": "Ülkenizin emredici hukuku aksini öngörmedikçe, bu koşullar Sharjah Emirliği’nde uygulandığı şekliyle Birleşik Arap Emirlikleri hukukuna tabidir.",
+        "ar": "تخضع هذه الشروط لقوانين الإمارات العربية المتحدة كما تُطبَّق في إمارة الشارقة، ما لم ينص القانون الإلزامي في بلدك على خلاف ذلك.",
+        "es": "Las presentes condiciones se rigen por las leyes de los Emiratos Árabes Unidos tal como se aplican en el Emirato de Sharjah, salvo que la legislación imperativa de su país disponga otra cosa."
+      },
+      {
+        "en": "## 8. Changes to these terms",
+        "ru": "## 8. Изменение условий",
+        "zh": "## 8. 本条款的变更",
+        "tr": "## 8. Bu koşullardaki değişiklikler",
+        "ar": "## 8. التغييرات على هذه الشروط",
+        "es": "## 8. Cambios en estas condiciones"
+      },
+      {
+        "en": "We may update these terms. The date at the top shows when they were last updated. The version in force is always published on this page.",
+        "ru": "Мы можем обновлять эти условия. Дата вверху показывает, когда они обновлялись в последний раз. Действующая редакция всегда опубликована на этой странице.",
+        "zh": "我们可能会更新本条款。页面顶部的日期显示本条款的最后更新时间。现行有效版本始终在本页面发布。",
+        "tr": "Bu koşulları güncelleyebiliriz. Sayfanın üst kısmındaki tarih, koşulların en son ne zaman güncellendiğini gösterir. Yürürlükteki sürüm her zaman bu sayfada yayımlanır.",
+        "ar": "يجوز لنا تحديث هذه الشروط. ويبيّن التاريخ الوارد في أعلى الصفحة موعد آخر تحديث لها. وتُنشر النسخة السارية دائمًا على هذه الصفحة.",
+        "es": "Podemos actualizar estas condiciones. La fecha que figura al principio indica cuándo se actualizaron por última vez. La versión vigente se publica siempre en esta página."
+      },
+      {
+        "en": "## 9. Contact",
+        "ru": "## 9. Контакты",
+        "zh": "## 9. 联系方式",
+        "tr": "## 9. İletişim",
+        "ar": "## 9. التواصل",
+        "es": "## 9. Contacto"
+      },
+      {
+        "en": "Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah, United Arab Emirates. E-mail: info@soltexglobal.co.",
+        "ru": "Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah, Объединённые Арабские Эмираты. Электронная почта: info@soltexglobal.co.",
+        "zh": "Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah，阿拉伯联合酋长国。电子邮件：info@soltexglobal.co。",
+        "tr": "Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah, Birleşik Arap Emirlikleri. E-posta: info@soltexglobal.co.",
+        "ar": "Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah، الإمارات العربية المتحدة. البريد الإلكتروني: info@soltexglobal.co.",
+        "es": "Soltex Global FZC, Sharjah Media City (Shams), Al Messaned, Sharjah, Emiratos Árabes Unidos. Correo electrónico: info@soltexglobal.co."
+      }
+    ],
     "seo": {
       "metaTitle": null,
       "metaDescription": null,
@@ -3556,29 +4076,29 @@
     },
     "translationStatus": {
       "ru": {
-        "status": "missing",
-        "approvedSourceHash": null,
-        "approvedAt": null
+        "status": "approved",
+        "approvedSourceHash": "000c7b5f146be768",
+        "approvedAt": "2026-10-18"
       },
       "zh": {
-        "status": "missing",
-        "approvedSourceHash": null,
-        "approvedAt": null
+        "status": "approved",
+        "approvedSourceHash": "000c7b5f146be768",
+        "approvedAt": "2026-10-18"
       },
       "tr": {
-        "status": "missing",
-        "approvedSourceHash": null,
-        "approvedAt": null
+        "status": "approved",
+        "approvedSourceHash": "000c7b5f146be768",
+        "approvedAt": "2026-10-18"
       },
       "ar": {
-        "status": "missing",
-        "approvedSourceHash": null,
-        "approvedAt": null
+        "status": "approved",
+        "approvedSourceHash": "000c7b5f146be768",
+        "approvedAt": "2026-10-18"
       },
       "es": {
-        "status": "missing",
-        "approvedSourceHash": null,
-        "approvedAt": null
+        "status": "approved",
+        "approvedSourceHash": "000c7b5f146be768",
+        "approvedAt": "2026-10-18"
       }
     }
   },

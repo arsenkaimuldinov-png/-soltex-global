@@ -68,6 +68,8 @@ export interface LeadInput {
   hp?: string;
   fillMs?: number;
   attribution?: LeadAttribution;
+  /** The consent box was ticked (Phase N-0). */
+  consent?: true;
 }
 
 export async function createLead(deps: Deps, input: LeadInput, ipHash: string): Promise<{ reference: string; spam: boolean }> {
@@ -77,6 +79,10 @@ export async function createLead(deps: Deps, input: LeadInput, ipHash: string): 
   for (const k of LEAD_REQUIRED_FIELDS[input.formType]) if (!f[k]) errors.push({ field: `fields.${k}`, message: 'required' });
   if (f.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email)) errors.push({ field: 'fields.email', message: 'invalid' });
   if (f.phone && normalizePhone(f.phone).length < 5) errors.push({ field: 'fields.phone', message: 'invalid' });
+  // Phase N-0: once a privacy notice is published (PRIVACY_NOTICE_VERSION), the forms ask for
+  // consent with a required checkbox; a lead without it is refused (Kazakhstan, Law 94-V art. 8).
+  const notice = deps.config.leads.privacyNoticeVersion;
+  if (notice && input.consent !== true) errors.push({ field: 'consent', message: 'required' });
   if (errors.length) throw new Problem('validation_failed', undefined, { errors });
 
   const verdict = spamVerdict({ honeypot: input.hp, fillMs: input.fillMs, name: f.name, message: f.message });
@@ -105,8 +111,10 @@ export async function createLead(deps: Deps, input: LeadInput, ipHash: string): 
       status: verdict.spam ? 'spam' : 'new',
       spamScore: verdict.score,
       spamReasons: verdict.reasons,
-      consentBasis: 'notice_only',
-      privacyNoticeVersion: deps.config.leads.privacyNoticeVersion,
+      consentBasis: input.consent ? 'checkbox' : 'notice_only',
+      privacyNoticeVersion: notice,
+      consentTextVersion: input.consent ? notice : null,
+      consentAt: input.consent ? now : null,
       // Approved §13.3: kept only while attribution is switched on; otherwise ignored.
       attribution: deps.config.site.attributionEnabled && (input.attribution?.first || input.attribution?.last) ? input.attribution : null,
       createdAt: now,

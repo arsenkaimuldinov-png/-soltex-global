@@ -6,12 +6,17 @@
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useI18n } from '../i18n/I18nProvider';
+import { Link } from '../i18n/Link';
+import { useContent } from '../content/useContent';
 import { LEADS_ENDPOINT, leadService, type LeadPayload, type LeadSubmissionResult } from '../services/leads';
 
 type LeadError = Extract<LeadSubmissionResult, { ok: false }>['error'];
 
 /** `shown`: whether the form is on screen (a dialog passes its open state; the fill time starts then). */
 export function useLeadSubmission(shown = true) {
+  // Phase N-0: with a published Privacy Policy every form has a required consent box, so a sent
+  // form always carries the visitor's consent.
+  const consentAsked = useContent().hasPage('privacy');
   const shownAt = useRef(0);
   const trapRef = useRef<HTMLInputElement>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -26,13 +31,13 @@ export function useLeadSubmission(shown = true) {
     setSubmitting(true);
     setError(null);
     const signals = LEADS_ENDPOINT ? { hp: trapRef.current?.value || undefined, fillMs: Math.max(0, Date.now() - shownAt.current) } : {};
-    const result = await leadService.submitLead({ ...payload, ...signals });
+    const result = await leadService.submitLead({ ...payload, ...signals, ...(consentAsked ? { consent: true as const } : {}) });
     setSubmitting(false);
     if (!result.ok) setError(result.error);
     return result;
-  }, []);
+  }, [consentAsked]);
 
-  return { submit, submitting, error, trapRef };
+  return { submit, submitting, error, trapRef, consentAsked };
 }
 
 /** Honeypot: invisible, out of the tab order and hidden from assistive technology; people never fill it. */
@@ -45,6 +50,33 @@ export function LeadTrap({ trapRef }: { trapRef: React.RefObject<HTMLInputElemen
         <input ref={trapRef} type="text" name="soltex_ref" tabIndex={-1} autoComplete="off" defaultValue="" />
       </label>
     </div>
+  );
+}
+
+/**
+ * Consent to the processing of personal data (Phase N-0; required in Kazakhstan, Law No. 94-V
+ * art. 8): a required checkbox linking to the Privacy Policy. Rendered only once the policy is
+ * published; until then `fallback` (the approved note) is shown.
+ */
+export function LeadConsent({ tone, fallback }: { tone: 'light' | 'dark'; fallback?: React.ReactNode }) {
+  const { tr, t } = useI18n();
+  const { hasPage } = useContent();
+  if (!hasPage('privacy')) return <>{fallback ?? null}</>;
+  const text = tone === 'dark' ? 'text-[#FBFBF8]/80' : 'text-[#334439]';
+  const link = tone === 'dark' ? 'text-[#BA9B60] hover:text-white' : 'text-[#0E482C] hover:text-[#0A3620]';
+  return (
+    <label data-lead-consent className={`flex items-start gap-2.5 text-xs leading-relaxed cursor-pointer ${text}`}>
+      <input type="checkbox" name="consent" required className="mt-0.5 h-4 w-4 shrink-0 accent-[#0E482C] cursor-pointer" />
+      <span>
+        {tr('consent.label', {
+          link: (
+            <Link to="/privacy" target="_blank" rel="noopener" className={`underline underline-offset-2 ${link}`}>
+              {t('consent.link')}
+            </Link>
+          ),
+        })}
+      </span>
+    </label>
   );
 }
 

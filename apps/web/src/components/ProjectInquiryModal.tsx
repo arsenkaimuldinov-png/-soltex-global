@@ -3,7 +3,7 @@ import { X, CheckCircle2, ArrowRight, ShieldCheck } from 'lucide-react';
 import { useI18n } from '../i18n/I18nProvider';
 import { useDialog } from '../hooks/useDialog';
 import { usePresence } from '../motion/usePresence';
-import { LeadErrorMessage, LeadTrap, useLeadSubmission } from './LeadFormGuard';
+import { LeadConsent, LeadErrorMessage, LeadTrap, useLeadSubmission } from './LeadFormGuard';
 import { resolveInquiryTopic, type InquiryTopic } from '../services/leads/topics';
 
 interface ProjectInquiryModalProps {
@@ -161,10 +161,15 @@ export const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({
               />
             </div>
 
-            <div className="flex items-center gap-2 text-[11px] text-[#334439]/70 pt-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#0E482C] shrink-0" />
-              <span>{t('inquiry.privacyNote')}</span>
-            </div>
+            <LeadConsent
+              tone="light"
+              fallback={
+                <div className="flex items-center gap-2 text-[11px] text-[#334439]/70 pt-1">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#0E482C] shrink-0" />
+                  <span>{t('inquiry.privacyNote')}</span>
+                </div>
+              }
+            />
 
             <LeadErrorMessage error={error} tone="light" />
 

@@ -16,6 +16,8 @@
   "common.logoAlt": "Soltex Global",
   "common.startYourProject": "START YOUR PROJECT",
   "common.viewTechnologyDossier": "View Technology Dossier",
+  "consent.label": "I agree to the processing of my personal data in accordance with the {link}.",
+  "consent.link": "Privacy Policy",
   "contactForm.company": "COMPANY",
   "contactForm.companyPlaceholder": "AgriTech Agro Holding",
   "contactForm.confirmation": "A confirmation record has been registered for {email}.",

@@ -7,7 +7,7 @@
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import { after, before, describe, test } from 'node:test';
-import { and, desc, eq } from 'drizzle-orm';
+import { and, desc, eq, inArray, ne } from 'drizzle-orm';
 import { connect } from '../src/db/client.ts';
 import * as s from '../src/db/schema.ts';
 import { exportStore } from '../src/content/export.ts';
@@ -38,6 +38,19 @@ async function resetToSeed(t: TestApp) {
   await t.deps.db!.transaction((tx) => importStore(tx, readSeedDir(SEED)));
 }
 
+/**
+ * Fixture of the API tests: the two legal pages as untranslated records (the seed has them
+ * translated since Phase N-0), so the suite keeps a "missing" state to work with.
+ */
+async function untranslateLegalPages(t: TestApp) {
+  const db = t.deps.db!;
+  const legal = await db.select({ id: s.pages.id }).from(s.pages).where(inArray(s.pages.key, ['page-privacy', 'page-terms']));
+  await db
+    .update(s.pageTranslations)
+    .set({ trStatus: 'missing', approvedSourceHash: null, approvedAt: null, approvedSourceRevision: null })
+    .where(and(inArray(s.pageTranslations.pageId, legal.map((p) => p.id)), ne(s.pageTranslations.locale, 'en')));
+}
+
 test('seed-format hash: equals approvedSourceHash of every approved translation in the seed', () => {
   const store = readSeedDir(SEED);
   let n = 0;
@@ -47,7 +60,7 @@ test('seed-format hash: equals approvedSourceHash of every approved translation 
         assert.equal(e.approvedSourceHash, legacySourceHash(rec), rec.id);
         n++;
       }
-  assert.equal(n, 245);
+  assert.equal(n, 255);
 });
 
 describe('translation management API', { skip: !DB_ENABLED && 'DATABASE_URL not set' }, () => {
@@ -66,6 +79,7 @@ describe('translation management API', { skip: !DB_ENABLED && 'DATABASE_URL not 
   before(async () => {
     t = await makeApp();
     await resetToSeed(t);
+    await untranslateLegalPages(t);
     [owner, cm, editor, seo, marketer] = [await signedIn(t, 'owner'), await signedIn(t, 'content_manager'), await signedIn(t, 'editor'), await signedIn(t, 'seo_specialist'), await signedIn(t, 'marketer')];
     await refreshIds();
   });
@@ -395,11 +409,11 @@ describe('translation management API', { skip: !DB_ENABLED && 'DATABASE_URL not 
       await mig.pool.query(`UPDATE ${table} SET approved_source_revision = NULL`);
     await mig.pool.query(`UPDATE project_translations t SET title = title || ' (edited)' FROM projects p WHERE p.id = t.project_id AND p.key = 'project-solbar-israel' AND t.locale = 'en'`);
     await mig.close();
-    assert.equal(await reconcileApprovals(db), 240 - 5);
+    assert.equal(await reconcileApprovals(db), 250 - 5); // Phase N-0: the legal pages are translated in the seed (+10)
     await refreshIds();
     const israel = (await get(cm, `/api/v1/translations?entity=${ids.projects!['project-solbar-israel']}`)).body.items;
     assert.deepEqual(israel.map((i: Json) => i.state), ['outdated', 'outdated', 'outdated', 'outdated', 'outdated']);
-    assert.equal(ruOf(await overview()).approved, SEED_ITEMS - 3);
+    assert.equal(ruOf(await overview()).approved, SEED_ITEMS - 1);
     await resetToSeed(t);
     // After a clean import the database exports exactly the seed.
     assert.equal(serialize(await exportStore(db)), serialize(readSeedDir(SEED)));

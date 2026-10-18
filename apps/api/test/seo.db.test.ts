@@ -71,10 +71,10 @@ describe('SEO checks (Phase I-1)', { skip: !DB_ENABLED && 'DATABASE_URL not set'
   const releases = async () => (await t.deps.db!.select().from(s.releases)).length;
   const LONG = 'Industrial pectin plant with alcohol-free extraction, membrane ultrafiltration, vacuum evaporation and spray drying — turnkey EPCM delivery by Soltex';
 
-  test('site report of the seed: no BLOCKING issue, 174 pages, warnings with links to the records; seo.read for every role', async () => {
+  test('site report of the seed: no BLOCKING issue, 186 pages, warnings with links to the records; seo.read for every role', async () => {
     const r = await get(seo, '/api/v1/seo/report');
     assert.equal(r.summary.blocking, 0, JSON.stringify(r.issues.filter((i: Json) => i.severity === 'blocking')));
-    assert.equal(r.pages, 174);
+    assert.equal(r.pages, 186);
     assert.ok(r.summary.warning > 0);
     const projectIssue = r.issues.find((i: Json) => i.type === 'projects');
     assert.ok(projectIssue.record?.id && projectIssue.record.title, 'issues link to the record in the admin');

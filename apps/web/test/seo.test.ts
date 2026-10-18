@@ -62,3 +62,18 @@ test('JSON-LD script: "<" is escaped, so content can never close the tag', () =>
   assert.equal(html.match(/<\/script>/g)?.length, 1);
   assert.deepEqual(JSON.parse(html.replace(/^<script[^>]*>|<\/script>$/g, '')), { name: '</script><script>alert(1)</script>' });
 });
+
+test('legal pages: published in every language with the same structure; "## " paragraphs are headings', async () => {
+  const { legalHeading } = await import('../src/pages/LegalPage.tsx');
+  assert.equal(legalHeading('## 1. Who we are'), '1. Who we are');
+  assert.equal(legalHeading('Plain paragraph'), null);
+  for (const key of ['privacy', 'terms'] as const) {
+    assert.ok(en.content.hasPage(key) && ru.content.hasPage(key), key);
+    const a = en.content.page(key).page.body!;
+    const b = ru.content.page(key).page.body!;
+    assert.equal(a.length, b.length);
+    a.forEach((p, i) => assert.equal(legalHeading(p) === null, legalHeading(b[i]!) === null, `${key} #${i}: heading in both`));
+    assert.ok(getRouteMeta(`/${key}`, ru.content)!.description.length > 40, 'a real meta description');
+  }
+  assert.match(ru.ui['consent.label']!, /\{link\}/);
+});

@@ -10,8 +10,8 @@ Implements approved §13 and §19 (e-mail), and review §K.
 
 | Decision | Until it is made |
 |---|---|
-| B3 privacy policy / consent text | `consent_basis = notice_only`, `consent_at` empty; `PRIVACY_NOTICE_VERSION` unset |
-| B4 consent checkbox in the forms | No checkbox is added; the forms' fields are unchanged |
+| B3 privacy policy / consent text | **Drafted in Phase N-0** (`/privacy`, `/terms`, six languages, version 2026-10-19; to be reviewed by the client's lawyer). `PRIVACY_NOTICE_VERSION=2026-10-19` in `deploy/soltex.env.example` |
+| B4 consent checkbox in the forms | **Phase N-0:** once the Privacy Policy page is published, every form shows a required box «Я согласен(на) на обработку моих персональных данных в соответствии с Политикой конфиденциальности» (link opens `/privacy` in a new tab) and sends `consent: true`. The API stores `consent_basis = checkbox`, `consent_text_version` and `consent_at`; while `PRIVACY_NOTICE_VERSION` is set, a lead without consent is refused (`400`, field `consent`). Consent is needed in Kazakhstan (Law No. 94-V, art. 8: no legitimate-interest basis) |
 | B3 + B4 sending from the site at all | `SITE_LEADS_ENABLED=false`: the forms use the demo service, nothing is sent |
 | B5 SMTP sender and recipients | `SMTP_URL` / `LEAD_NOTIFY_TO` unset: notices wait in the outbox (nothing is lost) and the admin says why |
 | §22.4 retention period | `LEAD_RETENTION_MONTHS=24` (the architecture's proposal) |

@@ -106,6 +106,27 @@ describe('Leads (Phase K-1)', { skip: !DB_ENABLED && 'DATABASE_URL not set' }, (
     assert.equal(cta.statusCode, 201, cta.body);
   });
 
+  test('consent (Phase N-0): required once a privacy notice is published; stored as checkbox consent with its version and time', async () => {
+    const leads = t.deps.config.leads as { privacyNoticeVersion: string | null };
+    const before = leads.privacyNoticeVersion;
+    leads.privacyNoticeVersion = '2026-10-19';
+    try {
+      const missing = await submit(contact({ phone: '+77015550101' }));
+      assert.equal(missing.statusCode, 400);
+      assert.deepEqual(missing.json().errors, [{ field: 'consent', message: 'required' }]);
+      assert.equal((await submit(contact({ phone: '+77015550102' }, { consent: false }))).json().code, 'validation_failed', 'only true is consent');
+      const ok = await submit(contact({ phone: '+77015550103' }, { consent: true }));
+      assert.equal(ok.statusCode, 201, ok.body);
+      const row = await leadRow(ok.json().reference);
+      assert.deepEqual([row.consentBasis, row.privacyNoticeVersion, row.consentTextVersion, !!row.consentAt], ['checkbox', '2026-10-19', '2026-10-19', true]);
+    } finally {
+      leads.privacyNoticeVersion = before;
+    }
+    const noNotice = await submit(contact({ phone: '+77015550104' }));
+    assert.equal(noNotice.statusCode, 201, 'no notice published: notice-only, as before');
+    assert.equal((await leadRow(noNotice.json().reference)).consentBasis, 'notice_only');
+  });
+
   test('rate limit: 5 forms per 10 minutes per address', async () => {
     const ip = nextIp();
     for (let i = 0; i < 5; i++) assert.equal((await submit(contact({ phone: `+7701000000${i}` }), { ip })).statusCode, 201);

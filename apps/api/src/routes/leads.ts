@@ -71,6 +71,8 @@ const LeadInput = z
     fillMs: z.number().int().min(0).max(86_400_000).optional(),
     /** First and last touch (Phase K-2); stored only while ATTRIBUTION_ENABLED. */
     attribution: Attribution.optional(),
+    /** The visitor ticked the consent box (Phase N-0). Required while PRIVACY_NOTICE_VERSION is set. */
+    consent: z.literal(true).optional(),
   })
   .strict();
 

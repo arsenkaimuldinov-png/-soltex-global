@@ -84,7 +84,7 @@ The seed has 0 blocking issues, 160 warnings (lengths) and 56 hints.
 - **Record report:** `meta` per language (url, title, description, sources, indexable, served language), the record's issues, and `canPublish`.
 - **Refusals:** `409 seo_blocking`, with `errors[] = { field: "<type>/<key>[:<locale>][:<field>]", message: <code> }`.
 - **Release warnings:** a release records `seo_warnings:<n>` among its warnings.
-- **Version:** introduced in API 0.8.0 (now 0.14.0).
+- **Version:** introduced in API 0.8.0 (now 0.15.0).
 
 ## 5. Admin
 
@@ -214,7 +214,7 @@ Roles without `redirects.manage` (content manager, editor, marketer) see the add
 | PATCH / DELETE | `/api/v1/redirects/{id}` (If-Match) | redirects.manage |
 | POST | `/api/v1/content/{projects\|technologies\|products}/{id}/slug` | redirects.manage |
 
-- **API:** introduced in 0.9.0 (now 0.14.0). Migration `0006` adds `redirects.version`. Config `PUBLIC_SITE_URL` (default `https://soltexglobal.co`, https in production).
+- **API:** introduced in 0.9.0 (now 0.15.0). Migration `0006` adds `redirects.version`. Config `PUBLIC_SITE_URL` (default `https://soltexglobal.co`, https in production).
 - **Audit:** `redirect.create`, `redirect.update`, `redirect.delete` (summary `from`, `to`, number of other rules changed); `content.slug_change` (`slug`, `previous_slug`, count).
 
 **Admin: «SEO → Редиректы»** (`/seo/redirects`, redirects.read):

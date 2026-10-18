@@ -31,7 +31,7 @@ import { settingsRoutes } from './routes/settings.ts';
 import { mediaRoutes } from './routes/media.ts';
 import { leadRoutes } from './routes/leads.ts';
 
-export const API_VERSION = '0.14.0';
+export const API_VERSION = '0.15.0';
 export const BODY_LIMIT_BYTES = 64 * 1024;
 
 export interface BuildOptions {

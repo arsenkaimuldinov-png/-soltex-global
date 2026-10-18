@@ -264,7 +264,7 @@ export function LeadDetailPage() {
                     value:
                       l.consentBasis === 'notice_only'
                         ? `Показано уведомление о конфиденциальности${l.privacyNoticeVersion ? ` (версия ${l.privacyNoticeVersion})` : ' (версия текста ещё не задана)'}; галочки согласия в формах пока нет`
-                        : 'Галочка согласия',
+                        : `Посетитель отметил галочку согласия${l.privacyNoticeVersion ? ` (Политика конфиденциальности, версия ${l.privacyNoticeVersion})` : ''}`,
                   },
                 ]}
               />

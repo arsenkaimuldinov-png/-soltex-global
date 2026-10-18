@@ -128,6 +128,14 @@
     "alt": null
   },
   {
+    "id": "media-soltex-hero-plant-dawn",
+    "kind": "image",
+    "src": "/images/soltex-hero-plant-dawn.webp",
+    "width": 2200,
+    "height": 1228,
+    "alt": null
+  },
+  {
     "id": "media-soltex-technologies",
     "kind": "video",
     "src": "/videos/soltex-technologies.mp4",

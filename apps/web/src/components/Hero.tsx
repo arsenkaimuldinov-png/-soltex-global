@@ -43,14 +43,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
             </div>
 
             {/* Main Headline: one colour (Design Direction V1.0 §2: no two-tone headlines) */}
-            <h1 className="text-3xl sm:text-5xl lg:text-[46px] xl:text-[52px] font-extrabold tracking-tight leading-[1.06] mb-5">
+            <h1 className="text-[28px] sm:text-[40px] lg:text-[38px] xl:text-[44px] font-extrabold tracking-tight leading-[1.08] mb-5 [text-wrap:balance]">
               <span className="s-seq-mask block text-[#0E482C]" style={{ '--seq': '330ms' } as React.CSSProperties}>{c('heroHeadlineLine1')}</span>
               <span className="s-seq-mask block text-[#0E482C]" style={{ '--seq': '430ms' } as React.CSSProperties}>{c('heroHeadlineLine2')}</span>
               <span className="s-seq-mask block text-[#0E482C]" style={{ '--seq': '530ms' } as React.CSSProperties}>{c('heroHeadlineLine3')}</span>
             </h1>
 
             {/* Description Paragraph */}
-            <p className="s-seq-rise text-sm sm:text-base text-[#46574D] leading-relaxed mb-8 max-w-[600px] font-normal" style={{ '--seq': '680ms' } as React.CSSProperties}>
+            <p className="s-seq-rise text-base sm:text-lg text-[#46574D] leading-relaxed mb-8 max-w-[560px] font-normal" style={{ '--seq': '680ms' } as React.CSSProperties}>
               {c('heroDescription')}
             </p>
 

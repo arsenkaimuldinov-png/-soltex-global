@@ -16,6 +16,8 @@
   "common.logoAlt": "Soltex Global",
   "common.startYourProject": "启动您的项目",
   "common.viewTechnologyDossier": "查看技术资料",
+  "consent.label": "我同意按照{link}处理我的个人数据。",
+  "consent.link": "隐私政策",
   "contactForm.company": "公司",
   "contactForm.companyPlaceholder": "AgriTech Agro Holding",
   "contactForm.confirmation": "已为 {email} 登记确认记录。",

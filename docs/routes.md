@@ -2,7 +2,7 @@
 
 Status: current as of Phase N-0
 
-There are three route sets: the public site, the admin SPA and the API. All of them are verified against the code: `apps/web/src/content/routes.ts`, `apps/web/src/App.tsx`, `apps/web/scripts/prerender.ts`, `apps/admin/src/App.tsx`, `apps/api/openapi.json` (API 0.14.0) and `deploy/nginx/*.conf`.
+There are three route sets: the public site, the admin SPA and the API. All of them are verified against the code: `apps/web/src/content/routes.ts`, `apps/web/src/App.tsx`, `apps/web/scripts/prerender.ts`, `apps/admin/src/App.tsx`, `apps/api/openapi.json` (API 0.15.0) and `deploy/nginx/*.conf`.
 
 ---
 
@@ -174,7 +174,7 @@ Routes are defined in `apps/admin/src/App.tsx`. Every screen except the sign-in 
 
 ## 4. API (`apps/api`)
 
-- **Base:** `/api/v1` on the admin origin. OpenAPI 3.1: `apps/api/openapi.json`, version **0.14.0**, **184 operations**. Regenerate with `npm run openapi`.
+- **Base:** `/api/v1` on the admin origin. OpenAPI 3.1: `apps/api/openapi.json`, version **0.15.0**, **184 operations**. Regenerate with `npm run openapi`.
 - **Errors:** RFC 9457 Problem Details.
 - **CSRF:** state-changing requests need `x-requested-with: soltex-admin`. The public lead form uses its own site value.
 - **Access column:** the `x-soltex-access` extension of each operation.

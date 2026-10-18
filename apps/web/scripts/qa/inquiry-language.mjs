@@ -16,7 +16,9 @@ const page = (s, k) => s.pages.find((p) => p.key === k);
 
 // Each case: page to open (EN), how to open the dialog, expected topic text for a language.
 const CASES = [
-  { name: 'footer privacy (UI key)', url: '/', open: async (p) => p.click('footer button'), expect: (l) => ui(l)['footer.privacyPolicy'] },
+  // Only while the Privacy Policy is unpublished: the footer item then opens the inquiry dialog
+  // (Phase N-0 published it, so the item is a link and the case is skipped).
+  { name: 'footer privacy (UI key)', url: '/', when: async (p) => !!(await p.$('footer button')), open: async (p) => p.click('footer button'), expect: (l) => ui(l)['footer.privacyPolicy'] },
   {
     name: 'home technology SPECS → inquire (entity ref)', url: '/',
     open: async (p) => { await p.click('#technologies button[type="button"]'); await p.waitForTimeout(450); const b = await p.$$('[role="dialog"] button'); await b[b.length - 1].click(); },
@@ -57,6 +59,11 @@ for (const c of CASES) {
     const ctx = await b.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
     const p = await ctx.newPage();
     await p.goto(BASE + c.url, { waitUntil: 'networkidle' });
+    if (c.when && !(await c.when(p))) {
+      console.log(`SKIP  ${c.name} [en→${l}] (not on this site)`);
+      await ctx.close();
+      continue;
+    }
     await c.open(p);
     await p.waitForTimeout(450);
     const focusEn = fill(ui('en')['inquiry.focus'], { topic: c.expect('en') });

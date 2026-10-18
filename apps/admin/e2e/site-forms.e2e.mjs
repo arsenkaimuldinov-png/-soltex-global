@@ -56,6 +56,7 @@ describe('Site forms (Phase K-2)', () => {
     const form = page.locator('form').filter({ has: page.getByLabel('ВАШЕ ИМЯ', { exact: true }) }).first();
     await form.getByLabel('ВАШЕ ИМЯ', { exact: true }).fill(NAME('cta'));
     await form.getByLabel('НОМЕР ТЕЛЕФОНА', { exact: true }).fill('+7 701 700 00 01');
+    await form.getByLabel(/Я согласен\(на\) на обработку/).check(); // Phase N-0: required consent box
     await page.waitForTimeout(FILL_PAUSE_MS);
     await form.getByRole('button', { name: 'НАЧАТЬ ПРОЕКТ' }).click();
     await form.getByRole('alert').getByText(/слишком много запросов/).waitFor();
@@ -80,6 +81,7 @@ describe('Site forms (Phase K-2)', () => {
     const dialog = page.getByRole('dialog');
     await dialog.getByLabel('ВАШЕ ИМЯ', { exact: true }).fill(NAME('dialog'));
     await dialog.getByLabel('НОМЕР ТЕЛЕФОНА', { exact: true }).fill('+7 701 700 00 02');
+    await dialog.getByLabel(/Я согласен\(на\) на обработку/).check();
     await page.waitForTimeout(FILL_PAUSE_MS);
     await dialog.getByRole('button', { name: 'НАЧАТЬ ПРОЕКТ' }).click();
     await dialog.getByText('Запрос получен').waitFor();
@@ -95,6 +97,7 @@ describe('Site forms (Phase K-2)', () => {
     await page.getByLabel(/^ЭЛ\. ПОЧТА/).fill(`site.${RUN}@example.test`);
     await page.getByLabel(/^КОМПАНИЯ/).fill('ТОО «Сайт E2E»');
     await page.getByLabel(/^КРАТКОЕ ОПИСАНИЕ/).fill('Линия по производству пектина, 5 т/сутки.');
+    await page.getByLabel(/Я согласен\(на\) на обработку/).check();
     await page.waitForTimeout(FILL_PAUSE_MS);
     await page.getByRole('button', { name: 'ОТПРАВИТЬ ЗАПРОС' }).click();
     await page.getByText('Запрос успешно отправлен').waitFor();
