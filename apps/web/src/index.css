@@ -247,6 +247,12 @@ html:lang(es) :is(p, div, li) {
   overflow-wrap: break-word;
   hyphens: auto;
 }
+/* Home hero headline: whole words only (no "СТРОИТЕЛЬ-СТВО"); every word fits at the mobile size. */
+html:lang(ru) .hero-title, html:lang(ru) .hero-title span,
+html:lang(tr) .hero-title, html:lang(tr) .hero-title span,
+html:lang(es) .hero-title, html:lang(es) .hero-title span {
+  hyphens: manual;
+}
 /* Chinese display headings need more line-height than the Latin-tuned 1.06. */
 html:lang(zh) h1, html:lang(zh) h2 { line-height: 1.25; }
 

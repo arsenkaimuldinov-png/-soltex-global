@@ -33,29 +33,30 @@ export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
       <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           {/* Left Column: Editorial Typography & Content (50% on desktop) */}
-          <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center max-w-[620px]">
-            {/* Eyebrow with Thin Gold Horizontal Line */}
-            <div className="flex items-center gap-3 mb-5">
+          <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center items-center text-center lg:items-start lg:text-start w-full max-w-[620px] mx-auto lg:mx-0">
+            {/* Eyebrow with Thin Gold Horizontal Line (mirrored on mobile, where the hero is centred) */}
+            <div className="flex items-center justify-center lg:justify-start gap-3 mb-5">
               <span className="s-seq-draw w-8 sm:w-10 h-[2px] bg-[#B89758] shrink-0" style={{ '--seq': '120ms' } as React.CSSProperties} aria-hidden="true" />
               <span className="s-seq-rise font-tech text-xs font-semibold tracking-widest text-[#55695E] uppercase" style={{ '--seq': '220ms' } as React.CSSProperties}>
                 {c('heroEyebrow')}
               </span>
+              <span className="s-seq-draw lg:hidden w-8 sm:w-10 h-[2px] bg-[#B89758] shrink-0" style={{ '--seq': '120ms' } as React.CSSProperties} aria-hidden="true" />
             </div>
 
             {/* Main Headline: one colour (Design Direction V1.0 §2: no two-tone headlines) */}
-            <h1 className="text-[28px] sm:text-[40px] lg:text-[38px] xl:text-[44px] font-extrabold tracking-tight leading-[1.08] mb-5 [text-wrap:balance]">
+            <h1 className="text-[28px] sm:text-[40px] lg:text-[38px] xl:text-[44px] font-extrabold tracking-tight leading-[1.08] mb-5 [text-wrap:balance] hero-title">
               <span className="s-seq-mask block text-[#0E482C]" style={{ '--seq': '330ms' } as React.CSSProperties}>{c('heroHeadlineLine1')}</span>
               <span className="s-seq-mask block text-[#0E482C]" style={{ '--seq': '430ms' } as React.CSSProperties}>{c('heroHeadlineLine2')}</span>
               <span className="s-seq-mask block text-[#0E482C]" style={{ '--seq': '530ms' } as React.CSSProperties}>{c('heroHeadlineLine3')}</span>
             </h1>
 
             {/* Description Paragraph */}
-            <p className="s-seq-rise text-base sm:text-lg text-[#46574D] leading-relaxed mb-8 max-w-[560px] font-normal" style={{ '--seq': '680ms' } as React.CSSProperties}>
+            <p className="s-seq-rise text-base sm:text-lg text-[#46574D] leading-relaxed mb-8 max-w-[560px] mx-auto lg:mx-0 font-normal" style={{ '--seq': '680ms' } as React.CSSProperties}>
               {c('heroDescription')}
             </p>
 
             {/* Rectangular Action Buttons: Left Dark Green, Right Clean White */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 mb-6">
+            <div className="w-full flex flex-col sm:flex-row items-stretch sm:items-center sm:justify-center lg:justify-start gap-3.5 mb-6">
               <button
                 onClick={onOpenProjectModal}
                 style={{ '--seq': '880ms' } as React.CSSProperties}
@@ -75,8 +76,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenProjectModal }) => {
             </div>
 
             {/* USP Note with Subtle Gold Dot */}
-            <div className="s-seq-fade flex items-center gap-2.5 text-xs text-[#526458]" style={{ '--seq': '1060ms' } as React.CSSProperties}>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#B89758] shrink-0" aria-hidden="true" />
+            <div className="s-seq-fade flex items-center justify-center lg:justify-start gap-2.5 text-xs text-[#526458]" style={{ '--seq': '1060ms' } as React.CSSProperties}>
+              <span className="hidden lg:block w-1.5 h-1.5 rounded-full bg-[#B89758] shrink-0" aria-hidden="true" />
               <span>{c('heroUsp')}</span>
             </div>
           </div>
